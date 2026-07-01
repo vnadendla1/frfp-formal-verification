@@ -1,0 +1,112 @@
+\chapter{Why FRFP? A Problem That Existing AI Stories Don't Solve}
+\label{ch:plain-why-frfp}
+Most narratives about AI operate at one of two scales. At one extreme, they are local: a single model, benchmark, or demo. We ask, ``How accurate is this classifier?'', ``How fluent is this chatbot?'', or ``How well does this model compress this dataset?'' At the other extreme, they are global: whole industries, labour markets, or civilisational risk. We ask, ``Will AI replace doctors?'', ``Will AI destroy or save democracy?'', or ``Will AI become uncontrollable?''
+
+Both views are useful. But they miss the scale where most consequences are produced: long-horizon human--AI collaboration inside institutions, on projects that unfold through repeated use and organisational adaptation. FRFP targets that missing middle.
+
+\section{The Missing Middle: Long-Horizon Collaboration}
+
+Consider three common settings. A hospital introduces AI for triage, screening, risk prediction, and documentation; over several years, most patient encounters are touched by at least one AI system. A trading firm uses models to price instruments, manage risk, and execute trades; positions are held for months, and small errors can compound into large losses. A scientific lab uses AI to propose hypotheses, design experiments, analyse data, and draft papers; over a decade, the AI shapes what is studied and how results are interpreted.
+
+In each case, the relevant object is not a one-off tool but an evolving workflow. Humans and institutions adapt to the system, the system’s outputs influence what is recorded and rewarded, and repeated small design choices accumulate into large effects. We lack a shared language for describing these collaborations precisely enough to diagnose failure modes and to state actionable design constraints.
+
+\section{What FRFP Tries to Do}
+
+FRFP stands for \emph{Foundational Reasoning and Feedback Protocol}. It is a protocol-level framework for long-horizon human--AI collaboration that makes one separation non-negotiable: AI systems operate only over \emph{explicit} representations and transformations, while correctness, endorsement, and responsibility live only in \emph{tacit} human (and institutional) states. The workflow therefore has a one-way handoff from explicit artefacts to tacit evaluation: explicit outputs are returned, humans evaluate them, and humans decide what (if anything) becomes accepted practice.
+
+You do not need the category-theory details to use FRFP. The operational idea is to treat the full human--AI--institution system as a structured object with an explicit space of artefacts and pipelines, a tacit space of judgement and norms, and rules governing how the system moves through time as runs accumulate. Volume I develops the formal theory; Volume II uses the same objects in plain language and applies them to real systems.
+
+\section{Why Not Just Use ``Common Sense''?}
+
+Many organisations already rely on familiar slogans: keep humans in the loop, augment rather than replace judgement, and monitor systems and intervene when something goes wrong. These are good instincts, but they are not specifications. When failures occur, the pattern is rarely ``no human was present''; it is that the human role was positioned so that meaningful evaluation was impossible. The ``human in the loop'' may lack time, context, authority, or access to the relevant evidence; the institution may gradually treat metrics and model outputs as final; there may be no defined trigger for re-examination, rollback, or shutdown; and responsibility may diffuse because everyone assumes someone else is managing long-run effects.
+
+FRFP is not a substitute for judgement. Its contribution is to force certain structural questions to be explicit and unavoidable: where, exactly, tacit judgement enters; what, precisely, is endorsed at the boundary; how long the system may run before re-grounding is mandatory; and who has authority to change boundaries, horizons, and admissible operating modes. The rest of this volume answers those questions systematically.
+
+\section{How This Volume Is Organised}
+
+This volume is structured around concepts rather than theorems, and it is meant to be used as a working reference. Chapter~\ref{ch:plain-layers} introduces FRFP’s three-layer picture: explicit artefacts and pipelines, tacit human judgement, and institutional operators that shape which runs are allowed. Chapter~\ref{ch:plain-runs} shifts the unit of analysis from single outputs to runs, explaining why long-horizon systems cannot be evaluated by early behaviour alone. The introductory bridge, \emph{FRFP in the Wild}, sets the agenda for applying the framework to real systems.
+
+To avoid reintroducing formal notation inside every case study, a compact \emph{FRFP Concept Lookup} defines the core objects referenced throughout Volume II, including boundaries, runs, and safe-horizon language. A meta-case study then motivates why boundaries, horizons, and governance must be treated as first-class design objects rather than narrative add-ons. Method chapters follow, providing a repeatable template for conducting and reading FRFP case studies. The remainder of the volume consists of detailed domain case studies and practical playbooks, with the Concept Lookup serving as the shared reference point.
+
+
+\clearpage
+\chapter{The Three Layers: Explicit, Tacit, Institutional}
+
+FRFP starts from a simple observation: in any serious AI system, there are things the machine can see and manipulate, and there are things it cannot. We call the machine-visible things \emph{explicit}, and the rest \emph{tacit}. On top of that sits a third layer: \emph{institutions}, which are made of people but behave differently from individual agents. FRFP treats these layers as first-class components of long-horizon human--AI collaboration, linked by a one-way boundary from explicit artefacts to tacit evaluation, and shaped over time by institutional rules and incentives.:contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
+
+\section{The Explicit Layer: What the System Knows How to Touch}
+
+The explicit layer is everything that can be written down in a form the system can process. It includes raw data (numbers, text, images, sensor readings), model parameters and code, labels and scores, rankings and probabilities, and the artefacts organisations use to measure and monitor systems, such as dashboards, graphs, and logs. When you train a model, you are working in the explicit layer. When you log events, run A/B tests, or define metrics, you are also shaping the explicit layer, because you are choosing which features of the world become machine-visible and actionable.:contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}
+
+FRFP’s questions about the explicit layer are concrete: what representations and artefacts are in scope; what mapping the system is actually implementing in explicit space; where the data came from and what feedback loops it creates; and which parts of reality are missing or systematically unrepresented in the explicit state.:contentReference[oaicite:4]{index=4}
+
+Concrete examples help keep the boundary clear. In diabetic retinopathy screening, fundus photographs, model weights, and a label such as ``more-than-mild DR present'' are explicit. In AlphaFold, protein sequences, experimentally measured structures, and predicted structures are explicit. In a recommender system, viewing history, item features, embeddings, and ranked outputs are explicit. In a chatbot, tokenised text, prompts, and generated responses are explicit. In each case, these are the objects the system can touch and transform, and therefore the only objects on which the AI can directly operate within FRFP’s explicit mode.:contentReference[oaicite:5]{index=5}
+
+\section{The Tacit Layer: What People Know, Feel, and Value}
+
+The tacit layer is everything that matters for correctness and responsibility but is not fully represented in the explicit layer. It includes background knowledge, contextual understanding, professional skill built over years, judgments about what is acceptable or fair, and the lived constraints and values that are not captured by available data and code. Tacit knowledge is not mystical; it is simply the part of our understanding that we have not, or cannot, fully turn into datasets and executable procedures.:contentReference[oaicite:6]{index=6}
+
+Many of the most important questions in real deployments are tacit questions. A model output may be informative, but someone still has to judge whether the risk is acceptable, whether a recommendation is fair to a particular person, whether a result makes sense given other domain constraints, and whether a policy fits an organisation’s obligations. FRFP’s stance is that work can often be moved from tacit to explicit, but not all of it, and protocol design must respect what remains irreducibly tacit. In Volume I, the tacit side is treated as a correctness-bearing interface that receives explicit artefacts via a one-way boundary and exposes only a finite, observable set of judgments; the technical structure is therefore built on the explicit side, with tacit evaluation remaining human and institutional responsibility.:contentReference[oaicite:7]{index=7}:contentReference[oaicite:8]{index=8}
+
+\section{The Institutional Layer: Groups, Rules, and Power}
+
+The institutional layer consists of organisations, committees, regulators, professional bodies, courts, and other entities that set rules and incentives, decide which systems are allowed and under what conditions, interpret failures, and assign responsibility. Institutions are built out of people, but they behave differently from individuals: they change more slowly, maintain records and precedents, impose sanctions, and encode power through both explicit procedures and tacit cultures. FRFP therefore treats institutions as active components of the system rather than background scenery.:contentReference[oaicite:9]{index=9}
+
+In practice, institutions define and enforce the boundaries between explicit outputs and tacit endorsement, set safe-horizon constraints for how far systems may run before review, and determine how incidents trigger rule changes. This corresponds to Volume I’s ``collective epistemic dynamics'' layer, where policies, committees, and governance operators act on populations and institutions and where explicit-only consensus and governance have principled limits even when explicit systems become more capable.:contentReference[oaicite:10]{index=10}:contentReference[oaicite:11]{index=11}
+
+\section{How the Layers Interact}
+
+The three layers are not separate silos. Explicit models and outputs influence tacit beliefs and habits over time; for example, doctors may begin to trust an AI triage system, traders may lean on a risk model, or judges may rely on a score. Tacit judgment also shapes the explicit layer through decisions about what data to collect, what features to represent, what objectives to optimise, and what counts as a failure worth logging. Institutions shape both layers by constraining what is permitted, what must be documented, which metrics matter, and which incentives dominate. FRFP is a way of keeping track of these interactions over long horizons, where the relevant outcomes emerge from accumulated runs rather than from single decisions.:contentReference[oaicite:12]{index=12}:contentReference[oaicite:13]{index=13}
+
+\section{Summary}
+
+The explicit layer is the part of the system that can be represented, computed, audited, and logged. The tacit layer is the correctness-bearing, responsibility-bearing state of human and institutional actors that cannot be fully captured in explicit artefacts. The institutional layer governs which runs are allowed, what counts as endorsement, and when review and intervention occur. Volume I formalises these as epistemic spaces linked by a one-way boundary and then lifts the analysis to dynamics and institutions; Volume II will use this three-layer picture as the recurring frame for every case study that follows.:contentReference[oaicite:14]{index=14}:contentReference[oaicite:15]{index=15}
+
+\chapter{Runs and Long Horizons: How Small Steps Add Up}
+
+So far we have focused on the layers of a system. FRFP also cares about how a system moves over time. The key concept is a \emph{run}: a concrete trajectory of explicit states and actions, unfolding through repeated use, that carries us from ``nothing has happened yet'' to ``a lot has happened and we are living with the consequences.'' A run is the unit on which long-horizon safety and alignment questions actually bite.
+
+\section{What Is a Run?}
+
+Informally, a run is one possible story of how a system behaves over time, including inputs, internal explicit states, outputs, human responses at boundaries, and institutional reactions that constrain what happens next. A single system can generate many different runs, because runs depend on random events, choices, and external shocks, and because institutions revise policies in response to outcomes.
+
+To keep the notion concrete, it helps to name runs in the environments where they matter. A patient's journey through a hospital over ten years, including repeated screenings, diagnoses, treatments, AI-mediated decisions, and outcomes, is a run. A trading strategy's life, including initial backtests, launch, gradual scaling, periods of profit, and eventual loss or shutdown, is a run. A scientific project’s evolution, including early exploration, AI-assisted analyses, publication, and eventual acceptance or rejection, is a run.
+
+\section{Why Runs Matter More Than Snapshots}
+
+Most AI evaluation is done on snapshots: a held-out test set, a single A/B test, a limited pilot deployment, or a short red-team exercise. These are useful, but they do not determine long-horizon behaviour, because long-horizon behaviour depends on what happens when steps are chained together and embedded in real institutions. A risk model can look fine on historical backtests yet, over years, steer a portfolio toward fragile positions. A recommender can slightly overweight certain content at each step and, over millions of recommendations, reshape habits and beliefs. A chatbot can hallucinate rarely in casual use, but cause large downstream harm when integrated into formal workflows such as legal filings or clinical documentation.
+
+FRFP therefore insists on a shift in the object of analysis: to understand an AI system in a real institution, we must reason about runs, not just single steps.
+
+\section{Simple Examples of Runs}
+
+\subsection*{Example 1: A Diabetic Retinopathy Screening Programme}
+
+Suppose a diabetic retinopathy (DR) screening AI is introduced in primary care. A typical run for one patient can be described as a repeating cycle with explicit artefacts and clear boundaries. First, the patient arrives for a diabetes check-up and retinal images are captured. The system produces an explicit output such as ``more-than-mild DR present,'' ``no more-than-mild DR,'' or ``ungradable.'' A boundary then occurs in the clinic workflow: if the output is positive or ungradable, a referral is made; if negative, the screening is recorded as complete. Over time, follow-up attendance, clinician response, and institutional monitoring policies shape whether the programme improves outcomes or silently fails. The programme’s impact depends less on per-image accuracy than on the run-level dynamics: how often referrals are triggered, how often patients attend, how clinicians respond, and how the institution tracks outcomes and adjusts policy.
+
+\subsection*{Example 2: A Trading Strategy}
+
+Now consider a model-driven trading strategy. A typical run begins with design and backtesting, followed by risk and management approval for a limited pilot. The model trades small, then scales as early performance appears strong. Over time, market conditions change, the model’s assumptions become less accurate, and metrics may lag the underlying deterioration. A stress event or accumulated drift can then produce large losses, triggering a post-mortem and institutional changes: revised limits, revised models, or shutdown. Again, the salient story is not in any single trade; it is in the months- or years-long run.
+
+\section{Runs as the Unit of Analysis}
+
+FRFP recommends treating runs as the main unit of analysis when reasoning about safety and alignment in deployed systems. Instead of asking whether a model is accurate in the abstract, we ask what typical runs look like when the model is embedded in a particular institution with particular incentives over a particular timescale. We also ask what kinds of runs are possible even if rare, and whether any such runs are unacceptable.
+
+This shift makes recurring failure patterns easier to see. Systems can exhibit \emph{run drift}, in which they slowly move into states no one explicitly planned for, such as a portfolio becoming concentrated or a recommender narrowing diversity. They can exhibit \emph{run amplification}, in which small biases compound across many steps. They can exhibit \emph{run fragility}, in which the system appears stable until a rare combination of events produces a sharp failure. The case studies in this volume repeatedly show that the decisive failures are often properties of runs, not isolated bad decisions.
+
+\section{Where Humans and Institutions Enter the Run}
+
+In a long run, humans and institutions act at different timescales. Frontline actors respond to step-level outputs, such as doctors accepting or rejecting recommendations, traders overriding trades, or judges weighing risk scores. Managers and local committees adjust workflows, limits, and practices on a medium timescale. Boards, regulators, and professional bodies change rules, approve or ban systems, and shift institutional strategy on a long timescale.
+
+FRFP encourages us to draw runs that include all three layers at once: not only the AI’s internal explicit states, but also the human boundary decisions and the institutional decisions that reshape what future runs are allowed to look like. Once runs are drawn at this resolution, we can ask where intervention was feasible, where natural choke points existed but were not used, and where responsibility becomes unclear or contested.
+
+\section{Long Horizons: Why Time Changes Everything}
+
+Many systems work well at small scale and over short periods, but fail when they are used longer than expected, scaled to many more users or assets, or exposed to environmental change in laws, markets, diseases, or norms. FRFP calls this the long-horizon problem: systems that are safe and effective in early runs can become unsafe in later runs, even when no single decision appears obviously wrong.
+
+Concrete failures illustrate the point. The JPMorgan ``London Whale'' portfolio grew in size and complexity over time, exploiting a model blind spot until losses exploded. Risk scores used in law or credit can change population outcomes over years, not just individual decisions, because they feed back into incentives and opportunities. These are not failures of one step; they are failures of a run unfolding through time.
+
+\section{Summary}
+
+This chapter shifted focus from layers to movement. A run is one possible trajectory of the system over time. Long-horizon systems are those where these runs are long and consequential. In such systems, failures often emerge from the structure of runs rather than from single bad decisions. In the next chapter we look more closely at boundaries: the moments in a run where something becomes real, and where FRFP locates correctness and responsibility.
+

@@ -1,0 +1,256 @@
+% ===================================================================
+\section{The Reduced Axiom Basis}
+\label{ch:basis}
+% ===================================================================
+
+\subsection{From 11 Premises to 7}
+
+The original published FRFP theory enumerates 11 named premises: ETS, RB, AE, MD,
+HEG, HEC, CP, IL, AR, NTER, CSC. The Lean formalization establishes that four of
+these (ETS, RB, AE, MD) are theorems derivable directly from the kernel
+definitions. The minimal independent basis therefore has exactly \textbf{7
+primitive assumptions}.
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Premise & Original status & Lean status & Location \\
+\midrule
+ETS  & Axiom & \textbf{Theorem} (kernel typing) & Thm 2.1 \\
+RB   & Axiom & \textbf{Theorem} (kernel enumeration) & Thm 2.2 \\
+AE   & Axiom & \textbf{Theorem} (AI-executable typing) & Thm 2.3 \\
+MD   & Axiom & \textbf{Theorem} (AI/human partition) & Thm 2.4 \\
+HEG  & Axiom & \textbf{Axiom} (retained) & \S\ref{sec:core-irreducible} \\
+HEC  & Axiom & \textbf{Axiom} (retained) & \S\ref{sec:core-irreducible} \\
+CP   & Axiom & \textbf{Axiom} (retained) & \S\ref{sec:core-irreducible} \\
+IL   & Axiom & \textbf{Axiom} (retained) & \S\ref{sec:interaction} \\
+AR   & Axiom & \textbf{Axiom} (retained) & \S\ref{sec:interaction} \\
+NTER & Axiom & \textbf{Axiom} (retained) & \S\ref{sec:interaction} \\
+CSC  & Axiom & \textbf{Axiom} (retained) & \S\ref{sec:interaction} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Derivable Theorems (No Longer Axioms)}
+% -------------------------------------------------------------------
+
+\subsubsection*{ETS --- Explicit--Tacit Separation}
+
+\begin{theorem}[ETS is a theorem]
+There is no primitive from $\Tobj$ to $\Eobj$:
+\[
+  \forall p : \mathrm{Primitive},\
+  \neg(p.\mathrm{source} = \Tobj \wedge p.\mathrm{target} = \Eobj)
+\]
+\leanref{Frfp.Minimal.ReducedBasis.ETS\_derivable} --- proved by delegating to
+\texttt{no\_morphism\_T0\_to\_E0}.
+\end{theorem}
+
+\begin{note}
+ETS holds because the primitive enumeration simply contains no $\Tobj \to \Eobj$
+morphism. It is a fact about the closed enumeration, not an independent assumption.
+\end{note}
+
+\subsubsection*{RB --- Boundary Uniqueness}
+
+\begin{theorem}[RB uniqueness is a theorem]
+$\RB$ is the unique primitive from $\Eobj$ to $\Tobj$:
+\[
+  \forall p : \mathrm{Primitive},\
+  (p.\mathrm{source} = \Eobj \wedge p.\mathrm{target} = \Tobj) \Rightarrow p = \RB
+\]
+\leanref{Frfp.Minimal.ReducedBasis.RB\_derivable}
+\end{theorem}
+
+\subsubsection*{AE --- AI-Explicit Restriction}
+
+\begin{theorem}[AE is a theorem]
+Every AI-executable primitive stays within explicit space:
+\[
+  \forall p,\
+  \textit{is\_AI\_executable}(p)
+  \Rightarrow (p.\mathrm{source} \in \{\varnothing, \Eobj\})
+              \wedge p.\mathrm{target} = \Eobj
+\]
+\leanref{Frfp.Minimal.ReducedBasis.AE\_derivable}
+\end{theorem}
+
+\subsubsection*{MD --- Mode Discipline}
+
+\begin{theorem}[MD is a theorem]
+AI-executable primitives always target $\Eobj$; human-only primitives always
+target $\Tobj$:
+\[
+  (\forall p,\ \textit{is\_AI\_executable}(p) \Rightarrow p.\mathrm{target} = \Eobj)
+  \wedge
+  (\forall p,\ \textit{is\_human\_only}(p) \Rightarrow p.\mathrm{target} = \Tobj)
+\]
+\leanref{Frfp.Minimal.ReducedBasis.MD\_derivable}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Core Irreducible Premises}
+\label{sec:core-irreducible}
+% -------------------------------------------------------------------
+
+The three core premises below are retained as genuine axioms. They capture
+domain commitments that cannot be derived from the kernel structure alone.
+
+\subsubsection*{HEG --- Human-Exclusive Grounding}
+
+\begin{axiom_env}[Human-Exclusive Grounding (HEG)]
+Tacit evaluation and human final decision --- the primitives $\TE$ and $\HFD$ ---
+are exclusively executable by humans. No AI system can perform tacit grounding.
+
+\emph{Formal skeleton}:
+$\mathrm{HEG}_{\mathrm{skel}}:\ \TE.\mathrm{target} = \Tobj \wedge
+\HFD.\mathrm{target} = \Tobj$
+
+\leanref{Frfp.Minimal.ReducedBasis.HEG\_skeleton\_derivable}
+
+\emph{Policy residue}: The normative claim --- that only humans may execute
+$\TE$ and $\HFD$ --- is a governance premise.
+\end{axiom_env}
+
+\subsubsection*{HEC --- Human-Exclusive Closure}
+
+\begin{axiom_env}[Human-Exclusive Closure (HEC)]
+The final-decision primitive $\HFD$ is an endomorphism of tacit space that
+only humans may apply.
+
+\emph{Formal skeleton}:
+$\mathrm{HEC}_{\mathrm{skel}}:\ \HFD.\mathrm{source} = \Tobj \wedge
+\HFD.\mathrm{target} = \Tobj$
+
+\leanref{Frfp.Minimal.ReducedBasis.HEC\_skeleton\_derivable}
+\end{axiom_env}
+
+\subsubsection*{CP --- Compositional Pipelines}
+
+\begin{axiom_env}[Compositional Pipelines (CP)]
+Pipelines compose in a way that preserves the source and target boundary:
+\[
+  (\Pi_2 \circ \Pi_1).\mathrm{source} = \Pi_1.\mathrm{source},\quad
+  (\Pi_2 \circ \Pi_1).\mathrm{target} = \Pi_2.\mathrm{target}
+\]
+\leanref{Frfp.Minimal.ReducedBasis.CP\_skeleton\_derivable}
+\end{axiom_env}
+
+% -------------------------------------------------------------------
+\subsection{Interaction Irreducible Premises}
+\label{sec:interaction}
+% -------------------------------------------------------------------
+
+\subsubsection*{IL --- Intent Locking}
+
+\begin{axiom_env}[Intent Locking (IL)]
+All AI steps in a protocol trace share a common intent tag. An AI step cannot
+unilaterally change the declared intent of the interaction:
+\[
+  \forall a, b \in \mathcal{P},\
+  a.\mathrm{isAI} = \top \wedge b.\mathrm{isAI} = \top
+  \Rightarrow a.\mathrm{intentTag} = b.\mathrm{intentTag}
+\]
+\emph{Source anchor}: Temporal safety / invariant-over-traces semantics.
+\textbf{[Pnueli 1977]}
+\end{axiom_env}
+
+\subsubsection*{AR --- Ambiguity Resolution}
+
+\begin{axiom_env}[Ambiguity Resolution (AR)]
+Every ambiguous step in a protocol trace must be clarified before the
+interaction proceeds:
+\[
+  \forall a \in \mathcal{P},\
+  a.\mathrm{ambiguous} = \top \Rightarrow a.\mathrm{clarified} = \top
+\]
+\emph{Source anchor}: Liveness over traces; safety/liveness decomposition.
+\textbf{[Alpern--Schneider 1985]}
+\end{axiom_env}
+
+\subsubsection*{NTER --- No Tacit Emulation/Reconstruction}
+
+\begin{axiom_env}[No Tacit Emulation or Reconstruction (NTER)]
+No AI step attempts to construct a morphism from $\Tobj$ to $\Eobj$, i.e.,
+no AI step attempts to emulate or substitute for tacit human judgment.
+
+\emph{Formal skeleton}:
+$\forall p,\ p.\mathrm{source} = \Tobj \Rightarrow p.\mathrm{target} \neq \Eobj$
+
+\leanref{Frfp.Minimal.ReducedBasis.NTER\_skeleton\_derivable}
+\end{axiom_env}
+
+\subsubsection*{CSC --- Correctness Stability Constraint}
+
+\begin{axiom_env}[Correctness Stability Constraint (CSC)]
+Once a step in a protocol trace is correctness-locked, all subsequent steps are
+correctness-locked. Correctness locking is monotone:
+\[
+  (\exists a \in \mathcal{P},\ a.\mathrm{correctnessLocked} = \top)
+  \Rightarrow
+  \forall b \in \mathcal{P},\ b.\mathrm{correctnessLocked} = \top
+\]
+\emph{Source anchor}: Temporal safety (invariant preservation).
+\textbf{[Pnueli 1977]}
+\end{axiom_env}
+
+% -------------------------------------------------------------------
+\subsection{Source Anchoring of External Assumptions}
+% -------------------------------------------------------------------
+
+Modules beyond the kernel require additional axioms from established mathematics.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Family & Representative axioms & Primary source \\
+\midrule
+IEEE 754 float arithmetic & Associativity, commutativity, order & [IEEE 754-2019] \\
+Probability / measure & Countable additivity, normalization & [Billingsley 1995] \\
+Stopping times & Measurability, Markov property & [Billingsley 1995] \S36 \\
+Stochastic tail bounds & Markov inequality, geometric decay & [Durrett 2019] \\
+Term rewriting / ARS & Termination, confluence & [Baader--Nipkow 1998] \\
+Newman's Lemma & Confluence from termination & [Newman 1942] \\
+Category / groupoid & Associativity, identity, inverses & [Mac Lane 1971] \\
+Real analysis & Geometric limit-to-zero & [Rudin 1976] \\
+Temporal safety & Safety properties over traces & [Pnueli 1977] \\
+Safety vs liveness & Decomposition of liveness & [Alpern--Schneider 1985] \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\leanref{Frfp.Minimal.ReducedBasis.sourceBackedFamilies}
+
+% -------------------------------------------------------------------
+\subsection{Decomposition: Skeleton vs Policy Residue}
+% -------------------------------------------------------------------
+
+Each of the 7 retained axioms decomposes into two parts:
+\begin{itemize}
+  \item \textbf{Skeleton}: the mathematically structural part, derivable or
+        source-anchored to published mathematics.
+  \item \textbf{Policy residue}: the irreducible normative/governance commitment.
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{p{1cm}p{5.5cm}p{5.5cm}}
+\toprule
+Axiom & Skeleton & Policy residue \\
+\midrule
+HEG  & $\TE, \HFD$ target $\Tobj$ (Lean-proved) & Only humans may execute these \\
+HEC  & $\HFD$ is a $\Tobj$-endomorphism (Lean-proved) & No AI substitution for closure \\
+CP   & Composition preserves source/target (Lean-proved) & Pipelines are the only valid composition \\
+IL   & Trace invariant (Pnueli 1977) & Intent is a shared, locked resource \\
+AR   & Liveness (Alpern--Schneider 1985) & Ambiguity must be resolved \\
+NTER & Structural = ETS (Lean-proved) & AI prohibited from tacit emulation attempts \\
+CSC  & Safety/monotonicity (Pnueli 1977) & Correctness lock is irreversible \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The policy residue of all seven axioms is where the human-authority commitments
+of FRFP live. These cannot be formalized as mathematical theorems --- they are
+governance premises.
+
+\leanref{Frfp.Minimal.ReducedBasis.DecompositionStatus}

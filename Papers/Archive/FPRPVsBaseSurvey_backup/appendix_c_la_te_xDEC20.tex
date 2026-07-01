@@ -1,0 +1,403 @@
+
+%\subsection{Collective Epistemic Dynamics)}
+
+\subsubsection{ Purpose and Scope}
+
+This appendix extends  Epistemic dynamics to \emph{collective} epistemic
+systems. Rather than a single agent executing a single FRFP pipeline, we
+consider populations of agents who:
+
+\begin{itemize}
+  \item share an explicit artifact space $E$,
+  \item each carry their own tacit state and degradation dynamics,
+  \item exchange only explicit artifacts (no tacit information flow),
+  \item may be coupled by explicit consensus mechanisms and institutions.
+\end{itemize}
+
+The objective is to characterize:
+
+\begin{enumerate}
+  \item how to view a population as a single large FRFP system,
+  \item how stochastic collective evolution can be modeled as a Markov process
+        on this system,
+  \item how hallucination and other failures lift from individuals to
+        populations, and
+  \item which collective design changes \emph{cannot}, even in principle,
+        eliminate hallucination.
+\end{enumerate}
+
+This section provides the bridge between individual pipelines (Sections A.2–A.8),
+impossibility results (Appendix A.11), and institutional design (Appendix B and Appendix C).
+
+\subsubsection{Epistemic Agents}
+
+\begin{definition}[Epistemic agent]
+An \emph{epistemic agent} is a tuple
+\[
+  A_i = (T_i, \,\preceq_i, \,\delta_i, \,T^e_i),
+\]
+where:
+\begin{itemize}
+  \item $T_i$ is a tacit context space equipped with a preorder
+        $\preceq_i$ encoding ``at least as grounded as'';
+  \item $\delta_i : T_i \to T_i$ is a (tacit) context degradation operator;
+  \item $T^e_i := T_i \times \mathbb{R}_{\ge 0}$ is the extended tacit state
+        space, pairing grounding $t_i \in T_i$ with tacit credence
+        $c_i \in \mathbb{R}_{\ge 0}$.
+\end{itemize}
+\end{definition}
+
+Intuitively, $A_i$ captures a single human (or human-like) reasoner as modeled
+in Epistemic Dynamics: grounding lives in $T_i$, weakens under $\delta_i$,
+and credence lives in the additional component of $T^e_i$.
+
+\subsubsection{Epistemic Populations}
+
+\begin{definition}[Epistemic population and category \textbf{Pop}]
+An \emph{epistemic population} is a finite or countable family
+$P = (A_i)_{i \in I}$ of epistemic agents indexed by a set $I$.
+The category $\mathbf{Pop}$ of epistemic populations is defined by:
+\begin{itemize}
+  \item objects: epistemic populations $P = (A_i)_{i \in I}$;
+  \item morphisms $F : P \to P'$: pairs $(f,(F_i)_{i\in I})$ where
+        $f : I \to I'$ is a function on agent indices and, for each $i$,
+        \[
+          F_i : T_i \to T'_{f(i)}
+        \]
+        is monotone with respect to $\preceq_i,\preceq'_{f(i)}$ and
+        commutes with degradation and credence:
+        \[
+          F_i \circ \delta_i = \delta'_{f(i)} \circ F_i.
+        \]
+\end{itemize}
+\end{definition}
+
+Morphisms in $\mathbf{Pop}$ model re-indexing or restructuring of populations:
+embedding agents into larger organizations, replacing agents, or transferring
+tacit states along institutional lines.
+
+\subsubsection{Shared Explicit Reasoning Category}
+
+Let $\mathcal{C} := N \ltimes E$ be the reasoning category of Appendix~A,
+where $E$ denotes explicit artifacts and $N$ navigation moves in explicit
+space. For a fixed index set $I$, we form the product category
+\[
+  \mathcal{C}^I,
+\]
+whose objects are $I$-indexed families $X = (X_i)_{i \in I}$ of explicit
+states and whose morphisms are families of explicit updates. Intuitively,
+$\mathcal{C}^I$ is the ``big explicit state space'' of the whole population:
+it records, for each agent, which task and explicit artifacts they are
+currently working with.
+
+We assume a single shared explicit artifact space $E$; each agent $i$ is
+equipped with a representational backflow map
+\[
+  \mathrm{RB}_i : E \to T_i,
+\]
+as in Appendix~A. Explicit artifacts are globally visible; tacit grounding
+remains agent-local.
+
+\subsubsection{Communication Structure}
+
+\begin{definition}[Communication graph]
+A \emph{communication structure} on population $P = (A_i)_{i \in I}$ is a
+directed graph
+\[
+  G = (I,\;\to),
+\]
+where $i \to j$ indicates that explicit artifacts produced by $i$ may be
+consumed by $j$ (for example, by reading a paper, listening to a briefing, or
+reviewing a log). No tacit information is transmitted across $G$:
+only explicit artifacts traverse edges, and representational backflow
+$\mathrm{RB}_j$ determines how they affect $T_j$.
+\end{definition}
+
+\subsubsection{Collective Dynamics as a Markov System}
+
+A \emph{collective execution} in earlier drafts was modeled as a bare
+sequence of events $(i_n,e_n) \in I \times E$ indicating ``agent $i_n$
+produces artifact $e_n$''. We now package such executions into a stochastic
+dynamical system over the large explicit category $\mathcal{C}^I$.
+
+\begin{definition}[Collective state]
+A collective explicit state is an object $X \in \mathcal{C}^I$ together with
+a population $P = (A_i)_{i\in I}$ and communication graph $G=(I,\to)$.
+We write $(P,G;X)$ for such a state.
+\end{definition}
+
+\begin{definition}[Population semantics]
+A \emph{population semantics functor} is a functor
+\[
+  \overline{J} : \mathcal{C}^I \to \prod_{i\in I} T^e_i
+\]
+assigning to each collective explicit state $X$ the tuple of extended tacit
+states $\bigl((t_i,c_i)\bigr)_{i\in I}$ obtained when agents in $P$ consume
+the artifacts in $X$ (subject to $G$) and update using the operators of
+Appendix~B (degradation, confidence inflation, requirement escalation, and
+feedback-coupled degradation).
+\end{definition}
+
+\begin{definition}[Markovian collective dynamics]
+A \emph{Markovian collective dynamics} on $(P,G)$ is a transition kernel
+\[
+  M : \mathrm{Obj}(\mathcal{C}^I) \to \mathcal{P}\bigl(\mathrm{Obj}(\mathcal{C}^I)\bigr)
+\]
+assigning to each collective state $X$ a probability measure $M(X,\cdot)$
+on next states $Y$, such that each transition can be factored as:
+\begin{enumerate}
+  \item select an acting agent $i_n \in I$ and explicit move in $\mathcal{C}$;
+  \item update $X$ to $Y$ accordingly (producing a new artifact $e_n$ in $E$);
+  \item for each $j$ with $i_n \to j$, update $(t_j,c_j)$ via the
+        feedback-coupled dynamics of Appendix~B using $e_n$;
+  \item apply baseline degradation for all agents.
+\end{enumerate}
+Equivalently, one may view $M$ as a functor
+\[
+  M : \mathcal{C}^I \longrightarrow \mathbf{Kl}(D),
+\]
+where $\mathbf{Kl}(D)$ is the Kleisli category of the discrete distribution
+monad $D$, but we will only use the induced transition kernel on objects.
+\end{definition}
+
+A \emph{collective execution} is then a random path
+\[
+  X_0, X_1, X_2, \dots
+\]
+in $\mathcal{C}^I$ sampled from $M$ starting at some initial state $X_0$,
+with tacit trajectories $\overline{J}(X_n) = \bigl((t_{i,n},c_{i,n})\bigr)_{i\in I}$.
+
+\subsubsection{Collective Hallucination and Stopping Times}
+
+We now lift the notion of hallucination to the population level.
+
+\begin{definition}[Collective hallucination]
+Given a population $P=(A_i)_{i\in I}$, a communication graph $G$, and a
+collective execution $(X_n)_{n\ge 0}$ with associated tacit states
+$(t_{i,n},c_{i,n})$, a \emph{collective hallucination} occurs at step $n$
+if there exists an explicit artifact $e \in E$ and a nontrivial subset
+$J \subseteq I$ such that:
+\begin{itemize}
+  \item each $j \in J$ has accepted or propagated $e$ (in the sense of
+        Appendix~B: $e$ enters their explicit pipeline), and
+  \item for each $j \in J$,
+        \[
+          t_{j,n} \prec_j \mathrm{Req}_j(e,c_{j,n}),
+        \]
+        i.e., the available tacit grounding is strictly below the requirement
+        demanded by $e$ in context $c_{j,n}$.
+\end{itemize}
+\end{definition}
+
+Let $\Omega$ be the space of all collective paths $(X_n)_{n\ge 0}$ induced
+by $M$ from $X_0$, and let $P_M$ be the corresponding path measure.
+
+\begin{definition}[Collective hallucination time]
+The \emph{collective hallucination time} $\tau^{\mathrm{coll}} :
+\Omega \to \mathbb{N} \cup \{\infty\}$ is the stopping time
+\[
+  \tau^{\mathrm{coll}}(\omega)
+  := \inf\{\,n \ge 0 : \omega \text{ exhibits a collective hallucination at step } n\,\},
+\]
+with the convention that $\inf \varnothing = \infty$.
+\end{definition}
+
+Under the Epistemic Dynamics assumptions (finite tacit capacity, non-invertible
+degradation, confidence inflation, requirement escalation, and
+feedback-coupled degradation), individual agents exhibit almost-sure
+hallucination along sufficiently long admissible runs (Appendix~B).
+The purpose of this appendix is to show how such individual inevitability
+lifts to $\tau^{\mathrm{coll}}$ at the population level.
+
+\subsubsection{Consensus as an Explicit Functor}
+
+Consensus mechanisms act purely in explicit space.
+
+\begin{definition}[Consensus functor]
+A \emph{consensus mechanism} on the explicit category $\mathcal{C}$ is a
+functor
+\[
+  C : \mathcal{C}^n \to \mathcal{C}
+\]
+for some finite arity $n \ge 2$, or more simply
+\[
+  C : E^n \to E
+\]
+on the underlying artifact space, modeling averaging, voting, or more
+complicated aggregation pipelines. Consensus functors operate entirely in
+explicit space: they take explicit artifacts as inputs and produce explicit
+artifacts as outputs, without access to tacit states or requirements.
+\end{definition}
+
+\subsubsection{Functorial Consensus Layer}
+
+Given a population $P=(A_i)_{i\in I}$ and communication structure $G$,
+a consensus mechanism $C$ induces an explicit functor
+\[
+  C_P : E^n \to E
+\]
+that may be interleaved with ordinary explicit computation in
+$\mathcal{C}^I$. We refer to such composites as the \emph{consensus layer}.
+No consensus functor has access to the population semantics
+$\overline{J}$ or to individual requirement functions $\mathrm{Req}_i$.
+
+\subsubsection{Tacit-Stability of Consensus}
+
+\begin{definition}[Tacit-stable consensus]
+A consensus functor $C$ is \emph{tacit-stable} if, for every agent $i$ and
+any inputs $e_1,\dots,e_n \in E$, whenever $e_1,\dots,e_n$ are all
+individually below agent $i$'s requirement,
+\[
+  t_i \prec_i \mathrm{Req}_i(e_k,c_i)
+  \quad \forall k \in \{1,\dots,n\},
+\]
+then the aggregate output $C(e_1,\dots,e_n)$ is also below requirement:
+\[
+  t_i \prec_i \mathrm{Req}_i\bigl(C(e_1,\dots,e_n),c_i\bigr).
+\]
+\end{definition}
+
+\begin{theorem}[Consensus stability]
+Every consensus functor that acts purely in explicit space is tacit-stable.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Consensus functors are compositions of explicit morphisms in $\mathcal{C}$.
+By Explicit--Tacit Separation (ETS), explicit morphisms cannot increase
+tacit grounding: they do not alter $t_i$, only what artifacts are presented
+to representational backflow. If an agent's tacit state $t_i$ is below the
+requirement for each input artifact, it remains below the requirement for
+any artifact obtained by explicit-only transformation of those inputs. Thus
+consensus cannot manufacture sufficient grounding from insufficient inputs.
+\end{proof}
+
+Tacit-stability says that explicit consensus can neither repair nor upgrade
+tacit adequacy: it preserves ``being under-grounded'' whenever that is the
+case for all inputs.
+
+\subsubsection{Limits of Automated Consensus}
+
+\begin{theorem}[No fully automated consensus elimination]
+No fully automated consensus process acting purely in explicit space can
+eliminate collective hallucination across all admissible populations and
+collective dynamics.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By tacit-stability, consensus cannot transform artifacts that are
+under-grounded for all relevant agents into artifacts that are adequately
+grounded. Under the Epistemic Dynamics degradation assumptions, individual hallucination
+is inevitable along sufficiently long runs. Since consensus mechanisms have no
+access to tacit state, they cannot detect or remove these failures at the
+collective level; at best they can smooth, average, or denoise explicit
+behavior. Any claim of global hallucination-elimination by explicit-only
+consensus would contradict the Epistemic Dynamics inevitability results when applied
+agent-wise.
+\end{proof}
+
+Automation may reduce variance or noise in explicit artifacts, but it cannot
+introduce new tacit grounding or globally halt its degradation.
+
+\subsubsection{Collective Inevitability}
+
+\begin{theorem}[Collective hallucination inevitability]
+Consider a population $P=(A_i)_{i\in I}$ of epistemic agents with:
+\begin{itemize}
+  \item finite or countable index set $I$,
+  \item finite tacit capacity for each $A_i$,
+  \item non-invertible degradation $\delta_i$,
+  \item confidence inflation and requirement escalation as in Appendix~B.
+\end{itemize}
+Let $M$ be any Markovian collective dynamics on $\mathcal{C}^I$ that
+respects these per-agent dynamics and produces infinitely many
+surface-plausible explicit artifacts along almost every path.
+Then the collective hallucination time $\tau^{\mathrm{coll}}$ is almost
+surely finite:
+\[
+  P_M\bigl(\tau^{\mathrm{coll}} < \infty\bigr) = 1.
+\]
+Moreover, this property is invariant under the insertion of explicit-only
+consensus functors: composing $M$ with any finite consensus layer that acts
+solely in explicit space does not change the almost-sure finiteness of
+$\tau^{\mathrm{coll}}$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By Appendix~B, each agent $A_i$ exhibits almost-sure hallucination along
+sufficiently long admissible runs of any FRFP pipeline that continues to
+produce surface-plausible artifacts. The collective Markov dynamics $M$
+induces, for each $i$, a marginal stochastic process on $T^e_i$ with the
+same qualitative properties. Since the population is finite or countable,
+and collective execution produces infinitely many plausible artifacts with
+nonzero probability of being consumed by each agent (via $G$), the event
+that at least one agent hallucinates in finite time has probability~$1$.
+The definition of collective hallucination requires only that a nontrivial
+subset of agents jointly accept an under-grounded artifact, which occurs
+almost surely given enough time and interaction. Tacit-stability of
+consensus implies that explicit aggregation cannot remove such events once
+they arise; it can at best transform one hallucinated artifact into another.
+\end{proof}
+
+\subsubsection{Structural Implications of Collective Dynamics}
+
+The population-level formalism above does more than restate
+inevitability in a collective setting. It yields several structural notions
+that are used in later sections.
+
+\paragraph{(1) Equivalence classes of collective designs.}
+Viewing populations as objects in $\mathbf{Pop}$ and their joint explicit
+reasoning as trajectories in $\mathcal{C}^I$, we can treat different UIs,
+workflows, and consensus wrappers as endofunctors on $\mathcal{C}^I$ that
+preserve the population semantics $\overline{J}$. Designs that differ only
+by such explicit refactorings are \emph{FRFP-equivalent}: they have the same
+tacit semantics and the same hallucination-time distribution, even if their
+surface appearance differs. This provides a criterion for when two collective
+protocols are ``the same thing in principle''.
+
+\paragraph{(2) Refinement order on collective systems.}
+Given two Markovian collective dynamics $M_1,M_2$ on the same population,
+with corresponding collective hallucination times
+$\tau^{\mathrm{coll}}_1,\tau^{\mathrm{coll}}_2$, we may compare their
+finite-horizon risks
+\[
+  p_N^{(k)} := P_{M_k}(\tau^{\mathrm{coll}}_k \le N), \quad k\in\{1,2\}.
+\]
+We say that $M_2$ is a \emph{dynamic refinement} of $M_1$ if
+$p_N^{(2)} \le p_N^{(1)}$ for all $N$. This yields a partial order on
+collective implementations: some architectures are strictly safer than
+others, but purely explicit-only transformations that preserve semantics
+cannot improve this order.
+
+\paragraph{(3) Compositional risk analysis.}
+Because the collective dynamics lives in $\mathcal{C}^I$ and is built from
+per-agent Epistemic Dynamics, we can study how subsystem risks compose.
+For example, a scientific subsystem, an engineering subsystem, and a policy
+subsystem can each be modeled as a subpopulation with its own hazard profile;
+the global population then inherits a collective hallucination time equal to
+the minimum of the subsystem times. This provides a formal basis for
+``defense in depth'' arguments.
+
+\paragraph{(4) Limits of monitoring and metrics.}
+Collective executions produce rich explicit traces: logs, dashboards,
+metrics, and aggregated indicators. In this formalism, these traces live in
+$\mathcal{C}^I$ or in functorial images thereof. The population semantics
+$\overline{J}$ and individual requirements $\mathrm{Req}_i$, however, remain
+tacit. Many distinct tacit configurations can induce the same distribution
+over explicit traces. Hence correctness and hallucination risk are
+\emph{non-identifiable from logs alone}: explicit-only monitoring cannot, in
+general, determine how well grounded a population's beliefs really are.
+
+\paragraph{(5) Scaling and phase transitions.}
+By parametrizing collective systems by population size $|I|$, communication
+structure $G$, and per-agent degradation properties, Appendix~A.10 provides a
+language for asking how epistemic risk scales with size and complexity.
+Nothing in the formalism guarantees that larger or more connected populations
+are safer; on the contrary, the inevitability theorem applies uniformly once
+the Epistemic Dynamics assumptions hold. This sets the stage for Appendix~A.12, which
+studies which institutional forms can slow or bound such risks across
+populations and time.
+
+Taken together, these structures show that Collective Epistemic Dynamics is not merely a
+corollary of individual hallucination: it is a genuinely new level of
+description in which equivalence, refinement, observability, and scaling of
+\emph{collective} epistemic systems can be stated and analyzed formally.

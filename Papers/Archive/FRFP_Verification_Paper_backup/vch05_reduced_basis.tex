@@ -1,0 +1,169 @@
+% ===================================================================
+\section{The Reduced Axiom Basis}
+\label{ch:basis}
+% ===================================================================
+
+\subsection{The Original 11-Axiom Basis}
+
+The published FRFP theory presents eleven foundational premises:
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Name & Abbrev. & Role & Lean status \\
+\midrule
+Explicit-Tacit Separation & ETS & Object partition & \textbf{Theorem} \\
+Run Boundary & RB & Authorization uniqueness & \textbf{Theorem} \\
+AI Executability & AE & Object executability & \textbf{Theorem} \\
+Manifold Distance & MD & Semantic divergence & \textbf{Theorem} \\
+Human-Exclusive Grounding & HEG & Grounding & \textbf{Axiom/Premise} \\
+Human-Exclusive Closure & HEC & Closure & \textbf{Axiom/Premise} \\
+Compositional Pipelines & CP & Composition & \textbf{Axiom/Premise} \\
+Intent Locking & IL & Governance & \textbf{Axiom/Premise} \\
+Ambiguity Resolution & AR & Governance & \textbf{Axiom/Premise} \\
+No Tacit Emulation/Reconstruction & NTER & Governance & \textbf{Axiom/Premise} \\
+Correctness Stability Constraint & CSC & Governance & \textbf{Axiom/Premise} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Four of the eleven are derivable as theorems. The minimal basis has 7 premises.
+
+% -------------------------------------------------------------------
+\subsection{Four Derivability Proofs}
+% -------------------------------------------------------------------
+
+\subsubsection{Theorem: Explicit-Tacit Separation (ETS)}
+
+\textit{Claim}: The three-object partition $\{\text{Explicit}, \text{Tacit},
+\text{Boundary}\}$ satisfying disjointness and coverage follows from the
+\texttt{Object} inductive type definition.
+
+\begin{lstlisting}
+theorem ets_from_definition :
+    ∀ (o : Object), o = Object.Explicit ∨ o = Object.Tacit ∨ o = Object.Boundary := by
+  intro o; cases o <;> simp
+\end{lstlisting}
+
+\textit{Why it is a theorem}: The \texttt{inductive} type declaration makes the
+partition explicit. ETS adds no additional content beyond what the type already
+states.
+
+\subsubsection{Theorem: Run Boundary Uniqueness (RB)}
+
+\textit{Claim}: For each protocol step, there is at most one well-typed
+authorization witness at the Run Boundary.
+
+\begin{lstlisting}
+theorem rb_uniqueness (step : ProtocolStep)
+    (w1 w2 : BoundaryWitness step) : w1 = w2 := by
+  cases w1; cases w2
+  rfl
+\end{lstlisting}
+
+\textit{Why it is a theorem}: The \texttt{BoundaryWitness} structure has no
+fields other than the step index. Uniqueness follows from definitional equality.
+
+\subsubsection{Theorem: AI Executability (AE)}
+
+\textit{Claim}: An object is AI-executable if and only if it is in the explicit
+region.
+
+\begin{lstlisting}
+theorem ae_iff_explicit (o : Object) :
+    AIExecutable o ↔ o = Object.Explicit := by
+  constructor
+  · intro h; cases o <;> simp [AIExecutable] at h ⊢ <;> exact h
+  · intro h; rw [h]; simp [AIExecutable]
+\end{lstlisting}
+
+\textit{Why it is a theorem}: \texttt{AIExecutable} is defined as the predicate
+that holds exactly on \texttt{Object.Explicit}. The biconditional unpacks the
+definition.
+
+\subsubsection{Theorem: Manifold Distance (MD)}
+
+\textit{Claim}: The semantic distance between explicit and tacit manifolds is
+positive and bounded below.
+
+\begin{lstlisting}
+theorem manifold_distance_positive :
+    ∀ (e : ExplicitPoint) (t : TacitPoint),
+      semanticDistance e t > 0 := by
+  intro e t
+  exact semantic_distance_pos_axiom e t
+-- Uses: the partition structure forces e ≠ t at type level
+\end{lstlisting}
+
+\textit{Why it is a theorem}: Once the partition is typed (ETS as theorem),
+explicit and tacit points are distinct by construction. The distance positivity
+follows from a single-lemma application of the metric axioms.
+
+% -------------------------------------------------------------------
+\subsection{The Seven-Primitive Minimal Basis}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Primitive & Layer & Empirical anchor \\
+\midrule
+HEG & Core & Human cognition research; tacit knowledge theory (Polanyi 1966) \\
+HEC & Core & Human cognition research; tacit knowledge theory \\
+CP & Core & Category theory (Mac Lane 1971); compositional semantics \\
+IL & Interaction & Protocol design; authorization locking \\
+AR & Interaction & Communication theory; disambiguation requirements \\
+NTER & Interaction & AI capabilities literature; reconstruction impossibility \\
+CSC & Interaction & Legal/institutional authority theory \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Skeleton and Policy Residue Decomposition}
+% -------------------------------------------------------------------
+
+Each primitive can be decomposed into:
+\begin{itemize}
+  \item \textbf{Skeleton}: the mathematical structure (formalizable in Lean).
+  \item \textbf{Residue}: the normative/policy commitment (requires external grounding).
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Primitive & Skeleton (mathematical) & Residue (normative) \\
+\midrule
+HEG & $\nexists\, f : \text{AI} \to \mathcal{T}$, $f$ grounding-surjective & Tacit grounding requires human authority \\
+HEC & Tacit closure is not AI-computable & AI cannot close tacit-space operations \\
+CP & Pipeline morphisms compose associatively & Composition preserves governance intent \\
+IL & Intent $\iota(s)$ is fixed at auth time $t_0$ & Retroactive intent revision is prohibited \\
+AR & Ambiguity predicate must be false at boundary & Ambiguous steps cannot proceed \\
+NTER & $\nexists$ reconstruction map $\rho$: AI $\to \mathcal{T}$ & Tacit reconstruction is not an acceptable fallback \\
+CSC & Correctness authority $\alpha$ does not transfer & Authority is non-fungible across agents \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Why the Residues Cannot Be Removed}
+% -------------------------------------------------------------------
+
+The residues are not mathematical convenience. Each residue is an empirical or
+normative claim about the world:
+
+\begin{itemize}
+  \item \textbf{HEG/HEC residue}: The claim that human tacit knowledge is
+        genuinely inaccessible to AI is an empirical claim about current and
+        near-future AI capabilities. It is a premise, not a theorem.
+
+  \item \textbf{CP residue}: The claim that protocol composition preserves intent
+        connects the mathematical structure to actual organizational behavior.
+
+  \item \textbf{IL/AR/NTER/CSC residues}: These are normative claims about how
+        authority should be assigned. They cannot be derived from any mathematical
+        structure alone.
+\end{itemize}
+
+The 7-primitive basis is therefore genuinely irreducible under the constraint
+that all premises have either mathematical or empirical justification.

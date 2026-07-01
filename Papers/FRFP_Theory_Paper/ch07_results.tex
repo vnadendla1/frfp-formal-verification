@@ -1,0 +1,230 @@
+% ===================================================================
+\section{Novel Results from Formalization}
+\label{ch:results}
+% ===================================================================
+
+\subsection{Overview}
+
+Three non-trivial theorems emerge directly from the Lean formalization --- results
+not present in the original published theory and arising solely from the proof
+obligations imposed by the formal system. This chapter presents these theorems,
+their proofs, their interpretations, and the open questions they suggest.
+
+Additionally, 8 direct consequence theorems from the reduced basis are catalogued.
+
+In FRFP terms, these results are machine-verified propositions whose publication
+interpretation is still human-governed. That is: Lean certifies derivability;
+humans decide commitment scope.
+
+% -------------------------------------------------------------------
+\subsection{Novel Theorem 1: First Unresolved Witness}
+% -------------------------------------------------------------------
+
+\begin{theorem}[First unresolved witness]
+If an unresolved ambiguity exists anywhere in a protocol trace, there is a
+\emph{canonical first} such occurrence:
+\begin{align*}
+  &\forall \mathcal{T},\
+  \Big(\exists n,\
+  \mathcal{T}[n].\mathrm{ambiguous} = \top
+  \wedge \mathcal{T}[n].\mathrm{clarified} = \bot\Big)
+  \Rightarrow \\
+  &\exists n^*,\
+  \Big(\mathcal{T}[n^*].\mathrm{ambiguous} = \top
+  \wedge \mathcal{T}[n^*].\mathrm{clarified} = \bot\Big)
+  \wedge \\
+  &\quad \Big(\forall m < n^*,\
+  \neg(\mathcal{T}[m].\mathrm{ambiguous} = \top
+      \wedge \mathcal{T}[m].\mathrm{clarified} = \bot)\Big)
+\end{align*}
+\leanref{Frfp.Minimal.BasisSweep.first\_unresolved\_witness}
+--- machine-checked proof.
+\end{theorem}
+\begin{proof}
+Let $P(n) = \text{"step } n \text{ is unresolved"}$. By hypothesis, $\exists n,
+P(n)$. By Lean's \texttt{Nat.find}, there exists a minimal witness $n^* =
+\mathrm{Nat.find}(P)$ satisfying $P(n^*)$, and for all $m < n^*$, $\neg P(m)$.
+\qed
+\end{proof}
+
+\paragraph{Why novel.} The original AR axiom says "all ambiguities are resolved"
+--- a global property. This theorem localizes AR violations: when AR fails, it
+fails at a specific first step. This is essential for:
+\begin{itemize}
+  \item \textbf{Audit trails}: governance audits can find the exact first violation
+        point.
+  \item \textbf{Incremental checking}: a trace is AR-compliant up to step $n$ iff
+        $n < n^*$.
+  \item \textbf{Repair protocols}: a minimal repair targets only step $n^*$, not
+        the entire trace.
+\end{itemize}
+
+% -------------------------------------------------------------------
+\subsection{Novel Theorem 2: Governance Safe Extension}
+% -------------------------------------------------------------------
+
+\begin{theorem}[Governance safe extension]
+Strong governance admissibility (IL, AR, CSC) is preserved under compatible
+one-step trace extension:
+\[
+  \mathrm{GA}(\mathcal{T}) \wedge \mathrm{Compatible}(\mathcal{T}, s)
+  \Rightarrow
+  \mathrm{GA}(\mathcal{T} \mathbin{+\!\!+} [s])
+\]
+\leanref{Frfp.Minimal.BasisSweep.governance\_safe\_extension\_theorem}
+--- machine-checked proof.
+\end{theorem}
+\begin{proof}
+Each of the three conjuncts of $\mathrm{GA}$ is preserved independently:
+\begin{description}
+  \item[\textbf{IL}:] For any two AI steps $a, b$ in $\mathcal{T}
+        \mathbin{+\!\!+} [s]$, if both are in $\mathcal{T}$ then
+        $\mathrm{IL}_{\mathrm{global}}(\mathcal{T})$ applies; if one is $s$ and
+        the other is in $\mathcal{T}$, the intent compatibility condition applies.
+  \item[\textbf{AR}:] For any ambiguous step in $\mathcal{T}
+        \mathbin{+\!\!+} [s]$: if in $\mathcal{T}$,
+        $\mathrm{AR}_{\mathrm{global}}(\mathcal{T})$ applies; if it is $s$, the
+        ambiguity compatibility condition applies.
+  \item[\textbf{CSC}:] The lock-forward and lock-backward conditions of
+        compatibility ensure the lock propagates consistently. \qed
+\end{description}
+\end{proof}
+
+\paragraph{Why novel.} The original FRFP governance axioms are stated as global
+properties of a complete trace. Theorem 7.2 is an \emph{inductive} property ---
+it says governance compliance is closed under one-step extension. This enables:
+\begin{itemize}
+  \item \textbf{Online governance checking}: evaluate each new step independently.
+  \item \textbf{Compositional reasoning}: compliant sub-traces compose to a
+        compliant whole.
+  \item \textbf{Distributed protocols}: each agent can enforce local step
+        compatibility; global compliance follows.
+\end{itemize}
+
+% -------------------------------------------------------------------
+\subsection{Novel Theorem 3: Protocol Normal Form}
+% -------------------------------------------------------------------
+
+\begin{theorem}[Protocol normal form]
+Every strongly admissible primitive trace decomposes into an explicit block, an
+optional boundary crossing, and a tacit block:
+\begin{align*}
+  &\forall \mathcal{T} : \mathrm{List}(\mathrm{Primitive}),\
+  \mathrm{AdmissibleStrong}(\mathcal{T}) \Rightarrow \\
+  &\exists\ e_1\ldots e_k,\ h_1\ldots h_m,\ b \in \mathbb{B}, \\
+  &\mathcal{T}
+  = [e_1,\ldots,e_k]
+    \mathbin{+\!\!+}
+    (\text{if } b \text{ then } [\RB] \text{ else } [])
+    \mathbin{+\!\!+}
+    [h_1,\ldots,h_m]
+\end{align*}
+where each $e_i \in \Ecat = \{\RI, \EC, \ED\}$ and each
+$h_j \in \Tcat \setminus \{\RB\} = \{\TE, \HFD\}$.
+
+\leanref{Frfp.Minimal.BasisSweep.protocol\_normal\_form\_theorem}
+--- machine-checked proof.
+\end{theorem}
+
+\paragraph{Why novel.} The three-block structure is mentioned informally in the
+original theory. Theorem 7.3 makes it a formal theorem:
+\begin{itemize}
+  \item \textbf{Every} admissible trace has this structure --- it is not optional.
+  \item The decomposition is canonical: the explicit block always precedes $\RB$,
+        which always precedes the tacit block.
+  \item The boundary $\RB$ appears \textbf{at most once} (by Theorem 1.2).
+\end{itemize}
+
+\paragraph{Implication for protocol design.} Any protocol that claims to be
+FRFP-compliant but allows $\RB$ in a non-terminal position, or that interleaves
+explicit and tacit steps, is not strongly admissible.
+
+% -------------------------------------------------------------------
+\subsection{Direct Consequences of the Reduced Basis}
+% -------------------------------------------------------------------
+
+\begin{theorem}[Tacit source classification]
+$\forall p : \mathrm{Primitive},\ p.\mathrm{source} = \Tobj
+\Rightarrow p \in \{\TE, \HFD\}$
+\leanref{Frfp.Minimal.BasisConsequences.tacit\_source\_classification}
+\end{theorem}
+
+\begin{theorem}[Tacit source stays tacit]
+$\forall p,\ p.\mathrm{source} = \Tobj \Rightarrow p.\mathrm{target} = \Tobj$
+\leanref{Frfp.Minimal.BasisConsequences.tacit\_source\_stays\_tacit}
+\end{theorem}
+
+\begin{theorem}[AI steps never target tacit space]
+$\forall p,\ \textit{is\_AI\_executable}(p) = \top \Rightarrow p.\mathrm{target} \neq \Tobj$
+\leanref{Frfp.Minimal.BasisConsequences.ai\_never\_targets\_tacit}
+\end{theorem}
+
+\begin{theorem}[AI/human disjoint]
+$\forall p,\ \neg(\textit{is\_AI\_executable}(p) \wedge \textit{is\_human\_only}(p))$
+\leanref{Frfp.Minimal.BasisConsequences.ai\_human\_disjoint}
+\end{theorem}
+
+\begin{theorem}[Unique boundary entry]
+$|\{p : \mathrm{Primitive} \mid p.\mathrm{source} = \Eobj \wedge p.\mathrm{target} = \Tobj\}| = 1$
+\leanref{Frfp.Minimal.BasisConsequences.unique\_boundary\_entry}
+\end{theorem}
+
+\begin{theorem}[IL pairwise intent consistency]
+Under IL, any two AI steps in the same trace share an intent tag.
+\leanref{Frfp.Minimal.BasisConsequences.IL\_pairwise\_intent\_consistency}
+\end{theorem}
+
+\begin{theorem}[AR: no unresolved ambiguity]
+Under AR, no ambiguous step remains unclarified.
+\leanref{Frfp.Minimal.BasisConsequences.AR\_no\_unresolved\_ambiguity}
+\end{theorem}
+
+\begin{theorem}[CSC: lock is monotone]
+Under CSC, the correctness-locked flag is monotone non-decreasing over the trace.
+\leanref{Frfp.Minimal.BasisConsequences.CSC\_lock\_is\_monotone}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Novelty Classification}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Theorem & Type & How it arose \\
+\midrule
+7.1 First unresolved witness & New result & \texttt{Nat.find} forced minimal witness existence \\
+7.2 Governance safe extension & New inductive property & Needed to prove $\mathrm{GA}$ is inductive \\
+7.3 Protocol normal form & New completeness theorem & Admissibility definition crystallized three-block shape \\
+Thms 7.4--7.11 & Direct consequences & Short proofs from basis definitions \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Open Questions}
+% -------------------------------------------------------------------
+
+\begin{enumerate}[label=\textbf{Q\arabic*}]
+  \item \textbf{Complete $\runToOmega$ proof.} The injectivity and round-trip
+        properties are axiomatized. A full proof requires constructing a
+        measurable bijection between the discrete run type and the
+        measure-theoretic trajectory space.
+
+  \item \textbf{Phase 2 primitives.} The current kernel is Phase 1 (6
+        primitives). Can a Phase 2 extension be defined such that the analogues
+        of ETS and RB uniqueness remain derivable theorems?
+
+  \item \textbf{Mechanized minimality.} The minimality of the 7-axiom basis
+        is established by manual witness construction. An automated model-finder
+        could confirm or refute this mechanically.
+
+  \item \textbf{Semantic grounding decidability.} The $\mathrm{CorrectnessJudgment}$
+        type has value $\mathrm{unknown}$ for undecidable cases. Is there a
+        formal characterization of when grounding is decidable vs.\ undecidable?
+
+  \item \textbf{Probabilistic confluence.} Theorems 5.3--5.7 are deterministic
+        properties of the hazard/survival functions. Is there a probabilistic
+        confluence theorem: does the distribution over normal forms converge
+        under repeated random reduction?
+\end{enumerate}

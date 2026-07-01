@@ -1,0 +1,179 @@
+% ===================================================================
+\section{Appendix C: Theory Incorporation Proposals}
+\label{app:proposals}
+% ===================================================================
+
+This appendix provides the full text of all eleven theory incorporation proposals
+generated during the FRFP formalization process. Each proposal is a recommended
+change to the theory paper(s) to align the informal presentation with the formal
+Lean development.
+
+\begin{proposal}{P-01}
+\textbf{Title}: Reduction operates on term objects, not category objects.
+
+\noindent\textbf{Problem}: The FRFP theory paper describes reduction as operating
+on ``objects in the explicit category $\Ecat$.'' In the Lean formalization, this
+caused a type error: categorical objects are not terms, and reduction operates on
+terms in a term calculus.
+
+\noindent\textbf{Proposed fix}: Add a section to the theory paper distinguishing
+the term calculus (the syntactic language on which reduction is defined) from the
+categorical semantics (the mathematical universe in which the denotational
+meanings of terms live). State explicitly that reduction arrows are term-level,
+while functors are category-level.
+
+\noindent\textbf{Impact}: Chapter 3 (reduction), Chapter 4 (semantics).
+\end{proposal}
+
+\begin{proposal}{P-02}
+\textbf{Title}: The run-to-$\omega$ bijection requires an explicit construction.
+
+\noindent\textbf{Problem}: The theory paper describes the run-to-$\omega$
+correspondence informally as ``a natural correspondence.'' In Lean, we had to
+construct explicit functions \texttt{runToOmega} and \texttt{omegaToRun} and
+prove two round-trip properties.
+
+\noindent\textbf{Proposed fix}: Add a formal definition of the bijection in the
+theory paper, stating:
+\[
+\mathrm{runTo}\omega : \mathrm{Trace} \to \Omega
+\qquad \text{and} \qquad
+\omega\mathrm{ToRun} : \Omega \to \mathrm{Trace}
+\]
+with round-trip equations $\omega\mathrm{ToRun} \circ \mathrm{runTo}\omega = \mathrm{id}$
+and $\mathrm{runTo}\omega \circ \omega\mathrm{ToRun} = \mathrm{id}$.
+
+\noindent\textbf{Impact}: Chapter 4 (semantics).
+\end{proposal}
+
+\begin{proposal}{P-03}
+\textbf{Title}: Credence clamping is a normative design choice, not a consequence.
+
+\noindent\textbf{Problem}: The theory paper implies that credence values are
+``naturally'' bounded in $[0,1]$. In Lean, we discovered that values outside
+$[0,1]$ are type-valid without an explicit clamping operation. Clamping is a
+design choice, not a mathematical consequence.
+
+\noindent\textbf{Proposed fix}: Define the clamping function explicitly:
+\[
+\mathrm{clamp}(x) = \max(0, \min(1, x))
+\]
+and state that all credence computations apply $\mathrm{clamp}$ after each
+arithmetic step. Justify the choice normatively.
+
+\noindent\textbf{Impact}: Chapter 5 (dynamic layer).
+\end{proposal}
+
+\begin{proposal}{P-04}
+\textbf{Title}: Navigation equivalence must be explicitly defined as an equivalence relation.
+
+\noindent\textbf{Problem}: The theory paper uses $\sim_\mathrm{nav}$ without
+stating reflexivity, symmetry, and transitivity. Lean requires all three proofs
+explicitly.
+
+\noindent\textbf{Proposed fix}: Add a definition block stating:
+\[
+t \sim_\mathrm{nav} t \quad \text{(reflexivity)},
+\quad t \sim_\mathrm{nav} t' \Rightarrow t' \sim_\mathrm{nav} t \quad \text{(symmetry)},
+\quad t \sim_\mathrm{nav} t'' \text{ if } t \sim_\mathrm{nav} t' \sim_\mathrm{nav} t''.
+\]
+
+\noindent\textbf{Impact}: Chapter 3 (reduction), Chapter 4 (semantics).
+\end{proposal}
+
+\begin{proposal}{P-05}
+\textbf{Title}: Normal forms are unique modulo navigation equivalence, not absolutely unique.
+
+\noindent\textbf{Problem}: The theory paper claims ``unique normal forms.'' In
+Lean, we proved uniqueness only up to $\sim_\mathrm{nav}$. Two terms can have
+the same observable behavior but different navigation paths; their normal forms
+are navigation-equivalent but not definitionally equal.
+
+\noindent\textbf{Proposed fix}: Correct the uniqueness claim to read ``unique
+normal form up to navigation equivalence,'' and state the theorem explicitly.
+
+\noindent\textbf{Impact}: Chapter 3 (reduction).
+\end{proposal}
+
+\begin{proposal}{P-06}
+\textbf{Title}: Governance safe extension requires a step-compatibility precondition.
+
+\noindent\textbf{Problem}: Without a compatibility precondition, a malformed step
+could be appended to a well-formed trace, invalidating the extension. The
+step-compatibility predicate must be defined and included in the theorem statement.
+
+\noindent\textbf{Proposed fix}: Define \texttt{StepCompatible}(trace, step) as
+the predicate that the new step's intent and authorization are coherent with the
+preceding context. State the safe extension theorem explicitly.
+
+\noindent\textbf{Impact}: Chapter 6 (governance), new theorem section.
+\end{proposal}
+
+\begin{proposal}{P-07}
+\textbf{Title}: First-witness canonicity should be stated as a numbered theorem.
+
+\noindent\textbf{Problem}: The theory paper notes informally that governance
+failures have a ``first occurrence.'' This deserves formal theorem status since
+it is the foundation for constructive governance monitoring algorithms.
+
+\noindent\textbf{Proposed fix}: Add a theorem: ``For any malformed governance
+trace, there exists a unique minimal index $k^*$ such that step $k^*$ is the
+first governance violation.''
+
+\noindent\textbf{Impact}: Chapter 6 (governance), new results section.
+\end{proposal}
+
+\begin{proposal}{P-08}
+\textbf{Title}: Consensus impossibility requires a typed no-grounding precondition.
+
+\noindent\textbf{Problem}: The original consensus theorem admitted unintended
+models where agents could achieve consensus by vacuous means. A typed
+\texttt{groundingRequired : Bool} precondition prevents this collapse.
+
+\noindent\textbf{Proposed fix}: Add the grounding-required type flag as an explicit
+hypothesis in the consensus impossibility statement.
+
+\noindent\textbf{Impact}: Chapter 6 (collective layer).
+\end{proposal}
+
+\begin{proposal}{P-09}
+\textbf{Title}: The Grothendieck construction requires a split-opfibration condition.
+
+\noindent\textbf{Problem}: The theory paper applies the Grothendieck construction
+without mentioning the split-opfibration requirement on the indexing functor. Lean
+required this structure explicitly.
+
+\noindent\textbf{Proposed fix}: Add a brief categorical prerequisite section
+noting that the FRFP semantic functor $F : \Czero \to \mathbf{Cat}$ must be a
+split opfibration. Cite Mac Lane (1971) Ch.~XII.
+
+\noindent\textbf{Impact}: Chapter 4 (semantics).
+\end{proposal}
+
+\begin{proposal}{P-10}
+\textbf{Title}: Phase partition well-definedness requires finiteness of pipeline terms.
+
+\noindent\textbf{Problem}: The phase partition theorem holds only for finite
+pipeline terms. Lean's type-checker requires a finiteness hypothesis; without it,
+the proof does not go through.
+
+\noindent\textbf{Proposed fix}: Add ``for any finite pipeline term $t$'' as a
+hypothesis to the phase partition theorem. Note that infinite pipelines are not
+currently modeled.
+
+\noindent\textbf{Impact}: Chapter 1 (kernel), Chapter 3 (reduction).
+\end{proposal}
+
+\begin{proposal}{P-11}
+\textbf{Title}: Stopping time measurability requires explicit filtration structure.
+
+\noindent\textbf{Problem}: The theory paper cites stopping times without specifying
+the filtration $(\mathcal{F}_t)_{t \geq 0}$ with respect to which measurability
+is claimed. Lean's Mathlib requires the filtration as an explicit argument.
+
+\noindent\textbf{Proposed fix}: Add a definition of the natural FRFP filtration:
+$\mathcal{F}_t = \sigma(\text{all protocol events up to time } t)$, and state
+measurability with respect to this filtration.
+
+\noindent\textbf{Impact}: Chapter 5 (dynamic layer).
+\end{proposal}

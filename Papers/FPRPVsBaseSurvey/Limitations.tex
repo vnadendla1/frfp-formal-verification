@@ -1,0 +1,89 @@
+\section{Limitations and Anticipated Critiques}
+\label{sec:limitations}
+
+\subsection{Case Selection Bias}
+
+A central anticipated critique is that cases may have been selected in a manner favorable to protocol-structured reasoning. To mitigate this concern, cases were chosen using pre-specified inclusion criteria requiring: (i) a major real-world failure, (ii) availability of an independent assessor report, and (iii) sufficient public documentation of system setup and decision processes. 
+
+Cases were stratified across mechanistic, socio-technical, financial-institutional, regulatory, and crisis-management domains. Full per-case results will be reported, including cases where no protocol advantage is observed. Nevertheless, the set of 25 cases does not exhaust the universe of possible failures, and conclusions should be interpreted within the sampled solution space.
+
+\subsection{Dependence on Independent Assessor Reports}
+
+The study operationalizes “closeness” relative to independent assessor reports (e.g., accident boards, commissions). This assumes that such reports are reasonable proxies for structured causal reconstruction. Independent reports themselves may reflect institutional bias, hindsight effects, or political constraints. 
+
+The study therefore evaluates alignment with publicly documented assessor reasoning, not ground truth in an absolute sense.
+
+\subsection{Framework-Induced Framing Effects}
+
+Protocol-conditioned analyses may appear more structured or systematic due to explicit framing (e.g., gates, control surfaces, escalation checkpoints). Even after normalization, residual framing differences may influence raters. 
+
+To mitigate formatting bias:
+\begin{itemize}
+    \item All documents are normalized to identical structural shells.
+    \item Word budgets are standardized.
+    \item Vocabulary injection into baseline documents is prohibited.
+\end{itemize}
+
+However, complete removal of stylistic or conceptual differences is neither possible nor desirable; the study evaluates whether structured protocol framing improves substantive alignment, not stylistic neutrality.
+
+\subsection{LLM Contamination and Context Effects}
+
+Although generation phases were isolated by condition, all outputs are ultimately produced by the same underlying model family. This may introduce correlated reasoning patterns across conditions. 
+
+The study therefore evaluates the marginal effect of explicit protocol structuring within a constant model context, rather than comparing fundamentally different reasoning systems.
+
+\subsection{Rater Variability and Subjectivity}
+
+Closeness judgments involve expert interpretation. Differences in background (engineering, finance, safety regulation) may influence weighting of R1--R4 dimensions. 
+
+The design mitigates this through:
+\begin{itemize}
+    \item Ten independent raters.
+    \item Cumulative similarity rubric (R1--R4).
+    \item Reporting of per-case and stratum-level variation.
+\end{itemize}
+
+Nevertheless, the outcome reflects structured expert consensus rather than objective ground truth.
+
+\subsection{Power and Generalizability}
+
+With 25 cases and 10 raters, the study is powered to detect moderate aggregate effects, particularly in governance-heavy strata. It is underpowered for strong per-case inference. 
+
+Findings should therefore be interpreted at the aggregate and stratum levels rather than as definitive judgments about any single case.
+
+\subsection{External Validity}
+
+The study focuses on historical failures with publicly documented post hoc investigations. It does not directly evaluate real-time decision support, adversarial contexts, or future unknown failure modes. Extrapolation to other domains (e.g., medical diagnostics, legal reasoning, national security analysis) requires further validation.
+
+\section{Ethics and Conflict of Interest}
+\label{sec:ethics}
+
+\subsection{Human Participants}
+
+The study involves expert raters evaluating anonymized analytical documents. No personal data, confidential organizational information, or proprietary materials are used. Raters provide evaluative judgments only; no sensitive personal information is collected.
+
+Participation is voluntary. If compensation is provided, it is fixed and not contingent on rating outcomes.
+
+\subsection{Use of Public Materials}
+
+All cases are drawn from publicly available historical failures with published independent assessor reports. No restricted or classified materials are used.
+
+\subsection{Model Use Transparency}
+
+All analyses are generated using a large language model under clearly defined prompt envelopes. Prompts, normalization procedures, and analysis scripts will be made available for replication. No hidden tuning or post hoc editing beyond documented normalization is performed.
+
+\subsection{Conflict of Interest}
+
+The author developed the protocol framework evaluated in this study. This constitutes an intellectual conflict of interest. To mitigate bias:
+
+\begin{itemize}
+    \item Case selection and analysis plans are pre-registered.
+    \item Raters are blinded to condition labels.
+    \item Full per-case results will be reported, including null or negative findings.
+\end{itemize}
+
+The study is designed to test the protocol under conditions where it may or may not confer measurable advantage.
+
+\subsection{Responsible Communication}
+
+Results will be reported in aggregate form and will not be used to characterize or evaluate specific organizations beyond publicly documented findings. The study does not aim to re-litigate historical failures but to evaluate explanatory alignment methods.

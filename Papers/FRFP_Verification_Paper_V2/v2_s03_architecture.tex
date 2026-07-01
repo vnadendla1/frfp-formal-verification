@@ -1,0 +1,66 @@
+\section{Formal System Architecture}
+
+The FRFP Lean library is structured in five dependency layers with an acyclic
+import graph enforced by Lake. No module imports from a higher layer.
+
+\subsection{Layer Dependency Summary}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Layer & Modules & Depends on \\
+\midrule
+L1 Kernel & KernelDefinitions & Mathlib only \\
+L2 Float & FloatTheory, FloatMonotonicity & Mathlib, L1 \\
+L3 Structure & CategoryStructure, PipelineComposition, & L1, L2, Mathlib \\
+ & GrothConstruction, Termination & \\
+L4 Semantics & SemanticCorrectness, TacitDependence, & L1, L2, L3, Mathlib \\
+ & ExplicitArtifact, ReductionSemantics, & \\
+ & ConfluenceProof, RunsTrajectories & \\
+L5 Governance & CollectiveLayer, GovernanceProofs, & L1--L4, Mathlib \\
+ & AmbiguityProtocol, CredenceFramework, & \\
+ & DegradationModel, StoppingTime, & \\
+ & SurvivalAnalysis, GovernanceSafeExtension & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Root and Build Files}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+File & Role \\
+\midrule
+\texttt{Frfp.lean} & Root re-export: imports all 21 core modules \\
+\texttt{FRFPReport.lean} & Executable theorem inventory report \\
+\texttt{lakefile.lean} & Build configuration \\
+\texttt{lean-toolchain} & Pins Lean version \\
+\texttt{lake-manifest.json} & Locks exact Mathlib commit \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Minimal Modules}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Module & Purpose \\
+\midrule
+\texttt{Frfp/Minimal/MinimalCore.lean} & Imports only the 7 primitives; compiles independently \\
+\texttt{Frfp/Minimal/MinimalBasis.lean} & Derivability proofs for ETS, RB, AE, MD \\
+\texttt{Frfp/Minimal/MinimalReport.lean} & Summary theorem listing for the minimal basis \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Design Constraints}
+
+\begin{enumerate}
+  \item Immutable kernel definitions after stabilization.
+  \item Explicitly typed interfaces across semantic, probabilistic, and governance layers.
+  \item Citation discipline for all retained axioms.
+\end{enumerate}
+
+A complete detailed import graph is provided in Appendix~B.

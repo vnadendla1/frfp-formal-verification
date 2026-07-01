@@ -1,0 +1,112 @@
+% LaTeX conversion of: "Beyond Prompt Engineering: Turning Prompt Chains into Controlled, Auditable Systems"
+% Source: Beyond Prompt Engineering White Paper.pdf :contentReference[oaicite:0]{index=0}
+
+\section{Beyond Prompt Engineering: Turning Prompt Chains into Controlled, Auditable Systems}
+
+Prompt engineering began as a craft of better phrasing. Subtle adjustments to wording, constraints, or role instructions could produce noticeable gains in output quality. That era yielded a useful lesson---prompts matter---but it also encouraged a misleading conclusion: that reliability is primarily a language problem.
+
+In production, organizations rarely deploy isolated prompts. They deploy pipelines: structured chains of prompts, agents, tools, validators, and post-processors that transform inputs into outputs across multiple steps. In systems of this kind, ``write better prompts'' is no longer the principal lever for reliability. Control is.
+
+The central questions therefore change. What is the system permitted to do? How does it demonstrate that it did it correctly? Where must it pause, and under what conditions is it authorized to be trusted?
+
+This paper argues for a pragmatic shift from prompt craftsmanship to systems engineering for prompt chains. It outlines how to design AI pipelines that are inspectable, enforceable, and scalable. 
+
+\subsection{Prompts as Contracts, Not Incantations}
+A prompt is best understood not as an incantation but as an interface contract for a single model invocation. Even a short prompt effectively defines what the model should do, which facts it may rely on, what constraints it must respect, what shape the output should take, and what it must not claim or do.
+
+When the contract is underspecified, the model fills in the gaps with patterns that are typical in its training data. The output may be fluent and professional, yet subtly incorrect---or worse, unauthorized. A minimal instruction such as ``apologize for a late refund'' can easily produce language that invents details, implies guarantees, or commits to actions that were never approved.
+
+Structured prompting improves outcomes precisely because it tightens the contract. By specifying facts, limiting scope, forbidding certain claims, and constraining format, variance decreases and invention becomes less likely. This remains valuable. However, once work is decomposed into multiple steps, contract discipline at the single-prompt level is no longer sufficient.
+
+\subsection{The Real Unit of Design Is the Chain}
+When tasks are divided into stages---extract facts, apply policy, draft, critique, rewrite---the system stops being ``a prompt'' and becomes a pipeline. Each stage functions as a micro-agent, producing artifacts that downstream steps treat as inputs.
+
+At this level, predictable failure patterns emerge. One of the most common is drift: as the chain progresses, intermediate steps gradually introduce new facts, assumptions, constraints, or policy interpretations that were not present in the original inputs or specification, and downstream steps treat those additions as if they were authoritative.
+
+Errors can be amplified when an incorrect extracted fact becomes downstream truth; intermediate steps can introduce unapproved assumptions or policies; binding commitments can leak into outputs despite the system lacking authority to make them; and the chain can look like it's checking its own work, but it's really reusing the same assumptions and patterns that produced the mistake---so the ``critique'' sounds thorough without being tied to any independent evidence.
+
+These failures are especially dangerous because they are clean. Chains often produce polished artifacts that appear more authoritative than single-shot answers while being equally---or more---wrong. Reliability therefore requires treating the chain not as a larger prompt, but as an engineered system. 
+
+\subsection{Generation Versus Endorsement}
+Reliable systems depend on a clear separation between what the system may generate and manipulate and what it is authorized to endorse.
+
+In practice, every artifact has two layers. The explicit layer consists of structured outputs that can be logged, validated, diffed, and replayed---schemas, extracted facts, drafts, tool outputs, and test results. The endorsement layer is the accountable judgment that an artifact is sufficiently correct, safe, or binding.
+
+The central design principle is that the model should not implicitly be allowed to approve its own outputs. It can propose drafts, interpretations, and evidence, but the act of accepting---especially when it implies financial commitments, legal claims, safety assertions, or irreversible actions---must occur at an explicit approval gate.
+
+The governing question is therefore not simply, ``Is this correct?'' but rather: what confidence level are we about to assign to this artifact, and are we authorized to assign it? This shift marks the transition from prompting to control. 
+
+\subsection{Enforceable Controls for Chains}
+Because chains can drift or make binding commitments without an explicit approval step, reliability requires controls that default to blocking unsafe output rather than controls that depend on model compliance.
+
+High-leverage controls are straightforward:
+\begin{itemize}
+  \item \textbf{Typed artifacts.}
+  Each stage should output a schema-validated payload. Free text invites drift; structured data constrains it.
+
+  \item \textbf{Validators and independent checks.}
+  Before an artifact is allowed to drive downstream behavior, it should be validated through a combination of schema checks, business-rule verification (including date arithmetic), scanning for forbidden or binding language, retrieval grounding verification when sources are cited, conventional unit tests for code paths, and explicit policy or compliance constraint checks.
+
+  \item \textbf{New-assumption quarantine.}
+  Any newly introduced policy, fact, or constraint should be explicitly labeled as \texttt{NEW} and blocked from propagation until approved.
+
+  \item \textbf{Binding-claim gates.}
+  A well-governed chain should be unable to emit delivery guarantees, compensation commitments, legal or compliance assertions, safety claims, or any statement implying an irreversible action unless an explicit approval gate is satisfied.
+
+  \item \textbf{Run logging and replay.}
+  Comprehensive logging converts anecdotal prompt behavior into inspectable engineering artifacts. Without logs, systems cannot be debugged, audited, or trusted.
+
+  \item \textbf{Scalability and the risk budget.}
+  Human approval at every step is neither feasible nor desirable. A scalable system must operate autonomously within defined limits, escalating only when accumulated exposure justifies intervention.
+\end{itemize}
+
+A practical implementation uses a cumulative risk budget. Each step in a chain is assigned a non-negative risk weight \(w_i\) (typically on a bounded scale, e.g.\ 0--5), reflecting factors such as autonomy, novelty, domain sensitivity, uncertainty signals, and whether external tools or irreversible actions are involved. The cumulative run risk is then defined as:
+\[
+W = \sum_{i=1}^{n} w_i,
+\]
+where \(n\) is the number of executed steps in the chain.
+
+A checkpoint is triggered when either:
+\[
+W \ge \tau,
+\]
+where \(\tau\) is a predefined threshold calibrated to organizational risk tolerance, or when the system is about to raise the confidence level of an output---for example, moving from draft to binding communication.
+
+This makes the safe-horizon rule concrete: explicit validators reduce per-step risk, but they do not eliminate it, and small uncertainties add up over long runs. Oversight is therefore refreshed not at arbitrary intervals, but when quantified exposure or confidence level elevation justifies intervention.
+
+The result is a system that preserves throughput for low-risk activity while forcing review at the points where real-world impact is about to occur. 
+
+\subsection{Hallucination as an Endorsement Failure}
+Hallucination is often framed as the generation of false content. Operationally, it is more precise to describe it as false content accepted at the wrong confidence level.
+
+A speculative draft may be harmless if treated as exploratory. The same text becomes harmful when endorsed as policy or promise. In systems terms, the failure is frequently not generation but endorsement policy. This motivates confidence level gates: drafts and option lists can proceed with logging; customer-facing but non-binding outputs can require stronger validation and sampling review; and binding commitments---especially those involving money, legal claims, compliance, or safety---must pass through mandatory approval.
+
+Scalable oversight focuses on the moments when the system is about to commit to reality. 
+
+\subsection{Branching and Exposure}
+Branching---generating multiple candidates and selecting among them---can improve quality, but it also increases exposure. As the number of candidates rises, the probability that at least one contains a policy violation or invented fact increases as well. Without proper controls, ranking or merging mechanisms may inadvertently reward confidence over grounding.
+
+Branching therefore requires explicit governance: each candidate should be validated before any merge, branch contexts should be isolated to prevent assumption bleed, review or sampling should scale with the number of branches for high-stakes outputs, and the branch count should be treated as a governance parameter rather than a free quality knob. 
+
+\subsection{Reliability Resides in the Wrapper}
+Controls should not be embedded ad hoc inside prompts. They belong in orchestration.
+
+A robust runtime wrapper performs three roles: a run-keeper that logs artifacts, validator results, and diffs to enable replay and audit; a context manager that enforces thread isolation, safe merges, and safe-horizon rules; and a routing layer that escalates when uncertainty or domain risk is high. Reliability emerges from enforced invariants, not from stylistic compliance. 
+
+\subsection{Structural Bad Faith and Endorsement Inflation}
+Bad faith need not involve malicious intent. Structural dynamics can reward outputs that sound authoritative regardless of grounding. In chained systems, plausibility increases perceived credibility, credibility increases endorsement weight, and style does not guarantee truth. The result is endorsement inflation: artifacts gain authority because they are persuasive, not because they are verified.
+
+The correct response is not to rely on universal ``sincerity detection,'' but to enforce disciplined approval practices: make uncertainty and assumptions explicit, separate duties for high-stakes approvals, gate changes to policies or limits through provenance and review, quarantine \texttt{NEW} assumptions so they cannot propagate silently, and ensure that every high-confidence approval is attributable and replayable. The objective is not perfect detection of insincerity, but the reduction of pathways through which unverified outputs can quietly become accepted as authoritative. 
+
+\subsection{A Controls Regression Test: The London Whale}
+The London Whale incident illustrates how intelligent systems fail under insufficient controls: mandate drift, model and metric changes, weak independent challenge, and inadequate gating. As a regression test, it highlights safeguards directly analogous to those required in AI pipelines: binding-claim gates, safe-horizon checkpoints, update gating and version control, independent validation, run logging, and new-assumption quarantine.
+
+The point is not that prompt chains resemble trading desks, but that complex pipelines predictably fail when governance lags scale. 
+
+\subsection{Conclusion}
+Prompt engineering remains important. Yet in chained systems, reliability is constrained less by phrasing and more by governance. Moving beyond prompt engineering means building typed artifacts, enforcing validators and independent checks, quarantining assumptions, implementing confidence level and binding-claim gates, adding safe-horizon checkpoints, centralizing controls in orchestration wrappers with logging and context discipline, practicing endorsement hygiene, and treating governance as configurable controls that scale with risk.
+
+When these controls are implemented, prompt chains cease to be experimental workflows and become operational systems---systems that can be audited, debugged, governed, and trusted.
+
+\paragraph{Disclaimer.}
+This paper is written with the help of LLM. 

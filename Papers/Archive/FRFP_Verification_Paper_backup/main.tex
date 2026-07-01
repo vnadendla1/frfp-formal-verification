@@ -1,0 +1,266 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Packages ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage{appendix}
+\usepackage{etoolbox}
+\usepackage{adjustbox}
+
+\geometry{margin=1in}
+\setlength{\emergencystretch}{3em}  % allow extra stretch to prevent overfull hboxes
+\AtBeginEnvironment{tabular}{\small}
+\BeforeBeginEnvironment{tabular}{\begin{adjustbox}{max width=\textwidth,center}}
+\AfterEndEnvironment{tabular}{\end{adjustbox}}
+
+% --- Theorem environments ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom_env}[theorem]{Axiom}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{contribution}[theorem]{Contribution}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+
+% --- Lean reference commands ---
+\newcommand{\leanref}[1]{\textbf{[Lean:} \nolinkurl{#1}\textbf{]}}
+
+% --- Lean listings style ---
+\lstdefinelanguage{Lean4}{
+  keywords={def,theorem,lemma,axiom,structure,inductive,where,match,with,
+            fun,let,in,have,show,by,intro,apply,exact,simp,rfl,cases,induction,
+            forall,exists,if,then,else,namespace,end,import,open,section,
+            class,instance,variable,noncomputable,opaque},
+  keywordstyle=\color{blue!70!black}\bfseries,
+  comment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  commentstyle=\color{green!50!black}\itshape,
+  stringstyle=\color{red!70!black},
+  sensitive=true,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  backgroundcolor=\color{gray!5},
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  literate=
+    {≤}{{$\le$}}1
+    {≥}{{$\ge$}}1
+    {→}{{$\to$}}1
+    {↔}{{$\leftrightarrow$}}1
+    {∀}{{$\forall$}}1
+    {∃}{{$\exists$}}1
+    {∧}{{$\land$}}1
+    {∨}{{$\lor$}}1
+    {¬}{{$\neg$}}1
+    {∈}{{$\in$}}1
+    {∉}{{$\notin$}}1
+    {≠}{{$\neq$}}1
+    {⊆}{{$\subseteq$}}1
+    {⊂}{{$\subset$}}1
+    {⊢}{{$\vdash$}}1
+    {⊣}{{$\dashv$}}1
+    {⊥}{{$\bot$}}1
+    {⊤}{{$\top$}}1
+    {ℕ}{{$\mathbb{N}$}}1
+    {ℤ}{{$\mathbb{Z}$}}1
+    {ℚ}{{$\mathbb{Q}$}}1
+    {ℝ}{{$\mathbb{R}$}}1
+    {×}{{$\times$}}1
+    {§}{{\S}}1
+    {·}{{$\cdot$}}1
+    {ω}{{$\omega$}}1
+    {Ω}{{$\Omega$}}1
+    {⟨}{{$\langle$}}1
+    {⟩}{{$\rangle$}}1,
+}
+
+\lstdefinelanguage{bash}{
+  keywords={cd,curl,grep,awk,sed,sort,wc,lake,elan,sudo},
+  keywordstyle=\color{blue!70!black}\bfseries,
+  comment=[l]{\#},
+  commentstyle=\color{green!50!black}\itshape,
+  sensitive=true,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  backgroundcolor=\color{gray!5},
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+}
+
+\lstset{language=Lean4,breaklines=true,breakatwhitespace=false,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}}
+
+% --- Proposal/finding box ---
+\newenvironment{proposal}[1]{%
+  \begin{tcolorbox}[colback=blue!5,colframe=blue!50!black,title={\textbf{Proposal #1}}]
+}{%
+  \end{tcolorbox}
+}
+
+\newenvironment{finding}{%
+  \begin{tcolorbox}[colback=green!5,colframe=green!50!black,title={\textbf{Key Finding}}]
+}{%
+  \end{tcolorbox}
+}
+
+% --- Math shorthands ---
+\newcommand{\Czero}{\mathbf{C}_0}
+\newcommand{\Ecat}{\mathbf{E}_{\mathrm{cat}}}
+\newcommand{\Tcat}{\mathbf{T}_{\mathrm{cat}}}
+\newcommand{\Eobj}{E_0}
+\newcommand{\Tobj}{T_0}
+\newcommand{\RI}{\mathrm{RI}}
+\newcommand{\EC}{\mathrm{EC}}
+\newcommand{\ED}{\mathrm{ED}}
+\newcommand{\RB}{\mathrm{RB}}
+\newcommand{\TE}{\mathrm{TE}}
+\newcommand{\HFD}{\mathrm{HFD}}
+
+% --- Hyperref ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=green!50!black,
+  urlcolor=blue,
+  pdftitle={FRFP Lean Formal Verification},
+  pdfsubject={Formal Verification, Lean 4, AI Governance},
+}
+
+% --- Title ---
+\title{%
+  \textbf{FRFP Lean Formal Verification:}\\[0.4em]
+  \large A Machine-Checked Companion to the\\
+  Foundational Reasoning and Feedback Protocol
+}
+\author{}
+\date{April 2026\\[0.5em]
+  \small Verification system: Lean 4.29.0 + Mathlib v4.29.0\\
+  Repository: \texttt{FRFP\_Math\_Verification/}\\
+  Artifact tag: \texttt{v1.0-verification-complete}
+}
+
+% ===================================================================
+\begin{document}
+% ===================================================================
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+We present a complete machine-checked formalization of the Foundational Reasoning
+and Feedback Protocol (FRFP) using the Lean~4 proof assistant. Starting from the
+published FRFP theory, we formalize 21 modules comprising 269 verified theorems
+and 155 fully cited axioms, with zero outstanding \texttt{sorry} placeholders and
+zero uncited assumptions. Beyond confirming existing claims, the formalization
+shows that the original 11-axiom basis reduces to 7 independent primitives, with
+4 former axioms derivable as theorems from the remaining core. Three non-trivial
+results emerge directly from Lean proof obligations: a canonical
+earliest-unresolved-witness theorem, a governance-safe trace-extension theorem,
+and a protocol normal-form decomposition theorem. We describe the AI-assisted
+development methodology (vibecoding), characterize observed failure modes and
+success rates, and provide a complete reproducibility package.
+
+\medskip
+\noindent\textbf{Keywords}: formal verification, proof assistants, Lean~4, AI
+governance, FRFP, axiom minimization, mechanized mathematics
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section*{Key Metrics at a Glance}
+% ===================================================================
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Metric & Value \\
+\midrule
+Lean version & 4.29.0 \\
+Mathlib version & v4.29.0 \\
+Core modules & 21 \\
+Minimal modules & 3 \\
+Total theorems proven & 269 (core) + 15 (minimal) \\
+Total axioms & 155 \\
+Uncited axioms & 0 \\
+Live \texttt{sorry} & 0 \\
+Build jobs & 3305 \\
+Original basis size & 11 \\
+Reduced basis size & 7 \\
+Axioms converted to theorems & 4 (ETS, RB, AE, MD) \\
+Novel theorems & 3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+% ===================================================================
+% Chapters
+% ===================================================================
+\input{vch01_introduction}
+\newpage
+\input{vch02_methodology}
+\newpage
+\input{vch03_axiom_architecture}
+\newpage
+\input{vch04_core_results}
+\newpage
+\input{vch05_reduced_basis}
+\newpage
+\input{vch06_new_theorems}
+\newpage
+\input{vch07_case_studies}
+\newpage
+\input{vch08_reproducibility}
+
+\newpage
+% ===================================================================
+% Appendices
+% ===================================================================
+\begin{appendices}
+\input{vapp_a_axiom_audit}
+\newpage
+\input{vapp_b_architecture}
+\newpage
+\input{vapp_c_proposals}
+\newpage
+\input{vapp_d_bibliography}
+\newpage
+\input{vapp_e_naming}
+\end{appendices}
+
+% ===================================================================
+\end{document}

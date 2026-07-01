@@ -1,0 +1,515 @@
+% ============================================================
+% Appendix Z.12 — FRFP Case Study (Platforms / Everyday Use):
+% Recommenders, Machine Translation, and ChatGPT
+% ============================================================
+
+\section{FRFP Case Study (Platforms / Everyday Use):
+Recommenders, Machine Translation, and ChatGPT}
+\label{app:frfp-platforms}
+
+This appendix treats three families of widely deployed AI systems as a single
+FRFP-style case study:
+
+\begin{enumerate}
+\item large-scale recommender systems (e.g.\ YouTube, Netflix, Amazon);
+\item neural machine translation (NMT), exemplified by Google Translate;
+\item large language models (LLMs) in general-purpose tools like ChatGPT.
+\end{enumerate}
+
+These systems are striking AI successes:
+
+\begin{itemize}
+\item Recommenders and ranking models drive much of the engagement and
+revenue of modern platforms, and increasingly mediate what people
+watch, read, and buy.
+\item NMT (e.g.\ Google Neural Machine Translation, GNMT) has moved web
+translation from brittle phrase-based systems to fluent, sentence-
+level neural models across 100+ languages.
+\item ChatGPT and similar LLM tools now have hundreds of millions of weekly
+users and process billions of prompts per day, becoming a general
+“language layer” for everyday tasks.
+\end{itemize}
+
+Unlike AlphaFold or DR screening AI, these systems live directly in the
+everyday cognitive environment of billions of people, which makes FRFP’s
+explicit/tacit and population-level lenses especially important.
+
+\subsection{Explicit and Tacit Spaces for Everyday AI Platforms}
+
+\subsubsection*{Explicit space (E_{\mathrm{platform}})}
+
+Across these systems, explicit artefacts include:
+
+\begin{itemize}
+\item user interaction logs:
+clicks, watch time, purchases, queries, prompts, translations;
+\item content and item representations:
+videos, products, web pages, sentences, embeddings, token sequences;
+\item model parameters:
+recommender networks, translation models, LLM weights;
+\item outputs:
+ranked lists of items, translated text, generated responses;
+\item metrics:
+CTR, dwell time, retention, BLEU/COMET scores, engagement,
+satisfaction proxies.
+\end{itemize}
+
+These are all explicit structures in (E_{\mathrm{platform}}), manipulated
+by training and serving pipelines in (N \ltimes E).
+
+\subsubsection*{Tacit space (T_{\mathrm{platform}})}
+
+Tacit space contains:
+
+\begin{itemize}
+\item users’ beliefs, preferences, habits, and values;
+\item creators’ and merchants’ strategies in responding to platform
+incentives;
+\item engineers’ and product managers’ intuitions about trade-offs
+(e.g.\ diversity vs.\ engagement, safety vs.\ expressivity);
+\item regulators’ and the public’s evolving norms about fairness, safety,
+and acceptable influence;
+\item workers’ practices when using tools like MT and ChatGPT in their
+jobs.
+\end{itemize}
+
+Platform correctness---whether these systems are beneficial, safe, fair, and
+aligned with human purposes---ultimately resides in this tacit and
+institutional space, not in any single metric inside (E_{\mathrm{platform}}).
+
+\subsection{Large-Scale Recommender Systems}
+
+\subsubsection*{Z.12.1 Overview}
+
+Modern recommender systems drive:
+
+\begin{itemize}
+\item video and content discovery (YouTube, TikTok, Netflix);
+\item product discovery and advertising (Amazon, e-commerce, app stores);
+\item social feeds and news ranking (various platforms).
+\end{itemize}
+
+They have evolved from nearest-neighbour and matrix factorisation methods to
+deep, sequence-based and graph-based models that learn rich user/item
+representations.
+
+Explicit objectives typically blend:
+
+\begin{itemize}
+\item short-term engagement (clicks, watch time);
+\item long-term retention and revenue;
+\item sometimes additional constraints (diversity, safety rules,
+content policies).
+\end{itemize}
+
+Field experiments show that recommender changes can significantly affect
+what people consume, with ambiguous effects on diversity and welfare.
+
+\subsubsection*{Z.12.2 FRFP view: explicit pipelines and population-level tacit states}
+
+From an FRFP standpoint:
+
+\begin{itemize}
+\item The explicit mapping
+(
+f_{\mathrm{rec}} : \text{context, history} \to \text{ranked items}
+)
+is optimised for platform metrics, not directly for user welfare or
+epistemic quality.
+\item Users’ tacit states are updated as they consume recommended content:
+beliefs change, habits crystallise, preferences drift; creators and
+advertisers adapt their behaviour in response to what the system
+rewards.
+\item The platform’s institutional operators (product teams, policy
+teams, regulators) shape objective functions and constraints, but
+often through explicit metrics rather than direct control of tacit
+outcomes.
+\end{itemize}
+
+This is a classic FRFP configuration where:
+
+\begin{itemize}
+\item explicit systems operate at massive scale and high frequency;
+\item tacit and institutional effects (on public discourse, attention,
+markets) accumulate over long horizons;
+\item governance is largely metric-driven, risking explicit-only control
+over complex population-level phenomena.
+\end{itemize}
+
+\subsubsection*{Z.12.3 Boundaries and safe horizons}
+
+Key boundary questions:
+
+\begin{itemize}
+\item How much of a user’s informational diet should the recommender
+effectively control?
+\item To what extent are editorial and civic responsibilities delegated to
+optimisation over engagement metrics?
+\item How are long-horizon externalities (polarisation, addiction, market
+power) fed back into objective design?
+\end{itemize}
+
+FRFP would recommend:
+
+\begin{itemize}
+\item explicit guardrails and quotas (e.g.\ diversity constraints,
+exploration budgets, limits on reinforcement of recent behaviour);
+\item safe horizons in user modelling (e.g.\ bounded memory, reset
+mechanisms, opportunities for users to re-declare goals and
+interests);
+\item institutional oversight bodies that treat recommender optimisation as
+a socio-technical process, not purely a metric-maximisation problem.
+\end{itemize}
+
+Current practice partially reflects this (e.g.\ “responsible recommender”
+research on diversity and sustainability), but FRFP suggests a more formal
+architectural treatment.
+
+\subsection{Neural Machine Translation (NMT)}
+
+\subsubsection*{Z.12.4 Overview}
+
+Google Neural Machine Translation (GNMT) and successors replaced phrase-
+based MT with deep neural sequence-to-sequence models using attention, and
+later Transformer-based models, enabling more fluent, context-aware
+translations.
+
+By the late 2010s:
+
+\begin{itemize}
+\item Google Translate supported 100+ languages, many via a single
+multi-lingual NMT model;
+\item NMT reduced error rates substantially (e.g.\ claims of $\sim$60%
+error reduction on some benchmarks when first deployed);
+\item quality has continued to improve, particularly for high-resource
+language pairs.
+\end{itemize}
+
+NMT is now woven into browsers, phones, and productivity apps, enabling
+cross-lingual communication at global scale.
+
+\subsubsection*{Z.12.5 FRFP view: explicit semantics with clear but limited ground truth}
+
+NMT is closer to AlphaFold than to recommenders in one sense:
+
+\begin{itemize}
+\item the task---map a source sentence to an adequate target translation---
+has relatively clear explicit semantics, even though nuance and
+pragmatics complicate evaluation;
+\item there is abundant training data (parallel corpora) and usable
+automatic metrics (BLEU, COMET, etc.) as proxies for human quality;
+\item human evaluation remains the ultimate tacit arbiter, especially in
+professional or high-stakes translation.
+\end{itemize}
+
+FRFP interpretation:
+
+\begin{itemize}
+\item the mapping
+(
+f_{\mathrm{NMT}} : \text{source text} \to \text{target text}
+)
+has strong but not perfect explicit semantics; some meaning,
+politeness, and cultural nuance lives irreducibly in tacit space;
+\item everyday use (tourism, casual chat, rough reading) often places
+correctness de facto in the model, with users accepting outputs
+without deep scrutiny;
+\item professional translators treat NMT as a drafting tool, keeping final
+correctness in tacit judgement---an FRFP-aligned boundary.
+\end{itemize}
+
+\subsubsection*{Z.12.6 Boundaries by use case}
+
+FRFP would distinguish:
+
+\begin{itemize}
+\item \textbf{Low-stakes, everyday use}:
+using NMT to get the gist of a foreign-language web page; explicit
+semantics are good enough; tacit oversight is light but acceptable.
+\item \textbf{High-stakes or formal contexts}:
+legal contracts, medical instructions, diplomatic communication;
+here, NMT outputs should be treated as drafts needing human
+verification, not final artefacts.
+\end{itemize}
+
+Misuse arises when the boundary is blurred---for example, when institutions
+rely on raw MT output for official communications without adequate review.
+FRFP suggests organisational policies that encode these boundaries: which
+uses can be automated, which require human sign-off, and how safe horizons
+are maintained (e.g.\ when domain drift or new jargon makes previous
+evaluation obsolete).
+
+\subsection{ChatGPT and General-Purpose LLMs}
+
+\subsubsection*{Z.12.7 Scale and role}
+
+ChatGPT-style LLMs are now general-purpose language tools:
+
+\begin{itemize}
+\item OpenAI reports $\sim$700--800~million weekly active users in 2025
+and 2–2.5~billion prompts per day.
+\item Usage spans everyday personal tasks, education, writing, coding, and
+work support; a recent study finds $\sim$75% of consumer usage is
+practical guidance, information seeking, and writing.
+\end{itemize}
+
+Unlike recommenders or MT, LLMs are:
+
+\begin{itemize}
+\item open-domain;
+\item generative rather than purely translational or ranking-based;
+\item increasingly integrated into tools that can act (agents, office
+suites, browsers).
+\end{itemize}
+
+\subsubsection*{Z.12.8 FRFP view: extremely broad explicit semantics, strong tacit coupling}
+
+From an FRFP standpoint:
+
+\begin{itemize}
+\item the explicit mapping
+(
+f_{\mathrm{LLM}} : \text{prompt, context} \to \text{text (and actions)}
+)
+is learned from huge corpora and reflects statistical structure in
+language use;
+\item unlike NMT or DR screening, there is no single task or metric:
+correctness is highly context-dependent and often normative;
+\item hallucination, bias, and value misalignment are structural, not
+incidental, features of this explicit mapping.
+\end{itemize}
+
+This makes the explicit/tacit split especially delicate:
+
+\begin{itemize}
+\item users can easily over-assign correctness authority to the system
+because it is fluent and broadly knowledgeable;
+\item tacit skills (search, critical reading, drafting) may atrophy if
+large portions of cognitive labour are repeatedly outsourced;
+\item organisational processes may start to treat LLM outputs as de facto
+truth or policy guidance, even where tacit judgement is essential.
+\end{itemize}
+
+\subsubsection*{Z.12.9 Boundaries and safe horizons for LLM use}
+
+FRFP suggests several structural design choices:
+
+\begin{itemize}
+\item \textbf{Role labelling}:
+treat LLMs as assistants (drafting, summarisation, brainstorming),
+not as oracles or autonomous decision-makers, except in very narrow,
+well-specified domains.
+\item \textbf{Human-in-the-loop boundaries}:
+require human endorsement for filings, public statements, and
+high-stakes decisions drafted with LLM assistance (cf.\ the \emph{Mata
+v.\ Avianca} case study).
+\item \textbf{Safe horizons in workflows}:
+limit how far LLMs can drive multi-step processes without human
+checkpoints (e.g.\ code deployment, legal filings, medical advice);
+design agent architectures where each major boundary event is
+explicitly approved.
+\item \textbf{Institutional oversight}:
+treat adoption of LLMs in organisations as an FRFP-level change,
+requiring policies, training, and governance, not just tool rollout.
+\end{itemize}
+
+At the population level, FRFP also worries about:
+
+\begin{itemize}
+\item epistemic effects (LLMs as a default interface to knowledge);
+\item labour and skill effects (who gains or loses tacit capabilities);
+\item cultural and linguistic homogenisation (if models favour high-
+resource language norms).
+\end{itemize}
+
+These require institutional operators (educational systems, media, policy)
+to treat LLM deployment as a long-horizon socio-technical transformation,
+not just a productivity boost.
+
+\subsection{Cross-Cutting FRFP Lessons from Platform AI}
+
+Taken together, recommender systems, NMT, and ChatGPT / LLMs illustrate:
+
+\begin{enumerate}
+\item \textbf{Explicit strength is uneven across tasks.}
+NMT has relatively clear semantics and ground truth; recommenders
+and LLMs operate in domains where correctness is entangled with
+tacit and normative judgements.
+
+\item \textbf{Population-level effects dominate.}
+These systems act not just on individual users but on entire
+populations’ attention, beliefs, and workflows; FRFP’s population-
+level semantics and institutional operators are essential to reason
+about them.
+
+\item \textbf{Boundaries are often informal or implicit.}
+Everyday users rarely have clear cues about when to trust or distrust
+MT and LLM outputs, or about the objectives behind recommenders.
+FRFP argues for explicit boundary design and user-facing semantics.
+
+\item \textbf{Safe horizons are rarely explicit but deeply needed.}
+Long-horizon reliance on recommenders and LLMs without reset or
+re-grounding mechanisms risks drift in tacit skills, norms, and
+epistemics.
+NMT is somewhat safer here because tasks are local and evaluation is
+easier, but high-stakes use still needs boundaries.
+
+\item \textbf{Institutional non-automation is central.}
+Platform governance, media regulation, and organisational policy
+cannot be replaced by optimisation over engagement or proxy metrics;
+they require FRFP-style tacit judgement and multi-stakeholder
+oversight.
+\end{enumerate}
+
+These platform-scale successes thus function in the FRFP monograph as
+counterpoints to purely “failure” case studies:
+they show that explicit AI can be enormously powerful and useful, but also
+how much of its real-world impact is governed---for better or worse---by the
+tacit and institutional semantics in which it is embedded.
+% ============================================================
+% Retrospective FRFP Case Study (Public Health / Industry):
+% Google Flu Trends — A Run-Level Failure of “Big Data” Surveillance
+% (written in the same two-level audit discipline used for London Whale)
+% ============================================================
+
+\section{Retrospective FRFP Case Study: Google Flu Trends (GFT)}
+\label{sec:frfp-gft}
+
+Google Flu Trends (GFT) was an influential attempt to use search-query data to estimate influenza-like illness (ILI) activity in near real time. It launched with promising early results and became a widely cited example of “big data” outperforming traditional surveillance \cite{Ginsberg2009Nature}. Its later, highly visible overestimates—especially during the 2012–2013 season—made it a canonical case where a system that looked strong in snapshots failed as a long-horizon, institution-embedded workflow \cite{Butler2013Nature,Lazer2014Science}. The FRFP lens treats this not as a single model error but as a run-level failure: feedback loops, boundary capture, weak re-grounding, and governance that drifted toward explicit-only proxies.
+
+\subsection{Background and scope (what is the unit of analysis?)}
+
+\paragraph{Case unit.}
+We study GFT as a socio-technical program: a public-facing surveillance signal produced by a proprietary pipeline and consumed by external institutions (media, researchers, and implicitly the public health ecosystem). The unit is not “a model,” but the \emph{end-to-end workflow} from search behavior to published estimates and downstream interpretation.
+
+\paragraph{Reference baseline.}
+Traditional influenza surveillance in the United States includes ILINet, which monitors outpatient visits for ILI/respiratory illness and reports them through CDC FluView \cite{CDCILINetOverview}.
+
+\paragraph{Key public record anchors.}
+GFT’s original approach is documented in the early publication describing query-based ILI estimation \cite{Ginsberg2009Nature}.
+The most widely cited retrospective critique of GFT’s failure dynamics is “The Parable of Google Flu” \cite{Lazer2014Science}.
+Google later discontinued public GFT reporting \cite{Google2015NextChapterFluTrends}.
+
+\subsection{Two-level audit discipline}
+
+We apply a two-level audit: (L1) the \emph{system-and-operator layer} (the pipeline, its updates, and its internal controls) and (L2) the \emph{institutional-and-boundary layer} (how the signal was endorsed, amplified, constrained, and corrected).
+
+\subsubsection*{L1: System-and-operator audit (pipeline, updates, internal controls)}
+
+\paragraph{Explicit artefact ledger (what the system manipulates).}
+Key explicit artefacts included:
+\begin{itemize}
+  \item query logs and derived query features;
+  \item the model (or mapping) from query patterns to an ILI estimate;
+  \item published time series outputs (weekly estimates);
+  \item internal tuning choices (feature sets, weights, filtering, retraining cadence);
+  \item internal evaluation reports comparing estimates to a reference series (often CDC ILI).
+\end{itemize}
+The crucial FRFP point: the “product” was not just a prediction but a \emph{repeatedly updated pipeline} whose outputs were treated as an external indicator \cite{Lazer2014Science}.
+
+\paragraph{Pipeline shape and navigation (how the workflow evolves).}
+GFT’s operational workflow behaved like a \emph{looping pipeline}:
+\begin{itemize}
+  \item repeated weekly inference (new queries $\rightarrow$ new estimate),
+  \item periodic model revisions or recalibration,
+  \item implicit drift as search behavior changes (language, media effects, interface changes),
+  \item continued publication that increases reliance and visibility.
+\end{itemize}
+This loop structure matters because small per-period distortions can compound into large run-level divergence \cite{Lazer2014Science}.
+
+\paragraph{Admissibility and “boundary leaks” at L1.}
+The core L1 vulnerability was that the pipeline’s effective semantics depended on a stable relationship between search behavior and ILI incidence. That relationship is not static: it shifts with media attention, Google’s own product changes, and user behavior. The parable analysis emphasizes two pressure sources:
+\begin{itemize}
+  \item \emph{algorithmic drift}: the world changes (search behavior and platform effects),
+  \item \emph{model staleness / opacity}: limited transparency about updates and validation.
+\end{itemize}
+These are classic long-horizon hazards: even if each week’s estimate looks plausible, the run can drift away from the intended target \cite{Lazer2014Science,Olson2013PLOSCompBio}.
+
+\paragraph{Horizon and degradation dynamics (what made error more likely over time).}
+A run-level hazard arises when:
+\begin{itemize}
+  \item the system is repeatedly used without a strong, enforced re-grounding cadence,
+  \item the “input distribution” changes (search terms and patterns evolve),
+  \item validation is partially internal and not institutionally binding.
+\end{itemize}
+In GFT, overestimation episodes illustrate what happens when the pipeline’s implicit assumptions degrade below the domain’s requirement floor (reliable surveillance under shifting behavior), but continued publication delays hard resets \cite{Butler2013Nature,Lazer2014Science}.
+
+\subsubsection*{L2: Institutional-and-boundary audit (endorsement, amplification, correction)}
+
+\paragraph{Tacit authority map (who owns “correctness”).}
+No single actor had exclusive authority to declare the GFT signal “fit for use” in the way a regulated clinical tool might. Instead:
+\begin{itemize}
+  \item Google controlled the pipeline and publication.
+  \item Public health practice relied on established surveillance (e.g., ILINet/FluView) as the authoritative reference stream \cite{CDCILINetOverview}.
+  \item Media, analysts, and some researchers treated GFT as a credible near-real-time indicator, especially early on \cite{Butler2013Nature}.
+\end{itemize}
+This diffused authority is itself a governance risk: it encourages “soft endorsement” without explicit boundary accountability.
+
+\paragraph{Boundary register (where the system became real).}
+GFT’s boundary events were not clinical orders or trades; they were \emph{moments of institutional uptake}:
+\begin{itemize}
+  \item public presentation of GFT as a credible surveillance measure;
+  \item third-party citation in reporting, research, and public narratives;
+  \item implicit policy and attention shifts when GFT diverged from official estimates.
+\end{itemize}
+FRFP calls this \emph{boundary capture} risk: when an explicit output (a time series estimate) becomes treated as quasi-authoritative without a designed endorsement event that forces evidence review \cite{Lazer2014Science}.
+
+\paragraph{Institutional mechanism sheet (how judgments were aggregated).}
+The “aggregator” here was informal and media-driven:
+\begin{itemize}
+  \item early success + prestige of Google $\rightarrow$ increased trust,
+  \item repeated citation $\rightarrow$ stabilization of belief (“this works”),
+  \item later divergence $\rightarrow$ rapid swing to disillusionment.
+\end{itemize}
+The parable paper frames this as “big data hubris” and emphasizes that institutional narratives can lock in before the long-horizon dynamics are understood \cite{Lazer2014Science,Butler2013Nature}.
+
+\paragraph{Auditability and replay test (could an independent reviewer reconstruct why the output changed?).}
+A major L2 fragility was limited external replayability:
+\begin{itemize}
+  \item the full feature set and model updates were not fully public;
+  \item the relevant upstream artefact (raw query stream) is not reproducible for outsiders;
+  \item thus, external institutions could compare outputs to CDC data but could not reconstruct the internal causal story of changes.
+\end{itemize}
+This weakens governance: institutions can detect divergence, but they cannot reliably diagnose which intervention (retraining, feature changes, drift correction) would fix it \cite{Lazer2014Science}.
+
+\paragraph{No-go pressure (what could not be guaranteed).}
+GFT illustrates a general limitation: an explicit-only signal derived from behavior can fail when the behavior is endogenous to the platform and the surrounding information environment. You cannot guarantee stable semantics (search $\rightarrow$ illness) without strong, ongoing re-grounding and change control, because the measurement channel is part of the system’s own ecosystem \cite{Lazer2014Science}.
+
+\subsection{Counterfactual: what an FRFP-aligned surveillance protocol would have required}
+
+A counterfactual FRFP-aligned GFT would not merely “improve the model.” It would redesign boundaries, horizons, and governance:
+
+\begin{itemize}
+  \item \textbf{Explicit boundary events for adoption.}
+        Before treating GFT as a surveillance input, require an explicit endorsement step by a named public-health authority with a documented evidence bundle (backtests across seasons, subgroup error analyses, divergence response plan).
+
+  \item \textbf{Enforced safe horizons.}
+        Publish only under a time-limited certification window (e.g., quarterly), with automatic downgrade or suspension if divergence thresholds trigger (relative to ILINet/FluView and other indicators) \cite{CDCILINetOverview}.
+
+  \item \textbf{Change-control that is institution-facing.}
+        Any material pipeline change (features, weights, filtering, platform changes expected to alter search behavior) triggers a “re-endorsement required” boundary, not a silent update.
+
+  \item \textbf{Replayable audit artefacts.}
+        Provide an external audit interface: versioned model cards, change logs, pre-registered evaluation slices, and a reproducible proxy dataset sufficient to validate directional claims (even if raw queries remain private).
+
+  \item \textbf{Explicit limits on narrative claims.}
+        Require communication discipline: position outputs as a provisional indicator with known failure modes, not as replacement for established surveillance—reducing boundary capture via hype.
+\end{itemize}
+
+\subsection{What FRFP adds relative to a standard postmortem}
+
+A non-FRFP critique often concludes: “the model drifted; big data is fragile; validate more.” FRFP adds three concrete upgrades:
+
+\begin{enumerate}
+  \item \textbf{It names the real system: a long-horizon run, not a snapshot model.}
+        The looping nature of repeated publication is treated as the primary object of risk.
+
+  \item \textbf{It forces boundary accounting.}
+        The key failure is not only prediction error but \emph{how an output becomes treated as authoritative} without an explicit endorsement boundary and evidence bundle.
+
+  \item \textbf{It makes horizons and governance enforceable.}
+        “Monitor and update” becomes caps, triggers, downgrade modes, and change-control operators—things you can actually implement and audit.
+\end{enumerate}
+
+\paragraph{Outcome.}
+Under FRFP, Google Flu Trends becomes a clean example of a common pattern: an explicit indicator that looks strong early, is absorbed by institutions through soft boundaries, then fails run-level stability because the measurement channel is endogenous and governance lacks enforceable horizons and replayable audit artefacts \cite{Lazer2014Science,Google2015NextChapterFluTrends}.

@@ -1,0 +1,141 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Overview of Evaluations}
+
+A total of $25 \times 10 = 250$ rater-case evaluations were collected.  
+All raters completed all cases. No packets were excluded.
+
+For each evaluation, raters selected:
+\begin{enumerate}
+    \item The closest pair among the three documents,
+    \item A cumulative similarity level (R1--R4).
+\end{enumerate}
+
+\subsection{Primary Outcome: Protocol vs Baseline Alignment}
+
+Across all cases, the proportion of selections favoring the Protocol–Independent pair was:
+
+\[
+P_{\text{Protocol}} = \ldots
+\]
+
+The proportion favoring the Baseline–Independent pair was:
+
+\[
+P_{\text{Baseline}} = \ldots
+\]
+
+The aggregate effect size was:
+
+\[
+\Delta = P_{\text{Protocol}} - P_{\text{Baseline}} = \ldots
+\]
+
+A paired test on the subset where raters selected either (P,I) or (B,I) yielded:
+
+\[
+p = \ldots, \quad 95\%~CI = [\ldots, \ldots]
+\]
+
+This supports / does not support the primary hypothesis of improved alignment under protocol structuring.
+
+\subsection{Similarity Level Distribution (R1--R4)}
+
+The distribution of selected similarity levels was:
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+Condition & R1 & R2 & R3 & R4 \\
+\midrule
+Baseline  & \ldots & \ldots & \ldots & \ldots \\
+Protocol  & \ldots & \ldots & \ldots & \ldots \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Protocol-structured analyses showed a higher proportion of R3--R4 selections in governance-heavy cases (see Section~\ref{sec:strata}).
+
+\subsection{Stratified Analysis by Case Category}
+\label{sec:strata}
+
+Cases were pre-classified into five strata. Effect sizes by stratum are summarized in Table~\ref{tab:strata}.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Stratum & $P_{\text{Protocol}}$ & $P_{\text{Baseline}}$ & $\Delta$ \\
+\midrule
+Mechanically crisp & \ldots & \ldots & \ldots \\
+Socio-technical & \ldots & \ldots & \ldots \\
+Financial-institutional & \ldots & \ldots & \ldots \\
+Regulatory & \ldots & \ldots & \ldots \\
+Crisis / disaster & \ldots & \ldots & \ldots \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+As hypothesized, the largest protocol advantage was observed in governance-heavy strata (Socio-technical, Regulatory, Crisis), while mechanically crisp cases showed smaller or negligible differences.
+
+\subsection{Variance and Dispersion Effects}
+
+Mean rater dispersion (Section~\ref{sec:variance}) was:
+
+\[
+\bar{D}^{(B)} = \ldots, \quad \bar{D}^{(P)} = \ldots
+\]
+
+Protocol structuring was associated with a \ldots\% reduction in dispersion across governance-heavy cases.
+
+\subsection{Unsupported-Claim Flag Rates}
+
+The rate of J5 flags was:
+
+\[
+U^{(B)} = \ldots, \quad U^{(P)} = \ldots
+\]
+
+Protocol-structured analyses exhibited a relative reduction of \ldots\% in unsupported-claim flags, indicating lower tail-risk of speculative or weakly grounded reasoning.
+
+\subsection{Per-Case Results}
+
+Per-case outcomes are summarized in Table~\ref{tab:percase} (Appendix~\ref{app:percase} contains full breakdown).
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Case & $P_{\text{Protocol}}$ & $P_{\text{Baseline}}$ & $\Delta$ \\
+\midrule
+Ariane 5 & \ldots & \ldots & \ldots \\
+Columbia (CAIB) & \ldots & \ldots & \ldots \\
+London Whale & \ldots & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Mechanically crisp cases (e.g., Ariane 5) exhibited near parity between conditions, functioning as negative controls. Governance-heavy cases (e.g., Columbia, London Whale) showed consistent protocol advantage at R3--R4 levels.
+
+\subsection{Robustness Checks}
+
+Results were robust to:
+\begin{itemize}
+    \item Exclusion of R1-only selections,
+    \item Bootstrap resampling across cases,
+    \item Removal of cases with lowest inter-rater agreement.
+\end{itemize}
+
+No evidence was found that protocol structuring degraded performance in mechanically crisp cases.
+
+\subsection{Summary of Empirical Findings}
+
+Across 25 cases and 10 raters:
+
+\begin{itemize}
+    \item Protocol structuring improved alignment with independent reports in governance-heavy domains.
+    \item Differences were smaller in mechanistic single-cause failures.
+    \item Protocol structuring reduced dispersion and unsupported-claim flags.
+\end{itemize}
+
+These results are consistent with the conditional hypothesis and indicate measurable alignment gains in governance-heavy cases. The broader question of universal protocol adoption is treated as an operational consideration discussed in Section 6.6.

@@ -1,0 +1,899 @@
+
+This appendix develops the categorical and algebraic core of the
+FRFP (Foundational Reasoning and Feedback Protocol) architecture.
+It provides a self-contained account of:
+
+\begin{itemize}
+  \item an ambient category with explicit and tacit modes;
+  \item a free explicit algebra of task decompositions (the Task Decomposition Grammar, TDG);
+  \item a navigation groupoid acting on explicit shapes;
+  \item a fibration of explicit pipelines over shapes;
+  \item a Grothendieck-style semidirect product \(N \ltimes E\);
+  \item a semantic functor into a preorder-enriched tacit category; and
+  \item correctness and canonicality theorems for Epistemic Structure.
+\end{itemize}
+
+We assume familiarity with basic category theory, rewriting systems,
+and context-free grammars.
+
+Throughout, we write \(\Cfull\) for the ambient category,
+\(\Espace\) for explicit space, and \(\Tspace\) for tacit space.
+
+%======================================================================
+\subsection{Foundations}
+%======================================================================
+
+\subsubsection{Ambient Category \texorpdfstring{\(\Cfull\)}{Cfull}}
+
+\begin{definition}[Ambient category]
+The ambient category \(C_{\mathrm{full}}\) is an arbitrary category that may contain objects beyond those used by the FRFP protocol. We designate three \emph{distinguished} objects
+\(\varnothing, E, T \in \mathrm{Ob}(C_{\mathrm{full}})\):
+\begin{itemize}
+  \item \(\varnothing\): the empty explicit state;
+  \item \(E\): the explicit state object (machine-manipulable representations);
+  \item \(T\): the tacit state object (human correctness-bearing states).
+\end{itemize}
+Morphisms in \(\Cfull\) are partitioned into three epistemic classes:
+\begin{itemize}
+  \item explicit morphisms with codomain \(E\), forming the explicit subcategory
+        \(\Espace \subseteq \Cfull\);
+  \item tacit morphisms with codomain \(T\), forming the tacit subcategory
+        \(\Tspace \subseteq \Cfull\);
+  \item boundary morphisms \(E \to T\), of which a distinguished one is the
+        \emph{Representational Backflow} operator
+        \(\RB : E \to T\).
+\end{itemize}
+Composition in \(\Cfull\) satisfies the usual category axioms:
+\[
+(h \circ g) \circ f \;=\; h \circ (g \circ f), \qquad
+f \circ \id_X \;=\; f \;=\; \id_Y \circ f.
+\]
+\end{definition}
+
+\begin{definition}[Explicit--Tacit Separation (ETS)]
+The \emph{Explicit--Tacit Separation} axiom requires:
+\begin{itemize}
+  \item there are no morphisms \(T \to E\) in \(\Cfull\);
+  \item tacit evaluation cannot be embedded inside explicit pipelines;
+  \item the boundary morphism \(\RB : E \to T\) is not invertible.
+\end{itemize}
+\end{definition}
+
+\subsubsection{Modal Interpretation of Explicit and Tacit Knowledge}
+
+\begin{definition}[Explicit modality]
+A cognitive item \(k\) is represented in \emph{explicit} modality if there exist
+maps
+\[
+\enc : E \to \Sigma^{\ast}, \qquad
+\dec : \Sigma^{\ast} \to E
+\]
+such that \(\dec(\enc(k))\) is equivalent to \(k\) in its epistemic role
+(e.g., as a proof, equation, or program). In particular, \(k\) can be
+faithfully encoded as a finite symbolic artifact and recovered without
+loss of its correctness-relevant structure.
+\end{definition}
+
+\begin{definition}[Tacit modality]
+A cognitive item is represented in \emph{tacit} modality when no such
+encoding preserves its correctness-bearing content. Judgments, intuitions,
+acceptance decisions, and other human correctness-bearing acts live in
+tacit space.
+\end{definition}
+
+Human expression from tacit cognition to explicit content (e.g., writing a
+new question, revising a claim) is modeled externally as the appearance of
+new explicit morphisms in \(\Espace\); it is not modeled as a morphism
+\(T \to E\).
+
+\subsubsection{Explicit Category \texorpdfstring{\(\Espace\)}{E}}
+
+\begin{definition}[Explicit category]
+The explicit category \(\Espace\) is the full subcategory of \(\Cfull\)
+on objects with codomain \(E\). Its core generating morphisms are:
+\[
+\RI : \varnothing \to E
+\quad\text{(Representation Initiation)},\qquad
+\EC : E \to E
+\quad\text{(Explicit Computation)},\qquad
+\ED : E \to E
+\quad\text{(Explicit Diagnostics)}.
+\]
+\end{definition}
+
+\noindent
+\textbf{Remark.}
+\(\EC\) represents algorithmic transformations of explicit content
+(e.g., inference, rewriting, search). \(\ED\) represents explicit
+checks and diagnostics (e.g., consistency checks, sanity tests),
+preparing but not performing tacit evaluation.
+
+\subsubsection{Tacit Category \texorpdfstring{\(\Tspace\)}{T}}
+
+We now formalize tacit space as a preorder-enriched one-object category.
+
+\begin{definition}[Tacit category]
+The tacit category \(\Tspace\) has:
+\begin{itemize}
+  \item a single object, denoted again by \(T\);
+  \item hom-set \(\Hom_{\Tspace}(T,T)\) equipped with a composition
+        operation \(\circ\), making it a monoid;
+  \item a preorder \(\sqsubseteq\) on \(\Hom_{\Tspace}(T,T)\) such that
+        composition is monotone:
+        \[
+        f_1 \sqsubseteq f_2,\ g_1 \sqsubseteq g_2
+        \quad\Rightarrow\quad
+        g_1 \circ f_1 \sqsubseteq g_2 \circ f_2.
+        \]
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Tacit primitives]
+The tacit primitives are the morphisms
+\[
+\TE : T \to T \quad\text{(Tacit Evaluation)},\qquad
+\HFD : T \to T \quad\text{(Human Final Decision)},
+\]
+subject to:
+\begin{itemize}
+  \item \emph{idempotence}:
+        \(\TE \circ \TE = \TE\) and \(\HFD \circ \HFD = \HFD\);
+  \item \emph{commutation}:
+        \(\TE \circ \HFD = \HFD \circ \TE\);
+  \item \emph{monotonicity}: for every \(f : T \to T\),
+        \[
+        f \sqsubseteq \TE \circ f,\qquad
+        f \sqsubseteq \HFD \circ f.
+        \]
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Correctness quotient]
+Let \(J\) be a finite set of correctness judgments
+(e.g., \(\{\mathsf{accept}, \mathsf{reject}, \mathsf{revise}\}\)).
+A \emph{correctness quotient} is a surjective map
+\[
+\gamma : \Obj(\Tspace) \to J
+\]
+assigning to each tacit state a correctness class, subject to
+\[
+\gamma \circ \TE = \gamma = \gamma \circ \HFD.
+\]
+Thus tacit evaluation and final decision may refine or stabilize a tacit
+state but do not change its correctness class.
+\end{definition}
+
+\paragraph{Interpretation and non-triviality of \texorpdfstring{$T$}{T}.}
+The tacit category T is not introduced merely as a formal firewall that “reserves correctness to tacit space”.
+Rather, it is intended to capture a substantive empirical claim about long-horizon scientific and regulatory work:
+in these regimes, there are correctness-bearing aspects of judgment that cannot be exhaustively encoded in a fixed,
+finite explicit representation without loss.
+
+Definitions A.3–A.4 distinguish explicit and tacit modalities by the existence of lossless encodings into symbolic artefacts.
+In many familiar settings—for example, textbook exercises, small programs, or contest-style benchmarks—it is reasonable
+to treat \emph{inner} task correctness as effectively explicit: the task is specified by a finite prompt, there is a fixed
+input–output relation or reference implementation, and success can be checked by a test harness or proof checker.
+FRFP does not deny the existence or value of such regimes. Instead, it treats them as \emph{tacit-insensitive inner layers}:
+conditional on a surrounding tacit backdrop (choice of formalism, modelling assumptions, risk tolerances),
+correctness for that inner task behaves as if it were a pure explicit oracle on E.
+
+The global explicit/tacit split remains.
+Even in proof-assistant or test-oracle settings, tacit judgment is involved in selecting the calculus, specifying what the
+theorem or contract should state, and deciding whether conformance to that specification is adequate for the real-world
+purpose.
+What FRFP targets are workflows where this outer tacit layer is non-trivial and dynamically involved in long-horizon
+use: tasks evolve, standards and constraints shift, and background scientific understanding and norms play an essential
+role in deciding whether an explicit artefact is “good enough”.
+In those settings it is non-trivial, and in our view appropriate, to treat the final correctness status of an explicit
+pipeline as living in T rather than in E. (See Appendix~D.4 for further discussion.)
+
+
+A reasonable skeptic might ask: under what conditions could one reject the Epistemic Spaces axioms
+and the later Epistemic Algebra structure on $T$? There are at least three salient counter-scenarios:
+\begin{enumerate}
+  \item \textbf{Tacit-insensitive inner correctness.}
+For some domains and layers, once a formalism, specification, and world-modelling stance have been tacitly fixed,
+every correctness-bearing judgment at the inner level can be captured by a finite explicit specification and a sound
+and complete proof- or test-based oracle.
+At that inner layer one can model correctness directly in E and treat T as abstracted away; FRFP’s Phase–3
+inevitability and non-automation results then become vacuous or uninteresting for that particular subproblem.
+Our focus is on regimes where the outer tacit layer—where specifications, standards, and modelling choices are
+themselves evolving—remains dynamically involved in correctness.
+
+  \item \textbf{No degradation or escalation.} Epistemic Algebra impossibility results rely on a
+  degradation operator $\delta$ and recurring nontrivial requirements relative to a floor $r$.
+  If one believes that, in their target setting, tacit state does not degrade in any relevant
+  sense, or that requirements do not escalate or recur in the way we assume (for example,
+  because tasks are short-lived and fully specified at the outset), then the inevitability
+  theorems may not apply. Such systems fall outside FRFP's intended long-horizon regime.
+  \item \textbf{Perfect tacit emulation.} If one posits an AI system that can internally
+  reconstruct or simulate human tacit evaluation from explicit traces without loss---violating
+  the NTER and CSC constraints---then our explicit--tacit separation (ETS, HEG, HEC) is simply
+  rejected. FRFP explicitly rules out this possibility by axiom rather than attempting to model
+  it.
+\end{enumerate}
+
+In summary, treating correctness as localized in $T$ is a substantive modelling choice:
+it reflects the view that, for many real scientific and governance workflows, there is residual
+human judgment that cannot be fully captured by static benchmarks or formal specifications, and
+that this residual plays an essential role in long-horizon correctness. The impossibility and
+inevitability results of Epistemic Structure and Dynamics should therefore be read as conditional on this non-trivial
+tacit structure: they apply precisely in domains where correctness genuinely outstrips what can
+be made explicit and mechanically checked.
+
+
+\subsubsection{Boundary Morphism and Semantic RB Functor}
+
+\begin{definition}[Boundary morphism \(\RB\)]
+The \emph{Representational Backflow} operator is a morphism
+\[
+\RB : E \to T
+\]
+in \(\Cfull\). It is the unique explicit-to-tacit interface specified by
+the Representational Backflow axiom.
+\end{definition}
+
+Let \(E_{\mathrm{sem}}\) denote the free explicit category generated by the
+Task Decomposition Grammar (defined in Section~\ref{sec:appendix-tdg}).
+
+\begin{definition}[Semantic RB functor]
+The \emph{semantic RB} is a functor
+\[
+\RBsharp : E_{\mathrm{sem}} \to \Tspace
+\]
+assigning to each explicit pipeline a tacit state representing the content
+received by the human for evaluation.
+\end{definition}
+
+\subsubsection{Interaction Protocols and Epistemic Spaces Axioms}
+
+\begin{definition}[Interaction Protocols constraints]
+The operational environment satisfies:
+\begin{itemize}
+  \item \textbf{IL (Interaction Limitation):} interaction is bounded and turn-based;
+  \item \textbf{AR (Alignment Restriction):} the system must not autonomously act
+        outside explicit instructions;
+  \item \textbf{MD (Mode Discipline):} separation between explicit and tacit modes
+        is enforced at the interface level;
+  \item \textbf{NTER (No Tacit Evaluation Reconstruction):} the system must not
+        reconstruct tacit evaluation internally from explicit traces;
+  \item \textbf{CSC (Correctness Separation Constraint):} correctness decisions
+        must not be delegated to explicit computation.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Epistemic Spaces axioms]
+An admissible epistemic framework satisfies:
+\begin{itemize}
+  \item \textbf{ETS (Explicit--Tacit Separation):} no morphisms \(T \to E\);
+  \item \textbf{HEG (Human-Exclusive Grounding):} correctness grounding occurs
+        only in tacit space via \(\TE\), executed by humans;
+  \item \textbf{HEC (Human-Exclusive Closure):} final acceptance/rejection occurs
+        only via \(\HFD\), executed by humans;
+  \item \textbf{RB (Representational Backflow):} there is a unique boundary
+        morphism \(\RB : E \to T\) used by all pipelines;
+  \item \textbf{CP (Compositional Pipelines):} epistemic processes are built as
+        compositions of primitives into pipelines;
+  \item \textbf{AE (AI-Explicit Restriction):} AI systems act only via
+        explicit-space morphisms in \(\Espace\).
+\end{itemize}
+\end{definition}
+
+%======================================================================
+\subsection{Explicit Algebra and the Task Decomposition Grammar}
+\label{sec:appendix-tdg}
+%======================================================================
+
+\subsubsection{TDG Signature and Free Category}
+
+\begin{definition}[TDG signature]
+The Task Decomposition Grammar (TDG) signature \(\Sigma_{\mathrm{TDG}}\)
+consists of:
+\begin{itemize}
+  \item objects: \(\varnothing\) and \(E\);
+  \item generating morphisms:
+  \[
+    \RI : \varnothing \to E,\qquad
+    \EC : E \to E,\qquad
+    \ED : E \to E;
+  \]
+  \item structural operators \(\BRANCH\), \(\PARALLEL\), \(\LOOP\) acting
+        as higher-arity constructors on morphisms.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Free explicit category]
+The explicit semantic category is the free category on the TDG signature:
+\[
+E_{\mathrm{sem}} := \FreeCat(\Sigma_{\mathrm{TDG}}).
+\]
+There is a canonical interpretation functor
+\(\Ufun : E_{\mathrm{sem}} \to \Espace\)
+sending each TDG term to its denotation as an explicit morphism.
+\end{definition}
+
+\begin{theorem}[Free explicit algebra]
+\label{thm:free-explicit-algebra}
+For any category \(\mathcal{D}\) and any interpretation of the TDG signature
+\(\Sigma_{\mathrm{TDG}}\) in \(\mathcal{D}\), there exists a unique functor
+\(\tilde{F} : E_{\mathrm{sem}} \to \mathcal{D}\) extending that interpretation.
+\end{theorem}
+
+\begin{proof}
+This is the standard universal property of the free category on a graph:
+objects of \(E_{\mathrm{sem}}\) are objects of \(\Sigma_{\mathrm{TDG}}\), and morphisms
+are freely generated paths in the underlying graph. Any graph morphism
+from \(\Sigma_{\mathrm{TDG}}\) into \(\mathcal{D}\) extends uniquely to a functor.
+\end{proof}
+
+\subsubsection{TDG Grammar}
+
+We present TDG both as a signature and as a context-free grammar
+over terms.
+
+\paragraph{Nonterminals.}
+We use:
+\[
+Q \quad\text{for explicit pipelines}, \qquad
+P \quad\text{for full pipelines (explicit + tacit suffix)}.
+\]
+
+\paragraph{Terminals.}
+The terminal symbols are:
+\[
+\RI,\, \EC,\, \ED,\, \RB,\, \TE,\, \HFD,\,
+\BRANCH,\, \PARALLEL,\, \LOOP.
+\]
+
+\paragraph{Productions.}
+The grammar productions are:
+\begin{align*}
+Q &::= \RI,\\
+Q &::= Q;\EC,\\
+Q &::= Q;\ED,\\
+Q &::= \BRANCH(Q_1,\dots,Q_k),\\
+Q &::= \PARALLEL(Q_1,\dots,Q_k),\\
+Q &::= \LOOP(Q_{\mathrm{cond}}, Q_{\mathrm{body}}),\\
+P &::= Q;\RB;\TE;\HFD.
+\end{align*}
+Thus TDG presents \(E_{\mathrm{sem}}\) as an algebra of explicit pipelines
+with a fixed tacit suffix.
+
+\subsubsection{Shapes and Shape Category}
+
+\begin{definition}[TDG shape]
+TDG shapes are generated by the grammar
+\[
+S ::= \chain \mid
+       \branch(S_1,\dots,S_k) \mid
+       \parallel(S_1,\dots,S_k) \mid
+       \loopshape(S_{\mathrm{cond}}, S_{\mathrm{body}}).
+\]
+\end{definition}
+
+\begin{definition}[Shape of a TDG term]
+The mapping
+\(\shape : \text{TDG-terms} \to \text{Shapes}\) is defined inductively by:
+\begin{itemize}
+  \item \(\shape(\RI) = \chain;\)
+  \item \(\shape(Q;\EC) = \shape(Q)\) and similarly \(\shape(Q;\ED) = \shape(Q)\);
+  \item \(\shape(\BRANCH(Q_1,\dots,Q_k))
+         = \branch(\shape(Q_1),\dots,\shape(Q_k));\)
+  \item analogously for \(\PARALLEL\) and \(\LOOP\).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Shape category \(\Scat\)]
+The shape category \(\Scat\) has:
+\begin{itemize}
+  \item objects: shapes \(S\) as above;
+  \item morphisms: structural rewiring maps between shapes
+        (e.g., regrouping, insertion/removal of trivial chains),
+        closed under composition and identities.
+\end{itemize}
+\end{definition}
+
+\subsubsection{Explicit Reduction System}
+
+\begin{definition}[Explicit reduction]
+A binary relation \(\to_E\) on \(\Espace\) is an \emph{explicit reduction system}
+if it is a typed rewrite system satisfying:
+\begin{itemize}
+  \item \textbf{typing:} if \(e : X \to E\) and \(e \to_E e'\), then \(e' : X \to E\);
+  \item \textbf{TDG compatibility:} reductions act componentwise on TDG
+        combinators (\(\BRANCH\), \(\PARALLEL\), \(\LOOP\));
+  \item \textbf{termination:} there is no infinite chain
+        \(e_0 \to_E e_1 \to_E e_2 \to_E \dots\);
+  \item \textbf{local confluence:} if \(e \to_E e_1\) and \(e \to_E e_2\), then
+        \(e_1\) and \(e_2\) have a common descendant.
+\end{itemize}
+We treat these properties as axioms of the explicit reduction system.
+\end{definition}
+
+Under these assumptions, every explicit artifact admits a unique normal
+form modulo \(\to_E\).
+
+%======================================================================
+\subsection{Navigation and Shapes}
+%======================================================================
+
+\subsubsection{Navigation Category and Groupoid}
+
+\begin{definition}[Navigation category \(N_0\)]
+The navigation category \(N_0\) has:
+\begin{itemize}
+  \item objects: shapes \(S\);
+  \item generating morphisms: navigation steps
+        \(g : S \to S'\), such as \(\TRYMODEL\),
+        \(\ADDASSUMPTION\), \(\DROPASSUMPTION\),
+        \(\MERGE\), \(\RESTART\), each with a well-defined
+        source and target shape;
+  \item morphisms: finite composites of such generators.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Navigation groupoid \(N\)]
+The navigation groupoid \(N\) is obtained by freely adjoining inverses
+to morphisms of \(N_0\) and quotienting by the relations
+\[
+g^{-1} \circ g = \id_S, \qquad
+g \circ g^{-1} = \id_{S'},
+\]
+for each generator \(g : S \to S'\).
+Thus every navigation step is reversible up to equality in \(N\).
+\end{definition}
+
+\subsubsection{Fibration \(p : E \to S\)}
+
+\begin{definition}[Projection to shapes]
+The functor \(p : \Espace \to \Scat\) sends each explicit pipeline
+\(e \in \Espace\) to its shape
+\(p(e) := \shape(e)\), and each explicit morphism to the corresponding
+structural morphism between shapes.
+\end{definition}
+
+\begin{definition}[Fibers]
+For each shape \(S\), the fiber
+\[
+E_S := p^{-1}(S)
+\]
+is the category of explicit morphisms with shape \(S\).
+\end{definition}
+
+\begin{definition}[Cartesian liftings and reindexing]
+For each navigation morphism \(n : S \to S'\) in \(N\), we assume a
+cartesian lifting
+\[
+n^\ast : E_S \to E_{S'}
+\]
+which reindexes explicit pipelines along \(n\). This yields an indexed
+category
+\[
+E : N^{\mathrm{op}} \to \mathbf{Cat},
+\qquad
+S \mapsto E_S,\quad
+n \mapsto n^\ast.
+\]
+\end{definition}
+
+%======================================================================
+\subsection{Combined System: Grothendieck Construction}
+%======================================================================
+
+\subsubsection{Semidirect Product \texorpdfstring{\(N \ltimes E\)}{N ⋉ E}}
+
+\begin{definition}[Grothendieck construction \(N \ltimes E\)]
+Given the indexed category
+\(E : N^{\mathrm{op}} \to \mathbf{Cat}\), the Grothendieck
+construction \(\int_N E\) (also written \(N \ltimes E\)) has:
+\begin{itemize}
+  \item objects: pairs \((S, e)\) with \(S \in \Obj(N)\) and \(e \in E_S\);
+  \item morphisms \((S, e) \to (S', e')\): pairs \((n, f)\) where
+        \(n : S \to S'\) in \(N\) and
+        \(f : n^\ast(e) \to e'\) in \(E_{S'}\).
+\end{itemize}
+Composition is given by
+\[
+(n_1, f_1) \circ (n_2, f_2)
+\;=\;
+\bigl(
+  n_1 \circ n_2,\,
+  f_1 \circ n_1^\ast(f_2)
+\bigr).
+\]
+Informally, we may write elements as \((n, e)\) and composition as
+\((n_1, e_1) \circ (n_2, e_2) =
+ (n_1 \circ n_2,\, e_1 \circ n_1(e_2))\) whenever the lifted action is defined.
+\end{definition}
+
+\subsubsection{Rewrite System on \texorpdfstring{\(N \ltimes E\)}{N ⋉ E}}
+
+\begin{definition}[Combined reduction]
+The one-step reduction relation \(\to\) on \(N \ltimes E\) is generated by:
+\begin{itemize}
+  \item \textbf{explicit step:}
+        if \(e \to_E e'\) then \((n, e) \to (n, e')\);
+  \item \textbf{navigation step:}
+        if \(n \to_N n'\) and \(n'\) is defined on \(e\), then
+        \((n, e) \to (n', n'(e))\).
+\end{itemize}
+We assume:
+\begin{enumerate}[label=(A\arabic*)]
+  \item \(\to_E\) is terminating and locally confluent;
+  \item navigation reductions \(\to_N\) have normal forms in each component
+        of \(N\);
+  \item the lifted action is functorial and preserves \(\RB\), \(\TE\),
+        and \(\HFD\).
+\end{enumerate}
+These are axioms of the FRFP reduction environment.
+\end{definition}
+
+%======================================================================
+\subsection{Semantics and Tacit Correctness}
+%======================================================================
+
+\subsubsection{Semantic Functor}
+
+\begin{definition}[Semantic bracket]
+A \emph{semantic functor} is a functor
+\[
+\llbracket{-}\rrbracket : N \ltimes E_{\mathrm{sem}} \to \Tspace
+\]
+assigning to each combined configuration a tacit state.
+On explicit pipelines \(e \in E_{\mathrm{sem}}\), we set
+\[
+\llbracket e \rrbracket := \HFD \circ \TE \circ \RBsharp(e).
+\]
+\end{definition}
+
+\begin{definition}[Navigation invariance]
+The functor \(\llbracket{-}\rrbracket\) is \emph{navigation-invariant up to
+preorder} if
+\[
+\llbracket (n, e) \rrbracket \;\sqsubseteq\; \llbracket e \rrbracket
+\]
+for all \(n,e\) where the action is defined, and equality holds in the
+quotient by the induced equivalence on tacit states in confluent cases.
+\end{definition}
+
+\begin{definition}[Observable correctness]
+Given a pipeline \(P\), its observable correctness outcome is
+\[
+\gamma(\llbracket P \rrbracket) \in J.
+\]
+\end{definition}
+
+%======================================================================
+\subsection{Main Theorems}
+%======================================================================
+
+\subsubsection{Well-Formedness of TDG Pipelines}
+
+\begin{theorem}[Well-formedness]
+\label{thm:well-formed}
+Every TDG-generated pipeline \(P\) is a well-typed morphism in \(\Cfull\) of
+the form
+\[
+\RI \;\to\; (\EC/\ED)^{\ast} \;\to\; \RB \;\to\; \TE \;\to\; \HFD.
+\]
+\end{theorem}
+
+\begin{proof}
+By induction on TDG derivations. The base case \(\RI\) initializes an object
+in \(E\). The constructors \(\EC\) and \(\ED\) have codomain \(E\) and thus
+preserve explicit type. Structural combinators (\(\BRANCH\), \(\PARALLEL\),
+\(\LOOP\)) act within the explicit category and preserve codomain \(E\)
+componentwise. The production for \(P\) enforces the suffix
+\(\RB; \TE; \HFD\), whose types are \(E \to T \to T \to T\).
+By ETS there are no morphisms \(T \to E\), so:
+\begin{itemize}
+  \item no tacit operator can appear before \(\RB\);
+  \item no explicit operator can appear after \(\RB\).
+\end{itemize}
+Thus every derivation yields a well-typed morphism of the stated form.
+\end{proof}
+
+\subsubsection{Explicit Completeness of TDG}
+
+\begin{theorem}[Explicit completeness]
+\label{thm:explicit-completeness}
+TDG generates exactly the admissible explicit morphisms in \(\Espace\).
+\end{theorem}
+
+\begin{proof}
+By construction, \(E_{\mathrm{sem}}\) is the free category on the TDG
+signature, and \(\Ufun\) interprets TDG terms as explicit morphisms in
+\(\Espace\). Every explicit morphism in the FRFP setting is built from
+\(\RI\), \(\EC\), \(\ED\), and the structural operators, hence arises from
+a TDG term; conversely, each TDG term denotes a well-typed explicit
+morphism. The image of TDG under \(\Ufun\) is thus exactly the admissible
+explicit morphisms.
+\end{proof}
+
+\subsubsection{Minimality of Primitive Set}
+
+\begin{theorem}[Minimality]
+\label{thm:minimality}
+The primitive set
+\(\{\RI,\EC,\ED,\RB,\TE,\HFD\}\)
+is minimal under the Epistemic Spaces axioms: removing any primitive violates at
+least one of ETS, HEG, HEC, RB, CP, or AE.
+\end{theorem}
+
+\begin{proof}
+Briefly:
+\begin{itemize}
+  \item \(\RI\) is required to start from \(\varnothing\) and generate explicit
+        content; without it there is no canonical initiation of pipelines.
+  \item \(\EC\) is required for generative explicit reasoning; without it,
+        explicit computation collapses.
+  \item \(\ED\) is required for explicit diagnostics without tacit evaluation;
+        removing it forces diagnostics either into tacit space (violating AE)
+        or to be indistinguishable from \(\EC\) (violating CP and the intended
+        modal roles).
+  \item \(\RB\) is required for explicit-to-tacit handoff; without it there is
+        no admissible morphism \(E \to T\), contradicting the requirement that
+        pipelines reach tacit evaluation.
+  \item \(\TE\) is required for tacit grounding (HEG); without it correctness
+        cannot be evaluated in tacit space.
+  \item \(\HFD\) is required for final correctness closure (HEC); without it
+        there is no morphism corresponding to final acceptance/rejection.
+\end{itemize}
+Removing any primitive causes at least one Epistemic Spaces axiom to fail, so the
+set is minimal.
+\end{proof}
+
+\subsubsection{Epistemic Spaces Initiality}
+
+\begin{definition}[Epistemic Spaces framework]
+A \emph{Epistemic Spaces framework} is a tuple
+\[
+\mathcal{F}_1
+ \;=\;
+(\mathcal{C}, E_{\mathcal{C}}, T_{\mathcal{C}},
+ \RI_{\mathcal{C}}, \EC_{\mathcal{C}}, \ED_{\mathcal{C}},
+ \RB_{\mathcal{C}}, \TE_{\mathcal{C}}, \HFD_{\mathcal{C}})
+\]
+satisfying the Epistemic Spaces axioms.
+Morphisms in the category \(\Frm_1\) of Epistemic Spaces frameworks are functors
+preserving \(E\), \(T\), and all six primitives.
+\end{definition}
+
+\begin{theorem}[Epistemic Spaces initiality]
+\label{thm:phase1-initial}
+There exists an initial object
+\(F^{(1)}_{\mathrm{FRFP}} \in \Frm_1\).
+\end{theorem}
+
+\begin{proof}
+Construct \(F^{(1)}_{\mathrm{FRFP}}\) as the free category on objects
+\(E, T\) and morphisms \(\RI,\EC,\ED,\RB,\TE,\HFD\), modulo the equations
+encoding the Epistemic Spaces axioms (ETS, HEG, HEC, RB, CP, AE). Any other
+Epistemic Spaces framework interprets these generators in a way that satisfies the
+same equations, yielding a unique induced functor
+\(F^{(1)}_{\mathrm{FRFP}} \to \mathcal{F}_1\). Thus
+\(F^{(1)}_{\mathrm{FRFP}}\) is initial in \(\Frm_1\).
+\end{proof}
+\paragraph{Remark A.34a (Non-trivial content of Epistemic Spaces initiality).}
+The statement that $F^{(1)}_{\mathrm{FRFP}}$ is initial in $\mathrm{Frm}_1$ uses the free-category
+construction, but its content is more than formal packaging. The Epistemic Spaces axioms (ETS, HEG,
+HEC, RB, CP, AE), together with the minimality result (Theorem~A.32), severely constrain which
+primitive roles may appear and how they can be composed. Initiality then says that any epistemic
+framework respecting exactly these roles and axioms must interpret RI, EC, ED, RB, TE, HFD in a
+way that factors uniquely through the FRFP ontology. In particular, attempts to ``hide'' additional
+power in explicit space (for example, by letting EC or ED implicitly perform tacit evaluation) break
+the axioms rather than yielding a genuinely different Epistemic Spaces framework.
+
+\subsubsection{Epistemic Algebra Canonicality}
+
+\begin{definition}[Epistemic Algebra architecture]
+A \emph{Epistemic Algebra architecture} is a tuple
+\[
+\mathcal{F}_2
+ =
+(E,\ S,\ p,\ N,\ (\cdot)^\ast,\ N \ltimes E)
+\]
+satisfying:
+\begin{itemize}
+  \item TDG presents \(E\) as a free explicit category;
+  \item \(N\) is a navigation groupoid on shapes \(S\);
+  \item \(p : E \to S\) is a fibration with cartesian liftings \(n^\ast\);
+  \item \(N \ltimes E\) is the Grothendieck construction of the indexed
+        category \(E : N^{\mathrm{op}} \to \mathbf{Cat}\);
+  \item the boundary structure \(\RB\)--\(\TE\)--\(\HFD\) is preserved
+        under navigation.
+\end{itemize}
+Morphisms in the category of Epistemic Algebra architectures preserve all of this
+structure.
+\end{definition}
+
+\begin{theorem}[Epistemic Algebra canonicality]
+\label{thm:phase2-canonicality}
+The FRFP Epistemic Algebra architecture
+\(F^{(2)}_{\mathrm{FRFP}}\) is a canonical object in the category of
+Epistemic Algebra architectures: for every Epistemic Algebra architecture \(\mathcal{A}\),
+there exists a unique structure-preserving morphism
+\[
+F^{(2)}_{\mathrm{FRFP}} \to \mathcal{A}.
+\]
+\end{theorem}
+
+\begin{proof}
+By the universal properties of:
+\begin{itemize}
+  \item the free explicit category \(E_{\mathrm{sem}}\);
+  \item the groupoid completion constructing \(N\);
+  \item the Grothendieck construction forming \(N \ltimes E\).
+\end{itemize}
+Any Epistemic Algebra architecture satisfying the same axioms must interpret the
+FRFP construction in a role-preserving way, inducing a unique morphism
+from \(F^{(2)}_{\mathrm{FRFP}}\).
+\end{proof}
+
+\subsubsection{Confluence of \texorpdfstring{\(N \ltimes E\)}{N ⋉ E}}
+
+\begin{theorem}[Confluence of \(N \ltimes E\)]
+\label{thm:n-e-confluence}
+Under assumptions \textup{(A1)}--\textup{(A3)}, the reduction relation
+\(\to\) on \(N \ltimes E\) is confluent.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Local peaks \((n, e) \leftarrow (n_0, e_0) \to (n', e')\) decompose into:
+\begin{itemize}
+  \item explicit--explicit peaks, which join by local confluence of
+        \(\to_E\);
+  \item navigation--navigation peaks, which join by normalization in each
+        connected component of \(N\);
+  \item mixed peaks, which join because the lifted action commutes with
+        explicit reduction and preserves \(\RB,\TE,\HFD\).
+\end{itemize}
+Together with termination up to navigation-normalization, this yields
+global confluence.
+\end{proof}
+\paragraph{Remark A.37a (Non-trivial aspects of Epistemic Algebra structure).}
+While Theorems~A.36 and A.37 are phrased in terms of standard categorical constructions
+(free categories, groupoid completions, Grothendieck constructions), several aspects of the
+Epistemic Algebra architecture are mathematically substantive:
+
+\begin{itemize}
+  \item \textbf{Compatibility with RB--TE--HFD.} The lifted navigation action and the
+  Grothendieck construction are required to preserve the boundary structure. This rules out
+  navigation steps that implicitly smuggle tacit evaluation back into explicit space or that
+  duplicate/delete the RB--TE--HFD suffix. Showing that the action can be defined so as to
+  commute with explicit reduction while preserving RB, TE, HFD is a genuine structural
+  constraint on admissible navigation schemes.
+  \item \textbf{Confluence of the combined reduction.} Confluence of $\to$ on $N \ltimes E$ is not
+  automatic from confluence of $\to_E$ and normalization in $N$. The proof must analyze
+  mixed peaks and use the functoriality of the lifted action, together with preservation of
+  RB, TE, and HFD, to ensure that explicit and navigation steps can be permuted without
+  changing the normal form.
+  \item \textbf{Interaction with semantics.} The semantic correctness theorem (Theorem~A.38)
+  depends crucially on the fact that navigation-invariant semantics on $N \ltimes E$ respects
+  the Interaction Protocols constraints (no illicit $T \to E$ morphisms) and the boundary-preservation
+  properties above. This is what forces correctness judgments to depend only on the tacit
+  evaluation of the explicit pipeline, not on the particular exploration trajectory.
+\end{itemize}
+
+These non-trivial interactions justify treating Epistemic Algebra canonicality as more than a choice of
+notation: any alternative architecture satisfying the same constraints must reproduce this
+structure and, in particular, cannot avoid the resulting preservation and non-automation results
+without breaking one of the axioms.
+
+\subsubsection{Semantic Correctness for Epistemic Structure}
+
+Collecting the constructions above, we obtain a semantic correctness
+theorem for Epistemic Structure FRFP pipelines.
+
+\begin{theorem}[Semantic correctness]
+\label{thm:semantic-correctness}
+Let \(P\) be any TDG-generated pipeline that is Interaction Protocols admissible and
+Epistemic Spaces/Algebra well-typed. Then:
+\begin{enumerate}
+  \item \(P\) has a unique normal form in \(N \ltimes E\) modulo navigation;
+  \item the observable correctness outcome \(\gamma(\llbracket P \rrbracket)\)
+        is invariant under:
+        \begin{itemize}
+          \item explicit reduction \(\to_E\),
+          \item navigation in \(N\),
+          \item composition in the semidirect product \(N \ltimes E\).
+        \end{itemize}
+\end{enumerate}
+In particular, correctness judgments depend only on the (tacitly evaluated)
+semantic content of the explicit pipeline, not on the particular exploration
+trajectory used to construct it.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Item~(1) follows from Theorem~\ref{thm:n-e-confluence} and the termination
+assumptions (A1)--(A3). Item~(2) follows from navigation invariance of the
+semantic functor, the Interaction Protocols constraints (which rule out illicit T-to-E
+feedback or hidden tacit reconstruction), and the fact that \(\RB,\TE,\HFD\)
+are preserved under navigation and do not appear in the explicit phase.
+\end{proof}
+
+\subsection{Worked example: sepsis consult as an FRFP pipeline}
+\label{sec:cp-sepsis-example}
+We sketch a concrete instance of the FRFP calculus corresponding to the sepsis consult scenario
+of \S\ref{sec:case-sepsis}. The goal is to show how a real conversational workflow is
+represented as a TDG term, reduced to normal form in $N \ltimes E$, and checked for
+Interaction Protocols admissibility and Epistemic Spaces/Algebra well-typedness.
+
+\paragraph{TDG and free explicit category.}
+Let the TDG have objects
+\[
+  \Ob(E_0) = \{\textsf{Ctx}, \textsf{Input}, \textsf{CaseSummary},
+  \textsf{DraftPlan}, \textsf{CandidatePlan}, \textsf{Report}, \textsf{Decision}\}
+\]
+and generators
+\begin{align*}
+  \mathsf{RB} &: \textsf{Ctx} \to \textsf{Input}, \\
+  \mathsf{prep} &: \textsf{Input} \to \textsf{CaseSummary}, \\
+  \mathsf{ehr} &: \textsf{CaseSummary} \to \textsf{CaseSummary}, \\
+  \mathsf{calc} &: \textsf{CaseSummary} \to \textsf{CaseSummary}, \\
+  \mathsf{assist}_0 &: \textsf{CaseSummary} \to \textsf{DraftPlan}, \\
+  \mathsf{review}_\mathrm{res} &: \textsf{DraftPlan} \to \textsf{CandidatePlan}, \\
+  \mathsf{review}_\mathrm{att} &: \textsf{CandidatePlan} \to \textsf{Report}, \\
+  \mathsf{HFD} &: \textsf{Report} \to \textsf{Decision}.
+\end{align*}
+Let $E$ be the free category on this graph, modulo the Epistemic Algebra equations for $\mathsf{TE}$ and
+the RB--TE--HFD boundary. We define
+\[
+  \mathsf{assist} := \mathsf{assist}_0 \circ \mathsf{calc} \circ \mathsf{ehr}
+  : \textsf{CaseSummary} \to \textsf{DraftPlan},
+\]
+and the explicit sepsis pipeline
+\[
+  e_{\mathrm{sepsis}} :=
+  \mathsf{HFD} \circ \mathsf{review}_\mathrm{att} \circ \mathsf{review}_\mathrm{res} \circ
+  \mathsf{assist}_0 \circ \mathsf{calc} \circ \mathsf{ehr} \circ \mathsf{prep} \circ \mathsf{RB}
+  : \textsf{Ctx} \to \textsf{Decision}.
+\]
+
+\paragraph{Reduction and normal form.}
+Let $R_E$ be the explicit reduction system on $E$ that contracts $\mathsf{ehr}$ and $\mathsf{calc}$
+into $\mathsf{assist}$ inside the $\mathsf{assist}_0$ wrapper:
+\[
+  \mathsf{assist}_0 \circ \mathsf{calc} \circ \mathsf{ehr} \;\to\; \mathsf{assist}.
+\]
+By confluence of $R_E$ and compatibility with the RB--TE--HFD boundary, the normal form of
+$e_{\mathrm{sepsis}}$ is
+\[
+  e_{\mathrm{sepsis}}^{\ast} :=
+  \mathsf{HFD} \circ \mathsf{review}_\mathrm{att} \circ \mathsf{review}_\mathrm{res} \circ
+  \mathsf{assist} \circ \mathsf{prep} \circ \mathsf{RB}.
+\]
+Lifting to $N \ltimes E$ and applying the confluence theorem for the combined reduction (Epistemic Algebra)
+ensures that any admissible navigation of the conversational UI yields a unique normal form
+equivalent to $e_{\mathrm{sepsis}}^{\ast}$ up to the RB--TE--HFD suffix.
+
+\paragraph{Interaction Protocols admissibility.}
+We interpret the Interaction Protocols axioms IL, AR, MD, and NTER as constraints on realizations of
+$e_{\mathrm{sepsis}}$ in a concrete UI:
+\begin{itemize}
+  \item IL: the only interaction channels between AI and human tacit state are via explicit objects in
+  $E$ (case summaries, drafts, candidate plans, reports). No morphisms $T \to E$ are introduced.
+  \item AR: there is no morphism in the realization that effects clinical actions without passing
+  through $\mathsf{HFD} \circ \mathsf{review}_\mathrm{att}$; the AI cannot place orders or write notes.
+  \item MD: all model-dependent computation is represented by $\mathsf{assist}$ and its internal
+  decomposition; tacit evaluation (clinician judgment) is localized at $\mathsf{review}_\mathrm{res}$ and
+  $\mathsf{review}_\mathrm{att}$.
+  \item NTER: the implementation forbids any arrow that would encode a tacit correctness oracle in
+  explicit space (no reconstruction of $T$ from model outputs). In particular, the realization of
+  $\mathsf{assist}$ is constrained to produce drafts and rationales, not authoritative decisions.
+\end{itemize}
+Under these conditions, any concrete realization of $e_{\mathrm{sepsis}}$ satisfies the Interaction Protocols
+interface axioms and is therefore admissible.
+
+\paragraph{Epistemic Spaces/Algebra well-typedness.}
+In Epistemic Spaces, each generator is assigned an epistemic role: $\mathsf{prep}$ and $\mathsf{assist}$ are
+explicit-computation arrows; $\mathsf{review}_\mathrm{res}$ and $\mathsf{review}_\mathrm{att}$ are explicit
+presentation points at which tacit evaluation in $T$ occurs; $\mathsf{RB}$ and $\mathsf{HFD}$ are
+boundary morphisms. The typing rules of the Epistemic Spaces ontology then derive a composite judgment
+showing that $e_{\mathrm{sepsis}}^{\ast}$ is a well-typed explicit pipeline with correctness localized in
+tacit post-composition at $\mathsf{review}_\mathrm{att}$. In Epistemic Algebra, the same term appears as a
+normal form in $N \ltimes E$; compatibility of reduction with the semantics ensures that the
+correctness predicate applied to $e_{\mathrm{sepsis}}^{\ast}$ coincides with the protocol-level notion of
+FRFP-hallucination (a violation of $t \succeq \mathrm{Req}(e,c)$ at the moment of final acceptance).
+Thus the sepsis consult example realizes a concrete conversational UI that is Interaction Protocols admissible,
+Epistemic Spaces/Algebra well-typed, and corresponds to a specific normal form in the FRFP calculus.

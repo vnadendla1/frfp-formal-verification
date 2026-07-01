@@ -1,0 +1,158 @@
+% ===================================================================
+\section{Introduction}
+\label{ch:intro}
+% ===================================================================
+
+\subsection{Background and Motivation}
+
+The Foundational Reasoning and Feedback Protocol (FRFP) is a framework for
+structuring Human-AI collaboration through a typed pipeline architecture that
+enforces separation between explicit (AI-accessible) and tacit
+(human-exclusive) cognitive objects. The framework was published in two companion
+papers: a conceptual/theory paper establishing the mathematical foundations, and a
+technical specification paper defining the protocol semantics.
+
+Informal mathematical proofs in papers --- even rigorous ones --- routinely omit
+steps deemed ``obvious.'' These omissions are harmless in most cases, but in a
+framework whose explicit goal is to provide formal governance guarantees for
+AI-assisted decision-making, any gap in the mathematical foundation is a direct
+threat to the stated claims.
+
+Formal verification addresses this by requiring every logical inference step to be
+checked by a proof assistant. When a proof assistant accepts a proof, it provides
+the same level of certainty as a line-by-line expert review with no gaps allowed.
+
+This paper reports a complete machine-checked formalization of FRFP using Lean~4,
+the most active modern interactive proof assistant. The formalization was conducted
+as an independent companion effort: no changes were made to the published papers,
+but the Lean proof obligations revealed refinements, corrections, and new results
+that are documented here.
+
+% -------------------------------------------------------------------
+\subsection{What Formal Verification Provides}
+% -------------------------------------------------------------------
+
+\textbf{Lean~4 guarantees when it accepts a proof:}
+
+\begin{itemize}
+  \item \textbf{Logical soundness}: Every inference step follows from axioms and
+        previously proven results.
+  \item \textbf{Completeness}: No gaps or hand-waving --- every ``trivial'' step
+        must be justified.
+  \item \textbf{Type correctness}: All variables carry consistent types through
+        the entire proof.
+  \item \textbf{Termination}: Proofs contain no circular reasoning.
+\end{itemize}
+
+\textbf{What Lean does not guarantee:}
+
+\begin{itemize}
+  \item That the formalized problem matches the intended informal problem.
+  \item That axioms correspond to physical or computational reality.
+  \item That the framework design is optimal or unique.
+\end{itemize}
+
+These caveats are standard in formal verification and define the scope of what
+machine-checking can provide.
+
+% -------------------------------------------------------------------
+\subsection{Scope of This Companion Paper}
+% -------------------------------------------------------------------
+
+This companion covers:
+
+\begin{enumerate}
+  \item \textbf{21 core modules} comprising the full FRFP formal library
+        (\texttt{Frfp/Core/}).
+  \item \textbf{3 minimal-basis modules} (\texttt{Frfp/Minimal/}) implementing
+        the reduced axiom basis.
+  \item \textbf{1 case study module} (\texttt{Example/Sepsis.lean}) demonstrating
+        an end-to-end executable pipeline.
+  \item \textbf{1 executable report} (\texttt{FRFPReport.lean}) summarizing all
+        key theorems.
+\end{enumerate}
+
+The verification is complete under two explicit caveats:
+\begin{enumerate}
+  \item The seven irreducible FRFP base axioms (HEG, HEC, CP, IL, AR, NTER, CSC)
+        are assumed as theory premises.
+  \item Every other axiom cites a published, research-grade reference.
+\end{enumerate}
+
+Under these caveats: \textbf{0 sorry, 0 uncited axioms, 0 build errors.}
+
+% -------------------------------------------------------------------
+\subsection{Primary Contributions}
+% -------------------------------------------------------------------
+
+\begin{contribution}[Complete machine-checked formalization]
+269 theorems across 21 modules, verified by Lean~4.29.0 with Mathlib v4.29.0.
+This is the first fully machine-checked formalization of a human-AI governance
+framework at this scale.
+\end{contribution}
+
+\begin{contribution}[Axiom minimization]
+The original FRFP basis of 11 axioms is reducible to 7 independent primitives.
+Four axioms --- ETS, RB, AE, and MD --- are derivable as theorems from the
+remaining core.
+\end{contribution}
+
+\begin{contribution}[New theorems]
+Three genuinely novel results emerged from the proof obligations imposed by Lean:
+\begin{itemize}
+  \item A canonical earliest-unresolved-witness theorem for governance traces.
+  \item A governance-safe trace-extension theorem.
+  \item A protocol phase-decomposition (normal-form) theorem.
+\end{itemize}
+None of these were conjectured or stated in the published papers.
+\end{contribution}
+
+\begin{contribution}[Vibecoding methodology documentation]
+The formalization was conducted using an AI-assisted development workflow. This
+paper documents the workflow, its success and failure rates, and lessons for
+others attempting similar formalization projects.
+\end{contribution}
+
+% -------------------------------------------------------------------
+\subsection{Relation to the Published FRFP Papers}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Paper & Role \\
+\midrule
+FRFP conceptual/theory & Defines framework; cited as the informal specification \\
+FRFP technical specification & Defines protocol details; cited as the engineering reference \\
+This paper & Machine-checked formalization; reports new structural results \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Organization of This Paper}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Chapter & Content \\
+\midrule
+2 & AI-assisted Lean development methodology (vibecoding) \\
+3 & Axiom architecture, audit protocol, and citation inventory \\
+4 & Core verification results by module \\
+5 & Reduced axiom basis: 11 $\to$ 7 primitives \\
+6 & New theorems from formalization \\
+7 & Case studies: Sepsis example, Grothendieck construction, $\mathrm{runTo}\omega$ bijection \\
+8 & Reproducibility package: build instructions, theorem inventory, module map \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Availability}
+% -------------------------------------------------------------------
+
+The full Lean source code, build scripts, and documentation are available in the
+\texttt{FRFP\_Math\_Verification/} repository. Chapter~\ref{ch:repro} provides a
+complete guide to reproducing all results from a clean environment.

@@ -1,0 +1,641 @@
+\chapter{Design Patterns and Anti-Patterns in FRFP Systems}
+\label{ch:frfp-patterns}
+
+This chapter distils the case studies of Volume~II into a small set of
+\emph{design patterns} and \emph{anti-patterns} for FRFP systems.
+The goal is a reusable pattern language:
+a way to recognise structural moves that tend to go well or badly across
+domains, and to apply those moves when designing new systems.
+
+We write patterns in the same vocabulary as Volume~I:
+
+\begin{itemize}
+  \item explicit space \(E\) and explicit pipelines in \(N \ltimes E\);
+  \item tacit space \(T\) and tacit states of humans and institutions;
+  \item boundaries where explicit artefacts cross into tacit endorsement;
+  \item safe horizons that bound how far runs can proceed without
+        re-grounding;
+  \item institutional operators that shape which runs are admissible.
+\end{itemize}
+
+Each pattern is illustrated (implicitly or explicitly) by one or more
+case studies in this volume:
+AlphaFold, DR screening AI, Waymo, Watson, Zillow, COMPAS, Project Vend,
+Mata v.\ Avianca, the London Whale, and the platform-scale systems.
+
+\section{Pattern P1: Narrow, Strong Explicit Semantics}
+\label{pattern:p1}
+
+\textbf{Name.} Narrow, Strong Explicit Semantics.
+
+\textbf{Intent.} Restrict the AI system to tasks where the mapping it
+implements in explicit space is well-defined, externally evaluable, and
+closely aligned with the tacit notion of correctness for that task.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Choose a task with a clear, domain-accepted definition:
+        \begin{itemize}
+          \item e.g.\ ``predict protein 3D structure from sequence'',
+                ``detect more-than-mild diabetic retinopathy from a
+                fundus image'', ``classify a stop sign''.
+        \end{itemize}
+  \item Ensure ground truth is available at scale:
+        experimental structures, specialist-graded images, labelled
+        scenarios, etc.
+  \item Define explicit metrics that are good proxies for tacit
+        correctness:
+        RMSD, sensitivity/specificity, error rates on held-out data.
+  \item Train and evaluate models \emph{only} within this well-defined
+        semantic scope.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item AlphaFold:
+        sequence $\to$ static structure, evaluated in CASP.
+  \item DR screening AI:
+        fundus image $\to$ mtmDR/no-mtmDR/ungradable, evaluated
+        against masked specialist grading.
+  \item Core perception modules in Waymo:
+        sensor data $\to$ object detections and lane geometry.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item Explicit metrics track the domain’s tacit notion of correctness.
+  \item Failures are mainly statistical (noise, distribution shift),
+        not semantic (wrong task).
+  \item It is easier to reason formally about safe horizons, because
+        the task semantics do not mutate as the system scales.
+\end{itemize}
+
+\subsection*{When to use}
+
+\begin{itemize}
+  \item In high-stakes domains where a narrow, well-defined subtask is
+        available.
+  \item As the foundation on top of which more complex, tacit-heavy
+        workflows are built.
+\end{itemize}
+
+\section{Pattern P2: Explicit Uncertainty and ``I Don't Know''}
+\label{pattern:p2}
+
+\textbf{Name.} Explicit Uncertainty and ``I Don't Know''.
+
+\textbf{Intent.} Design explicit pipelines so that they can express when
+they are unreliable, and route those cases back into tacit space instead
+of forcing a brittle decision.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Augment outputs with explicit uncertainty or quality measures:
+        \begin{itemize}
+          \item per-residue confidence scores (pLDDT, PAE);
+          \item image-quality flags and ``ungradable'' outcomes;
+          \item confidence intervals, anomaly flags, or out-of-domain
+                detection.
+        \end{itemize}
+  \item Treat ``I don't know'' or ``ungradable'' as first-class outputs,
+        \emph{not} as errors.
+  \item Define routing rules:
+        when uncertainty exceeds a threshold, control passes to human
+        tacit judgement or to a different, more conservative pipeline.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item AlphaFold’s confidence scores and PAE maps:
+        users interpret low-confidence regions differently from
+        high-confidence cores.
+  \item DR screening AI’s ``ungradable'' outcome:
+        poor images trigger referral rather than a false negative.
+  \item Waymo’s safe-stop behaviours when perception is degraded or
+        conditions leave the ODD.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item Reduces catastrophic errors in regions where explicit semantics
+        are fragile.
+  \item Forces boundary events back into \(T\) when \(E\) loses grip.
+  \item Makes it easier for institutional operators to specify when AI
+        may or may not be used autonomously.
+\end{itemize}
+
+\subsection*{When to use}
+
+\begin{itemize}
+  \item Whenever models will unavoidably face out-of-distribution cases
+        or ambiguous inputs.
+  \item In any domain where false confidence is more dangerous than
+        equivocation (law, medicine, finance, safety-critical control).
+\end{itemize}
+
+\section{Pattern P3: Boundary-Centred Interfaces}
+\label{pattern:p3}
+
+\textbf{Name.} Boundary-Centred Interfaces.
+
+\textbf{Intent.} Design systems so that boundaries---points where humans
+endorse or commit---are explicit, instrumented, and supported by the
+right information, instead of being implicit in a UI or process.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Identify boundary events:
+        filings, orders, diagnoses, trade approvals, deployments,
+        policy adoptions.
+  \item For each boundary, specify:
+        \begin{itemize}
+          \item who is authorised to endorse;
+          \item what artefacts they see (raw data, model outputs,
+                uncertainty, alternatives);
+          \item what gets logged (identity, time, context, rationale).
+        \end{itemize}
+  \item Design UIs and workflows around boundaries:
+        the interface foregrounds the boundary decision, not just model
+        outputs.
+  \item Treat signatures and approvals as semantic operations:
+        transitions from ``proposal'' to ``endorsed'', visible in the
+        system state.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item DR screening workflows:
+        AI result $\to$ documented screening status / referral.
+  \item Waymo:
+        system-level decisions about where and when to operate
+        driverlessly, with explicit ODD declarations and permits.
+  \item The legal case-study counterfactuals:
+        AI-generated drafts, but human-verified citations at filing.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item Makes it harder for AI systems to silently capture correctness.
+  \item Creates a clear audit trail of tacit endorsements.
+  \item Supports institutional oversight: committees can review
+        boundary events, not just raw logs.
+\end{itemize}
+
+\subsection*{When to use}
+
+\begin{itemize}
+  \item For any system affecting rights, money, safety, or scientific
+        claims.
+  \item Wherever existing professional norms already treat certain
+        actions (signing, prescribing, executing a trade) as serious
+        commitments.
+\end{itemize}
+
+\section{Pattern P4: Engineered Safe Horizons}
+\label{pattern:p4}
+
+\textbf{Name.} Engineered Safe Horizons.
+
+\textbf{Intent.} Make the limits of a system’s operation in time, scale,
+and domain explicit and enforce them with mechanisms that force
+re-grounding in tacit judgement.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Define horizons along three axes:
+        \begin{itemize}
+          \item temporal (how long between thorough reviews);
+          \item scale (how many cases, trades, patients, rides, or
+                items affected);
+          \item domain (how far from the context where the system was
+                validated).
+        \end{itemize}
+  \item Associate each horizon with triggers:
+        caps, trial endpoints, or conditions under which operation must
+        pause or shift mode.
+  \item Define re-grounding procedures:
+        audits, revalidation, redesign, or human-only periods.
+  \item Use phase-gated deployment:
+        pilot $\to$ limited expansion $\to$ broader roll-out, with
+        explicit go/no-go decisions between phases.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item DR screening AI:
+        yearly re-screening intervals; post-market surveillance; limits
+        on indications and camera types.
+  \item Waymo:
+        operational design domains (cities, weather, road types);
+        gradual expansion; service suspension in out-of-ODD conditions.
+  \item Scientific workflows with AlphaFold:
+        predictions feed into experiments; no deployment of predictions
+        as clinical facts without separate validation.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item Reduces the risk of slow, unnoticed drift.
+  \item Forces institutions to periodically reflect and adjust.
+  \item Provides natural points to change objectives, models, and
+        governance in light of new evidence.
+\end{itemize}
+
+\subsection*{When to use}
+
+\begin{itemize}
+  \item For any long-horizon, high-impact system (clinical programmes,
+        trading desks, platform-wide algorithms).
+  \item Especially when scaling pilots to full production.
+\end{itemize}
+
+\section{Pattern P5: Governance as a First-Class Operator}
+\label{pattern:p5}
+
+\textbf{Name.} Governance as a First-Class Operator.
+
+\textbf{Intent.} Treat governance as a semantic layer with its own
+operators on tacit states and admissible runs, not as an afterthought
+described only in prose or policy PDF files.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Identify governance bodies:
+        internal committees, external regulators, boards, professional
+        societies, ethics panels.
+  \item For each, specify:
+        \begin{itemize}
+          \item what information they see (metrics, incidents,
+                case studies, whistleblower reports);
+          \item what operations they can perform:
+                approve, suspend, restrict, mandate changes, redefine
+                objectives;
+          \item how frequently they act and under what triggers.
+        \end{itemize}
+  \item Ensure governance is structurally distinct from the teams that
+        build and operate the system, even if they share information.
+  \item Model governance decisions as changes in:
+        \begin{itemize}
+          \item boundaries (what AI can/cannot decide);
+          \item horizons (caps, trial lengths, ODDs);
+          \item acceptable explicit tasks and objectives.
+        \end{itemize}
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item FDA and similar regulators for DR screening AI:
+        explicit indications-for-use, performance targets, and
+        post-market requirements.
+  \item EMBL--EBI and the structural biology community around AF-DB:
+        shared norms on how AlphaFold predictions should be used.
+  \item City and state regulators for Waymo:
+        permits, geographic constraints, and operational restrictions.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item Makes institutional non-automation visible and analysable.
+  \item Gives a formal place to value judgements and political choices.
+  \item Allows comparison of governance designs across domains.
+\end{itemize}
+
+\subsection*{When to use}
+
+\begin{itemize}
+  \item Always, for systems that affect large populations or high-stakes
+        domains.
+  \item Even for internal tools, where a ``governance board'' might be
+        a cross-functional risk committee rather than a regulator.
+\end{itemize}
+
+\bigskip
+
+We now contrast these positive patterns with recurrent anti-patterns from
+the failure case studies.
+
+\section{Anti-Pattern A1: Advisory-in-Name-Only}
+\label{antipattern:a1}
+
+\textbf{Name.} Advisory-in-Name-Only.
+
+\textbf{Smell.} The system is officially ``decision support'', but in
+practice its outputs are rarely overruled and often determine outcomes.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Model outputs are integrated into workflows as default
+        decisions:
+        risk scores that drive bail decisions, hiring scores that
+        determine interview lists, recommendations that become offers.
+  \item Human ``overrides'' are possible but rare, costly, or
+        discouraged.
+  \item Interfaces emphasise model scores, not uncertainty or
+        alternative reasoning.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item De facto boundary capture:
+        correctness migrates from tacit space \(T\) to the explicit
+        pipeline \(N \ltimes E\), contradicting stated governance.
+  \item Formal accountability remains with humans, but their practical
+        control is diminished.
+  \item Failures are attributed to ``human error'' despite being driven
+        structurally by model design and integration.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item COMPAS scores in courts which, while officially advisory, often
+        significantly influence bail and sentencing.
+  \item Algorithmic ranking in hiring or admissions that effectively
+        determines the candidate pool.
+\end{itemize}
+
+\subsection*{Refactoring toward patterns}
+
+\begin{itemize}
+  \item Introduce boundary-centred interfaces:
+        require structured justification for following or overriding
+        the tool, logged for review.
+  \item Narrow the explicit task and ensure strong explicit semantics
+        (Pattern~P1) and uncertainty signalling (Pattern~P2).
+\end{itemize}
+
+\section{Anti-Pattern A2: Metric Worship and Explicit-Only Governance}
+\label{antipattern:a2}
+
+\textbf{Name.} Metric Worship and Explicit-Only Governance.
+
+\textbf{Smell.} Decision-makers treat dashboards and metrics as
+authoritative, with little attention to their semantics, limits, or
+unmodelled effects.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item A small set of key metrics (VaR, engagement, accuracy, NPS,
+        ROC-AUC) dominates governance conversations.
+  \item Decision-makers focus on whether metrics are within target
+        bands, not on whether the metrics still measure what matters.
+  \item Qualitative and tacit signals (frontline feedback, user
+        discomfort, external concerns) are dismissed as ``anecdotal''
+        or noisy.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item Model mis-specification and distribution shift go unnoticed
+        until large failures occur.
+  \item Governance is effectively automated: institutional operators
+        become operators on metrics rather than on real-world states.
+  \item Incentives skew toward metric gaming and cosmetic fixes.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item Zillow Offers scaling based on backtested pricing metrics while
+        ignoring selection effects and regime shifts.
+  \item London Whale relying on a flawed VaR model that understated
+        risk but was accepted because the numbers looked good.
+  \item Watson Health emphasising demo performance and marketing
+        narratives over prospective clinical evidence.
+\end{itemize}
+
+\subsection*{Refactoring toward patterns}
+
+\begin{itemize}
+  \item Make governance a first-class operator (Pattern~P5) with
+        independent tacit input.
+  \item Use metrics as inputs, not replacements, for boundary decisions.
+  \item Introduce safe horizons (Pattern~P4) tied to independent
+        evaluations, not just internal metrics.
+\end{itemize}
+
+\section{Anti-Pattern A3: One-Shot Validation, Infinite Deployment}
+\label{antipattern:a3}
+
+\textbf{Name.} One-Shot Validation, Infinite Deployment.
+
+\textbf{Smell.} The system passes an initial validation (pilot, test,
+audit) and then is deployed at scale indefinitely, with no explicit
+plan for revalidation or sunset.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Initial testing on a fixed dataset or limited pilot population.
+  \item A one-time ``go'' decision leads to wide or permanent
+        deployment.
+  \item Monitoring reduces to passive metrics; there are no hard
+        endpoints or caps that \emph{force} a strategic review.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item The system gradually drifts away from the conditions under
+        which it was validated.
+  \item Accumulated effects (capital exposure, reliance, behaviour
+        change) are not revisited until visible failure.
+  \item It becomes politically and economically difficult to pause or
+        decommission the system, even when evidence of misalignment
+        appears.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item Zillow Offers scaling rapidly after initial model success,
+        without clear phase gates tied to external conditions.
+  \item Long-lived use of risk scores or heuristic tools in law,
+        finance, or medicine, long after their original evidence base
+        has aged or the context has shifted.
+\end{itemize}
+
+\subsection*{Refactoring toward patterns}
+
+\begin{itemize}
+  \item Replace one-shot validation with engineered safe horizons
+        (Pattern~P4): pilots with explicit endpoints, caps, and
+        revalidation rules.
+  \item Tie horizon extensions to independent evidence, not just
+        internal enthusiasm.
+\end{itemize}
+
+\section{Anti-Pattern A4: Workflow-Led Design Without Semantics}
+\label{antipattern:a4}
+
+\textbf{Name.} Workflow-Led Design Without Semantics.
+
+\textbf{Smell.} The system is specified in terms of phases, swimlanes,
+and diagrams, but there is no clear account of what the AI components
+in fact compute, or what states and boundaries mean.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item Design documents emphasise:
+        \begin{itemize}
+          \item who talks to whom;
+          \item which tickets are created;
+          \item which committees review what, when.
+        \end{itemize}
+  \item There is little or no:
+        \begin{itemize}
+          \item formal description of explicit tasks and mappings;
+          \item explicit modelling of tacit states;
+          \item representation of boundaries as state transitions.
+        \end{itemize}
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item It is difficult to reason about correctness or failure modes:
+        everything is in narrative form.
+  \item Workflows become brittle when context changes; there is no
+        semantic core to adapt.
+  \item Governance devolves into checking boxes rather than evaluating
+        runs in \(N \ltimes E\).
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item The initial V01 framework for long-horizon collaboration (the
+        meta-case study):
+        rich in workflow concepts, poor in semantic structure.
+  \item Many contemporary ``AI governance'' and ``responsible AI''
+        documents that specify processes but not semantics.
+\end{itemize}
+
+\subsection*{Refactoring toward patterns}
+
+\begin{itemize}
+  \item Start from explicit and tacit spaces (Steps~2 and~3 in
+        Chapter~\ref{ch:frfp-method}), not from swimlanes.
+  \item Introduce explicit semantics (Pattern~P1) and boundaries
+        (Pattern~P3) before designing workflows.
+  \item Treat governance as a semantic layer (Pattern~P5), not just a
+        flowchart box.
+\end{itemize}
+
+\section{Anti-Pattern A5: Tacit Erosion by Over-Automation}
+\label{antipattern:a5}
+
+\textbf{Name.} Tacit Erosion by Over-Automation.
+
+\textbf{Smell.} Over time, humans become less able or willing to
+exercise independent judgement, because AI systems handle more of the
+cognitive work.
+
+\subsection*{Structure}
+
+\begin{itemize}
+  \item AI tools provide increasingly complete drafts, diagnoses,
+        recommendations, or decisions.
+  \item Human users are nominally ``in the loop'' but:
+        \begin{itemize}
+          \item rarely override the system;
+          \item lose practice in underlying skills;
+          \item face time pressure that incentivises acceptance.
+        \end{itemize}
+  \item Training and evaluation assume stable human capabilities, even
+        as those capabilities change under AI influence.
+\end{itemize}
+
+\subsection*{Consequences}
+
+\begin{itemize}
+  \item When AI systems fail or encounter novel cases, human backstops
+        are weaker than assumed.
+  \item Organisational claims that ``humans are ultimately
+        responsible'' become less realistic over time.
+  \item Tacit norms (e.g.\ about verification, scepticism) decay.
+\end{itemize}
+
+\subsection*{Examples}
+
+\begin{itemize}
+  \item Lawyers relying on LLMs for research and drafting, leading to
+        hallucinated citations and weakened verification norms
+        (\emph{Mata v.\ Avianca} and follow-ons).
+  \item Potential long-run effects of heavy LLM usage on students'
+        writing, critical reading, or coding skills.
+\end{itemize}
+
+\subsection*{Refactoring toward patterns}
+
+\begin{itemize}
+  \item Design boundaries and interfaces (Pattern~P3) that require
+        substantive human engagement at key points.
+  \item Use safe horizons (Pattern~P4) to limit how far AI-driven
+        workflows can proceed without deeper human involvement.
+  \item Explicitly model tacit skills and norms as part of \(T\) and
+        treat their preservation as a design objective.
+\end{itemize}
+
+\section{Using the Pattern Language}
+
+This chapter offers a compact language for describing FRFP systems in
+practice:
+
+\begin{itemize}
+  \item Patterns P1--P5 describe structural moves that appear again and
+        again in successful or robust systems.
+  \item Anti-patterns A1--A5 capture recurrent failure modes across
+        very different domains.
+\end{itemize}
+
+When analysing or designing a system, you can use this language in two
+ways:
+
+\begin{enumerate}
+  \item \textbf{Diagnostic.}
+        Walk through the anti-patterns and ask:
+        \begin{itemize}
+          \item Do we claim to be ``advisory'' while behaving
+                otherwise (A1)?
+          \item Are we governing primarily by metrics (A2)?
+          \item Are we treating validation as a one-time gate (A3)?
+          \item Are our documents workflow-led rather than semantic
+                (A4)?
+          \item Are we assuming tacit skills that may erode (A5)?
+        \end{itemize}
+  \item \textbf{Design.}
+        For each pattern, ask how to instantiate it:
+        \begin{itemize}
+          \item What is the narrow, strong task we can safely
+                automate (P1)?
+          \item How do we express uncertainty and ``I don't know''
+                states (P2)?
+          \item Where are our boundaries, and how do we surface them
+                in UI and logs (P3)?
+          \item What are our safe horizons and re-grounding
+                procedures (P4)?
+          \item What does governance look like as an operator, not
+                just a checklist (P5)?
+\end{itemize}
+\end{enumerate}

@@ -1,0 +1,114 @@
+% ===================================================================
+\section{Appendix D: Axiom Citation Guide}
+\label{app:bibliography}
+% ===================================================================
+
+This appendix annotates the primary sources cited by axioms in the Lean
+build. Every axiom in the active build cites one of these sources; the
+right-hand column notes which Lean modules carry those citations.
+
+\subsection*{Primary Sources Cited by Axioms}
+
+The following references are cited within the Lean source code as axiom
+justifications. Every axiom in the active build cites one of these sources.
+
+\medskip
+
+oindent\textbf{IEEE Standard 754-2019}~\cite{IEEE754_2019}.
+\textit{IEEE Standard for Floating-Point Arithmetic.}
+IEEE Computer Society, 2019.
+\textit{Covers:} §4 (attributes), §5 (operations), §6 (infinity/NaN), §10 (total ordering).
+\textit{Cited by:} 59 axioms in \texttt{FloatTheory} and \texttt{FloatMonotonicity}.
+
+\medskip
+
+oindent\textbf{Billingsley, P.}~\cite{Billingsley1995} (1995).
+\textit{Probability and Measure} (3rd ed.).
+John Wiley \& Sons.
+\textit{Covers:} probability space axioms (Ch.~1), conditional probability (Ch.~5),
+stopping times (Ch.~7), measure theory (Ch.~3).
+\textit{Cited by:} 21 axioms in \texttt{CollectiveLayer}, \texttt{StoppingTime}, \texttt{SurvivalAnalysis}.
+
+\medskip
+
+oindent\textbf{Baader, F., \& Nipkow, T.}~\cite{BaaderNipkow1998} (1998).
+\textit{Term Rewriting and All That.}
+Cambridge University Press.
+\textit{Covers:} abstract reduction systems (Ch.~1--2), termination (Ch.~2--3),
+confluence/Church-Rosser (Ch.~2--3), normal forms (Ch.~2).
+\textit{Cited by:} 18 axioms in \texttt{Termination}, \texttt{ReductionSemantics}, \texttt{ConfluenceProof}.
+
+\medskip
+
+oindent\textbf{Mac Lane, S.}~\cite{MacLane1971} (1971).
+\textit{Categories for the Working Mathematician.}
+Springer.
+\textit{Covers:} category axioms (Ch.~I), functors (Ch.~II), natural transformations (Ch.~III),
+Grothendieck construction (Ch.~XII).
+\textit{Cited by:} 7 axioms in \texttt{CategoryStructure}, \texttt{GrothConstruction}.
+
+\medskip
+
+oindent\textbf{Durrett, R.}~\cite{Durrett2019} (2019).
+\textit{Probability: Theory and Examples} (5th ed.).
+Cambridge University Press.
+\textit{Covers:} martingales (Ch.~4), stopping times (Ch.~4), convergence (Ch.~5).
+\textit{Cited by:} 4 axioms in \texttt{StoppingTime}, \texttt{SurvivalAnalysis}.
+
+\medskip
+
+oindent\textbf{Newman, M.H.A.}~\cite{Newman1942} (1942).
+On theories with a combinatorial definition of ``equivalence.''
+\textit{Annals of Mathematics}, 43(2), 223--243.
+\textit{Covers:} Church-Rosser property, confluence from termination and local confluence.
+\textit{Cited by:} 2 axioms in \texttt{ConfluenceProof}.
+
+\medskip
+
+oindent\textbf{Rudin, W.}~\cite{Rudin1976} (1976).
+\textit{Principles of Mathematical Analysis} (3rd ed.).
+McGraw-Hill.
+\textit{Covers:} metric spaces (Ch.~2), bijection properties (Ch.~2).
+\textit{Cited by:} 2 axioms in \texttt{SemanticCorrectness}.
+
+\medskip
+
+oindent\textbf{Diestel, R.}~\cite{Diestel2010} (2010).
+\textit{Graph Theory} (4th ed.).
+Springer.
+\textit{Covers:} directed graphs (Ch.~1), paths and reachability (Ch.~1).
+\textit{Cited by:} 1 axiom in a helper module.
+
+\medskip
+
+oindent\textbf{Cover, T.M., \& Thomas, J.A.}~\cite{CoverThomas2006} (2006).
+\textit{Elements of Information Theory} (2nd ed.).
+John Wiley \& Sons.
+\textit{Covers:} Shannon entropy (Ch.~2), entropy of discrete distributions.
+\textit{Cited by:} 1 axiom in \texttt{CollectiveLayer} (entropy drift).
+
+\subsection*{Framework Sources (Theory Premises)}
+
+\noindent\textbf{FRFP Theory Paper.}
+\textit{FRFP: A Formal Theory of Explicit--Tacit Computation.}
+Author. 2024/2025.
+\textit{Source of:} all 7 FRFP base axioms and their module-level copies (total 40 axioms).
+
+\medskip
+
+oindent\textbf{Polanyi, M.}~\cite{Polanyi1966} (1966).
+\textit{The Tacit Dimension.}
+Routledge.
+\textit{Referenced in justification for:} HEG and HEC axioms (tacit knowledge is
+inaccessible to explicit reconstruction).
+
+\subsection*{Tool References}
+
+\noindent\textbf{Lean~4}~\cite{deMoura2021Lean4}.
+\url{https://leanprover.github.io/}
+
+\medskip
+
+\noindent\textbf{Mathlib4}~\cite{Mathlib2020}.
+\url{https://leanprover-community.github.io/mathlib4_docs/}
+

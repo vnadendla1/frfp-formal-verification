@@ -1,0 +1,58 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Master shell for: (1) Tutorial, (2) Poster, (3) Math Primer
+% - One-column, 12pt
+% - Uses \input{} so each component remains editable as a separate file.
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, mathtools}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lmodern}
+
+\setlist[itemize]{leftmargin=1.5em}
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+
+\title{Appendix A Companion Pack (Tutorial + Poster + Math Primer)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction (How to Use This Pack)}
+This master file compiles three companion components for Appendix A of the FRFP paper.
+
+\begin{itemize}
+\item \textbf{Tutorial (step-by-step)}: a slow walkthrough that tracks clarifications (“tutorial notes”) and ties each concept back to Appendix A.
+\item \textbf{Poster (structure-first)}: a block-based, detail-preserving poster-style reorganization for fast review and recall.
+\item \textbf{Math Primer (minimum background)}: a poster-style primer covering only the math needed to read Appendix A (objects, morphisms, categories, groupoids, fibers, fibrations, cartesian lifting, etc.).
+\end{itemize}
+
+%\paragraph{Compilation note.}
+%Place these files in the same directory:
+%\begin{itemize}
+%\item \texttt{tutorial\_main.tex} (you will supply this)
+%\item \texttt{appendixA\_poster\_include.tex} (generated)
+%\item \texttt{appendixA\_math\_primer\_include.tex} (generated)
+%\end{itemize}
+
+\newpage
+\tableofcontents
+\newpage
+
+\part*{Tutorial Walkthrough}
+\addcontentsline{toc}{part}{Tutorial Walkthrough}
+\input{tutorial.tex}
+
+\part*{Poster-Style Walkthrough}
+\addcontentsline{toc}{part}{Poster-Style Walkthrough}
+\input{poster.tex}
+
+\part*{Math Primer}
+\addcontentsline{toc}{part}{Math Primer}
+\input{math_primer.tex}
+
+\end{document}

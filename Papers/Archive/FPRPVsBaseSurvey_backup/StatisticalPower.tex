@@ -1,0 +1,161 @@
+\subsection{Statistical Analysis}
+\label{sec:power}
+
+The statistical analysis evaluates whether analytical outputs generated under
+different agent configurations are systematically preferred by human raters.
+Because evaluation is performed through pairwise document comparisons, the
+analysis focuses on directional preference frequencies rather than absolute
+scores.
+
+\paragraph{Rationale for pairwise comparison.}
+
+Evaluation of open-ended analytical outputs is difficult to perform using
+absolute scoring scales because raters may apply scoring criteria
+inconsistently across cases. Pairwise comparison mitigates this problem by
+asking raters to judge which of two analytical outputs more closely matches
+the structure and reasoning expected for the task. Prior work in AI agent
+evaluation has shown that comparative judgments are more reliable than
+absolute ratings for complex analytical tasks. In this study, pairwise
+comparisons are used to obtain directional preference observations that can
+be aggregated statistically while preserving blinded evaluation of the
+agent configurations.
+\paragraph{Pairwise comparison structure.}
+
+For each case, three pairwise comparisons are constructed:
+
+\begin{itemize}
+\item Baseline vs Protocol
+\item Protocol vs Independent
+\item Baseline vs Independent
+\end{itemize}
+
+Each comparison consists of two normalized documents presented to a blinded
+rater as \textit{Document A} and \textit{Document B}. Raters evaluate the pair
+independently across four rubric dimensions:
+
+\begin{itemize}
+\item R1 — Analytical clarity
+\item R2 — Structural reasoning quality
+\item R3 — Diagnostic usefulness
+\item R4 — Overall analytical usefulness
+\end{itemize}
+
+For each dimension, the rater records one of three responses:
+
+\begin{itemize}
+\item Document A closer
+\item Document B closer
+\item No clear difference
+\end{itemize}
+
+These responses generate a set of directional preference observations.
+
+\paragraph{Data representation.}
+
+Each rating observation is recorded as a structured record containing:
+
+\begin{itemize}
+\item case\_id
+\item document\_A\_id
+\item document\_B\_id
+\item generation\_condition\_A
+\item generation\_condition\_B
+\item rater\_id
+\item evaluation\_dimension
+\item response $\in \{A, B, \text{Tie}\}$
+\end{itemize}
+
+\paragraph{Preference aggregation.}
+
+For each comparison type and evaluation dimension, preference counts are
+aggregated across raters:
+
+\[
+N(A>B), \quad N(B>A), \quad N(\text{Tie})
+\]
+
+Tie responses are excluded from directional preference calculations but are
+reported descriptively.
+
+The directional preference rate favoring configuration $A$ over configuration
+$B$ is defined as
+
+\[
+\text{PreferenceRate}(A>B) =
+\frac{N(A>B)}{N(A>B) + N(B>A)}.
+\]
+
+\paragraph{Hypothesis testing.}
+
+The principal hypothesis tests whether the protocol-guided configuration
+produces outputs that are more frequently preferred than baseline outputs.
+
+Let
+
+\[
+N(P>B)
+\]
+
+denote the number of directional preferences in which the Protocol output is
+preferred to the Baseline output, and
+
+\[
+N(B>P)
+\]
+
+the number in which the Baseline output is preferred.
+
+Under the null hypothesis that both configurations are equally likely to be
+preferred,
+
+\[
+H_0: \Pr(P>B) = 0.5.
+\]
+
+Statistical significance is evaluated using a binomial (sign) test applied to
+the directional preference counts:
+
+\[
+p = \text{BinomialTest}\big(N(P>B),\; N(P>B)+N(B>P),\; p=0.5\big).
+\]
+
+\paragraph{Effect size.}
+
+In addition to significance testing, effect size is reported using the
+difference in directional preference rates:
+
+\[
+\text{EffectSize} =
+\text{PreferenceRate}(P>B) -
+\text{PreferenceRate}(B>P).
+\]
+
+Positive values indicate that protocol-guided analyses are preferred more
+often than baseline analyses.
+
+\paragraph{Aggregate and case-level analysis.}
+
+Preference statistics are computed at two levels:
+
+\begin{itemize}
+\item \textbf{Case-level analysis}: preference counts are computed separately
+for each case.
+\item \textbf{Aggregate analysis}: counts are pooled across all cases to
+estimate overall differences between configurations.
+\end{itemize}
+
+\paragraph{Sensitivity analysis.}
+
+To evaluate robustness of the Independent condition, the analysis is repeated
+using alternate assessor extracts when available. Differences between results
+obtained with primary and alternate extracts provide a measure of sensitivity
+to assessor source selection.
+
+\paragraph{Inter-rater consistency.}
+
+Agreement across raters is evaluated using standard inter-rater reliability
+measures such as Fleiss' $\kappa$ or pairwise agreement rates. This analysis
+assesses the stability of preference judgments across evaluators.
+
+A lightweight lexical contamination check was used to detect cross-condition
+style leakage prior to normalization and blinded evaluation.

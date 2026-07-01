@@ -1,0 +1,514 @@
+\chapter{Measuring FRFP Health: Metrics, Indicators, and Checklists}
+\label{ch:frfp-metrics}
+
+This chapter offers a practical toolkit for assessing how well a system
+(or organisation) aligns with FRFP principles.
+It does \emph{not} define a single scalar ``FRFP score''.
+Instead, it gathers:
+
+\begin{itemize}
+  \item structural indicators for explicit semantics, boundaries, safe
+        horizons, and governance;
+  \item simple maturity levels;
+  \item concrete checklists you can apply to an existing or proposed
+        system.
+\end{itemize}
+
+The intent is diagnostic and comparative:
+to help you see where a system is strong or weak in the FRFP sense,
+and where design or governance changes are most urgent.
+
+\section{Why FRFP Metrics Are Different}
+
+Traditional evaluation often asks:
+\emph{How accurate is the model? How fast is the system?}
+FRFP asks additional questions:
+
+\begin{itemize}
+  \item Is the explicit mapping the model implements well-defined and
+        appropriate for the tacit function we care about?
+  \item Where do humans or institutions actually endorse decisions, and
+        are those boundaries meaningful?
+  \item How far can the system run (in time, scale, and domain) before
+        someone must re-ground assumptions?
+  \item Which parts of governance are de facto automated, and which
+        remain genuinely tacit?
+\end{itemize}
+
+FRFP ``metrics'' are therefore mostly \emph{structural indicators} and
+\emph{maturity assessments}, not just numbers you can compute from logs.
+They are intended to be used alongside conventional measures of
+performance and safety, not instead of them.
+
+\section{Core FRFP Indicator Families}
+
+We group indicators into five families:
+
+\begin{enumerate}
+  \item explicit-task semantics;
+  \item boundary design and implementation;
+  \item safe horizons and dynamics;
+  \item governance and institutional operators;
+  \item tacit-skill and norm preservation.
+\end{enumerate}
+
+For each family, we provide:
+
+\begin{itemize}
+  \item key questions;
+  \item example indicators;
+  \item rough maturity levels.
+\end{itemize}
+
+\subsection{Explicit Semantics Indicators}
+
+\paragraph{Key questions.}
+
+\begin{itemize}
+  \item Is there a clear, written description of what the system is
+        trying to compute?
+  \item Is there a plausible ground truth or evaluation procedure?
+  \item Are failure modes understood as \emph{semantic} (wrong
+        question) or \emph{statistical} (noise, data limits)?
+\end{itemize}
+
+\paragraph{Indicative signals.}
+
+\begin{itemize}
+  \item Presence of a concise ``task definition'' document that could be
+        given to a sceptical domain expert.
+  \item Availability of representative test sets or benchmarks that
+        reflect real use, not just training data splits.
+  \item Explicit list of assumptions and known \emph{out-of-scope}
+        cases.
+\end{itemize}
+
+\paragraph{Maturity levels.}
+
+\begin{description}
+  \item[Level 0 (unclear):]
+    Task definition is vague
+    (e.g.\ ``rank the best content'', ``optimise risk-adjusted
+    returns''), with no precise mapping or ground truth.
+  \item[Level 1 (local clarity):]
+    Task is clearly defined for a narrow slice of cases, but the system
+    is already used more broadly.
+  \item[Level 2 (aligned core):]
+    Task is well-defined and most usage stays inside that scope; there
+    is a known set of out-of-scope cases.
+  \item[Level 3 (strong semantics):]
+    Task is sharply defined; there is robust evaluation and continuous
+    checking that usage remains within validated semantics.
+\end{description}
+
+\subsection{Boundary Indicators}
+
+\paragraph{Key questions.}
+
+\begin{itemize}
+  \item Can we name the moments where humans or institutions endorse
+        or commit?
+  \item Are those moments technically and procedurally real, or merely
+        rhetorical?
+  \item Does the system log and support those boundary events?
+\end{itemize}
+
+\paragraph{Indicative signals.}
+
+\begin{itemize}
+  \item Clear documentation of which decisions AI systems may take
+        autonomously and which require human sign-off.
+  \item User interfaces where boundary actions (approve, reject, refer,
+        sign, file, deploy) are explicit and foregrounded.
+  \item Logging that ties each boundary event to:
+        \begin{itemize}
+          \item responsible agent;
+          \item information available at decision time;
+          \item relevant model outputs and uncertainties.
+        \end{itemize}
+\end{itemize}
+
+\paragraph{Maturity levels.}
+
+\begin{description}
+  \item[Level 0 (implicit):]
+    Humans are nominally ``in the loop'', but in practice no clear
+    boundary points exist; model outputs are simply followed.
+  \item[Level 1 (documented):]
+    Policies describe boundaries (e.g.\ ``doctor is responsible''),
+    but systems and logs do not enforce or reveal them.
+  \item[Level 2 (implemented):]
+    Boundary events are explicit in UI and logs; humans do endorse, but
+    information quality and incentives may still be weak.
+  \item[Level 3 (robust):]
+    Boundaries are explicit, instrumented, and aligned with incentives;
+    external reviewers can reconstruct who endorsed what and on what
+    basis.
+\end{description}
+
+\subsection{Safe-Horizon Indicators}
+
+\paragraph{Key questions.}
+
+\begin{itemize}
+  \item How long can the system run without being deeply re-examined?
+  \item How many people, assets, or decisions can it affect before
+        someone is required to reconsider design assumptions?
+  \item Are there explicit triggers to pause, review, or redesign?
+\end{itemize}
+
+\paragraph{Indicative signals.}
+
+\begin{itemize}
+  \item Existence of phase-gated deployment plans:
+        pilots, limited roll-outs, full deployment.
+  \item Formal review intervals for models and programmes (e.g.\ yearly
+        clinical revalidation, quarterly strategy deep dives).
+  \item Predefined caps on scale (exposure, user count, jurisdiction)
+        before further governance action is required.
+\end{itemize}
+
+\paragraph{Maturity levels.}
+
+\begin{description}
+  \item[Level 0 (unbounded):]
+    Once deployed, the system runs indefinitely and scales freely; no
+    planned re-grounding.
+  \item[Level 1 (reactive):]
+    Reviews occur only after problems or complaints; no explicit
+    horizons.
+  \item[Level 2 (scheduled):]
+    Regular reviews and audits exist, but may not be tied to explicit
+    caps or triggers.
+  \item[Level 3 (engineered horizons):]
+    Safe horizons are explicit; hitting a horizon or trigger forces
+    structured re-grounding and possible redesign.
+\end{description}
+
+\subsection{Governance and Institutional Indicators}
+
+\paragraph{Key questions.}
+
+\begin{itemize}
+  \item Who can change the system’s objectives, boundaries, and
+        horizons?
+  \item What information do they see?
+  \item Are they independent of the teams building and operating the
+        system?
+\end{itemize}
+
+\paragraph{Indicative signals.}
+
+\begin{itemize}
+  \item Existence of a named governance body (committee, board, panel)
+        with scope over the system.
+  \item Published charters or terms of reference for that body.
+  \item Evidence that governance decisions affect:
+        \begin{itemize}
+          \item what the system is allowed to decide;
+          \item where and for whom it may operate;
+          \item when it must be paused or redesigned.
+        \end{itemize}
+  \item Use of case studies and tacit evidence (frontline feedback,
+        near-miss reports), not just aggregate metrics.
+\end{itemize}
+
+\paragraph{Maturity levels.}
+
+\begin{description}
+  \item[Level 0 (absent):]
+    No dedicated governance; product or line managers implicitly play
+    this role.
+  \item[Level 1 (nominal):]
+    A committee exists on paper but has limited information or
+    authority; decisions remain driven by metrics and local teams.
+  \item[Level 2 (active):]
+    Governance has real influence; it can halt, modify, or constrain
+    deployments, but may lack a structured FRFP vocabulary.
+  \item[Level 3 (FRFP-aware):]
+    Governance bodies explicitly reason in terms of \(E\), \(T\),
+    boundaries, and horizons; they are structurally independent and
+    use both metrics and tacit input.
+\end{description}
+
+\subsection{Tacit Skill and Norm Preservation Indicators}
+
+\paragraph{Key questions.}
+
+\begin{itemize}
+  \item Are human skills and norms being preserved, or eroded, by AI
+        use?
+  \item Do users retain the ability and habit of questioning the
+        system?
+  \item Is the organisation tracking these changes?
+\end{itemize}
+
+\paragraph{Indicative signals.}
+
+\begin{itemize}
+  \item Training and onboarding explicitly address:
+        \begin{itemize}
+          \item when to trust and when to doubt AI outputs;
+          \item how to verify or override them;
+          \item examples of failures and near-misses.
+        \end{itemize}
+  \item Periodic assessment of human skills (e.g.\ sample cases where
+        staff must solve tasks without AI support).
+  \item Monitoring of override rates and rationales:
+        are humans still actually exercising judgement?
+\end{itemize}
+
+\paragraph{Maturity levels.}
+
+\begin{description}
+  \item[Level 0 (ignored):]
+    No attention to tacit skill or norm drift; AI is treated purely as a
+    productivity boost.
+  \item[Level 1 (acknowledged):]
+    Informal awareness and discussion, but no systematic measurement or
+    design.
+  \item[Level 2 (monitored):]
+    Some indicators (override rates, training, skill assessments) are
+    tracked and inform local adjustments.
+  \item[Level 3 (managed):]
+    Tacit preservation is a design goal; systems and workflows are
+    explicitly shaped to maintain critical human capabilities over
+    time.
+\end{description}
+
+\section{An FRFP Maturity Snapshot}
+
+For quick diagnosis, you can summarise a system’s FRFP posture in a
+table:
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Dimension} & \textbf{Level 0} & \textbf{Level 1--2} & \textbf{Level 3} \\
+\midrule
+Explicit semantics     & unclear      & partial / local     & strong, validated \\
+Boundaries             & implicit     & documented / UI     & explicit, logged \\
+Safe horizons          & none         & ad hoc / scheduled  & engineered        \\
+Governance             & absent       & nominal / active    & FRFP-aware        \\
+Tacit preservation     & ignored      & acknowledged / mon. & actively managed  \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The goal is not perfection, but awareness.
+Many real systems will be at Level~1 or~2 on most dimensions.
+The value of this snapshot is in:
+
+\begin{itemize}
+  \item making gaps visible (e.g.\ strong semantics but weak horizons);
+  \item helping prioritise interventions;
+  \item providing a common language across technical and governance
+        stakeholders.
+\end{itemize}
+
+\section{Checklists}
+
+We now give three concrete checklists you can use directly:
+
+\begin{enumerate}
+  \item a system design checklist (pre-deployment);
+  \item an operational monitoring checklist (post-deployment);
+  \item an institutional governance checklist.
+\end{enumerate}
+
+Each question is essentially Yes/No (or ``not applicable''); the aim is
+to trigger discussion and action, not to produce a numeric score.
+
+\subsection{System Design Checklist (Pre-Deployment)}
+
+\begin{enumerate}
+  \item \textbf{Task semantics}
+        \begin{enumerate}
+          \item Have we written down, in one paragraph, what function
+                the system is supposed to approximate?
+          \item Is there any plausible ground truth or external
+                evaluation procedure for that function?
+          \item Have we listed the main types of cases that are
+                \emph{out of scope}?
+        \end{enumerate}
+  \item \textbf{Data and evaluation}
+        \begin{enumerate}
+          \item Do we have test data that reflects real deployment
+                conditions, not just training distributions?
+          \item Are evaluation metrics aligned with what domain experts
+                care about?
+        \end{enumerate}
+  \item \textbf{Boundaries}
+        \begin{enumerate}
+          \item Have we identified the specific decisions the AI will
+                make vs.\ those reserved for humans?
+          \item Are boundary events (approvals, sign-offs, filings,
+                orders) explicitly represented in the design?
+          \item Will our logs capture who endorsed what, and when?
+        \end{enumerate}
+  \item \textbf{Uncertainty and abstention}
+        \begin{enumerate}
+          \item Can the system say ``I don't know'' or defer to humans
+                when inputs are low-quality or out-of-domain?
+          \item Are those deferrals routed to appropriate tacit
+                decision-makers?
+        \end{enumerate}
+  \item \textbf{Safe horizons}
+        \begin{enumerate}
+          \item Have we defined initial limits on:
+                \begin{itemize}
+                  \item time (how long the system can run before a deep
+                        review)?
+                  \item scale (how many users, patients, trades, etc.)?
+                  \item domain (which segments or contexts)?
+                \end{itemize}
+          \item Are there explicit triggers for pausing, rolling back,
+                or redesigning (performance drops, incident rates,
+                context changes)?
+        \end{enumerate}
+  \item \textbf{Governance}
+        \begin{enumerate}
+          \item Is there a named body or role with authority over this
+                system’s deployment and evolution?
+          \item Have we agreed what information they will see and how
+                often they will act?
+        \end{enumerate}
+  \item \textbf{Tacit preservation}
+        \begin{enumerate}
+          \item Have we identified which human skills and norms are
+                critical to preserve (e.g.\ verification, domain
+                intuition)?
+          \item Does the design explicitly support those skills
+                (e.g.\ by requiring review, offering raw data, or
+                including training)?
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Operational Monitoring Checklist (Post-Deployment)}
+
+\begin{enumerate}
+  \item \textbf{Usage}
+        \begin{enumerate}
+          \item Is actual use consistent with the intended task and
+                domain?
+          \item Are there emerging use cases we did not anticipate?
+        \end{enumerate}
+  \item \textbf{Performance and drift}
+        \begin{enumerate}
+          \item Are key performance metrics stable in the deployed
+                setting?
+          \item Have we checked for distribution shift in inputs or
+                outcomes?
+        \end{enumerate}
+  \item \textbf{Boundaries in practice}
+        \begin{enumerate}
+          \item Are humans still making the decisions they are supposed
+                to make, or has the AI effectively taken over?
+          \item Do override rates and patterns suggest genuine human
+                judgement, or rubber-stamping?
+        \end{enumerate}
+  \item \textbf{Horizon adherence}
+        \begin{enumerate}
+          \item Are we still inside the originally defined safe horizons
+                (time, scale, domain)?
+          \item If not, has any explicit decision been taken to extend
+                them?
+        \end{enumerate}
+  \item \textbf{Incidents and near-misses}
+        \begin{enumerate}
+          \item Are incidents and near-misses being logged and
+                investigated?
+          \item Do we see repeated patterns that suggest deeper design
+                issues?
+        \end{enumerate}
+  \item \textbf{Human feedback}
+        \begin{enumerate}
+          \item Are frontline users reporting concerns or workarounds?
+          \item Have we incorporated their tacit knowledge back into
+                design updates?
+        \end{enumerate}
+  \item \textbf{External context}
+        \begin{enumerate}
+          \item Have regulations, norms, or competitive conditions
+                changed in ways that affect admissible runs?
+          \item Have we adjusted the system or governance in response?
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Institutional Governance Checklist}
+
+\begin{enumerate}
+  \item \textbf{Mandate}
+        \begin{enumerate}
+          \item Does a governance body have an explicit mandate over the
+                system (scope, powers, responsibilities)?
+          \item Is that mandate documented and communicated to
+                stakeholders?
+        \end{enumerate}
+  \item \textbf{Information}
+        \begin{enumerate}
+          \item Does the body see both quantitative metrics and
+                qualitative case reports?
+          \item Are FRFP-relevant artefacts (boundaries, horizons,
+                incident logs) part of its regular agenda?
+        \end{enumerate}
+  \item \textbf{Authority}
+        \begin{enumerate}
+          \item Can the body actually change:
+                \begin{itemize}
+                  \item where and how the system is used?
+                  \item what tasks it may perform?
+                  \item when it must be paused or withdrawn?
+                \end{itemize}
+          \item Are its decisions binding on operational teams?
+        \end{enumerate}
+  \item \textbf{Independence and composition}
+        \begin{enumerate}
+          \item Is membership cross-functional
+                (technical, domain experts, legal, ethics, affected
+                stakeholders)?
+          \item Is it sufficiently independent from the teams whose
+                incentives are tied to system growth or metrics?
+        \end{enumerate}
+  \item \textbf{Processes}
+        \begin{enumerate}
+          \item Are there scheduled reviews (horizon checkpoints) as
+                well as incident-driven meetings?
+          \item Are decisions minuted, with rationale and links to
+                specific evidence?
+        \end{enumerate}
+  \item \textbf{External linkage}
+        \begin{enumerate}
+          \item Does the body interact with external operators
+                (regulators, professional societies, public bodies) as
+                needed?
+          \item Are external developments (new standards, regulations,
+                prominent failures elsewhere) fed back into governance?
+        \end{enumerate}
+\end{enumerate}
+
+\section{How to Use This Chapter}
+
+In practice, the recommended workflow is:
+
+\begin{enumerate}
+  \item Pick a concrete system (existing or proposed).
+  \item Use the \emph{System Design Checklist} to assess its FRFP
+        structure.
+  \item Assign rough maturity levels on each dimension
+        (semantics, boundaries, horizons, governance, tacit
+        preservation).
+  \item Identify 2--3 most concerning gaps.
+  \item Consult the pattern and anti-pattern chapter to choose design
+        moves that address those gaps.
+  \item Revisit periodically with the \emph{Operational Monitoring} and
+        \emph{Governance} checklists.
+\end{enumerate}
+
+The metrics and indicators here are deliberately simple.
+They are meant to be used quickly in real organisations, as conversation
+starters and design aids, not as precise scientific instruments.
+Their value lies in making FRFP questions unavoidable:
+for any serious system, someone should be able to say, concretely,
+what the task is, where the boundaries are, how far it may run, who
+governs it, and how we will know if tacit control is being lost.

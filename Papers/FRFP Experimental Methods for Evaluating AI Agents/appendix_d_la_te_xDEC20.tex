@@ -1,0 +1,348 @@
+% Appendix D — Impossibility & Limits (Phase-5)
+% Schema–corollary organization with (i) admissible runs as executions in \NltimesE
+% under Phase-0 constraints and (ii) explicit-identity options (syntactic vs normal-form).
+% Depends on Appendix A (static axioms) and Appendices B–C (dynamics + collectives).
+
+%\subsection{Impossibility \& Limits}
+
+\subsubsection{Purpose and Scope}
+This section collects structural \emph{no-go theorems} that delimit what can be guaranteed within FRFP-like architectures under Explicit--Tacit Separation (ETS), Human-Exclusive Grounding (HEG), and Human-Exclusive Closure (HEC). The results are invariant to model internals, training data, or intent.
+
+The central organizing idea is that many desirable guarantees are \emph{tacit-dependent}: whether they hold can vary with human tacit state even when explicit artifacts are held fixed. Under ETS and AE (AI-Explicit Restriction), tacit-dependent guarantees cannot be enforced or decided by explicit-only mechanisms.
+
+\subsubsection{Standing Assumptions and Notation}
+
+Throughout this appendix we fix the FRFP kernel and assume that all interaction and
+epistemic constraints from the main text are in force.
+
+\paragraph{Foundational layers.}
+On the single-agent side we assume:
+\begin{itemize}
+  \item the interaction-layer constraints of Section~2 and Appendix~A.2.6 (admissible traces, no AI
+        access to tacit inputs, separation of content-producing and correctness-bearing moves);
+  \item the epistemic ontology and explicit/tacit separation from Section~3 and Appendix~A.2--A.3
+        (ambient category $C_{\mathrm{full}}$, explicit and tacit subcategories $E$ and $T$, boundary
+        functor $\RB : E \to T$, and the six primitives $RI, EC, ED, RB, TE, HFD$);
+  \item the explicit workflow algebra and correctness layer from Sections~4--6 and
+        Appendix~A.4--A.8 (the TDG-generated explicit category, navigation category $N$, Grothendieck
+        semidirect product $N \ltimes E$, semantic functor $\sem{-} : N \ltimes E \to T$, and the
+        correctness quotient $\gamma : \Obj(T) \to J$).
+\end{itemize}
+
+\paragraph{Dynamic and collective layers.}
+In addition, we assume the epistemic dynamics and collective semantics developed in the later parts of
+Appendix~A:
+\begin{itemize}
+  \item the tacit degradation operator $\delta : T \to T$, requirement map
+        $\Req : E \times \mathbb{R}_{\ge 0} \to T$, and the induced notion of hallucination and
+        finite safe horizons from Appendix~A.9;
+  \item the population and consensus layer of Appendix~A.10, which models a population of agents
+        with a shared explicit category, local tacit spaces, and a communication graph, and equips
+        this structure with a Markovian collective dynamics.
+\end{itemize}
+For a fixed explicit pipeline $P$ and an admissible implementation of $P$ in this dynamic model,
+Appendix~A.9 associates to each finite horizon $N$ a hallucination probability $p_N$ and a
+hazard profile $(h_n)_{n \geq 0}$, and defines a safe-horizon functional
+$H_P(\varepsilon)$ (see Definition~A.\ref{def:safe-horizon}) capturing the maximal time $N$ for which
+the implementation keeps hallucination risk below a tolerance $\varepsilon$. On the population side,
+Appendix~A.10 provides analogous notions of collective hallucination time and collective
+safe horizons.
+
+The explicit-only impossibility and institutional non-automation results in this appendix are
+understood relative to this entire stack: they assume the interaction, epistemic, algebraic,
+dynamic, and collective layers just described, and ask which kinds of detectors, consensus
+mechanisms, and governance operators can be realised \emph{purely explicitly} within that fixed
+architecture.
+
+
+\subsubsection{Admissible Runs as Interaction Protocol Filtered Executions in \texorpdfstring{N$\ltimes$E}{N ltimes E}}
+\begin{definition}[Executions in N$\ltimes$E]
+Fix a valid pipeline term $P$ (Epistemic Space / Algebra well-typed). An \emph{execution trace} of $P$ is a finite or infinite sequence
+\[
+\rho:\quad x_0 \to x_1 \to x_2 \to \cdots
+\]
+where each $x_k$ is a configuration in N$\ltimes$E reachable from an initial configuration for $P$ by the combined reduction relation $\to$.
+\end{definition}
+
+\begin{definition}[Interaction Protocol admissibility predicate]
+Let $\mathsf{Adm}_0(\rho)$ be a predicate on execution traces encoding Interaction Protocol constraints:
+\begin{enumerate}
+  \item \textbf{IL (Interaction Limitation):} $\rho$ is turn-based and respects externally imposed bounds (e.g. finite-length turns).
+  \item \textbf{AR (Alignment Restriction):} explicit actions occur only in response to explicit instructions present in the trace.
+  \item \textbf{MD (Mode Discipline):} no step in $\rho$ applies tacit operators inside the explicit phase; tacit transitions occur only after the boundary.
+  \item \textbf{NTER/CSC:} no step reconstructs tacit evaluation from explicit traces or treats explicit computation as a correctness oracle.
+\end{enumerate}
+We treat $\mathsf{Adm}_0$ as an axiomatically specified filter on traces.
+\end{definition}
+
+\begin{definition}[Admissible runs]
+An \emph{admissible run} of a pipeline $P$ is an execution trace $\rho$ in N$\ltimes$E such that $\mathsf{Adm}_0(\rho)$ holds.
+We write $\mathrm{Runs}(P)$ for the set of admissible runs of $P$.
+\end{definition}
+
+\begin{remark} (Admissible runs and explicit-only results).
+This definition pins all explicit-only impossibility and non-automation statements to a common
+operational semantics: admissible runs are exactly those executions in \(N \ltimes E\) that
+additionally satisfy the interaction constraints (IL, AR, MD, NTER/CSC). All explicit-only
+no-go theorems in Appendix~A.11 are understood to quantify over this class of runs.
+
+\end{remark}
+
+\subsubsection{Two Notions of ``Same Explicit Artifact''}
+No-go statements often quantify over pairs of runs that produce the ``same explicit artifact.'' There are two natural notions.
+
+\begin{definition}[Syntactic explicit identity]
+Two runs are \emph{syntactically explicit-identical} if they produce equal explicit artifacts as elements of the explicit object $E$ (i.e. equality in the representation domain).
+\end{definition}
+
+\begin{definition}[Semantic explicit identity via normal forms]
+Assume the explicit reduction system $\to_{\Ecat}$ is terminating and locally confluent (Appendix~A axioms), so each explicit artifact has a unique normal form $\mathrm{nf}(e)$.
+Two runs are \emph{normal-form explicit-identical} if their produced artifacts $e,e'$ satisfy
+\[
+\mathrm{nf}(e)=\mathrm{nf}(e').
+\]
+\end{definition}
+
+\begin{remark}
+Syntactic identity is appropriate when artifacts are literal strings/terms. Normal-form identity is appropriate when explicit equivalence is taken modulo rewriting (e.g. definitional equalities, normalization, canonical forms). All no-go results below hold under either identity notion; when needed we indicate which is assumed.
+\end{remark}
+\begin{remark}[Admissible runs and stochastic trajectories]
+In the dynamic semantics of Appendix~B, the same pipeline $P$ gives rise
+to a measurable space of trajectories $\Omega_{\mathrm{allowed}}$,
+together with a family of probability measures capturing different
+stochastic implementations. We implicitly identify each admissible run
+$\rho$ of $P$ in the combined system $\mathsf{N} \ltimes \mathsf{E}$
+with its corresponding trajectory
+$\omega \in \Omega_{\mathrm{allowed}}$. In particular, the hallucination time $\tau(\omega)$, the finite-horizon probabilities $(p_N)$,
+the hazard sequence $(h_n)$, and the safe-horizon function $H_P(\varepsilon)$
+of Appendix~B are all computed over this common set of admissible runs.
+
+\end{remark}
+
+\subsubsection{Tacit Dependence via \texorpdfstring{$\gamma(\sem{P})$}{gamma(sem(P))}}
+\begin{definition}[Tacit-dependent predicates]
+Let $P$ be a fixed valid pipeline and let $\mathrm{Runs}(P)$ be its admissible runs.
+A predicate $\mathcal{G}$ about an explicit artifact is \emph{tacit-dependent} if there exist two admissible runs $\rho_1,\rho_2\in\mathrm{Runs}(P)$ such that:
+\begin{itemize}
+  \item the runs produce the same explicit artifact (either syntactically or up to normal form, per Section~D.3), and
+  \item the observable correctness outcomes differ:
+  \[
+    \gamma(\sem{P})\ \text{differs between}\ \rho_1\ \text{and}\ \rho_2.
+  \]
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+This definition formalizes ``depends on tacit context'' using only Epistemic Algebra semantics: $\sem{-}$ captures tacit transformation induced by the pipeline run, and $\gamma$ extracts the human-observable correctness class.
+\end{remark}
+\begin{remark}[Examples of tacit-dependent predicates]
+\label{rem:tacit-dependent-examples}
+The definition above applies not only to pointwise correctness
+judgements but also to quantitative long-horizon properties. Typical
+examples of tacit-dependent predicates $G$ include:
+\begin{itemize}
+  \item the event that a run hallucinates within a fixed horizon $N$,
+        i.e.\ $G(\omega)$ is the predicate $[\tau(\omega) \le N]$;
+  \item the statement that an implementation has $\varepsilon$-safe horizon at least $N$, i.e.
+  $G$ is the predicate $[H_P(\varepsilon) \ge N]$ for some fixed $\varepsilon \in (0,1)$;
+
+  \item in the collective setting of Appendix~A.10, the statement that the
+        collective hallucination time exceeds a fixed horizon, i.e.\
+        $G$ is the predicate $[\tau_{\mathrm{coll}} > N]$ for a given
+        population and consensus dynamics.
+\end{itemize}
+In each case, there can exist admissible runs with the same explicit
+artifacts (in the sense of Definition~B.\,66) but different values of
+$\tau$, $\HP(\varepsilon)$ or $\tau_{\mathrm{coll}}$, so $G$ is
+tacit-dependent in the sense of Definition~B.\,66.
+\end{remark}
+
+\subsubsection{Schema Theorem: Tacit-Dependent Guarantees Are Not Explicit-Implementable}
+\begin{definition}[Explicit-only mechanism]
+An \emph{explicit-only mechanism} is any procedure definable using explicit morphisms in $\Ecat$ (and finite control) whose inputs and outputs live entirely in explicit space. Concretely, one may model an explicit-only mechanism as a total function $M:E^k\to E^\ell$, or as a family of such functions closed under composition.
+\end{definition}
+
+\begin{theorem}[Tacit-dependent guarantees are not explicit-implementable]\label{thm:D-schema}
+Assume ETS and AE. Let $\mathcal{G}$ be a tacit-dependent predicate about explicit artifacts (Section~D.4), where ``same explicit artifact'' is interpreted either syntactically or by normal form (Section~D.3). Then no explicit-only mechanism can enforce $\mathcal{G}$ for all admissible runs.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By tacit dependence, there exist admissible runs producing the same explicit artifact (under the chosen identity notion) but yielding different outcomes $\gamma(\sem{P})$. Any explicit-only mechanism sees only the explicit artifact(s) and therefore cannot act differently on these runs. Hence it cannot enforce a guarantee whose truth varies across admissible runs while explicit data are held fixed.
+\end{proof}
+
+\subsubsection{Corollaries (No-Go Family)}
+Each of the following is an instantiation of Theorem~\ref{thm:D-schema}.
+
+\subsubsubsection{No Perfect Explicit-Only Hallucination Detector}
+\begin{definition}[Explicit-only monitor]
+An \emph{explicit-only monitor} is a function $M:E\to\{\mathrm{ok},\mathrm{flag}\}$.
+\end{definition}
+
+\begin{definition}[Perfect detector]
+$M$ is \emph{perfect} if, for every admissible run producing explicit artifact $e$ with tacit context $t$ at evaluation time,
+\[
+M(e)=\mathrm{ok}\Rightarrow t\not\prec\mathsf{Req}(e),\qquad
+M(e)=\mathrm{flag}\Rightarrow t\prec\mathsf{Req}(e).
+\]
+\end{definition}
+
+\begin{corollary}[No perfect explicit-only detector]\label{cor:D-no-perfect-detector}
+Assume ETS and AE, and assume requirements are nontrivial and contexts vary across admissible runs. Then no explicit-only monitor is a perfect hallucination detector.
+\end{corollary}
+
+\begin{proof}[Proof sketch]
+The predicate ``$e$ is a hallucination'' is tacit-dependent: the same explicit artifact (syntactically or up to normal form) can be within grounding in one admissible run and beyond grounding in another. Apply Theorem~\ref{thm:D-schema}.
+\end{proof}
+
+\begin{corollary}[No elimination of hallucination under degradation]
+\label{cor:no-elimination-under-degradation}
+Assume the Epistemic Dynamics conditions that yield almost-sure
+hallucination inevitability: in particular, a finite-capacity tacit
+state space, a monotone non-invertible degradation operator
+$\delta \colon T \to T$, and recurring nontrivial requirements as in
+Theorem~B.\,29. Let $\tau$ denote the hallucination time random variable
+for a fixed pipeline $P$ and any admissible stochastic implementation
+of $P$ whose trajectories lie in $\Omega_{\mathrm{allowed}}$.
+Then there is no explicit-only policy which guarantees
+\[
+  \tau(\omega) \;=\; \infty
+\]
+for all admissible runs $\omega \in \Omega_{\mathrm{allowed}}$, nor even
+$\mathbb{P}(\tau = \infty) = 1$ for all such implementations.
+\end{corollary}
+
+\begin{proof}
+Under the assumptions of Appendix~B, Theorem~B.\,29 states that every
+admissible stochastic implementation of $P$ has hallucination time
+$\tau$ finite almost surely:
+\[
+  \mathbb{P}(\tau < \infty) \;=\; 1
+\]
+whenever its support is contained in $\Omega_{\mathrm{allowed}}$.
+Consider the predicate
+\[
+  G(\omega) \;\equiv\; [\,\tau(\omega) = \infty\,]
+\]
+on admissible runs. By construction of the dynamic semantics, there
+exist admissible runs with the same explicit artifacts but different
+tacit evolutions along which $\tau$ takes different values; in
+particular, $G$ is tacit-dependent in the sense of
+Definition~B.\,66. If there were an explicit-only policy that guaranteed
+$\tau = \infty$ almost surely for all admissible implementations, that
+policy would enforce the tacit-dependent predicate $G$ by purely
+explicit means, contradicting Theorem~B.\,69. Hence no explicit-only
+policy can eliminate hallucination under the Epistemic Dynamics degradation
+assumptions.
+\end{proof}
+\begin{corollary}[No explicit-only infinite safe horizon]\label{cor:no-infinite-safe-horizon}
+Assume the Epistemic Dynamics conditions of Appendix~B that yield almost-sure hallucination
+inevitability, and let $H_P(\varepsilon)$ be the $\varepsilon$-safe horizon of a
+stochastic FRFP pipeline $P$ as in Definition~B.41. Then for any fixed
+$\varepsilon \in (0,1)$ there is no explicit-only policy that guarantees
+$H_P(\varepsilon) = \infty$ for all admissible stochastic implementations of $P$.
+\end{corollary}
+
+\begin{proof}
+Under the Epistemic Dynamics assumptions, Theorem~B.29 implies that for any admissible
+implementation we have $P(\tau < \infty) = 1$, so for every $\varepsilon \in (0,1)$
+the set $\{N \in \mathbb{N} : p_N \le \varepsilon\}$ is bounded almost surely, i.e.\
+$H_P(\varepsilon) < \infty$ along admissible runs. The predicate
+$[H_P(\varepsilon) = \infty]$ is tacit-dependent (Remark~B.69), so an explicit-only
+policy enforcing it for all admissible implementations would contradict
+Theorem~B.69.
+\end{proof}
+
+
+\subsubsubsection{No Fully Automated Correctness Oracle}
+\begin{definition}[Correctness oracle]
+A \emph{correctness oracle} is a function $\Omega:E\to J$ (e.g. $J=\{\mathrm{accept},\mathrm{reject},\mathrm{revise}\}$) such that for every admissible run of a pipeline $P$ producing artifact $e$,
+\[
+\Omega(e)\;=\;\gamma(\sem{P}).
+\]
+\end{definition}
+
+\begin{corollary}[No explicit correctness oracle]\label{cor:D-no-oracle}
+Assume HEG and HEC. No explicit-only oracle $\Omega$ can reproduce $\gamma(\sem{P})$ for all admissible runs without violating the FRFP axioms.
+\end{corollary}
+
+\begin{proof}[Proof sketch]
+Correctness outcomes $\gamma(\sem{P})$ are tacit-dependent by HEG/HEC: they are determined by tacit evaluation and closure, which can vary across admissible runs even when the explicit artifact is held fixed (under the chosen explicit identity). Apply Theorem~\ref{thm:D-schema}.
+\end{proof}
+
+\subsubsubsection{No Grounding Gain from Explicit Consensus}
+Assume the functorial consensus model of Appendix~A.10.
+
+\begin{corollary}[Consensus cannot create grounding]\label{cor:D-no-consensus-grounding}
+Let $\mathcal{C}:\Ecat^n\to\Ecat$ be any consensus functor acting purely in explicit space. For any agent $i$ with tacit state $t_i$, if each input artifact $e_k$ exceeds grounding for $i$, then $\mathcal{C}(e_1,\dots,e_n)$ also exceeds grounding for $i$.
+\end{corollary}
+
+\begin{proof}[Proof sketch]
+The predicate ``within grounding for agent $i$'' is tacit-dependent. Since $\mathcal{C}$ is explicit-only, it cannot enforce the guarantee that aggregation restores grounding. Apply Theorem~\ref{thm:D-schema}.
+\end{proof}
+
+\subsubsubsection{No Fully Automated Consensus Stability Guarantee}
+\begin{corollary}[No automated consensus guarantee]\label{cor:D-no-auto-consensus}
+Under ETS and HEG/HEC, no fully automated consensus pipeline can guarantee that its outputs are free of hallucination across all admissible runs and populations.
+\end{corollary}
+In the Markovian population semantics of Appendix~A.10, any choice of
+consensus functors and explicit-only coordination rules determines a
+collective dynamics $M$ on the product category together with a
+collective hallucination time $\tau_{\mathrm{coll}}$. Under the Epistemic Dynamics
+assumptions lifted to the population level, Theorem~B.\,58 shows that
+$\tau_{\mathrm{coll}}$ is almost surely finite and, moreover, that its
+almost-sure finiteness is invariant under insertion of additional
+explicit-only consensus layers. A purported fully automated consensus
+pipeline guaranteeing hallucination-free outputs for all admissible
+populations would therefore enforce the tacit-dependent predicate
+$[\tau_{\mathrm{coll}} = \infty]$ using only explicit mechanisms,
+contradicting Theorem~B.\,69 together with Theorem~B.\,58.
+
+\begin{proof}[Proof sketch]
+A guarantee of hallucination-freedom is tacit-dependent and would yield a correctness oracle or perfect detector for consensus outputs. Apply Theorem~\ref{thm:D-schema} and Corollary~\ref{cor:D-no-perfect-detector}.
+\end{proof}
+
+\subsubsubsection{Catching Does Not Imply Eliminating}
+\begin{corollary}[Detection does not imply elimination]\label{cor:D-detect-vs-elim}
+Even if a subclass of failures is detectable by explicit invariants (e.g. syntactic checks, type checks, cross-consistency tests), this does not imply that hallucination (defined by tacit adequacy) is eliminable in general.
+\end{corollary}
+
+\begin{proof}[Proof sketch]
+Explicit detectability concerns explicit predicates on $E$. Hallucination is tacit-dependent (Section~D.6.1). Eliminating hallucination would require enforcing a tacit-dependent guarantee by explicit-only means, contradicting Theorem~\ref{thm:D-schema}.
+\end{proof}
+
+\subsubsection{Interpretation and Design Consequences}
+The no-go theorems do not claim that automation is useless; they claim that automation cannot replace tacit grounding without changing axioms.
+
+Mitigations must therefore be expressed as:
+\begin{itemize}
+  \item restricting what is demanded of explicit space (reducing $\mathsf{Req}$),
+  \item injecting fresh tacit evaluation (additional humans, replication),
+  \item designing institutions that slow confidence inflation and feedback (Appendix~E).
+\end{itemize}
+Appendix~B refines these impossibility results with quantitative
+structure. Each stochastic implementation of a pipeline induces a
+hallucination time $\tau$, a finite-horizon risk curve
+$(p_N)_{N \in \mathbb{N}}$, a hazard sequence $(h_n)_{n \in \mathbb{N}}$
+and, when defined, a safe-horizon functional $\HP(\varepsilon)$. The
+dynamic refinement order of Definition~B.\,43 then compares pipeline
+implementations by their finite-horizon risks. Within the structural
+limits above, design work can still aim to shape hazard profiles so that
+risk is concentrated outside the operational horizon of interest and to
+select implementations that dynamically refine a baseline, even though
+eventual hallucination and the tacit-dependence of correctness remain
+unavoidable.
+
+Appendix~A.10 extends the picture to populations and collective dynamics.
+A choice of consensus operators and coordination policies determines a
+Markov process $M$ on the space of explicit population states and a
+collective hallucination time $\tau_{\mathrm{coll}}$. The collective
+inevitability and invariance results of Appendix~10  show
+that purely explicit-only changes to consensus and logging cannot alter
+the inevitability class of $\tau_{\mathrm{coll}}$. What they can do is
+change the collective hazard profile and the distribution of
+$\tau_{\mathrm{coll}}$, for example by producing a dynamics $M_2$ that
+is a population-level dynamic refinement of some baseline $M_1$. In
+this sense, long-horizon design remains meaningful: it can bend but not
+break the structural bounds established in this appendix.
+
+% End Appendix D

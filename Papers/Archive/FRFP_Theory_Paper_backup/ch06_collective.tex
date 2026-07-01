@@ -1,0 +1,239 @@
+% ===================================================================
+\section{Collective and Governance Layer}
+\label{ch:collective}
+% ===================================================================
+
+\subsection{Overview}
+
+This chapter extends FRFP from single-pipeline interactions to multi-agent
+settings. Three layers build on the kernel:
+
+\begin{enumerate}
+  \item \textbf{Epistemic algebra} --- knowledge operators and belief revision
+        for individual agents.
+  \item \textbf{Institutional layer} --- population structures, credence
+        distributions, and multi-agent impossibility results.
+  \item \textbf{Governance layer} --- derived governance predicates and the
+        safe extension theorem.
+\end{enumerate}
+
+% -------------------------------------------------------------------
+\subsection{Epistemic Algebra}
+% -------------------------------------------------------------------
+
+\begin{definition}[Epistemic state]
+An epistemic state for an agent is a record encoding the agent's current
+knowledge about the pipeline's tacit validity. It includes:
+\begin{itemize}
+  \item A credence value $c \in [0,1]$.
+  \item A belief set over possible pipeline configurations.
+  \item An update history (finite sequence of knowledge operations).
+\end{itemize}
+\leanref{Frfp.Core.EpistemicAlgebra.EpistemicState}
+\end{definition}
+
+\begin{definition}[Knowledge operator]
+A knowledge operator $K$ maps an epistemic state to a proposition:
+\[
+  K : \mathrm{EpistemicState} \to \mathrm{Prop}
+\]
+\leanref{Frfp.Core.EpistemicAlgebra.KnowledgeOp}
+\end{definition}
+
+\begin{definition}[Belief revision]
+A belief revision operation updates an epistemic state given new evidence:
+\[
+  \mathrm{BeliefRevision} : \mathrm{EpistemicState} \times \mathrm{Evidence}
+                           \to \mathrm{EpistemicState}
+\]
+\end{definition}
+
+\begin{axiom_env}[Belief revision idempotence]
+Revising with the same evidence twice is the same as revising once:
+\[
+  \mathrm{BeliefRevision}(\mathrm{BeliefRevision}(s, e), e)
+  = \mathrm{BeliefRevision}(s, e)
+\]
+\leanref{Frfp.Core.EpistemicAlgebra.belief\_revision\_idempotent}
+\end{axiom_env}
+
+% -------------------------------------------------------------------
+\subsection{Institutional Layer}
+% -------------------------------------------------------------------
+
+\begin{definition}[Population]
+A population is a finite set of agents $\mathcal{A} = \{a_1, \ldots, a_n\}$
+each carrying an epistemic state.
+\leanref{Frfp.Core.InstitutionalLayer}
+\end{definition}
+
+\begin{definition}[Population credence]
+The population credence $\bar{c}$ is the weighted average of individual
+credences:
+\[
+  \bar{c} = \frac{1}{|\mathcal{A}|}\sum_{a \in \mathcal{A}} c(a)
+\]
+\end{definition}
+
+\begin{theorem}[Population collapse bound]
+Under continuous degradation without human evaluation, population credence
+reaches zero in finite time:
+\[
+  \exists N,\ \bar{c}'(N) = 0
+\]
+\leanref{Frfp.Core.CollectiveLayer.population\_collapse\_bound}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Consensus Impossibility}
+% -------------------------------------------------------------------
+
+\begin{theorem}[No grounding by consensus]
+A consensus operation over AI agents cannot produce tacit grounding. Formally,
+no combination of AI-only operations yields a correctness judgment:
+\[
+  \mathrm{ConsensusAI}(\mathcal{A})
+  \not\Rightarrow
+  \mathrm{CorrectnessJudgment.correct}
+\]
+\leanref{Frfp.Core.CollectiveLayer.consensus\_no\_grounding}
+\end{theorem}
+
+This theorem formalizes a key FRFP claim: voting, averaging, or ensemble
+aggregation among AI systems cannot substitute for human tacit judgment.
+
+\begin{note}
+The theorem says explicit-space consensus (no matter how sophisticated) does not
+produce a \texttt{correct} CorrectnessJudgment. The latter requires a $\HFD$
+primitive, which is human-exclusive. The proof follows from the ETS theorem: no
+AI operation produces a morphism targeting $\Tobj$.
+\end{note}
+
+% -------------------------------------------------------------------
+\subsection{Governance Framework}
+% -------------------------------------------------------------------
+
+\begin{definition}[Strong IL --- global intent consistency]
+\[
+  \mathrm{IL}_{\mathrm{global}}(\mathcal{T})
+  \iff
+  \forall a, b \in \mathcal{T},\
+  a.\mathrm{isAI} = \top \wedge b.\mathrm{isAI} = \top
+  \Rightarrow
+  a.\mathrm{intentTag} = b.\mathrm{intentTag}
+\]
+\leanref{Frfp.Minimal.BasisSweep.IL\_global}
+\end{definition}
+
+\begin{definition}[Strong AR --- full ambiguity resolution]
+\[
+  \mathrm{AR}_{\mathrm{global}}(\mathcal{T})
+  \iff
+  \forall a \in \mathcal{T},\
+  a.\mathrm{ambiguous} = \top \Rightarrow a.\mathrm{clarified} = \top
+\]
+\leanref{Frfp.Minimal.BasisSweep.AR\_global}
+\end{definition}
+
+\begin{definition}[Strong CSC --- correctness lock propagation]
+\[
+  \mathrm{CSC}_{\mathrm{global}}(\mathcal{T})
+  \iff
+  \Big(\exists a \in \mathcal{T},\ a.\mathrm{locked} = \top\Big)
+  \Rightarrow
+  \forall b \in \mathcal{T},\ b.\mathrm{locked} = \top
+\]
+\leanref{Frfp.Minimal.BasisSweep.CSC\_global}
+\end{definition}
+
+\begin{definition}[Strong governance admissibility]
+\[
+  \mathrm{GA}(\mathcal{T})
+  \iff
+  \mathrm{IL}_{\mathrm{global}}(\mathcal{T})
+  \wedge
+  \mathrm{AR}_{\mathrm{global}}(\mathcal{T})
+  \wedge
+  \mathrm{CSC}_{\mathrm{global}}(\mathcal{T})
+\]
+\leanref{Frfp.Minimal.BasisSweep.GovernanceAdmissibleStrong}
+\end{definition}
+
+% -------------------------------------------------------------------
+\subsection{Step Compatibility}
+% -------------------------------------------------------------------
+
+\begin{definition}[Step compatibility]
+A new step $s$ is compatible with a strongly admissible trace $\mathcal{T}$ if:
+\begin{enumerate}
+  \item \textbf{Intent compatibility}:
+        $\forall a \in \mathcal{T},\ a.\mathrm{isAI} = \top \wedge
+        s.\mathrm{isAI} = \top \Rightarrow
+        a.\mathrm{intentTag} = s.\mathrm{intentTag}$
+  \item \textbf{Ambiguity compatibility}:
+        $s.\mathrm{ambiguous} = \top \Rightarrow s.\mathrm{clarified} = \top$
+  \item \textbf{Lock forward}:
+        $(\exists a \in \mathcal{T},\ a.\mathrm{locked} = \top)
+        \Rightarrow s.\mathrm{locked} = \top$
+  \item \textbf{Lock backward}:
+        $s.\mathrm{locked} = \top \Rightarrow
+        \forall a \in \mathcal{T},\ a.\mathrm{locked} = \top$
+\end{enumerate}
+\leanref{Frfp.Minimal.BasisSweep.StepCompatibleStrong}
+\end{definition}
+
+% -------------------------------------------------------------------
+\subsection{Governance Safe Extension Theorem}
+% -------------------------------------------------------------------
+
+\begin{theorem}[Governance safe extension]
+Strong governance admissibility is preserved under compatible one-step extension:
+\[
+  \mathrm{GA}(\mathcal{T}) \wedge \mathrm{Compatible}(\mathcal{T}, s)
+  \Rightarrow
+  \mathrm{GA}(\mathcal{T} \mathbin{+\!\!+} [s])
+\]
+\leanref{Frfp.Minimal.BasisSweep.governance\_safe\_extension\_theorem}
+--- machine-checked proof.
+\end{theorem}
+\begin{proof}
+By case analysis on the membership of an arbitrary element of
+$\mathcal{T} \mathbin{+\!\!+} [s]$: it is either in $\mathcal{T}$ (where
+$\mathrm{GA}(\mathcal{T})$ applies) or equals $s$ (where the compatibility
+conditions apply). \qed
+\end{proof}
+
+This theorem is the key safety result for FRFP governance: governance compliance
+can be checked incrementally without re-auditing the entire trace history.
+
+% -------------------------------------------------------------------
+\subsection{Entropy Drift in Collective Settings}
+% -------------------------------------------------------------------
+
+\begin{theorem}[Collective entropy drift]
+Under AI-only rounds (no $\TE$ or $\HFD$ steps from any agent), the
+population-level entropy is non-decreasing:
+\[
+  H_{\mathrm{pop}}(t_2) \geq H_{\mathrm{pop}}(t_1) \quad
+  \text{for } t_1 \leq t_2 \text{ with no human steps}
+\]
+\leanref{Frfp.Core.CollectiveLayer}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Policy Residue in the Collective Layer}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{1.8cm}p{5cm}p{5cm}}
+\toprule
+Property & Mathematical skeleton & Policy residue \\
+\midrule
+IL & Intent tag invariant over traces & Intent is a shared governance resource \\
+AR & Every ambiguity flag implies clarification flag & Ambiguity is not acceptable in production \\
+CSC & Correctness lock is trace-monotone & Once locked, correctness is never revisited \\
+HEG/HEC & Tacit primitives target $\Tobj$ & Only humans may ground these \\
+Consensus impossibility & No AI primitive targets $\Tobj$ & AI consensus cannot substitute for human judgment \\
+\bottomrule
+\end{tabular}
+\end{center}

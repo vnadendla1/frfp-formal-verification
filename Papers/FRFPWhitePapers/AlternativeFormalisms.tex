@@ -1,0 +1,115 @@
+\section{Alternative formalisms}
+\label{sec:alternative-formalisms}
+
+FRFP is one point in a broader design space of human--AI collaboration architectures. This section
+positions FRFP against competing formalisms, clarifies which alternatives do \emph{not} reduce to
+FRFP (because they step outside the FRFP axiom class), and explains why FRFP is the appropriate
+choice for the theorem-level aims of this volume.
+
+\subsection{The design space: what varies across architectures}
+
+Any protocol-level formalism must decide (at minimum):
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Where correctness lives.} Is correctness a property decidable in explicit space (a predicate or oracle on artefacts), or a property of tacit endorsement states?
+  \item \textbf{Whether tacit is writable.} Is there a channel \(T\to E\) that exports acceptance states into machine-manipulable specifications, policies, or constraints?
+  \item \textbf{Who may access tacit.} May AI systems condition on tacit state (or modify it), or is tacit strictly human-exclusive?
+  \item \textbf{How acceptance is structured.} Is there a single acceptance boundary, or multiple gates (individual, committee, institution) with distinct authority and standards?
+  \item \textbf{How uncertainty is represented.} Is endorsement discrete (a finite judgment quotient), ordered (preorders), or probabilistic (graded belief and risk thresholds)?
+\end{enumerate}
+FRFP fixes these choices in a specific way: correctness is localized in tacit space; AI is confined to
+explicit moves; the explicit--tacit boundary is one-way \(E\to T\) with no return channel \(T\to E\);
+and the tacit interface is intentionally minimal so that the explicit algebra carries the technical
+structure.
+
+\subsection{Architectures that do \emph{not} reduce to FRFP}
+
+Because FRFP is proved (in Appendix~A) to be \emph{initial} only within a category of frameworks that
+share the FRFP epistemic primitives and axioms, an alternative architecture avoids ``reducing to
+FRFP'' precisely by violating at least one of those axioms. The following are genuine competitors in
+that sense.
+
+\paragraph{(A) Bidirectional boundary architectures (\(T\leftrightarrow E\)).}
+These formalisms introduce an essential write-back channel \(F:T\to E\), by which tacit endorsement
+states externalize into explicit policies, specifications, rubrics, or machine-checkable constraints.
+This matches institutional learning patterns (postmortems \(\to\) checklists \(\to\) standards), but it
+is outside FRFP by construction: FRFP forbids \(T\to E\). In such systems, the acceptance criteria are
+not merely applied at review points; they are continuously rewritten into the explicit layer.
+
+\paragraph{(B) Tacit-in-the-loop AI.}
+Here AI systems may condition on tacit state or participate in tacit updates (e.g., morphisms of the
+form \(T\times E\to E\) or AI-mediated operators \(T\to T\)). This architecture is attractive for
+personalization and closed-loop assistance, but it breaks human-exclusive correctness and blurs
+responsibility: the system can implicitly steer endorsement by reading or shaping tacit states. This
+is therefore not an instance of FRFP.
+
+\paragraph{(C) Explicit-only correctness architectures.}
+In some regimes, correctness can be reduced to a complete explicit oracle: proof checking, model
+checking, exhaustive tests under a closed-world specification. In such settings, ``acceptance'' is an
+explicit computation on artefacts, not a tacit judgment. This is again outside FRFP's target class:
+FRFP assumes a genuine tacit layer that is not exhausted by any fixed explicit oracle.
+
+\paragraph{(D) Multi-boundary acceptance architectures.}
+Real institutions often implement layered gates of endorsement (individual sign-off, peer review,
+risk committee approval, regulatory clearance). A formalism may represent these as multiple tacit
+layers and multiple boundaries, with cross-talk between gates. If the ontology class fixes a single
+boundary primitive, then such multi-gate architectures do not reduce to FRFP without extending the
+primitive structure.
+
+\paragraph{(E) Probabilistic tacit semantics.}
+A competing formalism may model tacit state as a richer belief object (e.g., probability measures,
+utility-weighted acceptance thresholds, risk budgets) rather than a preorder with a finite observable
+judgment quotient. When the tacit algebra differs materially (graded endorsement rather than discrete
+quotients and idempotent operators), the architecture falls outside the specific tacit-interface axioms
+used in FRFP's initiality claims.
+
+\subsection{Which alternatives can be viewed as generalizations of the scientific method}
+
+Several competing architectures can still be regarded as ``generalizations of the scientific method,''
+but they generalize different facets of it.
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Explicit-only correctness} generalizes the formal-verification slice of science (mathematics, parts of theoretical computer science), where correctness is internal to a fixed calculus.
+  \item \textbf{Bidirectional \(T\leftrightarrow E\)} generalizes the meta-scientific process by which tacit know-how becomes codified into explicit methods, standards, and tooling.
+  \item \textbf{Multi-boundary acceptance} generalizes the institutional reality of science as layered endorsement (lab judgment, journal review, replication, community uptake).
+  \item \textbf{Probabilistic tacit semantics} generalizes science as graded belief and risk management under uncertainty.
+\end{itemize}
+FRFP generalizes a particular core: \emph{stabilization by accountable review}, where public explicit
+artefacts are strengthened by explicit checks and then cross a responsibility-bearing acceptance
+boundary.
+
+\subsection{Why FRFP among the alternatives}
+
+FRFP is chosen to match a specific problem class and to enable theorem-level analysis.
+
+\paragraph{Target regime.}
+We aim at long-horizon workflows in which (i) requirements evolve, (ii) explicit artefacts and
+evaluation criteria drift across extended traces, and (iii) no fixed explicit oracle exhausts what it
+means for an artefact to be adequate. In this regime, architectures that place correctness entirely in
+\(E\) are aiming at a different class of problems.
+
+\paragraph{Accountability and non-circular semantics.}
+FRFP enforces that endorsement is attributable: AI systems can produce and transform explicit
+artefacts, but only humans occupy correctness-bearing tacit states. The one-way boundary \(E\to T\)
+prevents implicit rewriting of acceptance criteria by the system itself. Architectures with essential
+\(T\to E\) write-back or tacit-in-the-loop AI can be valuable, but they entangle acceptance and
+generation in ways that complicate responsibility and undermine the invariance and non-automation
+results that this volume targets.
+
+\paragraph{Minimality and canonicity within the axiom class.}
+Within the class of formalisms that share FRFP's epistemic primitives and constraints (explicit/tacit
+separation, one-way boundary, human-exclusive correctness, AI confined to explicit moves), FRFP is
+initial: any competing framework satisfying the same assumptions admits a unique structure-preserving
+interpretation from FRFP. In this precise sense, FRFP is not an arbitrary design choice inside its
+assumption class; alternatives that keep the same primitives are instances/refinements rather than
+routes around the theorem-level consequences.
+
+\subsection{Practical reading of this comparison}
+
+The existence of non-FRFP architectures is not a defect: it clarifies scope. FRFP is a protocol-level
+formalism for domains where correctness-bearing endorsement cannot be reduced to explicit computation,
+and where the central risks are long-horizon drift, accountability loss, and explicit-only governance
+limits. Competing architectures are appropriate when one wishes to (i) treat correctness as fully
+explicit, (ii) explicitly codify tacit judgments into machine-checkable policy, (iii) close the loop
+between system behavior and human internal state, or (iv) model layered institutional gates or graded
+belief as first-class. Subsequent volumes may study carefully delimited departures from FRFP's axioms;
+the present volume fixes them to make the foundational theorems sharp.

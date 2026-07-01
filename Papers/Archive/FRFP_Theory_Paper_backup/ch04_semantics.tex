@@ -1,0 +1,240 @@
+% ===================================================================
+\section{Denotational and Operational Semantics}
+\label{ch:semantics}
+% ===================================================================
+
+\subsection{Overview}
+
+This chapter defines the semantic interpretation of FRFP terms. Two complementary
+views are presented:
+
+\begin{itemize}
+  \item \textbf{Denotational semantics}: TDG terms denote morphisms in a
+        Grothendieck construction over indexed categories.
+  \item \textbf{Operational semantics}: pipeline execution is modeled as a
+        relation on runs, connected to a stochastic trajectory space via the
+        $\runToOmega$ bijection.
+\end{itemize}
+
+Both views contain significant structures made explicit by the Lean formalization
+that were implicit or absent in the original published theory.
+
+% -------------------------------------------------------------------
+\subsection{The Grothendieck Construction}
+% -------------------------------------------------------------------
+
+FRFP uses a Grothendieck construction to model configurations --- the full state
+of a pipeline execution including both categorical structure and index data.
+
+\begin{definition}[Indexed category]
+Define a contravariant functor:
+\[
+  \mathbf{E}_{\mathrm{idx}} : \mathbb{N}^{\mathrm{op}} \to \mathbf{Cat}
+\]
+mapping natural number indices $n$ to categories $\mathbf{E}_{\mathrm{idx}}(n)$
+and index morphisms (decrements) to functors between them.
+\end{definition}
+
+\begin{definition}[Grothendieck object / configuration]
+A configuration $\sigma$ is an object in the Grothendieck construction
+$\int \mathbf{E}_{\mathrm{idx}}$:
+\[
+  \sigma = (n,\ X_n) \quad \text{where } n \in \mathbb{N},\
+  X_n \in \mathrm{Ob}(\mathbf{E}_{\mathrm{idx}}(n))
+\]
+\leanref{Frfp.Core.Grothendieck.GrothendieckObject}
+\end{definition}
+
+\begin{definition}[Grothendieck morphism]
+A morphism between configurations $(n, X_n) \to (m, X_m)$ consists of an index
+morphism $n \to m$ and a morphism in the base category compatible with the
+reindexing functor.
+\leanref{Frfp.Core.Grothendieck.GrothendieckMorphism}
+\end{definition}
+
+% -------------------------------------------------------------------
+\subsection{Lean Correction: Reduction Acts on Objects}
+% -------------------------------------------------------------------
+
+\begin{correction}[Lean Correction P-01]
+The original published theory is ambiguous about whether reduction steps operate
+on configurations, morphisms, or syntactic terms. The Lean formalization resolves
+this: \textbf{reduction is a relation on configurations} (Grothendieck objects),
+not on morphisms.
+\end{correction}
+
+\begin{definition}[Reduction step]
+A reduction step is a relation
+$\to_r \subseteq \mathrm{GrothendieckObject} \times \mathrm{GrothendieckObject}$.
+\end{definition}
+
+\begin{theorem}[Reduction induces morphism]
+If $\sigma_1 \to_r \sigma_2$, then there exists a Grothendieck morphism $m$ with
+$m.\mathrm{source} = \sigma_1$ and $m.\mathrm{target} = \sigma_2$:
+\[
+  \sigma_1 \to_r \sigma_2
+  \Rightarrow
+  \exists m : \mathrm{GrothendieckMorphism},\
+  m.\mathrm{src} = \sigma_1 \wedge m.\mathrm{tgt} = \sigma_2
+\]
+\leanref{Frfp.Core.Grothendieck.reduction\_induces\_morphism}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Semantic Functions}
+% -------------------------------------------------------------------
+
+\begin{definition}[Semantic evaluation]
+The function $\Sem$ maps a configuration to an object in the kernel category:
+\[
+  \Sem : \mathrm{GrothendieckObject} \to \mathrm{Object}
+\]
+\leanref{Frfp.Core.TacitDependence.Sem}
+\end{definition}
+
+\begin{definition}[Correctness evaluation]
+The function $\gamma$ maps a kernel object to a correctness judgment:
+\[
+  \gamma : \mathrm{Object} \to \mathrm{CorrectnessJudgment}
+\]
+\leanref{Frfp.Core.TacitDependence.gamma}
+\end{definition}
+
+\begin{definition}[Observable correctness]
+The observable correctness function $\obs$ over runs:
+\[
+  \obs = \gamma \circ \Sem \circ \mathrm{initial}
+       : \mathrm{Runs}(P) \to \mathrm{CorrectnessJudgment}
+\]
+\leanref{Frfp.Core.TacitDependence.obs}
+\end{definition}
+
+\begin{note}
+$\Sem$, $\gamma$, $\obs$, and $\mathrm{CorrectnessJudgment}$ are all new
+explicit types introduced by the Lean formalization. They were implicit in the
+original paper's treatment of tacit-dependent correctness.
+\end{note}
+
+% -------------------------------------------------------------------
+\subsection{Runs and Trajectories}
+% -------------------------------------------------------------------
+
+\begin{definition}[Run]
+A run $\rho$ of program $P$ is a maximal execution trace. The type of runs of
+$P$ is written $\mathrm{Runs}(P)$.
+\end{definition}
+
+\begin{definition}[Allowed stochastic trajectory]
+The sample space $\Omega$ is the full space of stochastic trajectories. The
+\emph{allowed} subspace $\Omega_{\mathrm{allowed}} \subseteq \Omega$ contains
+exactly those trajectories consistent with a valid run of $P$.
+\end{definition}
+
+% -------------------------------------------------------------------
+\subsection{The \texorpdfstring{$\runToOmega$}{runToOmega} Bijection}
+% -------------------------------------------------------------------
+
+\begin{correction}[Lean Correction P-02]
+Remark A.104 in the original paper asserts a correspondence between runs and
+allowed stochastic trajectories, but does not define it explicitly. The Lean
+formalization requires a concrete injective map with a round-trip property.
+\end{correction}
+
+\begin{definition}[$\runToOmega$]
+The run-to-trajectory correspondence:
+\[
+  \runToOmega : \{\rho \mid \mathrm{Runs}(P)\ \rho\} \to \Omega_{\mathrm{allowed}}
+\]
+with companion inverse:
+\[
+  \omegaToRun : \Omega_{\mathrm{allowed}} \to \{\rho \mid \mathrm{Runs}(P)\ \rho\}
+\]
+\leanref{Frfp.Core.OperationalSemantics.runToOmega}, \leanref{Frfp.Core.OperationalSemantics.omegaToRun}
+\end{definition}
+
+\begin{axiom_env}[$\runToOmega$ injectivity]
+\[
+  \runToOmega(\rho_1) = \runToOmega(\rho_2) \Rightarrow \rho_1 = \rho_2
+\]
+\leanref{Frfp.Core.OperationalSemantics.runToOmega_injective}
+\end{axiom_env}
+
+\begin{axiom_env}[$\runToOmega$ round-trip]
+\[
+  \omegaToRun(\runToOmega(\rho)) = \rho
+\]
+\leanref{Frfp.Core.OperationalSemantics.runToOmega_roundtrip}
+\end{axiom_env}
+
+\begin{note}
+Injectivity and the round-trip property are axiomatized. A complete proof would
+require formalizing the probability space construction. This is an open proof
+obligation.
+
+\textbf{Interpretation}: $\runToOmega$ is the formal bridge between the
+operational semantics (discrete execution traces) and the probabilistic semantics
+(measure on trajectory space). Without this bridge, probabilistic properties of
+FRFP cannot be stated as theorems about runs.
+\end{note}
+
+% -------------------------------------------------------------------
+\subsection{Denotational Semantics of Pipelines}
+% -------------------------------------------------------------------
+
+\begin{definition}[Pipeline denotation]
+The denotational semantics $\llbracket \cdot \rrbracket$ maps a TDG term to its
+morphism in $\Czero$:
+\[
+  \llbracket \varepsilon \rrbracket = \mathrm{id},\qquad
+  \llbracket p \cdot t \rrbracket = \llbracket p \rrbracket \circ \llbracket t \rrbracket
+\]
+\end{definition}
+
+\begin{theorem}[Denotational--operational agreement]
+For any TDG term $t$ and its reduct $t'$, the denotations are equal:
+\[
+  t \to_c t' \Rightarrow \llbracket t \rrbracket = \llbracket t' \rrbracket
+\]
+\leanref{Frfp.Core.Semantics}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Navigation Layer}
+% -------------------------------------------------------------------
+
+\begin{definition}[Navigation morphism]
+A navigation morphism is an admissible path annotation on a TDG term, recording
+which reachable states were visited during reduction. Navigation morphisms form a
+groupoid.
+\end{definition}
+
+\begin{definition}[Navigation equivalence]
+Two terms $t_1 \navequiv t_2$ if they are equal modulo navigation morphism
+annotations.
+\end{definition}
+
+\begin{theorem}[Navigation equivalence is an equivalence relation]
+\begin{itemize}
+  \item Reflexivity: $t \navequiv t$.
+  \item Symmetry: $t_1 \navequiv t_2 \Rightarrow t_2 \navequiv t_1$.
+  \item Transitivity: $t_1 \navequiv t_2 \wedge t_2 \navequiv t_3
+                      \Rightarrow t_1 \navequiv t_3$.
+\end{itemize}
+\leanref{Frfp.Core.SemanticCorrectness.nav\_equivalence\_is\_equivalence}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Immutability of Pipelines}
+% -------------------------------------------------------------------
+
+\begin{theorem}[Pipeline immutability]
+Executing a pipeline does not modify its structure. A pipeline's source, target,
+and primitive are invariant under execution:
+\[
+  \mathrm{execute}(\Pi).\mathrm{structure} = \Pi.\mathrm{structure}
+\]
+\leanref{Frfp.Core.ImmutabilityProof}
+\end{theorem}
+
+This theorem captures a key FRFP invariant: pipelines are static specifications.
+Execution produces outputs but does not rewrite the pipeline specification itself.

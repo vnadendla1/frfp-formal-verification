@@ -1,0 +1,62 @@
+\subsection{Pre-registration and Study Governance}
+\label{sec:prereg}
+
+\paragraph{Pre-registration.}
+Prior to full-scale packet distribution and rater recruitment, the study design, case inclusion criteria, hypotheses, and primary analysis plan will be pre-registered in a time-stamped public repository (e.g., OSF or equivalent archival platform). The pre-registration document will include:
+
+\begin{enumerate}
+    \item The complete list of 25 cases.
+    \item The inclusion and exclusion criteria for case selection.
+    \item The three-condition generation protocol (Baseline, Protocol, Independent).
+    \item The normalization rules and word-budget constraints.
+    \item The randomization procedure for document labeling and packet construction.
+    \item The primary and secondary outcome definitions.
+    \item The planned statistical analysis, including stratified and robustness analyses.
+\end{enumerate}
+
+No cases will be added, removed, or replaced after pre-registration except under documented failure of eligibility criteria (e.g., discovery that an independent assessor report does not meet minimum documentation requirements).
+
+\paragraph{Hypotheses.}
+The primary pre-registered hypothesis is:
+
+\begin{quote}
+Across the full case set, protocol-structured analyses will be selected as closer to independent assessor reports more frequently than baseline analyses.
+\end{quote}
+
+A secondary, conditional hypothesis is:
+
+\begin{quote}
+The protocol advantage will be larger in governance-heavy, underdetermined cases (R3--R4 dominant) than in mechanically crisp cases (R1--R2 dominant).
+\end{quote}
+
+No directional hypothesis is asserted for mechanically crisp cases.
+
+\paragraph{Case Stratification.}
+Cases are pre-classified into strata (mechanistic, socio-technical, financial-institutional, regulatory, crisis/disaster). Stratum assignments will be fixed in the pre-registration document and not modified post hoc. Primary aggregate analysis will be performed across all cases; stratum-level analyses will be reported separately.
+
+\paragraph{Generation Freeze.}
+All three generated outputs per case (Baseline, Protocol, Independent) will be frozen prior to normalization. No content edits will occur after freezing except formatting normalization consistent with pre-specified rules (Section~\ref{sec:methods}). All raw generations will be archived.
+
+\paragraph{Normalization Protocol Freeze.}
+The normalization shell, section headers, word limits, and constraints prohibiting vocabulary injection or reasoning augmentation will be finalized prior to packet assembly. Any deviation from these rules will be documented.
+
+\paragraph{Randomization and Blinding.}
+The mapping between document condition (Baseline, Protocol, Independent) and Type labels (X/Y/Z) will be randomized per rater using a fixed seed stored in the administrative archive. Raters will not be informed of the existence of protocol vs baseline conditions.
+
+\paragraph{Primary Analysis Lock.}
+The primary statistical test (paired comparison of $(P,I)$ vs $(B,I)$ selection frequency) will be defined prior to inspecting rater responses. Secondary analyses (R3--R4 restricted subset, stratum-level effects) will be reported regardless of outcome.
+
+\paragraph{Full Disclosure Policy.}
+The final manuscript will include:
+\begin{itemize}
+    \item Per-case score tables.
+    \item Aggregate and stratum-level results.
+    \item Cases where no protocol advantage was observed.
+    \item Sensitivity analyses.
+\end{itemize}
+
+\paragraph{Exploratory Analyses.}
+Any post hoc or exploratory analyses (e.g., textual feature correlation, qualitative pattern analysis) will be clearly labeled as exploratory and separated from confirmatory claims.
+
+\paragraph{Replication Materials.}
+Upon publication, all prompts, normalization templates, randomization scripts, anonymized rater responses, and analysis code will be made available to enable independent replication, subject to any confidentiality constraints agreed with raters.

@@ -1,0 +1,334 @@
+\chapter{Research Agenda and Open Problems}
+\label{ch:frfp-open-problems}
+
+This chapter sketches a research agenda emerging from FRFP and the
+case studies in Volume~II.
+It is intentionally short and selective:
+its goal is to identify a few tractable directions where theory,
+empirics, and institutional work can reinforce each other, rather
+than to catalogue every possible question.
+
+We group open problems into four clusters:
+
+\begin{enumerate}
+  \item foundations and theory;
+  \item empirical characterisation of long-horizon systems;
+  \item institutional and governance design;
+  \item tools and practice for FRFP-aligned development.
+\end{enumerate}
+
+\section{Foundations and Theory}
+
+\subsection{T1. Formal conditions for safe horizons}
+
+FRFP treats safe horizons as structural bounds on how far a run in
+\(N \ltimes E\) may proceed without re-grounding in tacit judgement.
+Volume~I defines this notion; Volume~II shows qualitatively where
+horizon failures occur.
+We lack sharp theorems of the form:
+
+\begin{quote}
+  Given a class of systems with properties \(A,B,C\), any run of
+  depth \(>D\) without re-grounding has probability at least \(p\) of
+  entering an inadmissible region.
+\end{quote}
+
+Open problems:
+
+\begin{itemize}
+  \item characterise safe horizons in simplified models:
+        bandit processes, Markov decision processes, or repeated
+        games with partial monitoring;
+  \item prove sufficient conditions under which periodic intervention
+        by tacit operators \(T\) guarantees bounds on error or drift;
+  \item analyse trade-offs between horizon length, intervention
+        frequency, and performance.
+\end{itemize}
+
+\subsection{T2. Population-level FRFP dynamics}
+
+Volume~II informally treats populations of users, institutions, and
+systems.
+A more formal treatment would:
+
+\begin{itemize}
+  \item model distributions over tacit states \(T\) (e.g.\ beliefs,
+        skills, norms) for populations;
+  \item define institutional operators acting on these distributions
+        (platform policies, regulations, scientific norms);
+  \item study fixed points, cycles, and instability modes when AI
+        systems and institutions co-evolve.
+\end{itemize}
+
+Concrete questions:
+
+\begin{itemize}
+  \item Under what conditions do recommender or LLM-mediated
+        environments converge to narrow attractors in belief or
+        preference space?
+  \item How do different governance operators (e.g.\ content policies,
+        audit regimes) alter these dynamics?
+\end{itemize}
+
+\subsection{T3. Non-automation theorems at the institutional level}
+
+Volume~I states non-automation results for certain classes of
+problems; Volume~II extends this intuition to governance:
+
+\begin{quote}
+  There is no purely explicit procedure that can fully replace tacit
+  institutional judgement about acceptable socio-technical systems.
+\end{quote}
+
+Open problems:
+
+\begin{itemize}
+  \item formalise classes of governance tasks (e.g.\ acceptable-risk
+        assessment, fairness adjudication) and show limits on their
+        automation;
+  \item connect these limits to impossibility results in social
+        choice, mechanism design, or learning theory;
+  \item identify precise boundaries where partial automation is safe
+        or beneficial.
+\end{itemize}
+
+\subsection{T4. Semantics for large foundation models}
+
+Foundation models and general-purpose LLMs have diffuse explicit
+semantics.
+We need better theoretical tools to:
+
+\begin{itemize}
+  \item describe what these models are actually computing, beyond
+        generic sequence prediction;
+  \item relate this to task-specific semantics when they are
+        fine-tuned or prompted for particular roles;
+  \item characterise when and how their behaviour can be constrained
+        by FRFP-style boundaries and safe horizons.
+\end{itemize}
+
+Open problems include:
+
+\begin{itemize}
+  \item compositional semantics for prompted or tool-augmented
+        models;
+  \item formal models of hallucination and its inevitability under
+        certain training regimes;
+  \item conditions under which foundation models can safely serve as
+        components inside FRFP architectures.
+\end{itemize}
+
+\section{Empirical Characterisation of Long-Horizon Systems}
+
+\subsection{E1. Measuring tacit-skill erosion and preservation}
+
+Volume~II highlights tacit erosion as a recurring risk.
+Empirical work is needed to:
+
+\begin{itemize}
+  \item measure how prolonged AI use affects human skills in law,
+        medicine, engineering, and everyday tasks;
+  \item disentangle short-term productivity gains from long-term
+        dependence;
+  \item evaluate design interventions (e.g.\ mandatory verification,
+        occasional AI-free tasks) that preserve key skills.
+\end{itemize}
+
+This includes controlled experiments, longitudinal field studies, and
+instrumentation of real systems.
+
+\subsection{E2. Boundary capture in practice}
+
+Many case studies feature systems that are ``advisory'' on paper but
+decisive in practice.
+We currently lack good empirical measures of boundary capture.
+
+Open questions:
+
+\begin{itemize}
+  \item How often do humans override AI recommendations in different
+        domains, and why?
+  \item How do override rates evolve over time as trust and habit set
+        in?
+  \item What interface and incentive designs help maintain meaningful
+        boundaries?
+\end{itemize}
+
+\subsection{E3. Horizon creep and drift}
+
+Horizon creep---the gradual extension of time, scale, or domain
+beyond initial intentions---is visible in several failures, but rarely
+measured.
+
+Research directions:
+
+\begin{itemize}
+  \item define empirical indicators of horizon creep (expansion of
+        user base, jurisdictions, asset classes, patient populations);
+  \item correlate these with incident rates, near-misses, and
+        qualitative signs of misalignment;
+  \item study organisational dynamics that accelerate or resist
+        horizon creep (competition, regulation, internal culture).
+\end{itemize}
+
+\subsection{E4. Comparative case-study programmes}
+
+Volume~II provides a handful of detailed case studies.
+A larger research programme could:
+
+\begin{itemize}
+  \item build a curated library of FRFP-analysed systems across
+        domains and scales;
+  \item develop standardised coding schemes for patterns and
+        anti-patterns;
+  \item quantitatively test hypotheses such as:
+        ``systems with engineered safe horizons have lower incidence
+        of catastrophic failure, controlling for domain and scale''.
+\end{itemize}
+
+This would turn FRFP from a primarily conceptual framework into a
+cumulative empirical research area.
+
+\section{Institutional and Governance Design}
+
+\subsection{G1. FRFP-aware regulatory regimes}
+
+Regulators in finance, healthcare, transport, and digital platforms
+increasingly face AI systems with long-horizon effects.
+Open questions:
+
+\begin{itemize}
+  \item How can regulatory frameworks be rewritten to explicitly
+        address:
+        \begin{itemize}
+          \item task semantics and domain of validity;
+          \item boundaries (who decides what);
+          \item engineered safe horizons;
+          \item institutional non-automation?
+        \end{itemize}
+  \item What templates for permits, approvals, and ongoing reporting
+        best capture these elements?
+  \item How can regulators collaborate across domains using a shared
+        FRFP vocabulary?
+\end{itemize}
+
+\subsection{G2. Organisational FRFP architectures}
+
+Within organisations, there is a design space of governance
+architectures:
+
+\begin{itemize}
+  \item centralised vs.\ federated AI risk committees;
+  \item domain-specific vs.\ cross-cutting boards;
+  \item internal vs.\ external oversight mechanisms.
+\end{itemize}
+
+Research questions:
+
+\begin{itemize}
+  \item Which architectures are most effective at preventing
+        anti-patterns (metric worship, advisory-in-name-only, horizon
+        creep)?
+  \item How can FRFP concepts be embedded in standard corporate
+        processes (risk registers, audits, product reviews)?
+  \item How do different incentive structures affect the success of
+        FRFP-style governance?
+\end{itemize}
+
+\subsection{G3. Professional norms and FRFP}
+
+Many domains (medicine, law, science, engineering) already have strong
+professional norms around judgement, evidence, and responsibility.
+
+Open problems:
+
+\begin{itemize}
+  \item How can FRFP concepts be translated into domain-native
+        language and integrated into existing codes of practice?
+  \item What training and certification regimes are needed for
+        ``FRFP-literate'' professionals and leaders?
+  \item How can professional societies act as FRFP operators,
+        updating norms as AI capabilities change?
+\end{itemize}
+
+\section{Tools and Practice}
+
+\subsection{P1. FRFP-aware development and operations tools}
+
+Today’s MLOps and product tools are largely agnostic to FRFP
+structure.
+
+Opportunities:
+
+\begin{itemize}
+  \item development tools that:
+        \begin{itemize}
+          \item encourage explicit task-definition and scope;
+          \item annotate model outputs with uncertainty and provenance;
+          \item make boundary events first-class objects.
+        \end{itemize}
+  \item operations tools that:
+        \begin{itemize}
+          \item track safe horizons and trigger reviews;
+          \item surface FRFP metrics to governance bodies;
+          \item log institutional decisions as part of the system
+                state.
+        \end{itemize}
+\end{itemize}
+
+\subsection{P2. Simulation environments for FRFP systems}
+
+Several case studies depend on long-horizon, population-level
+effects.
+We need simulation tools that:
+
+\begin{itemize}
+  \item model interactions between AI systems, users, and institutions;
+  \item allow testing of governance and boundary designs before
+        deployment;
+  \item support ``what if'' analysis:
+        what happens if we change the ODD, screening interval, or
+        content policy?
+\end{itemize}
+
+This suggests a line of work on FRFP-aware agent-based simulations and
+testbeds.
+
+\subsection{P3. Education, documentation, and patterns}
+
+Finally, there is practical work to do in:
+
+\begin{itemize}
+  \item creating FRFP teaching materials for engineers, policy-makers,
+        and students;
+  \item collecting and publishing patterns and anti-patterns (as in
+        Chapter~\ref{ch:frfp-patterns}) in a form usable by
+        practitioners;
+  \item developing documentation standards that include FRFP elements
+        (semantics, boundaries, horizons, governance) alongside
+        conventional API or model docs.
+\end{itemize}
+
+\section{Closing Remarks}
+
+FRFP was motivated by a gap:
+the absence of a formal language for reasoning about long-horizon
+human--AI systems that are simultaneously technical, social, and
+institutional.
+Volume~I filled part of that gap at the theoretical level;
+Volume~II tested the language against concrete cases.
+
+The research agenda outlined here points in both directions:
+
+\begin{itemize}
+  \item inward, toward deeper formal results on safe horizons,
+        population dynamics, and non-automation;
+  \item outward, toward empirical measurement, institutional design,
+        and practical tools.
+\end{itemize}
+
+The hope is that FRFP can function as a common scaffold across these
+efforts: a way for theorists, engineers, clinicians, financiers,
+regulators, and others to talk about the same objects---explicit
+spaces, tacit spaces, boundaries, horizons, and operators---even as
+they work at very different levels of abstraction and practice.

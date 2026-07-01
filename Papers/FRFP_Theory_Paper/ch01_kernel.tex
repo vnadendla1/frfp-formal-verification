@@ -1,0 +1,249 @@
+% ===================================================================
+\section{The Kernel Category}
+\label{ch:kernel}
+% ===================================================================
+
+\subsection{Overview}
+
+FRFP is built on a minimal three-object category $\Czero$ whose structure encodes
+the fundamental distinction between explicit (machine-manipulable) and tacit
+(human correctness-bearing) computation. This chapter defines $\Czero$, its six
+primitive morphisms, their typing rules, and the core theorems that follow directly
+from the definitions --- without requiring any additional axioms.
+
+% -------------------------------------------------------------------
+\subsection{Objects}
+% -------------------------------------------------------------------
+
+\begin{definition}[Kernel category objects]
+The kernel category $\Czero$ has exactly three objects:
+\[
+  \mathrm{Ob}(\Czero) = \{\varnothing,\ \Eobj,\ \Tobj\}
+\]
+\end{definition}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Object & Name & Interpretation \\
+\midrule
+$\varnothing$ & Empty & The absent or uninitialized explicit state \\
+$\Eobj$ & Explicit object & Machine-manipulable representations \\
+$\Tobj$ & Tacit object & Human correctness-bearing knowledge \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The object set is closed. No extensions to $\Czero$ are permitted.
+\leanref{Frfp.Core.Kernel.Object}
+
+The objects are sometimes written with subscript notation: $\Eobj$ (the explicit
+\emph{object}) is distinct from $\Ecat$ (the \emph{category} of explicit
+morphisms). This distinction is enforced in the Lean formalization by separate
+types.
+
+% -------------------------------------------------------------------
+\subsection{Primitive Morphisms}
+% -------------------------------------------------------------------
+
+\begin{definition}[Primitives]
+The six primitive morphisms of $\Czero$ are:
+\end{definition}
+
+\begin{center}
+\begin{tabular}{llll>{\raggedright\arraybackslash}p{4.5cm}}
+\toprule
+Primitive & Source & Target & Name & Role \\
+\midrule
+$\RI$ & $\varnothing$ & $\Eobj$ & Representation Initiation & Creates an explicit representation \\
+$\EC$ & $\Eobj$ & $\Eobj$ & Explicit Computation & AI processing within explicit space \\
+$\ED$ & $\Eobj$ & $\Eobj$ & Explicit Diagnostics & AI checking/verification within explicit space \\
+$\RB$ & $\Eobj$ & $\Tobj$ & Representational Backflow & The unique boundary crossing morphism \\
+$\TE$ & $\Tobj$ & $\Tobj$ & Tacit Evaluation & Human evaluation within tacit space \\
+$\HFD$ & $\Tobj$ & $\Tobj$ & Human Final Decision & Human closure within tacit space \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\leanref{Frfp.Core.Kernel.Primitive}
+
+The primitive set is a closed enumeration. No new primitives may be added without
+a complete re-audit of all downstream theorems.
+
+% -------------------------------------------------------------------
+\subsection{Subcategories}
+% -------------------------------------------------------------------
+
+\begin{definition}[Explicit subcategory]
+$\Ecat$ is the full subcategory of morphisms targeting $\Eobj$:
+\[
+  \Ecat = \{p : \mathrm{Primitive} \mid p.\mathrm{target} = \Eobj\}
+        = \{\RI, \EC, \ED\}
+\]
+\end{definition}
+
+\begin{definition}[Tacit subcategory]
+$\Tcat$ is the full subcategory of morphisms targeting $\Tobj$:
+\[
+  \Tcat = \{p : \mathrm{Primitive} \mid p.\mathrm{target} = \Tobj\}
+        = \{\RB, \TE, \HFD\}
+\]
+\end{definition}
+
+\leanref{Frfp.Core.Kernel.Ecat}, \leanref{Frfp.Core.Kernel.Tcat}
+
+The partition $\Ecat \cup \Tcat$ covers all six primitives and is disjoint.
+
+% -------------------------------------------------------------------
+\subsection{Core Typing Theorems}
+% -------------------------------------------------------------------
+
+The following theorems are proved directly from the primitive definitions --- no
+additional axioms are required.
+
+\begin{theorem}[Explicit--Tacit Separation]
+There is no primitive morphism from $\Tobj$ to $\Eobj$:
+\[
+  \forall p : \mathrm{Primitive},\
+  \neg(p.\mathrm{source} = \Tobj \wedge p.\mathrm{target} = \Eobj)
+\]
+\end{theorem}
+\begin{proof}
+By case analysis on the six primitives. None has source $\Tobj$ and target
+$\Eobj$. \qed
+\end{proof}
+\leanref{Frfp.Core.Kernel.no\_morphism\_T0\_to\_E0}
+
+\begin{remark}
+In the original published theory, ETS was listed as a primitive axiom. The Lean
+formalization shows it is a consequence of the primitive typing. See
+Chapter~\ref{ch:basis}.
+\end{remark}
+
+\begin{theorem}[Uniqueness of the boundary morphism]
+$\RB$ is the unique primitive crossing from $\Eobj$ to $\Tobj$:
+\[
+  \forall p : \mathrm{Primitive},\
+  (p.\mathrm{source} = \Eobj \wedge p.\mathrm{target} = \Tobj) \Rightarrow p = \RB
+\]
+\end{theorem}
+\begin{proof}
+By case analysis on the six primitives. Only $\RB$ has source $\Eobj$ and target
+$\Tobj$. \qed
+\end{proof}
+\leanref{Frfp.Core.Kernel.RB\_unique\_boundary}
+
+\begin{theorem}[AI executability partition]
+Define \texttt{is\_AI\_executable} as $\{\RI, \EC, \ED\}$. Then:
+\[
+  \forall p,\
+  \textit{is\_AI\_executable}(p)
+  \Rightarrow (p.\mathrm{source} \in \{\varnothing, \Eobj\})
+              \wedge p.\mathrm{target} = \Eobj
+\]
+\end{theorem}
+\leanref{Frfp.Core.Kernel.AI\_preserves\_explicit}
+
+\begin{corollary}[Human-exclusive tacit access]
+$\RB$, $\TE$, and $\HFD$ are never AI-executable and always operate in or
+enter tacit space.
+\leanref{Frfp.Core.Kernel.is\_human\_only}
+\end{corollary}
+
+% -------------------------------------------------------------------
+\subsection{Pipelines}
+% -------------------------------------------------------------------
+
+\begin{definition}[Pipeline]
+A pipeline $\Pi$ is a morphism in $\Czero$: a triple $(\mathrm{src},
+\mathrm{tgt}, p)$ where $p$ is the underlying primitive.
+\end{definition}
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Pipeline type & Source & Target & Underlying primitives \\
+\midrule
+Explicit pipeline & $\varnothing$ or $\Eobj$ & $\Eobj$ & $\RI$, $\EC$, $\ED$ \\
+Boundary pipeline & $\Eobj$ & $\Tobj$ & $\RB$ (unique) \\
+Tacit pipeline & $\Tobj$ & $\Tobj$ & $\TE$, $\HFD$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{definition}[Pipeline composition]
+For pipelines $\Pi_1 : X \to Y$ and $\Pi_2 : Y \to Z$, their composition
+$\Pi_2 \circ \Pi_1 : X \to Z$ is defined when
+$\Pi_1.\mathrm{target} = \Pi_2.\mathrm{source}$.
+\leanref{Frfp.Core.Kernel.pipeline\_compose}
+\end{definition}
+
+\begin{theorem}[Composition preserves typing]
+If $\Pi_1 : X \to Y$ and $\Pi_2 : Y \to Z$, then
+$(\Pi_2 \circ \Pi_1).\mathrm{source} = X$ and
+$(\Pi_2 \circ \Pi_1).\mathrm{target} = Z$.
+\leanref{Frfp.Core.Kernel.pipeline\_compose}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{Primitive Phase Partition}
+% -------------------------------------------------------------------
+
+\begin{definition}[Primitive phase]
+The phase of a primitive is defined by:
+\[
+  \mathrm{phase}(p) =
+  \begin{cases}
+    \text{explicit}  & \text{if } p \in \{\RI, \EC, \ED\} \\
+    \text{boundary}  & \text{if } p = \RB \\
+    \text{tacit}     & \text{if } p \in \{\TE, \HFD\}
+  \end{cases}
+\]
+\leanref{Frfp.Minimal.BasisSweep.phaseOf}
+\end{definition}
+
+\begin{theorem}[Phase partition]
+The phase function is total: every primitive has exactly one phase.
+\leanref{Frfp.Minimal.BasisSweep.phase\_partition}
+\end{theorem}
+
+\begin{theorem}[Boundary uniqueness by phase]
+A primitive has boundary phase if and only if it is $\RB$.
+\leanref{Frfp.Minimal.BasisSweep.phase\_boundary\_iff}
+\end{theorem}
+
+% -------------------------------------------------------------------
+\subsection{The No-Return Principle}
+% -------------------------------------------------------------------
+
+\begin{theorem}[No tacit-to-explicit return]
+There is no sequence of primitives that goes from $\Tobj$ to $\Eobj$:
+\[
+  \nexists\ p_1, \ldots, p_n : \mathrm{Primitive},\quad
+  p_1.\mathrm{source} = \Tobj \wedge p_n.\mathrm{target} = \Eobj
+\]
+\end{theorem}
+
+This follows from Theorem~1.1 (ETS) by induction: every primitive either stays
+in tacit space ($\Tobj \to \Tobj$) or goes to $\Eobj$ from $\varnothing$ or
+$\Eobj$.
+
+The one-directional boundary
+$\Eobj \xrightarrow{\RB} \Tobj$ is a genuine asymmetry in the categorical
+structure: not a functor, not an equivalence, but a one-way transition that
+formalizes the tacit grounding of AI outputs by human judgment.
+
+% -------------------------------------------------------------------
+\subsection{Immutability of the Kernel}
+% -------------------------------------------------------------------
+
+\begin{note}[Kernel immutability]
+The definitions of \texttt{Object}, \texttt{Primitive},
+\texttt{Primitive.source}, and \texttt{Primitive.target} are immutable. No module
+in the library may shadow, redefine, or extend them.
+\end{note}
+
+This is enforced architecturally: \texttt{Kernel.lean} has no imports other than
+Lean's standard library, and all other modules depend on it. Any change to
+Kernel invalidates all 3305 downstream build jobs.
+\leanref{Frfp.Core.Kernel --- no extends, no shadows}

@@ -1,0 +1,212 @@
+% ===================================================================
+\section{Vibecoding: AI-Assisted Lean Development}
+\label{ch:methodology}
+% ===================================================================
+
+\subsection{What is Vibecoding?}
+
+``Vibecoding'' denotes iterative AI-assisted code or proof generation in which
+the human operator specifies intent and reviews output while a generative AI model
+proposes syntactic content. In conventional software development, vibecoding lacks
+a correctness oracle.
+
+Lean changes this dynamic fundamentally. Lean's type-checker is a deterministic
+correctness oracle: it either accepts or rejects every proof. The result is that
+vibecoded Lean proof attempts are immediately and unambiguously verified or
+falsified by the kernel, independent of the operator's understanding.
+
+This produces a principled workflow:
+
+\begin{center}
+\begin{tabular}{l}
+\textit{Human}: specifies intent and theorem statement \\
+$\downarrow$ \\
+\textit{AI}: generates candidate proof or tactic block \\
+$\downarrow$ \\
+\textit{Lean kernel}: accepts or rejects \\
+$\downarrow$ \\
+\textit{Human}: routes to next iteration or accepts result
+\end{tabular}
+\end{center}
+
+When Lean accepts, the result is formally guaranteed, regardless of whether the
+human operator fully understands each internal tactic step. This is the key
+property that makes vibecoding viable for formal mathematics at scale.
+
+% -------------------------------------------------------------------
+\subsection{The FRFP Vibecoding Workflow}
+% -------------------------------------------------------------------
+
+The formalization of FRFP followed a six-phase workflow:
+
+\begin{description}
+  \item[\textbf{Phase 1: Foundation setup}]
+        Install Lean~4 and Mathlib. Define core inductive types (\texttt{Object},
+        \texttt{Primitive}) and basic kernel theorems. Establish import structure
+        and naming conventions.
+        \emph{Human role}: architectural decisions, naming standards, dependency
+        graph.
+
+  \item[\textbf{Phase 2: Axiom seeding}]
+        AI generates candidate axioms from informal paper statements. Human
+        screens for consistency and interpretation accuracy. Lean kernel validates
+        typing of all axiom signatures.
+
+  \item[\textbf{Phase 3: Theorem attempts}]
+        Human specifies target theorem. AI generates proof attempt (tactic blocks,
+        \texttt{by} expressions, \texttt{simp} calls). Lean evaluates; accepted
+        proofs are committed. Rejected proofs enter repair loop.
+
+  \item[\textbf{Phase 4: Axiom reduction}]
+        Systematic audit of all axioms: categorize as derivable theorem, standard
+        reference, or true premise. 41 axioms converted to theorems; all remaining
+        axioms cite published references.
+
+  \item[\textbf{Phase 5: Documentation integration}]
+        AI cross-references Lean code with paper sections and generates summary
+        documents. Human reviews for accuracy.
+
+  \item[\textbf{Phase 6: Final validation}]
+        Full clean build (\texttt{lake build}) with zero errors. Axiom audit
+        confirms 0 uncited axioms. \texttt{grep sorry} confirms 0 live sorry.
+\end{description}
+
+% -------------------------------------------------------------------
+\subsection{Quantitative Results}
+% -------------------------------------------------------------------
+
+\subsubsection*{Productivity}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Metric & Value \\
+\midrule
+Total theorems proven & 269 \\
+Average time per theorem (with AI) & 15--30 minutes \\
+Average time per complex theorem & 2--4 hours \\
+Estimated time without AI & 5--10$\times$ longer \\
+Developer count & 1 \\
+Total timeline & 6 months \\
+Total Lean source lines & $\sim$15,000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection*{AI Attempt Success Rates}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Outcome & Rate \\
+\midrule
+First attempt accepted by Lean & $\sim$30\% \\
+Accepted after 1--2 iterations & $\sim$60\% \\
+Required significant human intervention & $\sim$10\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection*{Error Categories}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Error type & Catch rate & Catcher \\
+\midrule
+Type errors, wrong signatures & $\sim$80\% & Lean kernel immediately \\
+Logic errors in proof structure & $\sim$15\% & AI review in next iteration \\
+Semantic errors (wrong theorem formalized) & $\sim$5\% & Human review \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Failure Mode Taxonomy}
+% -------------------------------------------------------------------
+
+Six failure modes were observed repeatedly throughout the project.
+
+\begin{description}
+  \item[\textbf{FM-1: Hallucinated Mathlib lemma names.}]
+        AI generates tactic blocks that call non-existent Mathlib lemmas. Lean
+        rejects immediately with ``unknown identifier.''
+        \emph{Mitigation}: provide a local lemma search result before requesting
+        the proof.
+
+  \item[\textbf{FM-2: Tactic drift across iterations.}]
+        After several repair iterations, the AI may introduce new errors while
+        fixing old ones.
+        \emph{Mitigation}: reset to the last working state and restart repair.
+
+  \item[\textbf{FM-3: Wrong theorem formalization.}]
+        AI produces a formally correct Lean statement that does not match the
+        intended informal claim. Lean accepts it, but the statement is weaker.
+        \emph{Mitigation}: always write the informal statement as a comment above
+        the theorem and compare before committing.
+
+  \item[\textbf{FM-4: Axiom proliferation.}]
+        AI may generate proofs that succeed by introducing a new \texttt{axiom}
+        rather than deriving from existing structure.
+        \emph{Mitigation}: prohibit the \texttt{axiom} keyword in AI-generated
+        proof attempts unless explicitly authorized.
+
+  \item[\textbf{FM-5: Import path errors.}]
+        AI may generate incorrect \texttt{import} statements.
+        \emph{Mitigation}: maintain a canonical import list and include it in
+        each AI prompt.
+
+  \item[\textbf{FM-6: Type universe mismatches.}]
+        AI places structures in the wrong Lean universe (\texttt{Prop} vs
+        \texttt{Type}) requiring cascade edits.
+        \emph{Mitigation}: fix universe assignments early in each module.
+\end{description}
+
+% -------------------------------------------------------------------
+\subsection{What the Kernel Cannot Catch}
+% -------------------------------------------------------------------
+
+Two categories remain outside the kernel's reach:
+
+\begin{enumerate}
+  \item \textbf{Wrong axiom semantics}: An axiom can be formally well-typed but
+        semantically wrong. Human review of axiom interpretations is essential.
+  \item \textbf{Missing theorems}: Lean will not tell you that you forgot to
+        prove something important.
+\end{enumerate}
+
+% -------------------------------------------------------------------
+\subsection{The Principal Triad}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Role & Agent & Responsibility \\
+\midrule
+Semantic controller & Human & Decides what to prove and validates intent \\
+Proof generator & AI (LLM) & Proposes tactic blocks and proof terms \\
+Correctness verifier & Lean kernel & Accepts or rejects every proof step \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+No single agent in the triad is sufficient on its own.
+
+% -------------------------------------------------------------------
+\subsection{Lessons for Future Projects}
+% -------------------------------------------------------------------
+
+\begin{enumerate}
+  \item \textbf{Establish naming conventions before writing any proofs.} Changing
+        conventions later causes cascading edits.
+  \item \textbf{Audit axioms in batches, not continuously.} Continuous axiom
+        cleanup interrupts proof flow.
+  \item \textbf{Maintain a proof completion checklist.} A running list of ``not
+        yet proven'' theorems prevents false impressions of completeness.
+  \item \textbf{Keep AI context small and focused.} Long prompts cause AI to
+        hallucinate plausible-but-wrong lemma names.
+  \item \textbf{Accept sorry-first, prove-later.} Using \texttt{sorry}
+        placeholders to scaffold proof structure before completion was
+        consistently more efficient.
+\end{enumerate}

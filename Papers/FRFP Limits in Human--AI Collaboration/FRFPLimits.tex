@@ -1,0 +1,432 @@
+
+
+\section{Introduction}
+AI systems can perform many routine cognitive tasks at high speed and scale. Organizations naturally route work to AI where it is reliable, cheap, and fast. But this reallocation changes what remains for humans: fewer routine repetitions, more exceptions, more oversight, and more accountability for rare failures. Over time, this can undermine the very human capacity required to manage the remaining tail---and to remain resilient when AI fails, drifts, or becomes contested.
+
+\paragraph{Core claim.}
+Optimizing AI-enabled throughput without preserving human evaluation and decision capacity creates a \emph{deskilling trap}: short-term efficiency gains produce long-term fragility.
+
+\section{FRFP primitives as a collaboration contract}
+We model collaboration as a pipeline of primitives:
+\begin{enumerate}[label=\textbf{(\Alph*)}, leftmargin=*]
+  \item \textbf{RI (Representation Initiation):} The human expresses goals, constraints, context, and asks.
+  \item \textbf{EC/ED (Explicit Computation / Explicit Diagnostics):} The AI generates outputs and (optionally) tests, evidence, uncertainty, and checks.
+  \item \textbf{RB (Representational Backflow):} What is returned to the human---selective, framed, and often lossy.
+  \item \textbf{TE (Tacit Evaluation):} Human judgment: interpretation, skepticism, value alignment, plausibility checks.
+  \item \textbf{HFD (Human Final Decision):} Action/decision with accountability.
+\end{enumerate}
+
+This framing makes a basic point precise: \emph{high EC does not guarantee high end-to-end quality}, because the system is limited by RI quality, RB framing, TE capacity, and HFD integrity.
+% =========================
+% PATCH: Initiality argument
+% Insert after Section 2 (FRFP primitives as a collaboration contract),
+% before Section 3 (The capability thesis).
+% =========================
+
+\subsection{Initiality of the FRFP kernel and scope of limitations}
+\label{sec:initiality-scope}
+
+This position paper treats the FRFP interaction pattern
+\(
+RI \rightarrow (EC/ED) \rightarrow RB \rightarrow TE \rightarrow HFD
+\)
+as a protocol-level \emph{kernel} that constrains downstream organizational, psychological, and
+socioeconomic dynamics. The relevant mathematical fact is that, within the axiom class that fixes
+(i) explicit/tacit modality, (ii) a one-way boundary \(E \to T\), (iii) localisation of correctness in tacit
+operators, and (iv) explicit-only AI action, the FRFP kernel is not merely one design among many.
+
+\paragraph{(Frm1) Epistemic Spaces frameworks and initiality.}
+Let \(\mathrm{Frm1}\) be the category of Epistemic Spaces frameworks, whose objects interpret the six
+primitives \(\{RI,EC,ED,RB,TE,HFD\}\) subject to the Epistemic Spaces axioms, and whose morphisms
+are functors preserving \(E,T\) and all six primitives. In \(\mathrm{Frm1}\), there exists an initial object
+\(F^{(1)}_{\mathrm{FRFP}}\), constructed as the free category on objects \(E,T\) and generating morphisms
+\(RI,EC,ED,RB,TE,HFD\), modulo the equations encoding the Epistemic Spaces axioms. Consequently,
+every \(F \in \mathrm{Frm1}\) receives a unique structure-preserving functor
+\(F^{(1)}_{\mathrm{FRFP}} \to F\). \cite{Nadendla2026FRFP}
+\par
+\noindent\emph{Operational significance.} The initiality claim is not merely “we built a free category”:
+together with the minimality of the primitive set, it implies that any framework that preserves the
+same primitive epistemic roles and axioms must interpret \(RI,EC,ED,RB,TE,HFD\) in a way that factors
+uniquely through the FRFP ontology. In particular, attempts to “hide” tacit evaluation inside explicit
+space (e.g., by letting \(EC\) or \(ED\) implicitly perform \(TE\)) break the axioms rather than yielding a
+genuinely different framework in the same class. \cite{Nadendla2026FRFP}
+
+\paragraph{Initial vs.\ non-initial limitations (kernel vs.\ lifted structure).}
+This paper’s limitations decompose into two kinds:
+
+\begin{enumerate}
+\item \textbf{Initial (kernel) limitations.}
+These are theorems or invariants expressible purely in the language of Epistemic Spaces
+(\(E,T\), the six primitives, and the Epistemic Spaces axioms). By initiality, they transport to every
+framework \(F \in \mathrm{Frm1}\) via the unique functor \(F^{(1)}_{\mathrm{FRFP}} \to F\). Concretely, this includes:
+(i) well-typed pipeline form \(RI \to (EC/ED)^\ast \to RB \to TE \to HFD\);
+(ii) the impossibility of embedding tacit operators before \(RB\) or explicit operators after \(RB\);
+(iii) minimality of the primitive set within the axiom class; and
+(iv) non-circumventability of the explicit--tacit boundary within \(\mathrm{Frm1}\). \cite{Nadendla2026FRFP}
+
+\item \textbf{Non-initial (lifted / parametric) limitations.}
+These require extra structure not present in \(\mathrm{Frm1}\): rates \((\lambda,\mu)\), costs, loss functions,
+learning dynamics, populations, networks, etc. They are not consequences of initiality at the Epistemic
+Spaces layer; rather, they are conditional corollaries proved only after lifting FRFP into richer
+categories (e.g., adding dynamics, stochastic semantics, institutional layers).
+\end{enumerate}
+
+\paragraph{Implication for this paper’s “FRFP Limits Table.”}
+The Limit Table in Appendix B mixes kernel limitations with lifted/parametric ones. To make the
+scope explicit, we classify each limit \(L_k\) as either:
+\[
+\textbf{(I)}\;\text{Initial (derivable in }\mathrm{Frm1}\text{)} \qquad \text{or} \qquad
+\textbf{(P)}\;\text{Parametric / lifted (requires extra structure).}
+\]
+A minimal classification consistent with the present paper is:
+
+\begin{itemize}
+\item \textbf{Initial (I):} \(L9\) (Lossy projection as boundary mediation), \(L15\) (Accountability without understanding as a role separation),
+and \(L16\) (Bottleneck law as a compositional bound), together with the pipeline well-formedness and primitive minimality facts
+that underwrite the protocol form itself. \cite{Nadendla2026FRFP}
+\item \textbf{Parametric / lifted (P):} \(L1\)--\(L8\), \(L10\)--\(L14\) as stated here, since they quantify over missing variables
+(e.g.\ rates, costs, competence thresholds, skill-stock dynamics, tail losses). These become provable only after adding the relevant
+structures (workload/queueing, learning dynamics, loss models, and population/network semantics).
+\end{itemize}
+
+\noindent This classification sharpens how the argument should be read: \emph{the kernel limitations are “initial” and therefore robust
+to any redesign that stays within the Epistemic Spaces axiom class; the remaining limitations are empirical/dynamical claims whose force
+depends on the additional modeling assumptions stated in the appendices.}
+
+% =========================
+% END PATCH
+% =========================
+\section{The capability thesis: two production lines, not one}
+Most deployment strategies optimize one production line:
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item \textbf{Service throughput:} delivering outputs faster and cheaper (short-run gains).
+\end{enumerate}
+But collaboration introduces a second production line:
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \setcounter{enumi}{1}
+  \item \textbf{Capability throughput:} producing and maintaining human expertise (long-run resilience).
+\end{enumerate}
+When AI absorbs the ``easy 80--95\%,'' organizations often increase service throughput while accidentally starving capability throughput. The result is a \emph{capability cliff}: fewer people can evaluate outputs, handle exceptions, or contest decisions under uncertainty.
+
+\section{Consequences mapped by scale}
+
+\subsection{Psychological (micro)}
+\paragraph{Evaluation saturation (cognitive overload).}
+When AI output volume exceeds a person's evaluation capacity, humans skim, accept defaults, and mistake fluency for correctness. The lived experience is ``too much to verify.''
+
+\paragraph{Agency erosion (rubber-stamping).}
+As AI outputs arrive in decision-shaped forms (recommendations, confidence cues, rankings), humans drift from ``deciders'' to ``approvers.'' Accountability remains, but felt ownership declines.
+
+\paragraph{Calibration decay (judgment atrophy).}
+If humans stop practicing first-pass reasoning and only review AI outputs, their ability to detect errors and edge cases degrades. This is not only skill loss; it is loss of confidence and sensemaking habit.
+
+\paragraph{Epistemic instability.}
+If plausibility and truth diverge, users either become overly trusting (``it reads well'') or overly cynical (``nothing is reliable''). Both outcomes weaken healthy TE.
+
+\subsection{Organizational and economic (meso)}
+\paragraph{The deskilling trap (capability cliff).}
+By routing routine work away from humans, organizations remove the training substrate that produces future experts. Short-term productivity improves while the bench quietly collapses.
+
+\paragraph{Tail-risk concentration (rare failures dominate).}
+Average accuracy improves, but remaining errors are less frequent and more severe because they cluster in ambiguous, high-stakes edge cases. Loss is dominated by the tail, not the mean.
+
+\paragraph{Verification debt (ED debt).}
+Under pressure for speed, diagnostics and checks become optional. Risk accumulates invisibly until it surfaces as incidents, audit failures, or reputational shocks.
+
+\paragraph{Dependency ratchet (capability lock-in).}
+As internal expertise decays, the cost of operating without AI rises. This is structural lock-in: not just vendor dependency, but \emph{capability dependency}.
+
+\paragraph{Strategic drift (misoptimization).}
+If RI omits constraints or objectives are poorly represented, AI can ``perfectly execute the wrong plan.'' Local KPIs improve while the system diverges from mission, values, or compliance boundaries.
+
+\subsection{Societal and macroeconomic (macro)}
+\paragraph{Polarization of opportunity (judgment divide).}
+Those with strong domain literacy and evaluation skill use AI as leverage; those without it defer to AI. This can widen inequality in wages, influence, and mobility.
+
+\paragraph{Legitimacy stress (contestability failures).}
+When outputs are opaque, framed, or weakly auditable, affected people cannot effectively contest decisions. Trust in institutions erodes even if average performance is high.
+
+\paragraph{Systemic fragility (correlated failures).}
+Shared models and shared workflows can create correlated tail failures across organizations, amplifying systemic risk in critical domains.
+
+\paragraph{Expertise as public infrastructure.}
+If many sectors automate routine work, society may underproduce experts over time. This reduces resilience during crises and weakens governance capacity.
+
+\section{A responsible deployment stance}
+This paper takes the position that AI deployments should be evaluated as \emph{socio-technical capability systems}, not merely productivity systems.
+
+\subsection{Required metrics (beyond average accuracy)}
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item \textbf{RB load vs TE capacity:} Are we flooding human evaluators?
+  \item \textbf{ED depth:} What fraction of outputs are verifiable, tested, and traceable?
+  \item \textbf{Tail-risk loss:} Severity-weighted error, not mean error.
+  \item \textbf{Capability throughput:} Are humans getting reps + feedback, or only approvals?
+  \item \textbf{Contestability:} Can affected parties appeal decisions with usable evidence?
+\end{enumerate}
+
+\subsection{Design principles (domain-agnostic)}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Keep humans in the learning loop without keeping them in the bottleneck} (shadow-mode work, decision-before-reveal, adaptive sampling, feedback tooling).
+  \item \textbf{Treat diagnostics as first-class output} (structured checks, uncertainty, counterexamples, failure modes).
+  \item \textbf{Govern the tail, not the mean} (rare-event playbooks, escalation capacity, AI-down drills).
+  \item \textbf{Design RB to reduce authority inflation} (calibrated confidence, alternative hypotheses, transparent assumptions).
+  \item \textbf{Protect capability as an asset} (bench depth targets, progression ladders, training as production).
+\end{itemize}
+
+\section{Position and call to action}
+\paragraph{Position.}
+Businesses and institutions should treat human expertise as a renewable but depletable resource. If AI adoption is pursued purely as throughput optimization, the likely long-run outcome is fragility: fewer experts, larger tail losses, weaker contestability, and greater inequality of agency.
+
+\paragraph{Call to action.}
+Adopt FRFP-aligned governance: measure capability throughput, invest in ED, and design workflows that sustain TE/HFD competence over time.
+% --- Add this as a new section in the main (position paper) body ---
+\section{Epistemic and Collective Epistemic Dynamics (FRFP Extension)}
+\label{sec:epistemics}
+
+\subsection{Overview}
+The FRFP pipeline (RI $\rightarrow$ EC/ED $\rightarrow$ RB $\rightarrow$ TE $\rightarrow$ HFD) can be reinterpreted as an \emph{epistemic update operator}: each interaction transforms an agent's belief state. This section extends the FRFP limits into (i) \emph{individual epistemic dynamics} and (ii) \emph{collective epistemic dynamics} in networks of agents and institutions.
+
+\subsection{Belief states and epistemic error}
+Let $w_t$ denote the (latent) world state at time $t$ and let $b_t$ denote an agent's belief state.
+Define epistemic error as a distance:
+\begin{equation}
+e_t \;=\; d(b_t, w_t),
+\end{equation}
+where $d(\cdot,\cdot)$ is any task-appropriate divergence or loss (e.g., misclassification loss, calibration error, decision regret).
+
+An FRFP-mediated interaction induces an update:
+\begin{equation}
+b_{t+1} \;=\; \mathcal{U}\!\left(b_t;\; R_t,\; C_t,\; D_t,\; B_t,\; \text{TE}_t,\; H_t\right),
+\label{eq:update-operator}
+\end{equation}
+where $R_t$ is representation (RI), $(C_t,D_t)$ are computation and diagnostics (EC/ED), $B_t$ is the backflow presented to the human (RB), $\text{TE}_t$ is the evaluation process, and $H_t$ is the final decision/action (HFD).
+
+\subsection{Individual epistemic dynamics: FRFP mechanisms}
+We express FRFP limits as constraints on the update operator $\mathcal{U}$ in~\eqref{eq:update-operator}.
+
+\paragraph{E1. Plausibility substitution (presentation-driven updates).}
+If acceptance depends on framing $f$ (verbosity, confidence cues, authority tone) beyond correctness/evidence,
+\begin{equation}
+\Pr(\text{accept}) \;=\; g(q,f), \qquad \frac{\partial g}{\partial f} > 0,
+\label{eq:authority-inflation}
+\end{equation}
+then belief updates become sensitive to presentation rather than evidence. This can increase miscalibration: subjective confidence rises while expected epistemic error does not decrease.
+
+\paragraph{E2. TE compression reduces error correction.}
+Let RB items arrive at rate $\lambda_B(t)$ and be evaluated at rate $\mu_T(t)$.
+If $\lambda_B(t)>\mu_T(t)$, per-item evaluation time $\Delta_T(t)$ decreases, reducing detection:
+\begin{equation}
+p_{\text{detect}}(t) \;=\; h\!\left(S_h(t),\Delta_T(t)\right), \qquad
+\frac{\partial h}{\partial S_h} > 0,\; \frac{\partial h}{\partial \Delta_T} > 0.
+\label{eq:detect}
+\end{equation}
+Thus, false beliefs become ``sticky'': the probability of correcting $b_t$ decreases.
+
+\paragraph{E3. ED debt induces non-falsifiability.}
+When diagnostics depth $d(t)$ is minimized (e.g., due to speed incentives), fewer claims carry falsification hooks (tests, trace artifacts, counterexamples). Let $\kappa(t)$ denote the fraction of updates supported by auditable diagnostics; then ED debt drives $\kappa(t)\downarrow$, weakening corrective feedback and increasing drift.
+
+\paragraph{E4. Representation-induced blind spots.}
+If critical constraints are missing from $R_t$, end-to-end epistemic quality is upper bounded. Let $k(t)\in[0,1]$ denote constraint completeness; then $k(t)\downarrow$ implies persistent omissions in $b_t$: what is not represented is not evaluated.
+
+\subsection{Collective epistemic dynamics}
+Consider a population of $N$ agents indexed by $i\in\{1,\dots,N\}$ with beliefs $b^i_t$. Let $W\in\mathbb{R}^{N\times N}$ be an influence matrix, where $W_{ij}\ge 0$ represents how much agent $i$ weights agent $j$. Let $I_t$ denote the shared information environment (feeds, reports, institutional outputs). A stylized update is:
+\begin{equation}
+b^i_{t+1} \;=\; \mathcal{U}\!\left(
+b^i_t;\; R^i_t,\; C^i_t,\; D^i_t,\; B^i_t,\; \text{TE}^i_t,\; H^i_t,\;
+\sum_{j=1}^N W_{ij} b^j_t,\; I_t
+\right).
+\label{eq:collective-update}
+\end{equation}
+
+Collective epistemics differ from individual epistemics because \emph{correlations} and \emph{feedback loops} dominate: shared models and shared RB interfaces can synchronize belief updates even when they are wrong.
+
+\subsection{Collective consequences derived from FRFP limits}
+We state key collective effects as FRFP-corollaries.
+
+\paragraph{C1. Epistemic convergence without truth (false consensus).}
+If many agents consume similarly framed RB and weight social signals, then belief variance can decrease:
+\begin{equation}
+\mathrm{Var}\!\left(\{b^i_t\}_{i=1}^N\right) \downarrow,
+\end{equation}
+without reducing average epistemic error $\mathbb{E}[e_t]$. In other words, the system can converge to a shared belief state that does not track $w_t$.
+
+\paragraph{C2. Model monoculture and correlated tail failures.}
+If a large fraction of agents/institutions share the same EC/ED engine and ED depth is low, then error events become correlated across agents. This increases systemic risk: diversified institutions fail together.
+
+\paragraph{C3. Epistemic externalities under RB flooding.}
+When high-volume actors flood the shared environment with plausible content, they increase $\lambda_B$ for everyone, compressing TE across the network. Verification is costly while content generation is cheap, creating negative externalities for collective truth-tracking.
+
+\paragraph{C4. Contestability collapse and legitimacy stress.}
+Collective epistemic health requires that high-impact claims be auditable and challengeable. Lossy RB and ED debt reduce the availability of trace artifacts, shifting disputes from evidence to authority, and increasing legitimacy conflicts.
+
+\paragraph{C5. Polarization via differential TE skill.}
+If evaluation skill stocks $S_h^i(t)$ are unequally distributed, some groups maintain epistemic autonomy while others defer. This produces a ``judgment divide'' in which contestability becomes class-based.
+
+\subsection{Propositions (position-paper form)}
+We state propositions that connect FRFP limits to epistemic dynamics.
+
+\paragraph{Proposition 1 (Saturation Law).}
+If $\lambda_B(t)>\mu_T(t)$, then average evaluation depth per claim decreases and the correction rate for false beliefs decreases.
+
+\paragraph{Proposition 2 (Authority Distortion).}
+If $\partial g/\partial f>0$ as in~\eqref{eq:authority-inflation}, then belief updates become sensitive to presentation rather than evidence, increasing miscalibration.
+
+\paragraph{Proposition 3 (Monoculture Correlation).}
+If many agents share the same EC/ED engine and ED depth is weak, then error events become correlated across agents, increasing systemic epistemic risk.
+
+\paragraph{Proposition 4 (Contestability Requirement).}
+If the fraction of high-impact claims with auditable diagnostics tends to zero, then legitimacy conflicts increase and collective truth-tracking degrades.
+
+\subsection{Implications for governance}
+This extension suggests that epistemic quality is not solely an individual property but a \emph{system property}. Governance should therefore target:
+(i) RB rate limiting and evidence-first interfaces (reduce TE compression and authority inflation),
+(ii) institutional ED requirements for high-impact claims (increase auditability/contestability),
+(iii) diversity across models and procedures in critical pipelines (reduce correlated failure),
+and (iv) investment in TE capacity as a form of public epistemic infrastructure (reduce judgment divides).
+
+
+\newpage
+\appendix
+\section*{Appendix A: Mathematical model (FRFP limits formalized)}
+\addcontentsline{toc}{section}{Appendix A: Mathematical model (FRFP limits formalized)}
+
+This appendix provides a compact formal language for the FRFP limits without claiming any specific parameter values.
+
+\subsection*{A1. Variables}
+At time $t$:
+\begin{itemize}[leftmargin=*]
+  \item $R_t$: representation (RI)
+  \item $C_t$: AI computation (EC)
+  \item $D_t$: diagnostics (ED)
+  \item $B_t = \Pi(C_t, D_t)$: backflow shown to human (RB), with $\Pi$ a lossy projection
+  \item $S_h(t)\in[0,1]$: human skill stock (TE/HFD competence)
+  \item $Q(t)\ge 0$: backlog of items awaiting evaluation
+\end{itemize}
+
+\subsection*{A2. Flow--capacity and TE compression}
+Let AI generate RB items at rate $\lambda_B(t)$ (items/time), and humans evaluate at rate $\mu_T(t)$ (items/time). Queue growth:
+\begin{equation}
+\dot Q(t)=\max\bigl(0,\lambda_B(t)-\mu_T(t)\bigr).
+\end{equation}
+A simple heuristic for evaluation time per item (holding human time fixed) is:
+\begin{equation}
+\Delta_T(t)\propto \frac{1}{\lambda_B(t)}.
+\end{equation}
+\textbf{Limit (RB flooding).} If $\lambda_B(t)>\mu_T(t)$, evaluation compresses, reducing per-item scrutiny.
+
+\subsection*{A3. Error detection probability and competence threshold}
+Let error detection depend on skill and time:
+\begin{equation}
+p_{\text{detect}}(t)=h\bigl(S_h(t),\Delta_T(t)\bigr),
+\end{equation}
+with $\partial h/\partial S_h>0$ and $\partial h/\partial \Delta_T>0$. We posit a competence threshold $S^\*$ such that:
+\begin{equation}
+S_h(t)<S^\* \ \Rightarrow\ p_{\text{detect}}(t)\approx 0.
+\end{equation}
+
+\subsection*{A4. Authority inflation}
+Let acceptance probability depend on correctness $q$ and framing $f$ (confidence cues, verbosity, tone):
+\begin{equation}
+\Pr(\text{accept}) = g(q,f), \qquad \frac{\partial g}{\partial f}>0.
+\end{equation}
+\textbf{Limit (authority inflation).} Framing can increase acceptance independent of correctness.
+
+\subsection*{A5. Diagnostics depth and tail risk}
+Let $d(t)\in[0,1]$ represent diagnostic depth (tests, evidence, counterexamples). Tail error $\tau(t)$ decreases with diagnostics:
+\begin{equation}
+\frac{\partial \tau}{\partial d}<0.
+\end{equation}
+But deeper diagnostics consume resources, typically reducing throughput:
+\begin{equation}
+\frac{\partial \lambda_B}{\partial d}<0.
+\end{equation}
+\textbf{Limit (verification isn't free).} Tail-risk reduction competes with throughput.
+
+\subsection*{A6. Tail-risk dominance in expected loss}
+Let expected loss be:
+\begin{equation}
+\mathbb{E}[L]= (1-\tau)L_{\text{small}}+\tau L_{\text{tail}}.
+\end{equation}
+If $L_{\text{tail}}\gg L_{\text{small}}$, then tail risk dominates business outcomes even for small $\tau$.
+
+\subsection*{A7. Skill-stock dynamics (deskilling trap)}
+Let $v(t)\in[0,1]$ be the human-first attempt rate (practice volume) and $F(t)\in[0,1]$ feedback quality:
+\begin{equation}
+\dot S_h(t)=\alpha\,v(t)\,F(t)-\beta\,(1-v(t)).
+\end{equation}
+Automation that reduces $v(t)$ can make $\dot S_h(t)<0$ unless feedback/training compensates.
+
+\paragraph{Dependency ratchet.}
+As $S_h(t)$ declines, the cost of operating without AI rises:
+\begin{equation}
+\frac{d}{dt}\text{SwitchingCost}(t) > 0 \quad \text{when } \dot S_h(t) < 0.
+\end{equation}
+
+\subsection*{A8. End-to-end bottleneck bound}
+Let end-to-end quality be bounded by weakest stage:
+\begin{equation}
+q_{\text{end}} \le \min\{q_{RI}, q_{EC/ED}, q_{RB}, q_{TE}, q_{HFD}\}.
+\end{equation}
+This formalizes why improving EC alone cannot guarantee system performance.
+
+\newpage
+\section*{Appendix B: FRFP Limits Table (Name $\rightarrow$ Formalism $\rightarrow$ Consequence $\rightarrow$ Indicator)}
+\addcontentsline{toc}{section}{Appendix B: FRFP Limits Table}
+
+\begin{enumerate}[label=\textbf{L\arabic*.}, leftmargin=*]
+  \item \textbf{RI underspecification bound.} Missing constraints in $R_t$ cap $q_{\text{end}}$. \emph{Consequence:} coherent wrong solutions. \emph{Indicator:} constraint completeness checklists, rework due to missing requirements.
+  \item \textbf{Context compression floor.} $M(R_t)\ge \epsilon$. \emph{Consequence:} misinterpretations, brittle handoffs. \emph{Indicator:} ambiguity rate, clarification turns.
+  \item \textbf{Representation drift under delegation.} $k(t)\downarrow$ with unexamined automation. \emph{Consequence:} poorer prompts/briefs, weaker governance. \emph{Indicator:} RI quality audits over time.
+  \item \textbf{Plausibility--truth decoupling.} Fluency $\not\Rightarrow$ correctness. \emph{Consequence:} gullibility/cynicism oscillations. \emph{Indicator:} error rate conditional on ``high confidence'' phrasing.
+  \item \textbf{Misoptimization amplification.} Wrong objective $\Rightarrow$ high-quality wrong execution. \emph{Consequence:} strategic drift. \emph{Indicator:} KPI gaming, post-hoc constraint additions.
+  \item \textbf{ED debt.} $d(t)\to d_{\min}$ unless enforced. \emph{Consequence:} hidden risk accumulation. \emph{Indicator:} \% outputs with tests/citations/checks.
+  \item \textbf{RB flooding.} $\lambda_B>\mu_T \Rightarrow \dot Q>0$. \emph{Consequence:} TE compression, shallow review. \emph{Indicator:} backlog, review time per item.
+  \item \textbf{Authority inflation.} $\partial g/\partial f>0$. \emph{Consequence:} automation bias, rubber-stamping. \emph{Indicator:} acceptance rate vs framing changes.
+  \item \textbf{Lossy projection.} $B_t=\Pi(C_t,D_t)$. \emph{Consequence:} missing evidence reduces contestability. \emph{Indicator:} availability of trace artifacts at decision time.
+  \item \textbf{Bounded TE.} $\Delta_T$ finite; quality falls as $s_B$ rises. \emph{Consequence:} overload, fatigue. \emph{Indicator:} error detection vs message length.
+  \item \textbf{Competence threshold.} $S_h<S^\*\Rightarrow p_{\text{detect}}\approx 0$. \emph{Consequence:} dependence and inequality. \emph{Indicator:} calibration tests by cohort.
+  \item \textbf{Calibration decay.} $\dot S_h<0$ if $vF$ low. \emph{Consequence:} deskilling trap. \emph{Indicator:} human-first attempt rate $v(t)$.
+  \item \textbf{Tail-risk dominance.} $\mathbb{E}[L]=(1-\tau)L_{\text{small}}+\tau L_{\text{tail}}$. \emph{Consequence:} rare catastrophic failures. \emph{Indicator:} severity-weighted error, near-miss tracking.
+  \item \textbf{Override scarcity.} Overrides limited by expert capacity. \emph{Consequence:} escalation bottlenecks. \emph{Indicator:} time-to-escalation, expert load.
+  \item \textbf{Accountability without understanding.} Liability $\not\Rightarrow$ competence. \emph{Consequence:} ceremonial sign-off. \emph{Indicator:} override rationale quality, audit outcomes.
+  \item \textbf{Bottleneck law.} $q_{\text{end}}\le \min(\cdot)$. \emph{Consequence:} false productivity. \emph{Indicator:} rework + incident rate despite higher throughput.
+\end{enumerate}
+\newpage
+% --- Add this as a new appendix in the same LaTeX document ---
+\section*{Appendix C: Formal Definitions for Epistemic and Collective Epistemic Dynamics}
+\addcontentsline{toc}{section}{Appendix C: Formal Definitions for Epistemic and Collective Epistemic Dynamics}
+
+\subsection*{C1. Epistemic states and error}
+World state $w_t$, belief state $b_t$, epistemic error $e_t=d(b_t,w_t)$.
+
+\subsection*{C2. FRFP update operator}
+Belief update induced by FRFP interaction:
+\[
+b_{t+1}=\mathcal{U}\!\left(b_t;\; R_t,\; C_t,\; D_t,\; B_t,\; \text{TE}_t,\; H_t\right).
+\]
+
+\subsection*{C3. Networked collective update}
+With $N$ agents and influence matrix $W$:
+\[
+b^i_{t+1}=
+\mathcal{U}\!\left(
+b^i_t;\; R^i_t,\; C^i_t,\; D^i_t,\; B^i_t,\; \text{TE}^i_t,\; H^i_t,\;
+\sum_{j=1}^N W_{ij} b^j_t,\; I_t
+\right).
+\]
+
+\subsection*{C4. Monoculture parameter}
+Let $m\in[0,1]$ denote the fraction of agents/institutions sharing the same EC/ED engine. Larger $m$ increases correlation of errors under weak ED.
+
+\subsection*{C5. Auditability/contestability fraction}
+Let $\kappa(t)\in[0,1]$ denote the fraction of high-impact claims with retained diagnostics sufficient for third-party audit. ED debt drives $\kappa(t)\downarrow$ unless governed.
+
+\subsection*{C6. Collective epistemic health metrics}
+Examples:
+\begin{itemize}[leftmargin=*]
+  \item Mean epistemic error: $\mathbb{E}[e_t]$
+  \item Belief dispersion: $\mathrm{Var}(\{b^i_t\}_{i=1}^N)$
+  \item Calibration error: expected gap between subjective confidence and empirical correctness
+  \item Correlated failure probability: $\Pr(\text{many institutions err simultaneously})$
+  \item Contestability: $\kappa(t)$ and appeal success under audit
+\end{itemize}

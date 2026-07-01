@@ -1,0 +1,1548 @@
+
+%=========================================================
+\section{Interaction Protocols}
+\label{sec:interaction-protocols}
+
+This layer specifies interface-level constraints on human--AI interaction traces: who may say what, in which modes, and in which order. We distinguish content-producing messages (explicit messages, which both human and AI may send) from correctness-bearing messages (meta-level messages, which only the human may send); Section~\ref{sec:epistemic-spaces} makes this distinction precise as explicit versus tacit epistemic spaces.
+
+\subsection{Interaction Traces}
+
+We model an interaction session as a finite sequence of messages tagged by origin.
+
+\begin{definition}[Interaction trace]
+A \emph{human--AI interaction trace} is a finite sequence
+\[
+S = (m_1, m_2, \dots, m_n),
+\]
+where each message \(m_i\) is tagged as either human-generated (H) or AI-generated (A) and carries explicit content (e.g., text, code, mathematical expressions).
+\end{definition}
+
+We write \(S_k = (m_1,\dots,m_k)\) for the \(k\)-prefix of \(S\). We impose a family of interaction constraints \(\Phi_0\) on such prefixes.
+
+\subsection{Interaction Constraints}
+
+The constraints are operational: they enforce mode discipline and prevent the AI from taking tacit roles.
+
+\begin{description}[leftmargin=2em]
+  \item[Intent locking.] Early in the trace, the human states a coarse-grained intent (e.g., ``analyse this conjecture'', ``design an experiment''). The AI treats this intent as fixed unless the human explicitly revises it. This prevents uncontrolled drift in task framing.
+
+  \item[Ambiguity resolution.] If an AI message admits more than one task-relevant interpretation, the next AI message must be a clarification query, not a content-producing response. This prohibits silent resolution of deep ambiguity.
+
+  \item[Mode discipline.] Each message is typed as either explicit (facts, derivations, questions) or meta-level (requests for tacit judgment). Both human and AI may send explicit messages. Only the human may send meta-level, correctness-bearing messages; the AI is confined to explicit mode.
+
+  \item[No tacit emulation.] The AI may not simulate tacit operations such as evaluating overall correctness or deciding whether a result should be accepted. It may propose checks, but it is not a source of correctness.
+
+  \item[Correctness stability.] Once the human issues a tacit correctness judgment, the AI may not reinterpret or override it via further explicit manipulation. Tacit states are fixed points with respect to AI operations.
+\end{description}
+
+\begin{definition}[Interaction admissibility]
+An interaction trace \(S\) is \emph{admissible} if every prefix \(S_k\) satisfies all interaction constraints. We write \(S \vDash \Phi_0\) for this property.
+\end{definition}
+
+These constraints are intentionally strict and normative. FRFP commits to: (i) an explicit/tacit distinction, in the sense of Polanyi and subsequent work on organisational knowledge creation; and (ii) human-exclusive correctness in high-stakes settings, as reflected in human-oversight requirements for high-risk AI systems. Following Polanyi's account of tacit knowledge as embodied, context-dependent, and not fully articulable \cite{Polanyi1966}, and Nonaka's treatment of explicit and tacit knowledge as distinct but interacting modalities in organisational learning \cite{Nonaka1994,NonakaTakeuchi1995}, we model explicit artefacts and tacit human states as separate epistemic spaces (Section~\ref{sec:epistemic-spaces}) linked by a one-way boundary. In parallel, contemporary governance frameworks require human oversight of high-risk AI systems, with humans able to monitor, intervene, and override AI outputs \cite{EUAIAct2024,Amershi2019}. FRFP packages these commitments as an architectural constraint for disciplined human--AI workflows and studies their formal consequences. It is not intended as a description of current ad hoc practice, but as a target architecture: in this volume, explicit/tacit separation and human-exclusive correctness are design principles, not optional knobs; later work may study carefully delimited departures.
+
+In the running airfare example introduced in Section~\ref{sec:frfp-architecture-overview}, the interaction trace \(S = (m_1,\dots,m_{10})\) consists of alternating human and AI messages \(H_1\)--\(H_5\) and \(A_1\)--\(A_5\). We write the human messages as \(H_1,\dots,H_5\) and the AI messages as \(A_1,\dots,A_5\), in order of appearance.The interaction constraints require, in particular, that the AI remain in explicit mode: it may elicit preferences, propose itineraries, and analyse trade-offs, but it may not itself issue the final ``Option~A is best for you'' verdict. The human's final choice at \(H_5\) is a tacit correctness judgment, which the AI can at most record explicitly. Any trace in which the AI directly declares an option to be ``best'' or overwrites the human's recorded decision is operationally inadmissible.
+
+The interaction protocols constrain the observable structure of human--AI conversations: who may say what, in which modes, and in which order. The next layer introduces the epistemic spaces that such conversations act on: explicit artefacts and tacit human states that carry knowledge- and correctness-relevant information.
+
+\section{Epistemic Spaces}
+\label{sec:epistemic-spaces}
+
+The interaction protocols in Section~\ref{sec:interaction-protocols} constrain which conversational messages are allowed; this layer specifies what those messages act on: an explicit space \(E\) of machine-manipulable artefacts and a tacit space \(T\) of human-only correctness-bearing states, linked by a one-way boundary.
+
+\subsection{Ambient Category and Explicit--Tacit Separation}
+
+We work inside an ambient category \(\Cfull\) with distinguished objects \(\varnothing\), \(E\), and \(T\), as detailed in Appendix~A. The Explicit--Tacit Separation axiom (ETS) asserts:
+\begin{itemize}[leftmargin=2em]
+  \item explicit morphisms end at \(E\);
+  \item tacit morphisms end at \(T\);
+  \item there are no morphisms \(T \to E\);
+  \item there is a unique boundary morphism \(\RB:E\to T\);
+  \item \(\RB\) is not invertible.
+\end{itemize}
+
+Intuitively, explicit and tacit modes are \emph{disjoint}: there is a one-way flow from explicit artefacts into tacit evaluation, and no way back.
+
+\subsection{Explicit and Tacit Primitives}
+
+Within \(\Cfull\), we identify six primitive morphisms that play irreducible epistemic roles:
+\begin{itemize}[leftmargin=2em]
+  \item \(\RI : \varnothing \to E\) (Representation Initiation),
+  \item \(\EC : E \to E\) (Explicit Computation),
+  \item \(\ED : E \to E\) (Explicit Diagnostics),
+  \item \(\RB : E \to T\) (Representational Backflow),
+  \item \(\TE : T \to T\) (Tacit Evaluation),
+  \item \(\HFD : T \to T\) (Human Final Decision).
+\end{itemize}
+
+The first three live entirely in explicit space; \(\RB\) crosses the boundary into tacit space; and \(\TE,\HFD\) live in tacit space. They compose into the core correctness architecture:
+\[
+\RI \;\to\; (\EC/\ED)^\ast \;\to\; \RB \;\to\; \TE \;\to\; \HFD.
+\]
+Here \((\EC/\ED)^\ast\) denotes an arbitrary (possibly empty) finite sequence of explicit computations and diagnostics. The pipeline ends with tacit evaluation and final decision: no correctness-bearing steps occur in explicit space.
+
+\subsection{Correctness in Tacit Space}
+
+Tacit states form a preorder-enriched one-object category \(\Tcat\) with primitives \(\TE,\HFD\) and a correctness quotient \(\gamma:\Obj(\Tcat)\to J\) into a finite set of judgments. The key fact for the main text is:
+
+\begin{proposition}[Tacit correctness quotient]
+Tacit primitives \(\TE,\HFD:T\to T\) are idempotent and commute, and the correctness quotient \(\gamma\) satisfies \(\gamma\circ\TE=\gamma=\gamma\circ\HFD\). Thus tacit transformations do not change the observable correctness class.
+\end{proposition}
+
+The proof and full structure appear in Appendix~A. For the main text, it suffices to know that correctness is localised in tacit space and is observable only via \(\gamma\).
+
+\paragraph{Interpretation and scope of tacit correctness.}
+Treating correctness as living in tacit space \(T\) rather than in explicit space \(E\) is a substantive architectural commitment, not a definitional firewall. It targets domains in which correctness-bearing judgment does not reduce to a fixed, finite explicit specification or benchmark suite: long-horizon workflows in which tasks evolve, standards and constraints shift, and background understanding and norms determine whether an explicit artefact is adequate. In such settings, explicit artefacts, tests, and formal checks do not exhaust correctness-bearing judgment; Appendix~A.11 shows that, under a nontrivial tacit structure, a broad class of explicit-only oracles and governance mechanisms are structurally impossible. By contrast, some regimes admit fully explicit correctness---for example, proof-assistant settings or closed-world tasks with sound and complete test oracles. FRFP does not treat these regimes as primary instances of its epistemic dynamics; rather, they appear as tacit-insensitive inner layers embedded in a broader tacit governance context (Appendix~D.4). The results in this section are therefore conditional on a genuine tacit layer in the sense above, and on explicit/tacit separation and human-exclusive correctness as non-negotiable design principles in that domain.
+
+\paragraph{Hallucination as a protocol-level phenomenon.}
+Within this architecture, hallucination is a tacit-level notion. We do not apply ``hallucination'' to the mere production of incorrect strings in \(E\); at that stage outputs are explicit candidates, and, when they violate a trusted explicit oracle (e.g.\ a test harness or proof checker), explicit errors. Hallucination arises at the protocol level, when explicit artefacts cross the boundary \(\RB:E\to T\) and are incorporated into tacit correctness. Informally, a hallucination occurs along a run when tacit operations such as \(\TE\) and \(\HFD\) end up treating an explicit artefact as acceptable even though, relative to the domain's standards, it ought to have been judged inadequate or incorrect. Because correctness is localised in \(T\) and observable only via \(\gamma\), hallucination cannot be read off from explicit artefacts in isolation or from the behaviour of the generator that produced them: the same explicit string may be harmless when rejected and hallucinated when taken up into tacit acceptance. Later sections refine this picture dynamically; the core point is that, once explicit and tacit spaces are separated, hallucination in FRFP is a property of endorsement by tacit states, not of explicit generation alone.
+
+\paragraph{Explicit correctness engines.}
+In many workflows, parts of correctness can be discharged by \emph{explicit correctness engines}: unit-test harnesses, static analysers, and interactive theorem provers (e.g., Coq, Isabelle, Lean) that, relative to a fixed formal specification, can certify whether an explicit artefact satisfies a given property. Within FRFP these engines live entirely in explicit space \(E\): they are instances of explicit computation or diagnostics (\(\EC/\ED\)), possibly composed into larger explicit pipelines. They can reduce the space of explicit errors tacit agents must consider, but they do not collapse the tacit layer. Tacit correctness still governs which specifications are adequate, when they must be revised, how to interpret formally verified artefacts in context, and what residual risk is acceptable. Explicit correctness engines are therefore treated as powerful inner modules inside \(E\), coupled to but not replacing the outer tacit governance layer.
+
+\subsection{Uniqueness of the FRFP Epistemic Ontology}
+
+Appendix~A shows that, under reasonable axioms, the FRFP Epistemic Ontology is essentially unique.
+
+\begin{theorem}[Initiality of the FRFP ontology, informal]
+Any epistemic ontology that:
+\begin{itemize}[leftmargin=2em]
+  \item distinguishes explicit and tacit modalities,
+  \item enforces a one-way boundary \(E\to T\),
+  \item localises correctness in tacit operators \(\TE,\HFD\), and
+  \item represents AI systems as acting only in explicit space,
+\end{itemize}
+admits a unique structure-preserving mapping from the \FRFP{} ontology. In this precise sense, the \FRFP{} ontology is minimal and essentially unique.
+\end{theorem}
+
+We refer the reader to Appendix~A for the formal category of Epistemic Spaces frameworks and the proof that the FRFP ontology is initial in that category.
+
+\paragraph{Operational significance of the FRFP Epistemic Ontology.}
+The initiality result is not a formal restatement of ``we built a free category''. It says that any ontology satisfying (i) explicit/tacit modality, (ii) a one-way boundary \(E\to T\), (iii) tacit localisation of correctness, and (iv) explicit-only AI action must factor uniquely through the FRFP Epistemic Ontology. In particular, any framework that preserves the same primitive epistemic roles and axioms, but proposes a different wiring of \(\RI,\EC,\ED,\RB,\TE,\HFD\), still receives a unique structure-preserving functor from FRFP. This makes later non-automation and no-go results robust under local redesigns: one cannot bypass them by relabelling primitives or rearranging explicit/tacit roles while keeping the Epistemic Spaces axioms intact.
+
+Given an admissible interaction trace \(S\), the epistemic-ontology layer associates to each prefix \(S_k\) a pair of states \((e_k,t_k)\), where \(e_k \in E\) is the explicit state and \(t_k \in T\) the tacit state.
+
+In the airfare example introduced in Section~\ref{sec:frfp-architecture-overview}, after \(H_2\) the explicit state \(e_2\) contains at least the travel dates and route, the human's stated priority weights, and the assistant's preference template. The tacit state \(t_2\) reflects the human's internal attitudes toward those trade-offs, which may not match any explicit labels. After \(A_3\), the explicit state \(e_3\) additionally contains candidate itineraries and their attributes; the tacit state \(t_3\) reflects the human's (possibly tentative) sense of which options are promising.
+
+The boundary operator \(\RB:E\to T\) (representational backflow) is applied when the human reviews an explicit artefact. At \(H_5\), the human evaluates the explicit summaries and options, applies \(\RB\) to the relevant explicit configuration, and updates the tacit state \(t_5\) to encode acceptance of Option~A as ``best'' in context. The correctness quotient \(\gamma:\Obj(\Tcat)\to J\) then records this tacit acceptance as an observable judgment (e.g., ``Option~A accepted'').
+
+Our treatment of tacit space is deliberately spare. We assume only that tacit states carry correctness-relevant information, are updated via a one-way boundary from explicit artefacts, and admit a finite observable judgment quotient. We do not model the internal structure of human belief or institutional reasoning; instead, substantive structure is pushed into explicit workflows that we can represent and analyse compositionally.
+%=========================================================
+\section{Epistemic Algebra}
+\label{sec:epistemicalgebra}
+%=========================================================
+The previous section introduced the FRFP epistemic spaces: an explicit space $E$ of machine-manipulable artefacts and a tacit space $T$ of human-only correctness-bearing states, linked by a one-way boundary. This section equips \emph{explicit} workflows with algebraic structure over that ontology. Together with the interaction protocols of Section~\ref{sec:interaction-protocols}, these constructions form the FRFP human--AI conversational calculus. All algebra in this section lives on explicit workflows; tacit state appears only as the semantics of those workflows, not as an object we rewrite.
+
+Given the explicit/tacit ontology, FRFP’s technical structure sits on the explicit side. We define an epistemic algebra of explicit workflows: a task decomposition grammar, navigation and refactoring operations, and a semantics into tacit states. Tacit evaluation enters only through the boundary and correctness quotient; the algebraic invariance results are entirely explicit.
+
+This layer has two ingredients:
+\begin{itemize}[leftmargin=2em]
+  \item a Task Decomposition Grammar (\(\TDG\)) that generates explicit
+        pipelines from the primitives \(\RI,\EC,\ED\); and
+  \item a navigation groupoid (\(\Ncat\)) that captures reversible
+        changes of perspective or representation.
+\end{itemize}
+They are combined via a Grothendieck-style semidirect product
+\(\Ncat \ltimes \Ecat\), a standard construction in categorical
+semantics~\cite{MacLane1998,Awodey2010,Borceux1994}, yielding an algebra
+of reasoning trajectories.
+
+
+\subsection{Task Decomposition Grammar}
+
+TDG presents the free algebra of explicit pipelines. Informally, its grammar is:
+\begin{align*}
+Q &::= \RI \mid Q;\EC \mid Q;\ED \mid
+        \BRANCH(Q_1,\dots,Q_k) \mid
+        \PARALLEL(Q_1,\dots,Q_k) \mid
+        \LOOP(Q_{\mathrm{cond}},Q_{\mathrm{body}}),\\
+P &::= Q;\RB;\TE;\HFD.
+\end{align*}
+Here \(Q\) ranges over explicit pipelines and \(P\) over complete FRFP
+pipelines.
+
+The explicit category \(E_{\mathrm{sem}}\) generated by TDG satisfies the
+usual universal property: any interpretation of the generators in an
+explicit category extends uniquely to a functor from \(E_{\mathrm{sem}}\).
+
+\subsection{Navigation Groupoid}
+
+Navigation steps---trying alternative models, adding or dropping
+assumptions, restarting from a new shape---are represented as morphisms
+in a groupoid \(\Ncat\). Objects of \(\Ncat\) are \emph{shapes} of
+explicit reasoning; morphisms are structural rewritings between shapes,
+freely inverted to form a groupoid.
+
+Each navigation morphism \(n\in\Ncat\) acts on explicit pipelines
+via a fiberwise functor \(n^\ast:E_S\to E_{S'}\) between fibers of a
+fibration \(p:\Ecat\to\Scat\) over shapes. This makes \(E\) an indexed
+category over \(\Ncat\).
+
+\subsection{Semidirect Product \texorpdfstring{\(\Ncat \ltimes \Ecat\)}{N ⋉ E}}
+
+The combined reasoning algebra is the Grothendieck construction
+\(\Ncat \ltimes E\). A morphism in \(\Ncat \ltimes E\) is a pair
+\((n,e)\) consisting of a navigation morphism \(n\in\Ncat\) and an
+explicit arrow \(e\in\Ecat\) in the appropriate fiber. Composition
+interleaves navigation and explicit reasoning according to:
+\[
+(n_2,e_2)\circ(n_1,e_1)
+ =
+\bigl(n_2n_1,\ e_2\circ n_2^\ast(e_1)\bigr).
+\]
+
+Intuitively:
+\begin{itemize}[leftmargin=2em]
+  \item \(\Ncat\) says \emph{which view} of the explicit reasoning we
+        are in (e.g., which model, which set of assumptions);
+  \item \(\Ecat\) records \emph{what} explicit computation and
+        diagnostics have been applied;
+  \item \(\Ncat \ltimes \Ecat\) packages these into a single object
+        representing a reasoning trajectory.
+\end{itemize}
+
+\subsection{Confluence, Normal Forms, and Decidability}
+
+Appendix~A equips \(\Ncat \ltimes E\) with a reduction system that
+combines explicit rewrites and navigation moves. Provided that:
+\begin{itemize}[leftmargin=2em]
+  \item explicit reduction is terminating and locally confluent, and
+  \item navigation reduction normalizes within each component of
+        \(\Ncat\),
+\end{itemize}
+we obtain:
+
+\begin{theorem}[Confluence and normal forms (informal)]
+Every reasoning trajectory in \(\Ncat \ltimes \Ecat\) admits a
+canonical normal form, unique up to navigation isomorphism. In
+particular, explicit steps and navigation steps may be permuted and
+simplified without changing the canonical form.
+\end{theorem}
+
+Moreover, given a well-specified reduction system and typing rules, the question \emph{``Is this composite a valid FRFP pipeline?''} is decidable.
+
+
+\begin{theorem}[Decidability of admissibility (informal)]
+Given a composite term in \(\Ncat \ltimes \Ecat\), it is decidable
+whether it corresponds to an admissible pipeline of the form
+\(\RI \to (\EC/\ED)^\ast \to \RB \to \TE \to \HFD\).
+\end{theorem}
+
+These properties make \(\Ncat \ltimes \Ecat\) a suitable intermediate
+language for representing and analyzing complex reasoning trajectories.
+\paragraph{Operational significance of Epistemic Algebra canonicality.}
+Appendix~A strengthens this picture by showing that the Epistemic Algebra architecture of FRFP is
+canonical among all architectures with the same primitive structure: a free explicit category
+generated by TDG, a navigation groupoid acting fiberwise via a fibration $p : E \to S$, a
+Grothendieck-style semidirect product $N \ltimes E$, and preservation of the RB--TE--HFD
+boundary under navigation. Any other architecture that satisfies these axioms admits a unique
+structure-preserving morphism from the FRFP Epistemic Algebra construction. Operationally, this means
+that ``small local changes'' to task decomposition or navigation---while still respecting the same
+roles and constraints---cannot evade the correctness-preservation, non-automation, and
+inevitability results: they are inherited along the unique morphism from FRFP. To genuinely
+escape those consequences, one must step outside the Epistemic Algebra axioms themselves (for example
+by allowing tacit-to-explicit morphisms or by breaking boundary preservation), rather than
+modifying TDG or navigation in a cosmetic way.
+
+At the explicit algebra layer, the airfare interaction (introduced in Section~\ref{sec:frfp-architecture-overview}), is represented as an explicit pipeline \(P_{\mathrm{air}} \in N \ltimes E\) that composes AI-assisted steps such as preference elicitation, option generation, and trade-off analysis. Different prompt sequences that are operationally admissible but differ only by refactoring---for example, asking for trade-offs before seeing full itineraries, or regrouping constraints into two separate messages---are related by navigation morphisms in \(N\) and rewrite rules in the explicit reduction system.
+ 
+By construction, our rewrite system on \(N \ltimes E\) is terminating and confluent, so each such pipeline admits a canonical normal form. Correctness is defined at the level of the canonical pipeline via the semantics functor \(\llbracket - \rrbracket : N \ltimes E \to T\) and the quotient \(\gamma\). Informally: if one way of using the airfare assistant is correct (the human, after reviewing the explicit artefacts, makes an acceptable tacit choice), then all ways of using the assistant that are rewritable to that pipeline by admissible refactorings are equally correct.
+
+
+%=========================================================
+\subsection{Semantic Correctness and Invariance}
+\label{sec:semantics}
+%=========================================================
+
+The combination of Epistemic Space and Epistemic Algebra yields a semantic map from composite
+trajectories to tacit states.
+
+\subsubsection{Semantic Functor and Observable Correctness}
+
+The semantic functor
+\[
+\llbracket - \rrbracket: \Ncat \ltimes E_{\mathrm{sem}}\to\Tcat
+\]
+interprets a trajectory by running its explicit part, applying the
+boundary \(\RB\), and then applying tacit evaluation and final decision.
+Observable correctness is given by \(\gamma(\llbracket - \rrbracket)\).
+
+\begin{theorem}[Correctness preservation (informal)]
+Correctness judgments are invariant under explicit reasoning,
+navigation, and semidirect-product composition: for any admissible
+trajectory \(\tau\) and any navigation morphism \(n\in\Ncat\),
+\[
+\gamma(\llbracket \tau \rrbracket)
+ =
+\gamma(\llbracket n\cdot \tau \rrbracket).
+\]
+\end{theorem}
+
+In other words, changing the route by which we arrive at a result---so
+long as we respect explicit typing and Epistemic Spaces/Algebra constraints---does not
+change the tacit correctness judgment.
+
+\subsubsection{Canonical Correctness Form}
+
+Every admissible pipeline admits a canonical factorization:
+
+\begin{theorem}[Canonical correctness form (informal)]
+Any trajectory in \(\Ncat \ltimes E_{\mathrm{sem}}\) that is admissible
+in the FRFP sense is equivalent, up to navigation, to a unique normal
+form in which:
+\begin{itemize}[leftmargin=2em]
+  \item all explicit operations (including navigation) occur before the
+        boundary morphism \(\RB\);
+  \item the tacit suffix is \(\TE \to \HFD\), with no interleaving
+        explicit operations;
+  \item no additional boundary or tacit operators appear.
+\end{itemize}
+\end{theorem}
+
+This expresses, at the algebraic level, the design principle that AI
+systems may explore and manipulate explicit representations in many
+ways, but correctness judgments always arise from a single passage
+through \(\RB\) followed by tacit evaluation and decision.
+
+%=========================================================
+\section{Epistemic Dynamics}
+\label{sec:epistemicdynamics}
+%=========================================================
+
+The conversational calculus described so far is static: it assigns tacit judgments to whole explicit workflows but does not yet model how those judgments evolve over time. This section adds a dynamic layer on top of the conversational calculus, introducing tacit degradation, requirement schedules, hallucination, and safe horizons.
+
+The structures introduced in Epistemic Spaces and Epistemic Algebra characterise \emph{single}
+FRFP pipelines: how explicit and tacit operations are separated, how
+explicit reasoning and navigation combine, and how correctness is
+preserved under admissible transformations. In typical long-horizon use,
+however, a human agent engages with an AI system repeatedly. The tacit context from one episode influences the next,
+and errors or misplaced trust may accumulate.
+
+Epistemic Dynamics extends the framework to this setting by equipping FRFP
+pipelines with a dynamic semantics on tacit states. The aim is
+to capture how tacit grounding, task requirements, and confidence
+interact over time, and to make precise in what sense hallucinations
+become structurally difficult to avoid. The formal development of this
+dynamic semantics is given in Appendix~\ref{app:dynamics}; the
+present section outlines the main ingredients and results.
+
+\subsection{Tacit Context, Degradation, and Requirements}
+
+We view the human agent’s epistemic background as a tacit context space $T$ equipped with a
+preorder $\preceq$:
+\[
+  t_1 \preceq t_2 \quad\text{“$t_1$ is epistemically no stronger than $t_2$”.}
+\]
+Strict inequality $t_1 \prec t_2$ denotes $t_1 \preceq t_2$ and $t_2 \not\preceq t_1$. No further
+algebraic structure is imposed on $T$ at this stage; the categorical structure of tacit space from
+Appendix~A is still present but the dynamic analysis works at the level of the underlying
+preordered set.
+
+
+A tacit state $t \in T$ is not merely isolated propositional knowledge, but a compressed record of prior interaction, aggregating experience accumulated over years through performing manual checks, encountering edge cases, debugging failures, and observing where formal specifications cease to align with practice. Tacit state is path-dependent: one only
+reaches a given $t$ by walking through particular sequences of work, not by reading a finite
+specification once. In this picture, the degradation operator $\delta : T \to T$ and the requirement
+map $\Req : E \times \mathbb{R}_{\ge 0} \to T$ express how this compressed history evolves over
+time: $\delta$ erodes available grounding through repeated use, while $\Req(e,c)$ encodes the
+tacit floor needed to treat an explicit artefact $e$ at credence $c$ as epistemically adequate. Our
+later inevitability results will rely precisely on this interaction between path-dependent tacit
+history, degradation, and growing or recurring requirements.
+\subsection{Epistemic degradation under long-run AI assistance}
+\label{subsec:epistemic-degradation}
+
+A central premise of this paper is that sustained reliance on AI assistants can induce
+\emph{epistemic degradation} in human users. We use this term in a local, task-relative sense,
+not as a global claim that ``humans become stupid.'' Let $D$ be a family of tasks (e.g.,
+reading and evaluating papers, designing experiments, checking proofs). For a given user,
+let $t_t \in T$ denote their tacit epistemic state at time $t$: a compressed record of prior
+interactional experience---performing manual checks, encountering edge cases, debugging
+failures, and seeing where formal specifications cease to match practice---that enables them
+to solve tasks in $D$ and to notice when something is wrong.
+
+\begin{definition}[Epistemic degradation]
+\label{def:epistemic-degradation}
+Fix a task family $D$ and a baseline learning process in which a user develops by
+performing tasks in $D$ without an AI assistant (or with only minimal, non-substitutive
+tools). We say that the user is \emph{epistemically degraded} on $D$ at time $t$ (relative to
+this baseline) if, when evaluated \emph{without} access to an assistant, their independent
+performance on $D$ and their ability to detect and correct errors on $D$ are strictly worse
+than under the baseline, due to differences in the evolution of their tacit state $t_t$.
+\end{definition}
+
+Our claim is that, under conditions that already hold in many research workflows, long-run
+use of AI assistance makes epistemic degradation on relevant task families $D$ the default
+outcome. We cannot prove this as a theorem about all possible humans and all possible AI
+systems, but we can justify it as a modeling assumption based on three well-established
+mechanisms.
+
+\paragraph{Automation, complacency, and deskilling.}
+A large human-factors literature shows that when automation and decision aids become
+reliable, humans tend to become \emph{monitors} rather than \emph{primary actors}, with
+resulting automation bias (over-trust in automated outputs) and automation-induced
+complacency (insufficient checking) \citep[e.g.][]{brown_effect_automation_aviation_2017,
+okine_evolution_hf_aviation_2025,singh_automation_complacency_2024}. In aviation,
+for example, increased reliance on autopilot and flight management systems has been linked
+to loss of basic manual flying skills, mode confusion, and degraded situation awareness,
+especially among less experienced pilots \citep{brown_effect_automation_aviation_2017,
+okine_evolution_hf_aviation_2025}. Similar dynamics are now documented for AI systems
+in medicine: a mixed-method review of AI in clinical practice identifies
+\emph{deskilling}---degradation of previously acquired competencies due to reduced
+practice---and \emph{upskilling inhibition}---failure to develop advanced skills among
+trainees because AI systems are doing the difficult parts---as central risks of AI adoption
+\citep{natali_ai_deskilling_medicine_2025}. Commentaries and empirical studies on AI
+decision support in diagnostics explicitly worry about over-reliance, skill degradation,
+diagnostic deskilling, and loss of vigilance if clinicians defer too readily to AI outputs
+\citep{sunday_behavioral_impacts_diagnostics_2025,berzin_preserving_clinical_skills_2025,
+fatima_ai_triage_deskilling_2025}.
+
+In our notation, the assistant increasingly intercepts those task instances in $D$ that
+would otherwise provide practice and feedback to update $t_t$. Observable performance
+for the \emph{combined} human--AI system may go up; but the contribution from the human's
+tacit state shrinks, so that their independent competence is worse than in the no-assistant
+baseline.
+
+\paragraph{Cognitive offloading and the ``Google effect.''}
+A second mechanism is cognitive offloading: the tendency to rely on external systems for
+storage and processing when they are easily available. The ``Google effect'' literature
+shows that intensive Internet search leads people to treat the web as an external memory
+store: they remember \emph{where} to find information rather than the information itself,
+and forgetting of details accelerates when future access is anticipated
+\citep{gong_yang_google_effect_2024}. Gong and Yang's meta-analytical review documents
+that intensive search behavior systematically changes memory and retrieval mechanisms in
+this way \citep{gong_yang_google_effect_2024}. Related work on technology use and
+cognitive aging argues that increased dependence on external media for semantic,
+autobiographical, and spatial memory can accelerate decline if it reduces practice with
+one's own intrinsic abilities \citep{benge_tech_use_cognitive_aging_2025}.
+
+Recent work extends this to AI tools specifically. Gerlich's study on AI tools and critical
+thinking finds a significant negative relationship between heavy AI-tool usage and
+critical-thinking scores, with cognitive offloading statistically mediating this effect:
+participants who offload more reasoning to AI tools score worse on standardized critical
+thinking tests \citep{gerlich_ai_tools_cognitive_offloading_2025}. Qualitative synthesis
+of this and related work emphasizes that users come to rely on AI for analysis and
+synthesis, not just for recall, and consequently engage less in deep, effortful thinking on
+their own \citep{gerlich_ai_cognitive_implications_2025}.
+
+In our framework, this means that both the \emph{contents} and the \emph{procedures}
+required to perform tacit checks on tasks in $D$ are increasingly stored in, and executed
+by, the assistant rather than encoded in $t_t$. The user becomes more proficient at calling
+the assistant, but worse at reconstructing, critiquing, or replacing its reasoning.
+
+\paragraph{Early evidence of degraded independent performance under AI use.}
+Third, there is emerging empirical work that directly measures how AI assistance affects
+independent performance over time. In medicine, studies of AI-supported diagnostics show
+clear short-term gains in accuracy and speed for physicians using AI decision support
+\citep[e.g.][]{anderson_deep_learning_physician_accuracy_2024,lai_concurrent_read_ai_2022,
+lim_medical_ai_workload_2025}, but parallel reviews now explicitly flag the risk that this
+support will erode core clinical skills if it replaces, rather than augments, trainee
+practice \citep{natali_ai_deskilling_medicine_2025,berzin_preserving_clinical_skills_2025,
+sunday_behavioral_impacts_diagnostics_2025,fatima_ai_triage_deskilling_2025}. Similar
+concerns appear in stroke imaging and radiology training, where triage and detection
+algorithms risk relegating trainees to passive oversight roles
+\citep{fatima_ai_triage_deskilling_2025,savardi_ai_radiology_training_2025}.
+
+Outside medicine, experimental work on generative-AI use in writing tasks has begun to
+measure neural and behavioral effects. An EEG-based study of essay writing with and
+without a chatbot assistant finds that participants using the assistant show lower brain
+engagement in regions associated with attention, planning, and memory, and that over
+several months they exhibit declining independent performance and increasing reliance on
+copy-and-paste use of AI outputs \citep{kosmyna_brain_on_chatgpt_2025}. Journalistic
+syntheses of this and related studies similarly report that frequent chatbot use is
+associated with reduced critical thinking and weaker performance when the tool is removed,
+especially among younger or less-experienced users
+\citep{washpost_ai_rewiring_minds_2025,guardian_ai_harming_intelligence_2025}.
+
+These results are not yet definitive, and some meta-analyses also find positive effects of
+generative AI on specific higher-order skills in controlled educational settings
+\citep{zhao_genai_higher_order_thinking_2025}. However, taken together with the older
+automation and offloading literatures, they make it reasonable to model epistemic
+degradation as the \emph{default trajectory} when high-performing assistants replace, rather
+than structure, human practice on a task family $D$.
+
+\paragraph{The formal assumption.}
+We can now state the assumption our protocol is designed to address.
+
+\begin{assumption}[Degradation under sustained assistance]
+\label{assumption:degradation}
+Let $D$ be a family of tasks, and consider two learning processes for the same user:
+
+\begin{enumerate}
+    \item A \emph{baseline} process in which the user solves tasks in $D$ without access to
+    an AI assistant (or with only non-substitutive tools), updating $t_t$ through unaided
+    problem-solving, feedback, and explicit practice.
+
+    \item An \emph{assisted} process in which a high-performing AI assistant proposes
+    candidate solutions and rationales for most tasks in $D$, and the user typically
+    accepts these with limited independent checking.
+\end{enumerate}
+
+Assume that (i) human memory and skill exhibit standard decay in the absence of practice
+or retrieval, as modeled in classical forgetting and skill-decay work
+\citep[e.g.][]{gong_yang_google_effect_2024,benge_tech_use_cognitive_aging_2025}; and
+(ii) the presence of the assistant systematically reduces the frequency and depth of
+unaided problem-solving and checking on $D$, as suggested by the automation,
+offloading, and deskilling studies discussed above
+\citep{brown_effect_automation_aviation_2017,okine_evolution_hf_aviation_2025,
+natali_ai_deskilling_medicine_2025,gerlich_ai_tools_cognitive_offloading_2025,
+sunday_behavioral_impacts_diagnostics_2025}.
+
+Then, beyond some time horizon, the assisted process leads to epistemic degradation on
+$D$ in the sense of Definition~\ref{def:epistemic-degradation}: when evaluated without the
+assistant, the user's independent performance and error-detection ability on $D$ are worse
+than under the baseline process.
+\end{assumption}
+
+This assumption captures the worry that motivates our protocol design. As AI assistants
+become more capable, human scientists risk becoming less capable \emph{relative to the
+tasks they routinely delegate}: the joint human--AI system may look impressively
+competent, but the next generation's tacit epistemic state $t_t$ fails to accumulate the
+interaction-derived structure needed to generate and scrutinize scientific results on its
+own. The protocols we propose in the remainder of the paper are explicitly designed to
+break this dynamic: they aim to secure near-term accuracy while preserving, and in some
+cases amplifying, the long-run development of human tacit competence.
+
+\paragraph{Context degradation.}
+Long-run use of an AI assistant is assumed to induce epistemic
+degradation. This is modelled by a function \(\delta:T\to T\) satisfying:
+\begin{enumerate}[label=(D\arabic*),leftmargin=2.2em]
+  \item \emph{Monotonicity:} \(\delta(t) \preceq t\) for all \(t\in T\);
+  \item \emph{Strict decay somewhere:} there exists \(t\) with
+        \(\delta(t) \prec t\);
+  \item \emph{Non-invertibility:} there is no \(f:T\to T\) such that
+        \(\delta\circ f = \mathrm{id}_T\).
+\end{enumerate}
+Intuitively, \(\delta\) aggregates effects such as fatigue, forgetting,
+and inappropriate deference to the system. Repair operations (rest,
+study, institutional checks) can be represented by separate operators,
+but are not needed for the core Epistemic Dynamics results and are therefore left
+for later extensions.
+
+\paragraph{Requirements and hallucination.}
+Hallucination is defined at the level of the protocol, rather than in
+terms of any particular model. To this end, we introduce a requirement
+map
+\[
+\Req : E \times \mathbb{R}_{\ge 0} \to T,
+\]
+where \(e\in E\) is an explicit artifact (e.g., an explanation or
+derivation) and \(c\ge 0\) is a tacit credence level indicating how
+strongly the agent treats \(e\) as reliable. The element \(\Req(e,c)\)
+represents the tacit grounding required to treat \((e,c)\) as
+epistemically adequate.
+
+We assume:
+\begin{enumerate}[label=(R\arabic*),leftmargin=2.2em]
+  \item \emph{Monotonicity in credence:} if \(c_1 \le c_2\) then
+        \(\Req(e,c_1) \preceq \Req(e,c_2)\) for all \(e\in E\);
+  \item \emph{Nontriviality:} not all artifacts have the same
+        requirements up to \(\preceq\).
+\end{enumerate}
+
+\begin{definition}[Hallucination]
+Let \(t\in T\) be the current tacit state, \(e\in E\) an explicit output,
+and \(c\ge 0\) a credence level. A \emph{hallucination} occurs at this
+step if
+\[
+t \prec \Req(e,c).
+\]
+We then say that \(e\) is \emph{hallucinated} (relative to \((t,c)\)).
+\end{definition}
+
+In this sense, hallucination is a mismatch between available tacit
+grounding and what would be required to support the explicit artifact at
+the assigned credence. This definition does not depend on internal model
+mechanisms or intent.
+
+\paragraph{Repair, workload, and the cost--speed tradeoff.}
+The Epistemic Dynamics analysis above treats degradation as one-sided: tacit states evolve via a monotone,
+non-invertible operator $\delta$ under recurring nontrivial demands, yielding inevitability of
+requirement-violating steps. Real institutions also invest in \emph{repair}: training, feedback,
+reflection, and retraining that partially restore grounding. We model these as operators
+$\rho : T \to T$ that decrease an entropy-like potential $S : T \to \mathbb{R}$ on tacit states, while
+$\delta$ increases $S$ whenever nontrivial work is done.
+
+If average entropy production from nontrivial tasks exceeds the average entropy removal achievable
+by bounded repair operators $\rho$, then $S$ drifts upward and eventually crosses any fixed
+requirement threshold, recovering the inevitability results even in the presence of repair.
+Conversely, stabilizing $S$ requires repair at a rate and intensity comparable to the rate at which
+tasks are processed. In high-load regimes this typically means a governance workload whose cost and
+latency scale with AI usage. Under the FRFP assumptions there is thus no regime in which one
+simultaneously obtains unbounded speed/cost gains from automation and long-horizon immunity to
+FRFP-hallucination: strong repair can delay and reshape risk, but only by re-introducing substantial
+human effort (see Appendix~\ref{app:delta-rho} for a formal $\delta$--$\rho$ analysis).
+
+\subsection{Pipeline Transformers and Runs}
+\label{subsec:epistemicdynamicsruns}
+
+The static semantics of Appendix~\ref{app:math-foundations} already
+associates to each explicit pipeline \(e\in E_{\mathrm{sem}}\) a tacit
+effect via the semantic RB functor \(\RBsharp\) and the tacit primitives
+\(\TE,\HFD\). In particular, evaluation of \(e\) at tacit context \(t\)
+can be written as
+\[
+t \longmapsto \HFD\circ \TE \circ \RBsharp(e,t).
+\]
+
+For dynamic analysis, we compose this with degradation.
+
+\begin{definition}[Pipeline transformer]
+A complete pipeline at a given turn consists of:
+\begin{itemize}[leftmargin=2em]
+  \item an explicit artifact \(e \in E_{\mathrm{sem}}\) constructed as in
+        Epistemic Spaces and Epistemic Algebra;
+  \item the tacit suffix \(\RB \to \TE \to \HFD\);
+  \item a degradation step \(\delta:T\to T\).
+\end{itemize}
+It induces a map
+\[
+\llbracket P \rrbracket_\delta : T \to T,\qquad
+\llbracket P \rrbracket_\delta(t)
+ :=
+ \delta\bigl(\HFD\circ\TE\circ\RBsharp(e,t)\bigr).
+\]
+\end{definition}
+
+\begin{definition}[Run]
+A \emph{run} (or \emph{interaction sequence}) is a sequence of tacit
+states \((t_n)_{n\ge 0}\) such that, for some sequence of pipelines
+\(P_0,P_1,\dots\),
+\[
+t_{n+1} = \llbracket P_n \rrbracket_\delta(t_n)
+\quad\text{for all } n\ge 0.
+\]
+When convenient, we also record the corresponding explicit artifacts and
+credences, writing \((t_n,e_n,c_n)_{n\ge 0}\).
+\end{definition}
+
+All Epistemic Dynamics conclusions are stated in terms of such runs and the
+hallucination condition \(t_n \prec \Req(e_n,c_n)\).
+
+\subsection{Baseline Hallucination Inevitability}
+
+We first consider a deterministic setting with fixed degradation
+\(\delta\) and fixed pipelines. To capture the notion that nontrivial
+epistemic demands recur, we use a requirement floor.
+
+\begin{definition}[Requirement floor and recurring demands]
+A state \(r\in T\) is a \emph{requirement floor} if, for a run
+\((t_n,e_n,c_n)_{n\ge 0}\), we say that \emph{nontrivial demands recur
+relative to \(r\)} when there exists an infinite subsequence
+\((n_k)_{k\ge 0}\) such that
+\[
+\Req(e_{n_k},c_{n_k}) \succeq r
+\quad\text{for all }k.
+\]
+\end{definition}
+
+We strengthen the degradation assumption to ensure that tacit states
+eventually fall below this floor.
+
+\begin{assumption}[Degradation below the requirement floor]
+\label{assump:baseline-degradation-main}
+There exists \(r\in T\) such that, for every \(t_0\in T\), there is
+\(N\in\mathbb{N}\) with
+\[
+\delta^N(t_0) \prec r.
+\]
+\end{assumption}
+
+Under these assumptions, Appendix~\ref{app:dynamics} shows:
+
+\begin{theorem}[Hallucination inevitability, deterministic case]
+\label{thm:baseline-inevitability-main}
+Let \((t_n,e_n,c_n)_{n\ge 0}\) be a run for which
+Assumption~\ref{assump:baseline-degradation-main} holds and
+nontrivial demands recur relative to some requirement floor \(r\). Then
+there exists \(n\in\mathbb{N}\) such that
+\[
+t_n \prec \Req(e_n,c_n).
+\]
+In particular, every infinite run of this form contains at least one
+hallucination.
+\end{theorem}
+
+The theorem applies to runs that are both degrading and nontrivial in
+the sense above. Scenarios restricted to very easy tasks, very short
+horizons, or aggressive external re-grounding may not satisfy these
+premises and are not targeted here.
+
+\subsection{Confidence, Requirement Escalation, and Feedback}
+
+The behaviour of the human agent depends not only on the explicit
+content \(e_n\) but also on how plausible it appears. Epistemic Dynamics therefore
+adds structure for explicit plausibility, credence, and feedback between
+credence and degradation. The formal definitions and proofs are given in
+Appendix~A.9.8–A.9.13; we summarise the main ideas.
+
+\paragraph{Plausibility and confidence.}
+An explicit plausibility functional \(\pi:E\to[0,1]\) assigns to each
+artifact a scalar measure of surface coherence or apparent authority.
+Tacit state is extended to \(T^e:=T\times\mathbb{R}_{\ge 0}\), with
+elements \((t,c)\) where \(t\) is grounding and \(c\) is credence. A
+confidence inflation operator
+\(\Phi:(T^e\times E)\to T^e\) updates credence according to plausibility,
+without improving \(t\); for example
+\[
+\Phi((t,c),e) = (t,c+\varphi(\pi(e))),
+\]
+for some monotone \(\varphi:[0,1]\to\mathbb{R}_{\ge 0}\).
+
+\paragraph{Requirement escalation and feedback-coupled degradation.}
+Since \(\Req(e,c)\) is monotone in \(c\), higher credence raises
+requirements. To reflect the possibility that higher confidence reduces
+scrutiny, degradation is allowed to depend on \(c\) via a map
+\(\delta^\star:T^e\to T\), written \(\delta^\star(t,c)=\delta_c(t)\),
+such that:
+\begin{itemize}[leftmargin=2em]
+  \item for fixed \(t\), higher \(c\) leads to weaker outputs:
+        \(\delta^\star(t,c_2)\preceq \delta^\star(t,c_1)\) whenever
+        \(c_1\le c_2\);
+  \item at zero credence, \(\delta^\star\) reduces to the baseline
+        \(\delta\).
+\end{itemize}
+
+An extended run \((t_n,c_n,e_n)_{n\ge 0}\) is then obtained by
+interleaving confidence inflation and feedback-coupled degradation. Under
+assumptions that credence can grow without bound along subsequences when
+high-plausibility artifacts recur, Appendix A.9.13
+establishes an \emph{accelerated} version of
+Theorem~\ref{thm:baseline-inevitability-main}: hallucinations still
+occur in finite time, and the time-to-hallucination is not increased,
+and may be strictly reduced, by the presence of the feedback loop.
+
+\subsection{Stochastic Pipelines, Ensembles, and Finite Horizons}
+
+The preceding discussion treats runs as deterministic sequences. In many
+applications, FRFP pipelines include stochastic components (e.g.,
+sampling, randomised retrieval). Appendix~A.9.15–A.9.16
+extends the dynamic semantics to this case by viewing runs as
+trajectories \(\omega\) in a space \(\Omega\) and equipping \(\Omega\)
+with probability measures arising from stochastic implementations.
+
+For each trajectory \(\omega = ((t_n,c_n,e_n))_{n\ge 0}\), the
+\emph{hallucination time} is defined as
+\[
+\tau(\omega)
+ :=
+\inf\{n\ge 0:\ t_n \prec \Req(e_n,c_n)\},
+\]
+with \(\tau(\omega)=+\infty\) if no hallucination occurs. When the
+structural premises of Theorem~\ref{thm:baseline-inevitability-main}
+(and its feedback-augmented variants) hold pointwise on the support of a
+stochastic pipeline, Appendix A.9.15–A.9.16 shows that
+\(\tau(\omega)<\infty\) for all such \(\omega\). Any probability measure
+supported on these trajectories then satisfies
+\(\mathbb{P}(\tau<\infty)=1\): hallucination is almost sure.
+
+For a fixed horizon \(N\), the finite-horizon hallucination probability
+\(p_N:=\mathbb{P}(\tau\le N)\) is non-decreasing in \(N\) and converges
+to~1 as \(N\to\infty\). For \(K\) independent runs, the probability that
+at least one run hallucinates by time \(N\) is
+\(1-(1-p_N)^K\). Thus ensembles can improve robustness over short
+horizons, but they do not change the long-run structural inevitability
+when the underlying conditions are met.
+
+\subsection{Implications}
+
+Epistemic Dynamics shows how the static FRFP architecture behaves over long
+interaction sequences when combined with simple models of context
+degradation, requirements, and confidence. The main conclusions are:
+\begin{itemize}[leftmargin=2em]
+  \item hallucination is naturally captured as a mismatch between tacit
+        context and task requirements, independent of any particular AI
+        architecture;
+  \item under monotone degradation and recurring nontrivial demands,
+        hallucinations are inevitable along sufficiently long runs;
+  \item feedback from plausibility and credence to degradation tends to
+        shorten the time-to-hallucination rather than extend it;
+  \item stochasticity and ensembles can reduce error on finite horizons,
+        but do not remove the long-run structural pressure towards
+        hallucination under the same assumptions.
+\end{itemize}
+
+The formal statements and proofs are given in
+Appendix~\ref{app:dynamics}. Subsequent sections extend the
+framework from single agents to multi-agent and institutional settings.
+
+The dynamics layer enriches tacit states with degradation and requirements. In the airfare setting, the requirement map \(\mathrm{Req}(e,c)\) encodes, for a given explicit configuration \(e\) (set of options, price ranges, constraints) and credence level \(c\), how much tacit grounding is required for it to be appropriate to accept an itinerary as ``best''. For example, a corporate travel policy might demand that the human understand not only the price and timing, but also fare rules and change penalties before accepting a premium non-refundable ticket.
+
+As the human interacts with the assistant across many planning tasks, tacit grounding degrades via \(\delta : T \to T\) under cognitive load or time pressure, while nontrivial requirements recur. Within our Epistemic Dynamics model, prolonged or repeated use of such a ``best airfare'' protocol without adequate rest or oversight will eventually lead to requirement-violating acceptances—for instance, choosing an itinerary that superficially fits high-level preferences but violates tacit constraints the human would normally enforce (such as minimum connection times or visa requirements). The safe-horizon functional \(H_P(\varepsilon)\) then captures, for a given pipeline \(P\) and tolerance \(\varepsilon\), how many such planning episodes can be run before the probability of a tacitly unacceptable choice exceeds \(\varepsilon\).
+
+% ------------------------------------------------------------------
+% Section X — Collective Epistemic Dynamics
+% ------------------------------------------------------------------
+
+\section{Collective Epistemic Dynamics}
+\label{sec:collective-epistemic-dynamics}
+
+We now lift the conversational calculus to populations and institutions. Multiple human agents share explicit artefacts and communicate via typed workflows; their tacit states evolve individually but interact through shared artefacts, committees, and policies. The resulting collective layer supports population-level dynamics, consensus mechanisms, and governance operators, and yields explicit-only impossibility results for hallucination detection and institutional automation. Technical details and categorical formulations appear in the appendices, in particular Appendices~A--C.
+
+
+\subsection{From Single Pipelines to Epistemic Populations}
+
+In the single-agent setting, an FRFP pipeline comprises:
+\begin{itemize}
+  \item an explicit artefact space $E$ (texts, code, plans, proofs),
+  \item a tacit space $T$ with a preorder $\preceq$ capturing ``at least as grounded as'',
+  \item an extended tacit state space $T^e = T \times \mathbb{R}_{\ge 0}$ pairing grounding and tacit credence,
+  \item dynamics combining degradation $\delta$, requirement maps $\mathrm{Req}$, confidence inflation, and feedback-coupled degradation.
+\end{itemize}
+A single execution is a trajectory
+\[
+  \omega = \bigl( (t_n,c_n,e_n) \bigr)_{n \ge 0},
+\]
+and hallucination occurs at the first $n$ such that $t_n \prec \mathrm{Req}(e_n,c_n)$ while the explicit artefact $e_n$ is nevertheless accepted in the pipeline.
+
+To move to the collective level, we replace the single tacit space by a family
+\[
+  A_i = (T_i, \preceq_i, \delta_i, T^e_i),
+  \qquad i \in I,
+\]
+of epistemic agents indexed by a set $I$ (individuals, teams, or institutions). Each $A_i$ has its own tacit space, requirement relation, and degradation dynamics. Agents share a common explicit reasoning environment described by the category
+\[
+  \mathcal{C} = N \ltimes E,
+\]
+where $E$ collects explicit artefacts and $N$ captures navigation and control structure at the explicit level (task selection, mode switching, tool invocation, and so on).
+
+The joint explicit state of the population is modeled as an object of the product category
+\[
+  \mathcal{C}^I.
+\]
+An object $X \in \mathcal{C}^I$ is a family $X = (X_i)_{i\in I}$ of explicit states, indicating for each agent which explicit task and artefacts are currently active. A morphism $X \to Y$ in $\mathcal{C}^I$ represents one step of explicit activity across the population: one or more agents update their explicit state, for example by computing, revising, delegating, or producing new artefacts.
+
+A population semantics functor
+\[
+  \overline{J} : \mathcal{C}^I \longrightarrow \prod_{i\in I} T^e_i
+\]
+associates to each global explicit state $X$ a tuple
+\[
+  \overline{J}(X) = \bigl((t_i,c_i)\bigr)_{i\in I}
+\]
+of extended tacit states, obtained by allowing each agent to consume the explicit artefacts in $X$ and update according to the single-agent dynamics. This lifts explicit--tacit separation to the population level: explicit artefacts are shared, while tacit grounding remains agent-local.
+
+\subsection{Collective Dynamics as a Markov System}
+
+To analyze temporal behaviour, we endow $\mathcal{C}^I$ with stochastic dynamics. From any global explicit state $X$, there is a distribution over possible successors $Y$, reflecting:
+\begin{itemize}
+  \item which agents act next (possibly determined by a scheduling or institutional mechanism),
+  \item which explicit morphisms in $\mathcal{C}$ they apply (such as computation, summarization, deployment, or consensus),
+  \item which agents observe the newly produced artefacts (a communication structure on $I$),
+  \item how each tacit state $(t_i,c_i)$ is updated via representational backflow, degradation, confidence inflation, and feedback-coupled degradation.
+\end{itemize}
+
+Formally, this is captured by a Markovian collective dynamics
+\[
+  M : \mathrm{Obj}(\mathcal{C}^I)
+    \longrightarrow \mathcal{P}\bigl( \mathrm{Obj}(\mathcal{C}^I) \bigr),
+\]
+which specifies for each $X$ a probability measure $M(X,\cdot)$ on successor states. Equivalently, one can view $M$ as a functor
+\[
+  M : \mathcal{C}^I \longrightarrow \mathbf{Kl}(D),
+\]
+into the Kleisli category of the discrete distribution monad $D$, but the object-level transition kernel suffices for present purposes.
+Fix an initial state $X_0\in \mathrm{Obj}(\mathcal{C}^I)$. The transition kernel $M$ then induces a
+probability measure on the space of infinite executions
+\[
+  \Omega := \mathrm{Obj}(\mathcal{C}^I)^{\mathbb{N}},
+\]
+namely the law of the Markov chain on $\mathrm{Obj}(\mathcal{C}^I)$ with initial condition $X_0$ and
+transition kernel $M$. We denote this measure by $P_{M,X_0}$. When the initial state is clear from
+context, we suppress it and write $P_M$.
+
+
+A \emph{collective execution} is a random path
+\[
+  X_0, X_1, X_2, \dots
+\]
+in $\mathcal{C}^I$ generated by $M$ from an initial state $X_0$. The corresponding tacit trajectories $\overline{J}(X_n)$ record how grounding and credence evolve over time for each agent, coupled through shared explicit artefacts and communication. This yields a population-level path space and probability measure analogous to the single-agent setting, and permits the usual notion of stopping time with respect to the resulting filtration (see Appendix~A.10 for details).
+
+\subsection{Collective Hallucination and Its Inevitability}
+
+At the individual level, hallucination is the first time an explicit artefact is endorsed despite insufficient tacit grounding. At the collective level, the corresponding notion involves endorsement by a subset of agents.
+
+Given a collective execution $(X_n)_{n\ge 0}$ with tacit states
+\[
+  \overline{J}(X_n) = \bigl((t_{i,n},c_{i,n})\bigr)_{i\in I},
+\]
+a \emph{collective hallucination} at time $n$ occurs if there exists an explicit artefact $e \in E$ and a subset $J \subseteq I$ with $|J|\ge 1$ such that:
+\begin{itemize}
+  \item each agent $j \in J$ has accepted or propagated $e$ (i.e., treated it as admissible for downstream use under their tacit gate) in their pipeline by time $n$, and
+  \item for all $j \in J$,
+        \[
+          t_{j,n} \prec_j \mathrm{Req}_j(e,c_{j,n}),
+        \]
+        i.e.\ the tacit state lies strictly below the applicable requirement for $e$ in that context.
+\end{itemize}
+Here ``nontrivial'' means \emph{nonempty}: we allow $|J|\ge 1$, so the collective notion strictly extends the single-agent notion. When modeling multi-approval governance, we use the strengthened threshold $|J|\ge k$ (typically $k=2$), corresponding to acceptance rules that require multiple independent tacit gates.
+
+
+The \emph{collective hallucination time} is the stopping time $\tau^{\mathrm{coll}}$ defined by
+\[
+  \tau^{\mathrm{coll}}(\omega)
+  := \inf\{\,n \ge 0 : \omega \text{ exhibits a collective hallucination at step } n\,\},
+\]
+with $\inf \varnothing = \infty$ as usual.
+
+Under the same high-level assumptions that drive single-agent inevitability (finite tacit capacities, non-invertible degradation for each agent, recurrent demands on grounding via surface-plausible artefacts, confidence inflation, and requirement escalation), and under mild assumptions on $M$ (continued production and circulation of artefacts through the population), one obtains an almost-sure finiteness result:
+\[
+  P_M\bigl(\tau^{\mathrm{coll}} < \infty\bigr) = 1.
+\]
+In words, over sufficiently long horizons, some under-grounded artefact will almost surely be collectively endorsed, provided the structural FRFP conditions remain satisfied. A formal statement and proof are given in Appendix~A.10.11--A.10.12.
+
+\subsection{Consensus Mechanisms as Explicit-Only Functors}
+
+Collective systems frequently employ consensus mechanisms: voting schemes, averaging procedures, ensemble methods, committee decisions, and more elaborate governance structures. Within the present framework, these are modeled as explicit-only operators
+\[
+  C : E^n \longrightarrow E,
+\]
+which aggregate a finite tuple of explicit artefacts $(e_1,\dots,e_n) \in E^n$ into a new explicit artefact $C(e_1,\dots,e_n)$. Crucially, such operators act solely in explicit space; they have no direct access to tacit states $T_i$ or to the requirement maps $\mathrm{Req}_i$.
+
+A basic consequence is \emph{tacit-stability}. Fix an agent $i$ and a context $c_i$. Suppose that for each $k \in \{1,\dots,n\}$,
+\[
+  t_i \prec_i \mathrm{Req}_i(e_k,c_i),
+\]
+so each input artefact is under-grounded for agent~$i$ in context $c_i$. Because explicit transformations do not modify the underlying tacit state, any output $C(e_1,\dots,e_n)$ is evaluated against the same $t_i$ and $c_i$ and therefore remains under-grounded.
+
+As a consequence, fully automated consensus processes that operate purely on explicit artefacts cannot, in general, eliminate hallucination or under-grounded decisions at the collective level. They can smooth, denoise, or delay failures by reshaping explicit behaviour, but they cannot create new grounding in tacit space. This extends the single-agent observation that explicit refactorings do not restore grounding to the population level.
+
+\subsection{Structural Notions at the Collective Level}
+
+The collective formalism introduces structural notions that do not appear at the static single-agent level and that will be used later.
+
+\paragraph{Equivalence of collective protocols.}
+Viewing $\mathcal{C}^I$ as the explicit category for the full population, different interfaces, workflows, or consensus arrangements can be represented as endofunctors
+\[
+  F : \mathcal{C}^I \longrightarrow \mathcal{C}^I
+\]
+that preserve the population semantics $\overline{J}$. If two designs $F_1$ and $F_2$ are related by explicit-only refactorings that leave $\overline{J}$ unchanged, they are \emph{equivalent} in the FRFP sense: they have the same tacit semantics and the same distribution of the collective hallucination time $\tau^{\mathrm{coll}}$. Any difference between them is then syntactic rather than epistemic.
+
+\paragraph{Refinement order on architectures.}
+Given two Markovian collective dynamics $M_1$ and $M_2$ defined on the same population, with corresponding collective hallucination times $\tau^{\mathrm{coll}}_1$ and $\tau^{\mathrm{coll}}_2$, define the finite-horizon risk curves
+\[
+  p_N^{(k)} := P_{M_k}\bigl(\tau^{\mathrm{coll}}_k \le N\bigr),
+  \qquad k \in \{1,2\},\ N \in \mathbb{N}.
+\]
+We say that $M_2$ \emph{dynamically refines} $M_1$ if $p_N^{(2)} \le p_N^{(1)}$ for all $N$. This induces a partial order on collective designs: some architectures are strictly safer than others in the sense of never increasing finite-horizon hallucination risk. Explicit refactorings that preserve $\overline{J}$ cannot strictly improve this order; they can at best preserve it. In contrast, interventions that alter tacit structure (e.g.\ adding independent evaluators, modifying requirements, or slowing degradation) can produce genuine refinements. A more detailed treatment appears in Appendix~A.10.
+
+\paragraph{Compositional risk and defense in depth.}
+Many systems decompose into interacting subpopulations (for example, scientific, engineering, and policy components). Each subpopulation has its own collective hallucination time $\tau^{\mathrm{coll}}_{\mathrm{sub}}$ and hazard profile. At a coarse level, the overall collective hallucination time is bounded by
+\[
+  \tau^{\mathrm{coll}} = \min_{\mathrm{sub}} \tau^{\mathrm{coll}}_{\mathrm{sub}}.
+\]
+The system fails epistemically as soon as any critical component fails. The formalism therefore supports a compositional ``defense-in-depth'' analysis: subsystem-level guarantees on hazard profiles may, under appropriate coupling conditions, yield system-level guarantees. The appendices provide the technical apparatus needed to make such statements precise.
+\paragraph{Do collectives reduce or increase hallucination risk on fixed horizons?}
+Moving from a single agent to a population does not have a uniform effect on hallucination risk. On a
+\emph{fixed horizon} \(N\), collectives can make hallucination \emph{less probable} or \emph{more probable},
+depending on how acceptance is implemented and how correlated the agents' errors and evidence streams are.
+
+\smallskip
+\noindent
+\textbf{When collectives can reduce fixed-horizon risk (defense in depth).}
+If an explicit artefact must pass \emph{independent} tacit gates before it is accepted (e.g., two-person
+sign-off, committee review, replication-style checks), then collective hallucination requires that multiple tacit states
+simultaneously fall below their relevant requirements. When the gates are sufficiently independent---in the
+sense that their under-groundedness events are not strongly positively correlated---the probability of a
+collective hallucination by time \(N\) can be strictly smaller than in the single-agent case. Intuitively,
+independence turns ``one agent misses the flaw'' into ``several agents must miss it in compatible ways.''
+This is the collective analogue of layered safety checks: additional gates can improve finite-horizon safety
+by reducing the chance that any single agent's degraded tacit state becomes the sole point of failure.
+
+\smallskip
+\noindent
+\textbf{When collectives can increase fixed-horizon risk (amplification and speedup).}
+Collectives can also \emph{increase} short-horizon risk when they raise throughput of artefact production and
+circulation, or when their failures are highly correlated. Shared tools, shared prompts, shared datasets, or
+shared institutional incentives can make agents' errors co-move, so that many agents become under-grounded
+with respect to the same artefacts at roughly the same time. In addition, populations typically explore and
+propagate far more candidate artefacts per unit time than a single user; even if the per-artefact
+hallucination probability is unchanged, the probability that \emph{some} artefact is accepted while
+under-grounded can increase simply because the system samples more opportunities for failure. Finally, if
+``consensus'' operates as an explicit-only aggregator over weakly grounded artefacts, it can accelerate
+endorsement by producing artefacts that look more authoritative without increasing tacit grounding.
+
+\smallskip
+\noindent
+\textbf{Structural implication.}
+The collective layer therefore supports two distinct design levers. First, \emph{gate structure} (how many
+tacit acceptances are required, and by whom) can reduce finite-horizon risk when evaluations are genuinely
+independent. Second, \emph{correlation and throughput control} (diversity of evidence, diversity of tools,
+rate-limits, and escalation rules) becomes essential to prevent populations from becoming
+high-throughput amplifiers of the same under-grounded artefacts. None of these effects contradict the
+long-horizon inevitability results under the FRFP assumptions: layered collectives can reshape and delay
+risk, but cannot, in general, remove it over unbounded horizons when tacit capacities degrade and nontrivial
+requirements recur.
+\paragraph{Non-identifiability from logs.}
+Collective executions give rise to rich explicit traces: logs, metrics, dashboards, and derived indicators. All of these live in $\mathcal{C}^I$ or in its images under explicit functors. Tacit states $\overline{J}(X)$ and requirement maps $\mathrm{Req}_i$ remain unobserved. In general, many different tacit configurations and dynamics $M$ can induce the same (or arbitrarily similar) distributions over explicit traces. It follows that correctness and hallucination risk are \emph{non-identifiable} from logs alone: without additional assumptions, explicit-only monitoring and metrics cannot uniquely determine how well grounded a population's beliefs are.
+
+\paragraph{Scaling and phase-transition questions.}
+The population-level formulation also supports scaling questions. Parameterizing systems by population size $|I|$, communication structure, and per-agent degradation properties, one can ask how epistemic risk scales with the number of agents and tools, whether particular communication patterns are stabilizing or destabilizing, and whether qualitative changes (phase transitions) occur as complexity grows. The present work does not attempt a systematic scaling analysis, but the structural notions above identify the relevant objects for future investigation.
+
+\subsection{Connections to Example Domains and Local Interventions}
+
+The same collective apparatus applies across domains in which many agents interact over shared artefacts:
+\begin{itemize}
+  \item Scientific communities can be modeled as populations of agents (labs, groups, or individual scientists) with papers, datasets, and code as explicit artefacts, and peer review, replication, and citation practices as partial consensus mechanisms.
+  \item Software development lifecycles can be treated as populations of developers, reviewers, operators, and tools with explicit artefacts such as requirements, designs, code, tests, and deployment configurations, coupled by CI/CD and incident-response processes.
+  \item Strategic domains such as military planning or pandemic response involve agents in governments, institutions, and advisory bodies operating over explicit artefacts including plans, intelligence, models, and policies, with doctrines and institutions acting as higher-level operators on $M$ and on $\mathrm{Req}$.
+  \item Markets and large-scale experiments provide examples where rich explicit traces (transaction logs, event data) remain insufficient to uniquely identify underlying beliefs or theories, paralleling the non-identifiability observation above.
+\end{itemize}
+
+The collective perspective also clarifies the status of local interaction patterns, such as common prompting schemes for language models (incentive framing, challenge prompts, stepwise guidance, high-stakes framing, self-evaluation prompts). These can be viewed as local interventions on:
+\begin{itemize}
+  \item the explicit pipeline shape in $N \ltimes E$ (for example, encouraging decomposition and self-checking),
+  \item the effective requirement schedule (for example, weakening answers to hypotheses or raising the bar for strong claims),
+  \item the human user's tacit dynamics (for example, prompting increased attention and skepticism).
+\end{itemize}
+Such interventions can materially improve finite-horizon correctness and enlarge safe horizons for particular tasks. They do not, however, alter the structural facts established in the underlying theory: explicit-only systems remain ungrounded, human tacit capacities remain finite and degrading, and, within the Epistemic Dynamics and population assumptions of FRFP, under-grounded collective decisions remain inevitable over unbounded horizons.
+
+In summary, the collective layer provides a coherent extension of FRFP to multi-agent settings. It connects individual pipeline dynamics to institutional design, clarifies the limits of explicit-only interventions (including consensus mechanisms and monitoring), and identifies the structural levers---in particular, those acting on tacit dynamics and requirements---on which robust long-horizon human--AI collaboration must ultimately rely.
+
+In a collective version of the airfare example, a team or organisation might use a shared assistant to propose itineraries for many travellers under a common travel policy. Individual tacit states live in agent-local copies of $T$, while the shared explicit category records policies, candidate options, and past choices. Consensus mechanisms and governance operators at this layer determine, for example, whether a manager's tacit judgment can override an employee's preferred itinerary, or how exceptions to the cheapest-available-fare policy are recorded. Our non-automation results imply that, even with strong explicit policies and logging, no explicit-only governance operator can, in general, guarantee that all accepted itineraries are tacitly acceptable across all such populations and protocols.
+
+\section{Structural Limits of Explicit Mechanisms}
+\label{sec:structural-limits-explicit}
+
+The preceding development has described a class of human--AI collaborations in which
+\begin{itemize}
+  \item explicit artefacts and transformations are modelled in a category $E$ of explicit reasoning,
+  \item navigation, prompting, and other meta-operations are represented in a category $N$,
+  \item tacit states and evaluations live in a space $T$, and
+  \item the combined system $N \ltimes E$ is equipped with a reduction relation and a semantic functor
+    \[
+      \llbracket - \rrbracket : N \ltimes E_{\mathrm{sem}} \longrightarrow T,
+    \]
+    with observable correctness extracted via a map $\gamma : \mathrm{Ob}(T) \to J$.
+\end{itemize}
+Under the FRFP axioms (ETS, HEG, HEC, AE), explicit computation is separated from tacit evaluation and cannot reconstruct tacit state or correctness except via designated human interaction. At the same time, the dynamic and collective layers developed earlier show that long-horizon behaviour is inherently stochastic: pipelines are implemented as stochastic processes over a space of admissible trajectories, and populations interacting through explicit channels induce Markovian dynamics over collections of agents.
+
+This section explains how these ingredients jointly constrain what can be achieved by mechanisms that operate purely in explicit space. Formal statements and proofs of the main structural results are given in Appendix~D.
+
+\subsection{Dynamic Quantities and Long-Horizon Behaviour}
+
+When a fixed pipeline $P$ is executed under FRFP constraints, the dynamic semantics introduced previously associate to any admissible implementation:
+\begin{itemize}
+  \item a measurable space of trajectories $\Omega_{\mathrm{allowed}}$ of runs, each trajectory $\omega \in \Omega_{\mathrm{allowed}}$ corresponding to a reduction sequence in $N \ltimes E$ satisfying the interaction protocol constraints;
+  \item a hallucination time random variable
+    \[
+      \tau : \Omega_{\mathrm{allowed}} \longrightarrow \mathbb{N} \cup \{\infty\},
+    \]
+    recording the first time a requirement-violating artefact is accepted along the run;
+  \item finite-horizon hallucination probabilities
+    \[
+      p_N \;=\; \mathbb{P}(\tau \leq N)
+    \]
+    for $N \in \mathbb{N}$;
+  \item a hazard sequence $(h_n)_{n \in \mathbb{N}}$ derived from the increments of $(p_N)$; and
+  \item for each tolerance $\varepsilon \in (0,1)$, a safe-horizon functional
+    \[
+      H_P(\varepsilon) \;=\; \sup\{N \in \mathbb{N} : p_N \leq \varepsilon\}.
+    \]
+\end{itemize}
+These objects summarise, in a long-horizon sense, how often and how soon a given implementation of $P$ will fail the tacit requirements encoded by $\Req$.
+
+Under the epistemic dynamics assumptions (finite tacit capacity, monotone non-invertible degradation of tacit state, recurring nontrivial demands, and appropriate independence conditions), the model yields an inevitability theorem: along admissible trajectories in this setting, hallucination occurs almost surely in the limit. In particular, $\mathbb{P}(\tau < \infty) = 1$ for any such implementation, and for every fixed $\varepsilon \in (0,1)$ the safe horizon $H_P(\varepsilon)$ is almost surely finite.
+
+These results are proved in the dynamic layer but are agnostic to the internal details of the explicit mechanisms; they depend only on the interaction between explicit artefacts, requirement maps, and degradation behaviour of tacit state.
+
+\subsection{Population-Level Dynamics and Consensus}
+
+When multiple agents interact through explicit channels, the population development introduces:
+\begin{itemize}
+  \item an explicit reasoning category $\mathcal{C}$ for individual agents;
+  \item a product category $\mathcal{C}^I$ of explicit profiles across a population $I$;
+  \item functorial consensus operators
+    \[
+      C : \mathcal{C}^n \longrightarrow \mathcal{C},
+    \]
+    modelling explicit-only aggregation rules (voting, averaging, reconciliation of drafts, and so on); and
+  \item a Markovian collective dynamics $M$ on $\mathcal{C}^I$, obtained by iterating local update and interaction steps.
+\end{itemize}
+Given an epistemic population (agents, tacit spaces, and requirement maps) and such a dynamics $M$, one can define a collective hallucination time $\tau_{\mathrm{coll}}$ as the first step at which a nonempty subset of agents jointly accept an artefact that is under-grounded relative to their individual requirements.\footnote{When modelling multi-approval governance, one may strengthen ``nonempty'' to $|J|\ge k$ (typically $k=2$) to represent acceptance rules that require multiple independent tacit gates.}
+
+Under assumptions analogous to those used for single-pipeline dynamics, one again obtains an almost-sure inevitability result: for admissible populations and dynamics consistent with the FRFP constraints, the collective stopping time $\tau_{\mathrm{coll}}$ is almost surely finite. Moreover, the almost-sure finiteness of $\tau_{\mathrm{coll}}$ is invariant under inserting additional explicit-only consensus layers: functorial consensus operators act purely in explicit space and cannot, by themselves, change the inevitability class of the process.
+
+These collective results provide a quantitative description of long-horizon epistemic risk at the level of whole institutions or populations, using the same kind of stochastic and categorical apparatus as in the single-pipeline case.
+
+\subsection{Tacit Dependence and Explicit-Only Mechanisms}
+
+Against this backdrop, it is natural to ask which desirable properties one might hope to enforce by purely explicit means. In the present setting, explicit-only mechanisms are those whose internal computation and inputs/outputs are confined to $E$ (or $\mathcal{C}$ in the population case), and which do not gain access to tacit states or tacit evaluations other than through the designated interfaces already modelled in the semantics.
+
+A recurring theme is that many natural predicates of interest are \emph{tacit-dependent}: their truth value can vary between admissible runs that share the same explicit artefacts and explicit interaction history but differ in their tacit evolution. Examples include:
+\begin{itemize}
+  \item whether a given explicit artefact meets the relevant tacit requirements at the point of use;
+  \item whether hallucination occurs within a fixed horizon, as expressed by events of the form $[\tau \leq N]$;
+  \item whether an implementation has a given $\varepsilon$-safe horizon, as expressed by inequalities $H_P(\varepsilon) \geq N$; and
+  \item in the collective setting, whether a population remains hallucination-free up to time $N$, as expressed by events such as $[\tau_{\mathrm{coll}} > N]$.
+\end{itemize}
+Because the combined explicit trace does not uniquely determine the underlying tacit trajectory, predicates of this kind cannot be reduced to functions of explicit artefacts alone. This observation is formalised in Appendix~A.11, which defines tacit-dependent predicates in terms of the semantic functor $\llbracket - \rrbracket$ and observable correctness $\gamma(\llbracket P \rrbracket)$ and then studies their interaction with explicit-only mechanisms.
+
+The central structural result, stated and proved there, shows that under ETS and AE, no mechanism confined to explicit space can enforce a tacit-dependent predicate across all admissible runs. The proof relies only on the fact that such a mechanism receives isomorphic explicit inputs across certain pairs of admissible runs whose tacit behaviour differs, and hence must behave identically even when the predicate of interest disagrees.
+
+\subsection{Consequences for Detection, Elimination, and Consensus}
+
+Several consequences follow immediately when this schema is instantiated with the dynamic and collective predicates arising from earlier sections.
+
+\paragraph{Detection and elimination.}
+The definition of hallucination in terms of requirement maps and tacit state yields a predicate of the form ``this explicit artefact is hallucinated'' which is tacit-dependent: the same explicit output can be acceptable or unacceptable depending on the tacit configuration in which it is evaluated. It follows that:
+\begin{itemize}
+  \item there is no perfect hallucination detector operating purely on explicit artefacts and logs; and
+  \item no explicit-only policy can guarantee that hallucination never occurs along admissible runs, or that $\tau = \infty$ (or $\mathbb{P}(\tau = \infty) = 1$) holds uniformly across implementations supported on $\Omega_{\mathrm{allowed}}$.
+\end{itemize}
+Under the epistemic dynamics assumptions, inevitability theorems already show that $\tau$ is almost surely finite for admissible implementations, and that $H_P(\varepsilon)$ is almost surely finite for each fixed $\varepsilon \in (0,1)$. The structural results in Appendix~D complement this by ruling out the possibility of using explicit-only mechanisms to enforce $\tau = \infty$ or $H_P(\varepsilon) = \infty$ as design constraints.
+
+\paragraph{Correctness oracles.}
+Observable correctness is represented by $\gamma(\llbracket P \rrbracket)$ and is defined purely in tacit space, subject to HEG and HEC. For a fixed explicit artefact, different admissible runs can lead to different tacit evaluations and hence different observable correctness values. A hypothetical correctness oracle
+\[
+  \Omega : E \longrightarrow J
+\]
+that recovered $\gamma(\llbracket P \rrbracket)$ from the explicit artefact alone would thus be required to decide a tacit-dependent predicate using only explicit data. The formal results establish that no such oracle can exist within the FRFP axioms if it is confined to explicit computation.
+
+\paragraph{Consensus and collective guarantees.}
+In the population setting, consensus operators $C : E^n \to E$ and explicit coordination rules act entirely in $E$ and do not modify tacit states directly. They can be composed to form consensus pipelines and embedded in the Markov dynamics $M$ on population states. The structural results then imply that:
+\begin{itemize}
+  \item explicit-only consensus cannot create grounding ex nihilo: if each input artefact exceeds the grounding of an agent, so does the consensus output for that agent;
+  \item no fully automated consensus pipeline can guarantee that its outputs are hallucination-free across all admissible populations and implementations; and
+  \item more strongly, predicates such as $[\tau_{\mathrm{coll}} = \infty]$ are tacit-dependent and cannot be enforced by explicit-only transformations of the population dynamics.
+\end{itemize}
+Invariance results for $\tau_{\mathrm{coll}}$ in the collective dynamics further reinforce this picture: inserting additional explicit-only consensus layers can alter the distribution of collective risk but cannot change the fact that $\tau_{\mathrm{coll}} < \infty$ almost surely under the stated assumptions.
+
+\subsection{Implications for Design and Governance}
+
+Taken together, these structural limitations delineate the scope of what explicit-only design can accomplish in long-horizon human--AI collaboration.
+
+On the one hand, the dynamic layer provides meaningful quantitative levers:
+\begin{itemize}
+  \item implementations can be compared via their finite-horizon risk profiles $(p_N)$ and hazard sequences $(h_n)$;
+  \item the safe-horizon functional $H_P(\varepsilon)$ captures, for each tolerance $\varepsilon$, how long a system can typically operate before crossing a risk threshold;
+  \item dynamic refinement orders allow one to classify implementations as safer or riskier over finite horizons.
+\end{itemize}
+On the other hand, the impossibility results anchored in tacit dependence show that no amount of explicit-only filtering, logging, or aggregation can convert a system whose long-run behaviour is almost surely fallible into one that is guaranteed safe across all admissible runs and populations.
+
+Within this boundary, the design problem becomes one of shaping hazard profiles and safe horizons, structuring interactions so that collective dynamics refine a baseline rather than degrade it, and introducing additional forms of tacit evaluation and institutional oversight.
+
+Appendix~B.6 develops concrete protocol templates and institutional patterns compatible with these constraints. Appendix~C instantiates the dynamic and institutional semantics in detailed case studies (ICU sepsis literature review and financial scenario analysis / stress testing). Appendix~B.11 provides a FRFP-compliant system-instruction set for an explicit-only assistant, and Appendix~B.27--B.30 analyses a set of FRFP-aware prompting patterns and their effects on hazard profiles and safe horizons. Together, these appendices turn the abstract design levers of this section into operational tools for building and evaluating concrete workflows.
+
+Subsequent sections on governance, incentives, and institutional design can be read as exploring these remaining degrees of freedom: adjusting requirement maps, allocating human attention, and configuring collective processes so as to manage long-horizon risk in a way that is consistent with the FRFP axioms and with the structural limitations just described.
+
+Formal statements and proofs of the general schema and its corollaries appear in Appendix~D; the present discussion is intended to make clear how those results integrate with the dynamic and collective layers and how they bear on the design of real-world human--AI collaborations.
+\section{Institutions for Long-Horizon Human--AI Collaboration}
+\label{sec:institutions-main}
+
+The previous sections analyzed individual human--AI pipelines and their long-run behavior: how explicit pipelines acquire tacit grounding, how degradation and hallucination accumulate over time, and how collective epistemic dynamics emerge when many agents interact with shared systems. We now step up one more level, from collections of agents and runs to the \emph{institutions} that sit above them. The aim of this section is conceptual: to describe the role of institutions in stabilizing long-horizon practice, while leaving formal details to Appendix~A.12.
+
+\subsection{From Individual Agents to Epistemic Populations}
+
+Earlier, we treated a single human agent as a bearer of tacit context, capable of evaluating explicit artefacts and updating their internal state in response to interaction with an FRFP pipeline. At scale, however, we are never dealing with a single agent in isolation. Scientific communities, engineering teams, regulatory bodies, and user populations are all better modeled as \emph{epistemic populations}: structured collections of agents, each with their own tacit capacities and degradation dynamics.
+
+Formally, we use the agent and population structures introduced in the collective dynamics analysis. Each epistemic agent carries:
+\begin{itemize}
+  \item a tacit context space $T_i$ with a preorder expressing ``at least as well grounded as'';
+  \item a degradation operator $\delta_i : T_i \to T_i$ capturing background loss of tacit context;
+  \item an extended tacit state $T^e_i$ that pairs tacit context with a notion of subjective credence.
+\end{itemize}
+For institutional purposes, we enrich this with a \emph{correctness quotient} $\gamma_i : T_i \to J$, where $J$ is the space of observable correctness judgments (accept/reject/revise, etc.). The tuple
+\[
+  (T_i, \preceq_i, \delta_i, T^e_i, \gamma_i)
+\]
+is the institutional ``signature'' of the agent: it records which tacit states they can occupy, how those states degrade, and how they express correctness judgments when asked.
+
+An \emph{epistemic population} is then a family of such agents indexed by a set $I$, together with the morphisms that allow us to compare and transform populations. This lets us treat heterogeneous communities---with agents who differ in tacit capacity, degradation rates, and evaluative norms---within a single formal frame. Full categorical details are given in Appendix~A.12, but the upshot for the main story is that we can talk sensibly about how a fixed pipeline behaves when replicated across a population, and how institutions act on the resulting pattern of judgments.
+
+\subsection{Replication and Population-Level Semantics}
+
+Given a well-typed FRFP pipeline $P$, the earlier semantic development assigns it a tacit meaning $\sem{P}$ and an associated correctness outcome under evaluation by a single agent. In practice, however, we do not trust any single evaluation of $P$; we care about what happens when $P$ is executed across a population, at different times, under different tacit conditions.
+
+To capture this, we consider \emph{admissible runs} of $P$ by each agent in the population. An admissible run bundles:
+\begin{itemize}
+  \item an explicit execution trace of $P$ in the navigation--explicit space $N \ltimes E$, subject to the structural constraints maintained throughout; and
+  \item the induced evolution of the agent's extended tacit state along that trace, as specified by the epistemic dynamics update rules (degradation, confidence inflation, requirement escalation, and feedback-coupled degradation).
+\end{itemize}
+
+A \emph{replication family} for $P$ is a choice of one admissible run for each agent (or for some subcollection of agents) in the population. For each such run, we select an evaluation time---for instance, when the pipeline halts or when a fixed resource limit is reached---and record the corresponding tacit state $t_{i,*}$ for agent $A_i$.
+
+What matters for institutional behavior is not the detailed trajectory of each run, but the \emph{pattern of correctness judgments} these runs induce. We therefore define the \emph{population semantic profile} of $P$ relative to a replication family $R(P)$ as the multiset
+\[
+  \mathcal{P}(P; R(P)) \;=\; \{ \gamma_i(t_{i,*}) : i \in I_{\mathrm{rep}} \} \subseteq J.
+\]
+This multiset is the primary interface between long-horizon practice and institutions. It aggregates how many agents, under what tacit conditions, endorse, reject, or revise the outputs of a given pipeline. The construction makes clear that institutional input is inherently \emph{tacit-dependent}, even though it is summarised in a discrete space of judgments.
+
+The formal development of admissible runs, replication families, and population semantic profiles is given in Appendix~A.12, building on the run semantics and stochastic models of Appendices~B and~C.
+
+\subsection{Institutions as Aggregators over Tacit Judgments}
+
+Institutions---journals, standards bodies, model review boards, internal red-teams, and so on---do not typically see the full detailed state of every agent. Instead, they receive some distribution of judgments: accept, reject, request further work, abstain. In our framework, an \emph{institutional aggregator} is a map
+\[
+  \mathsf{Mult}(J) \to J \cup \{\bot\},
+\]
+where $\mathsf{Mult}(J)$ is the space of multisets of judgments and $\bot$ denotes suspended judgment. For a given pipeline $P$, an institution chooses a particular aggregator $I_P$ and applies it to the population semantic profiles generated when $P$ is replicated.
+
+This abstraction covers common patterns:
+\begin{itemize}
+  \item majority or supermajority rules;
+  \item unanimity or veto-based protocols;
+  \item weighted consensus, where some agents' judgments count more than others;
+  \item deliberative or staged procedures that can output ``no decision'' ($\bot$).
+\end{itemize}
+
+Crucially, $I_P$ operates \emph{only} on the multiset of tacitly produced judgments. It does not see raw model outputs, logs, or metrics directly. All explicit activity is mediated through human agents, whose tacit evaluations are then aggregated.
+
+Full definitions of institutional aggregators, institutional outcomes, and their basic properties appear in Appendix~A.12. Here, the important point is that institutions sit at a distinct layer in the architecture: they neither compute the explicit artefacts themselves, nor embody the tacit processes that evaluate them. They are rules for turning many tacit judgments into collective decisions.
+
+\subsection{Why Institutions Cannot Be Fully Automated}
+
+Given mature AI systems and rich logging, it is tempting to imagine institutions that operate purely on explicit artefacts and their explicit summaries: dashboards, performance metrics, proofs of robustness, and so on. In our framework, such an institution would be \emph{explicit-only}: for each pipeline $P$, its decisions could be computed by a mechanism that inspects only explicit artefacts, never accessing the underlying tacit states or correctness judgments.
+
+The impossibility results developed earlier rule this out in a strong sense. Under the assumptions that:
+\begin{itemize}
+  \item correctness is fundamentally tacit-dependent (it lives in the $\gamma_i$ quotients of tacit states), and
+  \item admissible pipelines can be arranged so that explicit traces are ambiguous with respect to tacit correctness,
+\end{itemize}
+Appendix~A.12 proves an institutional non-automation theorem: no explicit-only institutional layer can be \emph{correctness-preserving} across all admissible pipelines and populations. In particular, if we require that the institution agree with unanimous tacit verdicts whenever they occur, then there is no way to define its decisions purely in terms of explicit artefacts.
+
+Intuitively, any such institution would amount to an ``explicit-only correctness oracle,'' and the earlier no-go theorems about correctness oracles apply. No amount of logs and metrics, however elaborate, can substitute for direct access to tacit evaluations. Institutions that aim at epistemic reliability must therefore be designed around \emph{tacit input}, even if they also make use of explicit signals in how they schedule, resource, and structure evaluation.
+
+The formal statement and proof of the institutional non-automation theorem are collected in Appendix~A.12, where they are derived as a corollary of the explicit-only impossibility results from the more general theory.
+
+\section{Governance, Law, and Oversight}
+\label{sec:governance-main}
+
+Institutions regulate the behaviour of individual pipelines and agents. But institutions themselves change over time: journals tighten or relax standards, internal review processes are redesigned, and regulatory frameworks evolve. In long-horizon settings, these higher-order changes are at least as important as first-order institutional choices. This section outlines how governance and law fit into the architecture, again referring to Appendix~F for the formal layer.
+
+\subsection{Governance as a Meta-Institution}
+
+The collection of all institutional arrangements we might adopt forms a structured space. For each pipeline $P$ we can choose an aggregator $I_P$, and we may change these choices over time in response to experience. We write $\Inst$ for the category whose objects are such institutional families and whose morphisms are structure-preserving transformations between them.
+
+A \emph{governance operator} is then an endofunctor
+\[
+  G : \Inst \to \Inst
+\]
+that describes how institutional arrangements evolve. At each time step $t$, a governance process takes an existing institutional layer $(I^{(t)}_P)_P$ and produces an updated one $(I^{(t+1)}_P)_P$. This update may depend on observables extracted from the collective dynamics of agents and pipelines: disagreement rates, error frequencies, time-to-detection for hallucinations, evidence of confidence inflation, and so on.
+
+The collective dynamics were modeled earlier as a process on epistemic populations interacting with pipelines. Appendix~F shows how to couple this with governance: observables are extracted from the evolving population, fed into a governance operator, and used to adjust institutional aggregators over time. The resulting picture is a closed loop:
+\begin{enumerate}
+  \item institutions aggregate tacit judgments and shape which pipelines are accepted or deployed;
+  \item those pipelines, in turn, influence the tacit states of agents and the composition of populations;
+  \item governance watches this evolving behaviour and modifies institutions accordingly.
+\end{enumerate}
+This three-level interaction---agents and pipelines, institutions, and governance---is where the long-horizon behaviour of human--AI systems is ultimately determined.
+
+\subsection{Explicit-Only Governance and Its Limits}
+
+Just as we can imagine explicit-only institutions, we can imagine explicit-only governance: processes that monitor logs, metrics, and other explicit artefacts of institutional performance, and then automatically adjust institutional rules based solely on those explicit signals.
+
+In our framework, an explicit-only governance operator is one that, at each time step, updates the institutional layer using only explicit artefacts produced so far. Formally, Appendix~F captures this by requiring the updates to factor through explicit-only mechanisms on the explicit space $E$, in the same way the explicit-only institutions of Appendix~A.12 factor through explicit artefacts.
+
+The same tension appears here as before. If correctness is fundamentally tacit-dependent, and if pipelines and populations can be arranged so that explicit traces underdetermine tacit correctness, then governance that never consults tacit judgments cannot reliably track institutional performance. Any attempt to make governance fully explicit-only will either fail to detect drift away from correct tacit practice, or else reintroduce tacit judgments indirectly (for example, via ``ground truth'' labels or other human-provided signals).
+
+Appendix~F formalizes this as a non-automation theorem for governance: under the same assumptions that rule out explicit-only correctness oracles and explicit-only institutional layers, there is no correctness-preserving governance operator that depends exclusively on explicit artefacts or their explicit summaries. In essence, a fully automated governance layer would again amount to a higher-order explicit-only oracle, and the impossibility results apply at this meta-level as well.
+
+\subsection{Law as a Constraint on Governance}
+
+Governance does not operate in a vacuum. In practice, institutions and their evolution are constrained by legal and normative frameworks: data protection laws, safety regulations, due-process requirements, and so on. In the present setting, we model these as predicates on institutional arrangements and governance operators.
+
+Concretely, we can view a legal or regulatory framework as specifying a set of \emph{admissible} institutions and transformations between them. A governance process is then \emph{lawful} if it never maps admissible institutions to inadmissible ones. Law can also constrain which observables governance is allowed to use (for example, privacy-preserving restrictions on what can be logged) and which kinds of interventions are permitted.
+
+While the formal treatment of law as a constraint on $\Inst$ and on governance functors appears in Appendix~F, the conceptual takeaway is straightforward: the space of possible governance processes is smaller than the space of merely mathematically definable ones, and non-automation results for governance must be understood relative to whatever legal admissibility conditions we impose.
+
+\subsection{Human Oversight as a Structural Requirement}
+
+Taken together, the institutional and governance non-automation results point to a strong conclusion. It is not simply that, for now, we happen to rely on humans in the loop; rather, under the structural assumptions of the framework, there is no coherent way \emph{within FRFP’s explicit--tacit separation and dynamic model} to remove them while preserving correctness over long horizons.
+
+At the institutional level, correctness-preserving aggregation requires access to tacit judgments. At the governance level, correctness-preserving adaptation of institutions requires some access to tacit evaluations of institutional performance. Attempts to fully automate either layer collapse, in the limit, into explicit-only oracles, which the earlier impossibility theorems prohibit.
+
+This does not mean that institutions or governance must be informal or opaque. On the contrary, much of their structure can and should be formalized, monitored, and partially automated. The key point is that the formal and automated parts must be designed \emph{around} human tacit judgment, not as replacements for it.
+
+The detailed statements and proofs of these claims are provided in Appendices~E and~F. Here we emphasize their architectural consequence: in any long-horizon human--AI ecosystem that satisfies the assumptions of the framework, human agents retain irreplaceable roles at three levels simultaneously:
+\begin{enumerate}
+  \item as individual evaluators of explicit artefacts;
+  \item as contributors to institutional decisions via their tacit judgments; and
+  \item as overseers of governance processes that adapt and constrain institutions over time.
+\end{enumerate}
+The rest of the paper can be read as an exploration of how to design pipelines, institutions, and governance mechanisms that make these roles precise rather than aspirational.
+
+%=========================================================
+\section{Discussion and Outlook}
+\label{sec:discussion}
+%=========================================================
+
+\subsection{Design Implications}
+
+The FRFP architecture formalizes a set of design constraints for AI
+systems intended for long-horizon scientific collaboration:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Explicit-only AI.} AI systems should manipulate explicit
+        structures but must not assume tacit roles such as correctness
+        judgment. This limits their epistemic authority while maximizing
+        their computational utility.
+  \item \textbf{Single explicit--tacit boundary.} All correctness-bearing
+        information flow should pass through a clearly identifiable
+        boundary operator \(\RB\), with no hidden channels from tacit
+        to explicit space.
+  \item \textbf{Auditability via canonical forms.} Reasoning trajectories
+        can be normalized within \(\Ncat \ltimes \Ecat\), yielding
+        canonical forms amenable to audit and replication.
+  \item \textbf{Structural handling of hallucinations.} Hallucinations
+        are treated as structural mismatches between context and
+        requirements, not as psychological quirks of models. This allows
+        analysis of how context degradation, feedback, and task design
+        interact.
+\end{itemize}
+
+\paragraph{Kernel-level constraints vs.\ instantiated layers.}
+The design constraints above attach first and
+foremost to the kernel of FRFP: the explicit/tacit separation with a single boundary, the minimal
+primitive set, and the canonical \(N \ltimes E\) semantics with tacit correctness. By construction, any
+system that respects this kernel inherits the same structural limitations and invariants, regardless of
+how it instantiates dynamics, populations, or institutions. Conversely, Sections~6–10 and
+Appendices~B–J are deliberately more contingent: they work out one particular family of choices for
+context degradation and requirements (Appendices~B–D), collective and institutional dynamics
+(Appendices~C–F), and concrete protocols, case studies, instruction sets, and prompting patterns
+(Appendices~G–J) compatible with the kernel. These outer layers are intended as illustrative and
+revisable; what is non-negotiable, from the FRFP point of view, is the underlying correctness
+architecture and its separation between explicit computation and tacit judgment. Readers primarily
+interested in organizational and governance implications, rather than the categorical details, may wish
+to consult the non-technical organizational summary in Appendix~K.
+
+\subsection{FRFP as a formalization of the scientific method}
+\label{subsec:frfp-scientific-method}
+
+Although FRFP is stated as a domain-general protocol for long-horizon human--AI collaboration, its core architectural commitments mirror the stabilisation logic of the scientific method. Science is not merely a sequence of cognitive steps; it is an institutional technology for converting exploratory reasoning into stable, publicly defensible claims. FRFP abstracts that conversion into an explicit/tacit split plus a responsibility-bearing acceptance boundary.
+
+\paragraph{A translation dictionary.}
+The following correspondences are the intended reading of the formal objects.
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Explicit artefacts (\(E\)).} Hypotheses, models, derivations, experimental designs, protocols, code, datasets, plots, and written arguments: objects that can be logged, transmitted, inspected, and mechanically transformed.
+  \item \textbf{Explicit operations (\(\RI,\EC,\ED\)).} Representation initiation (writing down a conjecture or design), computation (derivation, simulation, fitting, summarisation), and diagnostics (sanity checks, ablations, error analysis, unit tests, proof checking where applicable).
+  \item \textbf{Navigation (\(\Ncat\)).} Legitimate changes of perspective that preserve intent: reparameterisations, alternative model classes, reorganising an analysis, swapping datasets, or reframing a subproblem while remaining within the same research question.
+  \item \textbf{Tacit state (\(T\)).} The correctness-bearing background a scientific community relies on but cannot fully encode: domain know-how, interpretive competence, judgment of adequacy, and the willingness to stand behind a claim under scrutiny.
+  \item \textbf{Boundary (\(\RB:E\to T\)).} Review-and-belief update: the act of assessing an explicit artefact against tacit standards and incorporating (or rejecting) it as part of what one is prepared to endorse.
+  \item \textbf{Tacit primitives (\(\TE,\HFD\)).} Evaluation and acceptance: internal or institutional endorsement decisions (``this analysis is sound enough to rely on''; ``this result is ready to submit''; ``this meets the evidential bar for policy use'').
+\end{itemize}
+
+\paragraph{Replication, reproducibility, and peer review as FRFP patterns.}
+The scientific stabilisation norms that motivate FRFP can be expressed as structured constraints on explicit workflows and on where boundary crossings are permitted.
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Reproducibility} is an explicit-side property: an analysis is reproducible when the relevant explicit artefacts (data, code, environment, protocol) are sufficient for another agent to re-run an explicit pipeline and obtain the same explicit outputs, up to documented tolerances. In FRFP terms this is invariance in \(E\) under admissible refactoring and navigation, together with suitable logging of the pipeline normal form.
+  \item \textbf{Replication} is a stronger, world-facing constraint: a claim survives replication when an independent execution produces new explicit artefacts (new data) that, upon boundary crossing, supports the same tacit endorsement. Formally, replication is not just agreement of \(E\)-outputs; it is agreement of tacit acceptance \(\gamma(t)\) under independent pipelines that re-contact the domain.
+  \item \textbf{Peer review} is a multi-agent boundary mechanism: independent tacit evaluators consume shared explicit artefacts and apply their own tacit operators before endorsing publication-level acceptance. In FRFP terms, peer review introduces additional boundary crossings by other agents, creating a layered acceptance structure that can improve finite-horizon risk when evaluations are sufficiently independent.
+\end{itemize}
+
+\paragraph{What FRFP adds, relative to informal scientific method talk.}
+FRFP is not a sociological model of science; it is a protocol semantics intended to make long-horizon correctness and responsibility analyzable. Relative to informal descriptions of the scientific method, FRFP contributes three formal clarifications.
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Acceptance is an event, not a vibe.} Scientific practice often blurs exploration and endorsement; FRFP forces the distinction by making acceptance a boundary crossing \(E\to T\) with explicit responsibility.
+  \item \textbf{Hallucination is endorsement failure.} In FRFP, ``hallucination'' is not the production of an incorrect string; it is the protocol-level event in which an explicit artefact is incorporated into tacit acceptance without meeting the active tacit requirements for that credence.
+  \item \textbf{Stabilisation is workflow-level.} Reliability is treated as an emergent property of explicit pipelines plus review structure, not as a property of any single component (human or AI). This matches the way scientific norms reduce error by layering checks and independent evaluation rather than assuming perfect agents.
+\end{itemize}
+
+\paragraph{Scope and limits of the mapping.}
+The mapping is exact in regimes where ``science'' is best understood as a stabilisation protocol over explicit public artefacts (papers, code, data) and tacit endorsement (what researchers and institutions will stand behind). It is intentionally agnostic about internal cognitive models and about which explicit checks are appropriate in a given domain. Conversely, in fully formal regimes where correctness is exhausted by an explicit oracle (e.g., proof checking under a fixed calculus), FRFP should be read as placing that oracle inside explicit space as an explicit correctness engine, with tacit judgment still governing the adequacy and scope of the formalisation. The purpose of the mapping is therefore not to claim that FRFP \emph{is} the scientific method, but to show that FRFP isolates, and makes compositional, the same stabilisation logic that has historically made scientific claims durable.
+
+
+\subsection{Limitations and scope}
+\label{subsec:limitations}
+
+The present work has several limitations.
+
+\paragraph{Single-agent tacit model.}
+We model one tacit context space $T$ at a time; multi-agent and institutional settings, where different humans (and possibly institutions) have distinct tacit states, require richer structures (e.g.\ families of tacit spaces, communication channels, and aggregation mechanisms). Developing such multi-agent extensions is left to future work.
+
+\paragraph{Worst-case focus.}
+The hallucination inevitability results rely on deliberately worst-case assumptions: long or unbounded runs, monotone degradation, no explicit repair operator, and simple forms of requirement escalation and feedback. Practical systems may use aggressive re-grounding, multiple agents, explicit restarts, or external tools (e.g.\ proof assistants, simulators) to reduce risk. Our results should therefore be read as structural ``upper bounds'' on what can go wrong in principle, not as quantitative predictions for particular deployments.
+
+\paragraph{Abstract requirements and tacit semantics.}
+The requirement map $\mathrm{Req}(e,c)$ is treated as an abstract semantic object; we do not attempt to estimate it from data or tie it to any specific scientific or engineering domain. Likewise, tacit states are modeled at a coarse level (often as elements of a preorder or low-dimensional space), omitting many cognitive and socio-technical factors that matter in practice. Making $\mathrm{Req}$ and the tacit dynamics empirically grounded for particular domains is outside the scope of this paper.
+
+\paragraph{Level of abstraction.}
+More broadly, we work at an intentionally abstract, foundational level and do not propose concrete algorithms, training procedures, or evaluations. FRFP is a design framework and semantic target, not a ready-made system. Instantiating it in concrete tools will require additional engineering choices (e.g.\ representations, interfaces, inference methods) that we do not model here.
+
+\paragraph{Scope of inevitability and non-automation claims.}
+All inevitability and non-automation statements in this paper are conditional on the FRFP
+architecture and its standing assumptions. In particular, the hallucination inevitability theorems
+presuppose the Epistemic Dynamics degradation and requirement conditions, together with the admissibility
+constraints on runs, and the impossibility results for detectors, consensus mechanisms, institutions,
+and governance operators presuppose explicit--tacit separation and human-exclusive grounding.
+They should therefore not be read as claiming that hallucination is inevitable, or that fully automated
+governance oracles are impossible, for \emph{all} conceivable AI architectures. Rather, they assert
+that such guarantees cannot be obtained \emph{within} the FRFP class of models, once tasks are
+nontrivial and requirements recur; trivial strategies such as always answering ``I don't know'' or
+never accepting artefacts are ruled out by these structural premises rather than by logical impossibility.
+These non-automation results apply to any explicit-only AI system, including hypothetical AGI, as long as correctness remains a human/institutional notion rather than delegated to the system itself.
+In particular, in domains where correctness is truly explicit at the relevant level of analysis—
+for example, inner loops governed by sound and complete proof or test oracles—our Epistemic Dynamics
+inevitability statements are vacuous for that inner task.
+They become informative only when one models the outer tacit layer where specifications, benchmarks,
+and institutional standards are chosen and revised (Appendix~D.3).
+
+\paragraph{Counter-scenarios for Epistemic Dynamics assumptions.}
+The Epistemic Dynamics inevitability results target a regime with recurring nontrivial demands, accumulating
+degradation, and bounded repair. There are three salient counter-scenarios. In \emph{balanced or
+negative drift} regimes, institutions invest heavily enough in repair---for example, intensive and
+frequent simulation training, structured post-mortems, and recertification in ICU- or nuclear-safety
+settings---that average repair offsets or exceeds task-induced degradation. Our results then describe
+what happens if such investment is reduced, rather than claiming that drift wins regardless of effort.
+In \emph{unbounded repair} regimes, one postulates repair moves with no global bound on their
+effect, such as costless, arbitrarily frequent ``oracle refresh'' operations or instant replacement by
+perfectly grounded experts; this violates the bounded-repair assumption and lies outside FRFP's
+human-bounded institutional model. In \emph{low-demand} regimes, such as rare emergency
+committees that face serious decisions only occasionally, nontrivial demands are so infrequent that
+modest repair may suffice to maintain grounding, and asymptotic Epistemic Dynamics arguments are not the
+dominant concern.
+
+These counter-scenarios also clarify an economic tension. In high-load settings, pushing repair hard
+enough to stabilize tacit grounding typically implies a governance workload whose cost and latency
+scale with AI usage. Institutions can thus choose a point on a tradeoff surface: minimal repair,
+preserving large speed and cost advantages at the price of long-run inevitability; substantial repair,
+which buys longer safe horizons but erodes pure automation gains; or intermediate regimes that
+partially delay and reshape, but do not eliminate, long-run risk.
+
+
+\paragraph{Scope of novelty.}
+As noted in the Introduction, the categorical ingredients we use (free categories, groupoids, fibrations, Grothendieck constructions) are standard; the contribution is to assemble them into a single architecture that captures explicit/tacit separation and feedback, and to derive system-level constraints on auditability, correctness, and hallucination. FRFP is intended as a reusable structural framework rather than a specific algorithm or training procedure.
+\noindent
+Our strongest governance-level claims should thus be read as conditional: they are formal
+no-go theorems \emph{given} the FRFP axioms, plus an empirical hypothesis that high-stakes
+scientific and regulatory practice falls within that class of architectures, from which we derive
+normative guidance for protocol and institutional design.
+
+
+\subsection{Future Directions}
+
+Several directions are natural next steps.
+
+\paragraph{Empirical dynamics of human--AI protocols.}
+The current framework treats tacit context, degradation, requirements, confidence, and feedback as abstract operators. A first direction is to make these empirically meaningful. This includes: (i) developing task- and domain-specific proxies for tacit context, degradation, requirement maps, and plausibility functionals; (ii) instrumenting real human--AI workflows so that trajectories in \(N \ltimes E\) can be logged, normalized, and analysed; and (iii) testing structural predictions (such as inevitability and acceleration of hallucination) against behavioural and longitudinal data.
+
+\paragraph{Repair, re-grounding, and reset mechanisms.}
+Our analysis intentionally focuses on settings where context degrades and is not fully restored. A complementary direction is to design explicit repair and re-grounding mechanisms---study breaks, external reference checks, slow deliberation modes---and represent them as operators within the same algebraic framework. At the protocol level, this suggests specifying and analysing reset policies, usage caps, and re-verification gates as first-class constructions in \(N \ltimes E\), and characterising when such mechanisms significantly delay (though do not eliminate) structural hallucination.
+
+\paragraph{Collective architectures and institutions.}
+The framework can be extended from single users to populations of agents and to institutions that aggregate many runs. This opens questions about how different institutional patterns (peer review, adversarial review, replication, regulatory stress-testing) can be represented, and which combinations provably buffer individual degradation while respecting a human-exclusive grounding constraint. Another direction is to relate formal notions such as population semantic profiles, institutional stability, and institutional non-automation to empirical studies of scientific and regulatory processes, and to compare predicted failure modes (fake consensus, lock-in, correlated error) with observed ones.
+
+\paragraph{Governance, law, and meta-level design.}
+The same categorical machinery can be used to model governance operators that act on institutions, together with constraints that restrict how institutions may change. This suggests: (i) designing concrete governance observables (drift, disagreement, confidence-inflation indicators) that can be computed from FRFP-compatible logs; (ii) exploring families of governance operators that incorporate human oversight at the institutional level without collapsing into fully automated correctness claims; and (iii) mapping these patterns onto emerging regulatory regimes for AI in science, medicine, and finance, to clarify which regulatory templates are structurally compatible with an explicit/tacit separation.
+
+\paragraph{Richer explicit logics and tooling.}
+On the explicit side, the framework is agnostic about the internal logic carried by \(E\). A further direction is to instantiate \(E\) with richer structures: type-theoretic or temporal logics, proof objects from interactive theorem provers, or domain-specific calculi for simulation and data analysis. This would support more expressive explicit pipelines while preserving the \(RB\)--\(TE\)--\(HFD\) suffix and its correctness properties. In parallel, one can build FRFP-aware tooling: typed interface languages, normalization and auditing layers for \(N \ltimes E\), and assistants that expose their operations as TDG terms rather than as opaque conversations.
+
+\paragraph{Benchmarking and comparative evaluation.}
+Finally, FRFP suggests protocol-level evaluation criteria. Instead of scoring isolated model outputs, one can compare whole workflows---different ways of structuring the explicit/tacit boundary, navigation, repair, and institutional aggregation---using metrics derived from the dynamic theory, such as time-to-hallucination distributions, robustness under degradation, and sensitivity to feedback coupling. Developing such benchmarks would allow FRFP-compatible systems to be compared along principled axes, and would help connect the abstract theory to concrete engineering trade-offs.
+
+FRFP is intended as a foundation, not a finished product. Its value lies in making constraints and invariants explicit so that future systems---both technical and institutional---can be designed, analysed, and compared within a common formal framework.
+
+\section{Alternative formalisms}
+\label{sec:alternative-formalisms}
+
+FRFP is one point in a broader design space of human--AI collaboration architectures. This section
+positions FRFP against competing formalisms, clarifies which alternatives do \emph{not} reduce to
+FRFP (because they step outside the FRFP axiom class), and explains why FRFP is the appropriate
+choice for the theorem-level aims of this volume.
+
+\subsection{The design space: what varies across architectures}
+
+Any protocol-level formalism must decide (at minimum):
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Where correctness lives.} Is correctness a property decidable in explicit space (a predicate or oracle on artefacts), or a property of tacit endorsement states?
+  \item \textbf{Whether tacit is writable.} Is there a channel \(T\to E\) that exports acceptance states into machine-manipulable specifications, policies, or constraints?
+  \item \textbf{Who may access tacit.} May AI systems condition on tacit state (or modify it), or is tacit strictly human-exclusive?
+  \item \textbf{How acceptance is structured.} Is there a single acceptance boundary, or multiple gates (individual, committee, institution) with distinct authority and standards?
+  \item \textbf{How uncertainty is represented.} Is endorsement discrete (a finite judgment quotient), ordered (preorders), or probabilistic (graded belief and risk thresholds)?
+\end{enumerate}
+FRFP fixes these choices in a specific way: correctness is localized in tacit space; AI is confined to
+explicit moves; the explicit--tacit boundary is one-way \(E\to T\) with no return channel \(T\to E\);
+and the tacit interface is intentionally minimal so that the explicit algebra carries the technical
+structure.
+
+\subsection{Architectures that do \emph{not} reduce to FRFP}
+
+Because FRFP is proved (in Appendix~A) to be \emph{initial} only within a category of frameworks that
+share the FRFP epistemic primitives and axioms, an alternative architecture avoids ``reducing to
+FRFP'' precisely by violating at least one of those axioms. The following are genuine competitors in
+that sense.
+
+\paragraph{(A) Bidirectional boundary architectures (\(T\leftrightarrow E\)).}
+These formalisms introduce an essential write-back channel \(F:T\to E\), by which tacit endorsement
+states externalize into explicit policies, specifications, rubrics, or machine-checkable constraints.
+This matches institutional learning patterns (postmortems \(\to\) checklists \(\to\) standards), but it
+is outside FRFP by construction: FRFP forbids \(T\to E\). In such systems, the acceptance criteria are
+not merely applied at review points; they are continuously rewritten into the explicit layer.
+
+\paragraph{(B) Tacit-in-the-loop AI.}
+Here AI systems may condition on tacit state or participate in tacit updates (e.g., morphisms of the
+form \(T\times E\to E\) or AI-mediated operators \(T\to T\)). This architecture is attractive for
+personalization and closed-loop assistance, but it breaks human-exclusive correctness and blurs
+responsibility: the system can implicitly steer endorsement by reading or shaping tacit states. This
+is therefore not an instance of FRFP.
+
+\paragraph{(C) Explicit-only correctness architectures.}
+In some regimes, correctness can be reduced to a complete explicit oracle: proof checking, model
+checking, exhaustive tests under a closed-world specification. In such settings, ``acceptance'' is an
+explicit computation on artefacts, not a tacit judgment. This is again outside FRFP's target class:
+FRFP assumes a genuine tacit layer that is not exhausted by any fixed explicit oracle.
+
+\paragraph{(D) Multi-boundary acceptance architectures.}
+Real institutions often implement layered gates of endorsement (individual sign-off, peer review,
+risk committee approval, regulatory clearance). A formalism may represent these as multiple tacit
+layers and multiple boundaries, with cross-talk between gates. If the ontology class fixes a single
+boundary primitive, then such multi-gate architectures do not reduce to FRFP without extending the
+primitive structure.
+
+\paragraph{(E) Probabilistic tacit semantics.}
+A competing formalism may model tacit state as a richer belief object (e.g., probability measures,
+utility-weighted acceptance thresholds, risk budgets) rather than a preorder with a finite observable
+judgment quotient. When the tacit algebra differs materially (graded endorsement rather than discrete
+quotients and idempotent operators), the architecture falls outside the specific tacit-interface axioms
+used in FRFP's initiality claims.
+
+\subsection{Which alternatives can be viewed as generalizations of the scientific method}
+
+Several competing architectures can still be regarded as ``generalizations of the scientific method,''
+but they generalize different facets of it.
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Explicit-only correctness} generalizes the formal-verification slice of science (mathematics, parts of theoretical computer science), where correctness is internal to a fixed calculus.
+  \item \textbf{Bidirectional \(T\leftrightarrow E\)} generalizes the meta-scientific process by which tacit know-how becomes codified into explicit methods, standards, and tooling.
+  \item \textbf{Multi-boundary acceptance} generalizes the institutional reality of science as layered endorsement (lab judgment, journal review, replication, community uptake).
+  \item \textbf{Probabilistic tacit semantics} generalizes science as graded belief and risk management under uncertainty.
+\end{itemize}
+FRFP generalizes a particular core: \emph{stabilization by accountable review}, where public explicit
+artefacts are strengthened by explicit checks and then cross a responsibility-bearing acceptance
+boundary.
+
+\subsection{Why FRFP among the alternatives}
+
+FRFP is chosen to match a specific problem class and to enable theorem-level analysis.
+
+\paragraph{Target regime.}
+We aim at long-horizon workflows in which (i) requirements evolve, (ii) explicit artefacts and
+evaluation criteria drift across extended traces, and (iii) no fixed explicit oracle exhausts what it
+means for an artefact to be adequate. In this regime, architectures that place correctness entirely in
+\(E\) are aiming at a different class of problems.
+
+\paragraph{Accountability and non-circular semantics.}
+FRFP enforces that endorsement is attributable: AI systems can produce and transform explicit
+artefacts, but only humans occupy correctness-bearing tacit states. The one-way boundary \(E\to T\)
+prevents implicit rewriting of acceptance criteria by the system itself. Architectures with essential
+\(T\to E\) write-back or tacit-in-the-loop AI can be valuable, but they entangle acceptance and
+generation in ways that complicate responsibility and undermine the invariance and non-automation
+results that this volume targets.
+
+\paragraph{Minimality and canonicity within the axiom class.}
+Within the class of formalisms that share FRFP's epistemic primitives and constraints (explicit/tacit
+separation, one-way boundary, human-exclusive correctness, AI confined to explicit moves), FRFP is
+initial: any competing framework satisfying the same assumptions admits a unique structure-preserving
+interpretation from FRFP. In this precise sense, FRFP is not an arbitrary design choice inside its
+assumption class; alternatives that keep the same primitives are instances/refinements rather than
+routes around the theorem-level consequences.
+
+\subsection{Practical reading of this comparison}
+
+The existence of non-FRFP architectures is not a defect: it clarifies scope. FRFP is a protocol-level
+formalism for domains where correctness-bearing endorsement cannot be reduced to explicit computation,
+and where the central risks are long-horizon drift, accountability loss, and explicit-only governance
+limits. Competing architectures are appropriate when one wishes to (i) treat correctness as fully
+explicit, (ii) explicitly codify tacit judgments into machine-checkable policy, (iii) close the loop
+between system behavior and human internal state, or (iv) model layered institutional gates or graded
+belief as first-class. Subsequent volumes may study carefully delimited departures from FRFP's axioms;
+the present volume fixes them to make the foundational theorems sharp.

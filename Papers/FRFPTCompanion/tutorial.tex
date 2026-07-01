@@ -1,0 +1,1108 @@
+% This file is intended to be included via \input{}.
+% Preamble and document environment stripped.
+
+\section*{Tutorial Walkthrough}
+
+\newpage
+
+\section*{How to Use This Companion}
+
+This document is meant to be read \emph{side-by-side} with your original
+\textbf{Appendix A --- Mathematical Foundations of FRFP}
+
+\textbf{Important:} 
+This companion:
+
+\begin{itemize}
+ \item \textbf{does not restate} the formal definitions, theorems, or proofs from Appendix~A;
+ \item instead, it \textbf{references} them by their numbering (e.g., ``Definition~1.1''),
+ \item and then provides explanations, examples, and prompts that map onto them.
+\end{itemize}
+
+In other words, this is a \emph{commentary layer}:
+
+\begin{itemize}
+ \item Your original Appendix A remains the source of truth for the math.
+ \item This companion explains, illustrates, and contextualizes that math.
+\end{itemize}
+
+\subsection*{Pronunciation and Abbreviations}
+
+To make this usable:
+
+\begin{itemize}
+ \item The first time a symbol appears, we give its pronunciation in parentheses, e.g.:
+ \begin{itemize}
+ \item $C_{\text{full}}$ (pronounced \emph{C-full}),
+ \item $RB$ (pronounced \emph{R-B}),
+ \item $\omega_0$ (pronounced \emph{omega-naught}).
+ \end{itemize}
+ \item The first time an abbreviation appears, we expand it, e.g.:
+ \begin{itemize}
+ \item FRFP (Foundational Reasoning and Feedback Protocol),
+ \item TDG (Task Decomposition Grammar),
+ \item DHO (Damped Harmonic Oscillator).
+ \end{itemize}
+\end{itemize}
+
+\subsection*{The Running Example: Damped Harmonic Oscillator}
+
+Throughout, we use the damped harmonic oscillator (DHO, pronounced \emph{D-H-O}) as a concrete
+example:
+\[
+\ddot{x}(t) + 2\gamma \dot{x}(t) + \omega_0^2 x(t) = 0,
+\]
+where:
+\begin{itemize}
+ \item $x(t)$ is \emph{x-of-t}, the displacement,
+ \item $\gamma$ (gamma) is the damping coefficient,
+ \item $\omega_0$ (omega-naught) is the natural frequency.
+\end{itemize}
+
+For each major definition or construction in Appendix~A, we ask:
+
+\begin{enumerate}
+ \item What does this mean in plain language?
+ \item How does it apply to the DHO?
+ \item How would a system built on top of a ChatGPT-like model prompt or be prompted here?
+\end{enumerate}
+
+\newpage
+
+\section{A.0 Foundations (Companion)}
+
+This section comments on \textbf{Section A.0} of Appendix~A, which includes:
+
+\begin{itemize}
+ \item A.0.1 Ambient Category $C_{\text{full}}$ (C-full),
+ \item A.0.2 Explicit--Tacit Separation (ETS),
+ \item A.0.2 (Modal Interpretation of Explicit and Tacit Knowledge),
+ \item A.0.3 Explicit Category $E$ (E),
+ \item A.0.4 Tacit Category $T$ (T),
+ \item A.0.5 Boundary Morphism and $RB$ Functor,
+ \item A.0.6 Phase-0 and Phase-1 Axioms.
+\end{itemize}
+
+In each subsection below, ``see Definition~X.Y'' refers to your original Appendix A.
+
+\subsection{A.0.1 Ambient Category $C_{\text{full}}$ (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See Definition~1.1 (Ambient category).
+
+\subsubsection*{Plain-language view}
+
+You introduce an \emph{ambient category} $C_{\text{full}}$ (pronounced \emph{C-full}) which is the 
+mathematical universe where everything lives. Its key objects are:
+
+\begin{itemize}
+ \item $\emptyset$ (empty-set): the empty explicit state (no content yet).
+ \item $E$ (E): the explicit state object (machine-manipulable representations).
+ \item $T$ (T): the tacit state object (human correctness-bearing states).
+\end{itemize}
+
+There are morphisms (arrows) between objects, and you group them into three kinds:
+
+\begin{itemize}
+ \item \textbf{Explicit morphisms} with codomain $E$: things the AI system does to explicit data.
+ \item \textbf{Tacit morphisms} with codomain $T$: things that happen in human cognition.
+ \item \textbf{Boundary morphisms} $E \to T$: ways explicit content reaches the human.
+\end{itemize}
+
+Among the boundary morphisms, you single out:
+\[
+RB : E \to T
+\]
+(Representational Backflow, pronounced \emph{R-B}), modeling the act of presenting representations to
+the user.
+
+The category axioms (associativity and identity) are standard: composing transformations is 
+well-behaved.
+
+\subsubsection*{DHO Example: what are $E$ and $T$ concretely?}
+
+For the damped harmonic oscillator:
+\[
+\ddot{x}(t) + 2\gamma \dot{x}(t) + \omega_0^2 x(t) = 0,
+\]
+explicit states in $E$ might be:
+
+\begin{itemize}
+ \item The equation itself, formatted as text or LaTeX.
+ \item A state-space representation:
+ \[
+ \dot{z} =
+ \begin{pmatrix}
+ 0 & 1 \\
+ -\omega_0^2 & -2\gamma
+ \end{pmatrix} z.
+ \]
+ \item Numerical solution data: a time grid and values $x(t_i)$.
+ \item A symbolic solution formula.
+\end{itemize}
+
+Tacit states in $T$ capture things in your head:
+
+\begin{itemize}
+ \item ``This looks underdamped.''
+ \item ``The decay is too slow; that damping value seems off.''
+ \item ``I trust this derivation / I do not trust this derivation.''
+\end{itemize}
+
+The boundary morphism $RB : E \to T$ is what happens when the AI displays such representations to
+you and you form a tacit opinion about them.
+
+\subsubsection*{Example prompts implementing this structure}
+
+\paragraph{Explicit morphism ($E \to E$).}
+\begin{quote}
+\textbf{Prompt:} 
+``Rewrite the damped harmonic oscillator
+$\ddot{x}(t) + 2\gamma \dot{x}(t) + \omega_0^2 x(t) = 0$
+as a first-order state-space system. Perform only explicit algebraic rewriting, do not comment on correctness or plausibility.''
+\end{quote}
+
+\paragraph{Boundary morphism ($RB : E \to T$).}
+The system computes a solution and shows a plot:
+
+\begin{quote}
+\textbf{System (explicit output):} 
+``Here is the solution for $\gamma = 0.2$, $\omega_0 = 1.0$ and its time-domain plot.'' 
+\end{quote}
+
+What happens next (your interpretation) is $RB$ feeding that explicit state into $T$.
+
+\paragraph{Human generating new explicit content (leads to $RI$).}
+\begin{quote}
+\textbf{User:} 
+``That looks underdamped. Please compute the critical damping case $\gamma = \omega_0$ and show the solution.'' 
+\end{quote}
+
+This new instruction is a new explicit representation entering $E$ via $RI : \emptyset \to E$.
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item $C_{\text{full}}$ (C-full) is the overarching category.
+ \item Objects: $\emptyset$, $E$, $T$.
+ \item Morphism classes: explicit, tacit, boundary.
+ \item Distinguished boundary morphism: $RB : E \to T$.
+\end{itemize}
+
+\newpage
+
+\subsection{A.0.2 Explicit--Tacit Separation (ETS) (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See Definition~1.2 (Explicit--Tacit Separation (ETS)).
+
+\subsubsection*{Plain-language view}
+
+ETS (Explicit--Tacit Separation, pronounced \emph{E-T-S}) is the axiom that enforces a hard boundary
+between AI reasoning and human judgment. It says:
+
+\begin{itemize}
+ \item There are \emph{no morphisms} $T \to E$ in $C_{\text{full}}$:
+ the AI cannot read your mind or turn tacit states into explicit content on its own.
+ \item Tacit evaluation cannot be hidden inside explicit pipelines:
+ you cannot smuggle in ``human-like correctness or intuition'' into $EC$ or $ED$.
+ \item The boundary morphism $RB : E \to T$ is not invertible:
+ once explicit content has been seen and processed by the human, the AI cannot reconstruct
+ the tacit state from the explicit trace alone.
+\end{itemize}
+
+Conceptually: the AI deals only with representations; humans deal with correctness.
+
+\subsubsection*{DHO Example}
+
+For the DHO, suppose the AI solves:
+\[
+\ddot{x}(t) + 2\gamma \dot{x}(t) + \omega_0^2 x(t) = 0
+\]
+and produces the solution
+\[
+x(t) = e^{-\gamma t}(C_1 \cos(\omega t) + C_2 \sin(\omega t)).
+\]
+
+ETS implies:
+
+\begin{itemize}
+ \item The AI can check by differentiation and substitution that this satisfies the ODE.
+ \item The AI cannot decide whether a human physicist would ``approve'' this solution.
+ \item The AI cannot internally simulate a tacit judgement like ``this is physically okay''.
+\end{itemize}
+
+Also, after you see the solution, your reaction (trust, doubt, confusion) is in $T$. 
+The AI has no morphism $T \to E$ to directly mine that; it only gets new explicit information when
+you write something.
+
+\subsubsection*{Prompts that respect / violate ETS}
+
+\paragraph{Respecting ETS.}
+\begin{quote}
+\textbf{Prompt:} 
+``Verify explicitly that the proposed solution satisfies the equation
+$\ddot{x} + 2\gamma \dot{x} + \omega_0^2 x = 0$ by differentiation and substitution. 
+Do not comment on whether the model is physically appropriate.''
+\end{quote}
+
+\paragraph{Violating ETS (what the system must refuse to do).}
+\begin{quote}
+\textbf{Prompt:} 
+``Tell me whether a typical expert would find this solution convincing.'' 
+\end{quote}
+
+An FRFP-constrained system should respond:
+
+\begin{quote}
+\textbf{System:} 
+``I cannot perform tacit evaluation or predict a human expert's correctness judgment. 
+I can only check explicit mathematical properties. 
+Please specify explicit criteria you want me to verify.''
+\end{quote}
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item No morphisms $T \to E$.
+ \item No tacit evaluation inside explicit pipelines.
+ \item $RB$ is not invertible.
+\end{itemize}
+
+\newpage
+
+\subsection{A.0.2 Modal Interpretation of Explicit and Tacit Knowledge (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the ``Modal Interpretation'' subsection (Definition~1.3, Definition~1.4 in your text).
+
+\subsubsection*{Plain-language view}
+
+Here you give a modal-logic reading of $E$ and $T$:
+
+\begin{itemize}
+ \item $E$ corresponds to what is explicitly represented: formulas, derivations, data.
+ \item $T$ corresponds to what is tacitly held to be correct, trusted, accepted.
+\end{itemize}
+
+Roughly, explicit content is like ``things written on the board'' and tacit content is like
+``things the human believes or endorses''.
+
+Morphisms into $T$ are about updating or refining this correctness-laden state:
+``I now think this is correct'', 
+``I now reject this argument'', 
+and so on.
+
+\subsubsection*{DHO Example}
+
+For the DHO, you might have:
+
+\begin{itemize}
+ \item Explicit content in $E$: 
+ ``Under the assumption $\gamma < \omega_0$, the system is underdamped and the solution oscillates.''
+ \item Tacit content in $T$: 
+ ``I (the human) believe this underdamped classification is correct for the particular parameters.''
+\end{itemize}
+
+You can have explicit content that you do \emph{not} yet tacitly endorse (e.g., an AI-proposed
+solution you are still checking), and you can have tacit beliefs that have not yet been articulated
+explicitly.
+
+\subsubsection*{FRFP-style prompting}
+
+A system respecting this modal view might ask you explicitly:
+
+\begin{quote}
+\textbf{System:} 
+``Here is the derived classification of the damping regime. 
+Do you endorse this classification as correct for your physical scenario? 
+If not, please specify which part you reject or want to adjust.''
+\end{quote}
+
+This invites you to update your tacit state $T$ and, optionally, to produce new explicit content via
+$RI$.
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item $E$ vs.\ $T$ can be seen as explicit vs.\ correctness-bearing (modal) knowledge.
+ \item Tacit updates correspond to morphisms inside $T$ after $RB$ is applied.
+\end{itemize}
+
+\newpage
+
+\subsection{A.0.3 Explicit Category $E$ (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See Definition~1.5 (Explicit category) and Remark~1.6.
+
+\subsubsection*{Plain-language view}
+
+You define the explicit category $E$ as the part of $C_{\text{full}}$ whose morphisms land in $E$.
+Its generators:
+
+\begin{itemize}
+ \item $RI : \emptyset \to E$ (Representation Initiation, pronounced \emph{R-I}),
+ \item $EC : E \to E$ (Explicit Computation, \emph{E-C}),
+ \item $ED : E \to E$ (Explicit Diagnostics, \emph{E-D}).
+\end{itemize}
+
+\begin{itemize}
+ \item $RI$ introduces new explicit representations (e.g., your query or added assumptions).
+ \item $EC$ applies algorithmic transformations (solving equations, rewriting formulas, running code).
+ \item $ED$ checks or analyzes explicit content (dimension checks, algebraic consistency, syntactic
+ validity).
+\end{itemize}
+
+No tacit judgment is involved here.
+
+\subsubsection*{DHO Example}
+
+For the DHO:
+
+\begin{itemize}
+ \item $RI$: you give the system the ODE:
+ \[
+ \ddot{x}(t) + 2\gamma \dot{x}(t) + \omega_0^2 x(t) = 0
+ \]
+ and parameters $\gamma, \omega_0$.
+ \item $EC$: the system rewrites it into first-order form or finds a symbolic solution.
+ \item $ED$: the system differentiates the solution and checks that it satisfies the ODE.
+\end{itemize}
+
+\subsubsection*{Example prompts}
+
+\paragraph{$RI$.}
+\begin{quote}
+\textbf{User:} 
+``Consider the damped harmonic oscillator
+$\ddot{x}(t) + 2\gamma \dot{x}(t) + \omega_0^2 x(t) = 0$ with $\gamma = 0.2$, $\omega_0 = 1.0$.'' 
+\end{quote}
+
+\paragraph{$EC$.}
+\begin{quote}
+\textbf{User:} 
+``Rewrite this ODE as a first-order state-space system. Do algebra only.'' 
+\end{quote}
+
+\paragraph{$ED$.}
+\begin{quote}
+\textbf{User:} 
+``Check explicitly that the proposed solution satisfies the ODE. Show the differentiation steps.'' 
+\end{quote}
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item $RI$, $EC$, $ED$ span all explicit machine operations.
+ \item All AI-side workflows are compositions of these plus structural operators (introduced later).
+\end{itemize}
+
+\newpage
+
+\subsection{A.0.4 Tacit Category $T$ (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See Definitions~1.7--1.9.
+
+\subsubsection*{Plain-language view}
+
+You define the tacit category $T$ as the part of $C_{\text{full}}$ whose morphisms land in $T$.
+Its generators include:
+
+\begin{itemize}
+ \item $TE : T \to T$ (Tacit Evaluation, pronounced \emph{T-E}),
+ \item $HFD : T \to T$ (Human Feedback Decision, pronounced \emph{H-F-D}).
+\end{itemize}
+
+\begin{itemize}
+ \item $TE$: the human evaluating content received via $RB$.
+ \item $HFD$: the human deciding what to do next (approve, reject, request clarification, change the
+ goal).
+\end{itemize}
+
+These do not produce explicit content directly; they change the tacit state. 
+Explicit content re-enters the system only when the human expresses something new, which is modeled
+as $RI$.
+
+\subsubsection*{DHO Example}
+
+Given a DHO solution and plots, you might:
+
+\begin{itemize}
+ \item think ``this looks physically reasonable'' ($TE$),
+ \item then decide ``I want to explore the overdamped regime next'' ($HFD$),
+ \item then explicitly say: ``Please recompute for $\gamma = 2\omega_0$'' (this is $RI$).
+\end{itemize}
+
+Your evaluation and decision are in $T$; the explicit instruction is in $E$.
+
+\subsubsection*{Example prompts}
+
+\paragraph{Tacit evaluation request.}
+\begin{quote}
+\textbf{System:} 
+``I have derived and plotted the solution for your parameters. 
+Please review and tell me whether it aligns with your expectations physically. If not, specify what you consider incorrect or surprising.'' 
+\end{quote}
+
+\paragraph{Human feedback decision.}
+\begin{quote}
+\textbf{User:} 
+``This seems correct. Now compute the energy decay over time and show it on a log-scale plot.'' 
+\end{quote}
+
+Here, your tacit approval led to an explicit follow-up request ($RI$).
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item $TE$ and $HFD$ are the basic tacit morphisms.
+ \item They live exclusively in the human domain $T$.
+ \item Explicit content emerges again only via $RI$.
+\end{itemize}
+
+\newpage
+
+\subsection{A.0.5 Boundary Morphism and $RB$ Functor (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See Definitions~1.10--1.11 (boundary morphism and $RB^\sharp$, etc.).
+
+\subsubsection*{Plain-language view}
+
+You refine the role of the boundary morphism $RB : E \to T$ and introduce a functorial viewpoint:
+roughly, $RB^\sharp$ (pronounced \emph{R-B-sharp}) maps explicit pipelines to tacit states that represent
+``what the human has seen'' and can now evaluate.
+
+The key idea:
+
+\begin{itemize}
+ \item There is a functor from the explicit world of computations into the tacit world of possible
+ human-evaluable contents.
+ \item It respects composition: longer explicit pipelines correspond to more complex inputs to tacit
+ evaluation, but the mapping is well-behaved.
+\end{itemize}
+
+\subsubsection*{DHO Example}
+
+Suppose you have an explicit pipeline:
+
+\begin{enumerate}
+ \item $RI$: introduce the DHO equation and parameters.
+ \item $EC$: derive the symbolic solution.
+ \item $EC$: generate a numerical plot.
+ \item $ED$: verify the solution satisfies the ODE.
+\end{enumerate}
+
+Taken together, this is an explicit pipeline $P$ in $E$.
+
+The functor $RB^\sharp$ assigns to $P$ a tacit state representing ``the content presented to the human
+for evaluation'':
+
+\begin{itemize}
+ \item solution formula,
+ \item error checks,
+ \item plots.
+\end{itemize}
+
+Once you see and think about all this, you can apply $TE$ and $HFD$.
+
+\subsubsection*{Example prompts}
+
+\begin{quote}
+\textbf{Prompt:} 
+``Perform all explicit steps needed to solve and verify the DHO for the given parameters. 
+Then present me with the solution, verification steps, and plots, but do not comment on their correctness. 
+Wait for my evaluation.'' 
+\end{quote}
+
+This describes a pipeline that ends at $RB$, followed by tacit operations you perform.
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item $RB$ and its functorial extension link pipelines in $E$ to tacit inputs in $T$.
+ \item Composition in explicit pipelines translates into structured tacit inputs.
+\end{itemize}
+
+\newpage
+
+\subsection{A.0.6 Phase-0 and Phase-1 Axioms (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See Definition~1.12 (Phase--0 constraints) and Phase--1 axioms that follow.
+
+\subsubsection*{Plain-language view}
+
+You formalize constraints on the \emph{operational environment} for FRFP, such as:
+
+\begin{itemize}
+ \item IL (Interaction Limitation): bounded, turn-based interaction.
+ \item AR (Alignment Restriction): the system must not autonomously act beyond explicit instructions.
+ \item MD (Mode Discipline): explicit vs tacit separation enforced at the interface.
+ \item NTER (No Tacit Evaluation Reconstruction): the system must not reconstruct tacit evaluation 
+ from explicit traces.
+\end{itemize}
+
+Phase--1 axioms add further structure to how explicit pipelines may be formed, how they may access
+tools, etc., but always under ETS and the operational constraints above.
+
+\subsubsection*{DHO Example}
+
+For the DHO setting, IL and AR imply:
+
+\begin{itemize}
+ \item The AI waits for your explicit instructions before doing new things.
+ \item It does not autonomously decide to explore unrelated parameter regimes.
+\end{itemize}
+
+MD and NTER imply:
+
+\begin{itemize}
+ \item The UI/UX never smuggles tacit evaluation back into explicit form without you typing it.
+ \item The system does not mine your timing, mouse movements, or other signals to reconstruct tacit
+ acceptance.
+\end{itemize}
+
+\subsubsection*{Example prompts and behaviors}
+
+\paragraph{Phase-0 compliant behavior.}
+\begin{quote}
+\textbf{User:} 
+``Solve the DHO for these parameters and show the explicit solution and plots.'' 
+
+\textbf{System:} 
+Performs only the requested computations, then stops and waits. 
+\end{quote}
+
+\paragraph{Non-compliant behavior (should be disallowed).}
+\begin{quote}
+\textbf{System (not allowed):} 
+``You didn t ask, but I decided to run an experiment with different damping and take real-world actions.'' 
+\end{quote}
+
+FRFP forbids that: the system is bound to explicit instructions and the explicit--tacit separation.
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item Phase--0 and Phase--1 axioms constrain how FRFP systems are allowed to behave.
+ \item They enforce limited interaction, mode discipline, and no tacit reconstruction.
+\end{itemize}
+
+\newpage
+
+\section{A.1 Explicit Algebra and TDG (Companion)}
+
+This section comments on your \textbf{A.1 Explicit Algebra and TDG}, which introduces:
+
+\begin{itemize}
+ \item TDG (Task Decomposition Grammar) signature and free category,
+ \item The grammar of explicit pipelines,
+ \item Shape categories,
+ \item Explicit reduction systems.
+\end{itemize}
+
+\subsection{A.1.1 TDG Signature and Free Category (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See Definitions~2.1--2.2 (TDG signature, free category) and Theorem~2.3.
+
+\subsubsection*{Plain-language view}
+
+You define a \emph{signature} for TDG (Task Decomposition Grammar) which lists basic operations like:
+
+\begin{itemize}
+ \item primitive tasks,
+ \item combinators for sequencing, branching, looping,
+ \item possibly tool calls.
+\end{itemize}
+
+The ``free category'' on this signature is the category whose morphisms correspond to all well-formed
+compositions of these operations, with no extra equations imposed beyond the category axioms.
+
+This free category captures all syntactically well-formed explicit pipelines as TDG terms.
+
+\subsubsection*{DHO Example}
+
+For the DHO, think of primitive TDG operations like:
+
+\begin{itemize}
+ \item \textsf{IntroduceODE} (introduce the DHO equation),
+ \item \textsf{SolveSymbolic},
+ \item \textsf{SolveNumeric},
+ \item \textsf{CheckSolution},
+ \item \textsf{PlotSolution}.
+\end{itemize}
+
+A full explicit pipeline is a TDG term such as:
+\[
+\textsf{IntroduceODE} \;\to\; \textsf{SolveSymbolic} \;\to\; \textsf{CheckSolution} \;\to\; \textsf{PlotSolution}.
+\]
+
+The free category of TDG terms has morphisms that correspond exactly to such structured pipelines.
+
+\subsubsection*{Prompts}
+
+\begin{quote}
+\textbf{User:} 
+``Give me the TDG term corresponding to: introduce the DHO, solve symbolically, verify explicitly, then plot.'' 
+\end{quote}
+
+A FRFP-aware system could respond with a symbolic TDG term in some internal syntax and use it to
+drive the computation.
+
+\newpage
+
+\subsection{A.1.2 TDG Grammar (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the subsection on TDG grammar.
+
+\subsubsection*{Plain-language view}
+
+Here you introduce the grammar rules that generate valid TDG terms. This is akin to a
+context-free grammar for programs, except the programs are explicit pipelines.
+
+Non-terminals can represent:
+
+\begin{itemize}
+ \item tasks,
+ \item subtasks,
+ \item pipelines.
+\end{itemize}
+
+Terminals are primitive operations: $RI$, $EC$, $ED$, and specific domain operations (e.g., calling a
+solver).
+
+\subsubsection*{DHO Example}
+
+A simplified grammar might say:
+
+\begin{itemize}
+ \item A \textsf{Pipeline} is either a \textsf{Primitive} or a
+ \textsf{Primitive} followed by another \textsf{Pipeline}.
+ \item A \textsf{Primitive} could be any of:
+ \textsf{IntroduceODE}, \textsf{SolveSymbolic}, \textsf{SolveNumeric}, \textsf{CheckSolution},
+ \textsf{PlotSolution}.
+\end{itemize}
+
+Then a well-formed TDG term for the DHO is something like:
+
+\[
+\textsf{Pipeline} \Rightarrow \textsf{IntroduceODE}\;\textsf{SolveSymbolic}\;\textsf{CheckSolution}\;\textsf{PlotSolution}.
+\]
+
+\subsubsection*{FRFP-style example}
+
+\begin{quote}
+\textbf{User:} 
+``Describe the explicit pipeline to solve and verify the DHO as a TDG term, using the grammar from Appendix~A.'' 
+\end{quote}
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item TDG is the formal language of explicit pipelines.
+ \item The free category over the TDG signature captures all composition structures.
+\end{itemize}
+
+\newpage
+
+\subsection{A.1.3 Shapes and Shape Category (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the ``Shapes and Shape Category'' subsection.
+
+\subsubsection*{Plain-language view}
+
+You introduce \emph{shapes} as abstract patterns of pipelines---ignoring specific content but keeping
+the structural outline (branching, looping, parallelism).
+
+The shape category $S$ (pronounced \emph{S}) has shapes as objects and shape transformations as
+morphisms.
+
+\subsubsection*{DHO Example}
+
+Two different DHO-related pipelines may share the same shape:
+
+\begin{itemize}
+ \item Pipeline A: introduce ODE, solve symbolically, check, plot.
+ \item Pipeline B: introduce ODE, solve numerically, check, plot.
+\end{itemize}
+
+Their shapes both look like:
+
+\[
+\textsf{Introduce} \to \textsf{Solve}? \to \textsf{Check} \to \textsf{Plot}
+\]
+
+where \textsf{Solve}? can be filled with different solving methods.
+
+\subsubsection*{FRFP prompts}
+
+\begin{quote}
+\textbf{User:} 
+``Abstract away from the specific solver method and give me the shape of the pipeline you used for the DHO.'' 
+\end{quote}
+
+\subsubsection*{Tracking notes}
+
+\begin{itemize}
+ \item Shapes generalize over particular pipelines.
+ \item The shape category supports reasoning at a structural level.
+\end{itemize}
+
+\newpage
+
+\subsection{A.1.4 Explicit Reduction System (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the ``Explicit Reduction System'' subsection.
+
+\subsubsection*{Plain-language view}
+
+You introduce a reduction system on TDG terms (pipelines), e.g., simplifying or normalizing them:
+
+\begin{itemize}
+ \item eliminating redundant steps,
+ \item normalizing composition,
+ \item ensuring a canonical form.
+\end{itemize}
+
+This leads to confluence and canonicality results later.
+
+\subsubsection*{DHO Example}
+
+Two different-looking pipelines might be semantically equivalent, e.g.:
+
+\begin{itemize}
+ \item pipeline with unnecessary double-checking or re-solving,
+ \item pipeline with a minimal set of steps.
+\end{itemize}
+
+The reduction system rewrites the larger pipeline into a simpler, canonical one that has the same
+effect on explicit content.
+
+\subsubsection*{FRFP prompts}
+
+\begin{quote}
+\textbf{User:} 
+``Given this TDG term for the DHO analysis, normalize it using the explicit reduction rules from Appendix~A and show me the simplified pipeline.'' 
+\end{quote}
+
+\newpage
+
+\section{A.2 Navigation and Shapes (Companion)}
+
+\subsection{A.2.1 Navigation Category and Groupoid (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the ``Navigation Category and Groupoid'' subsection.
+
+\subsubsection*{Plain-language view}
+
+You define a category (or groupoid) $N$ (pronounced \emph{N}) that captures navigation moves between
+shapes or states:
+
+\begin{itemize}
+ \item moving forward/backward in a pipeline,
+ \item jumping between related shapes,
+ \item inverting some moves (hence groupoid).
+\end{itemize}
+
+\subsubsection*{DHO Example}
+
+In DHO analysis, navigation might mean:
+
+\begin{itemize}
+ \item going from current explicit pipeline to a variant: e.g., switching from symbolic to numerical
+ solve.
+ \item moving from one parameter regime to another (underdamped $\leftrightarrow$ overdamped).
+\end{itemize}
+
+The navigation groupoid models these reversible morphisms among shapes/pipelines.
+
+\subsubsection*{FRFP prompts}
+
+\begin{quote}
+\textbf{User:} 
+``Show me how to navigate from the underdamped solution pipeline to an overdamped one while reusing as many steps as possible.'' 
+\end{quote}
+
+\newpage
+
+\subsection{A.2.2 Fibration $p : E \to S$ (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the fibration subsection.
+
+\subsubsection*{Plain-language view}
+
+You define a fibration
+\[
+p : E \to S
+\]
+(pronounced \emph{p from E to S}), assigning to each explicit pipeline its shape.
+
+Intuitively:
+
+\begin{itemize}
+ \item The base category $S$ holds abstract shapes.
+ \item The total category $E$ holds concrete explicit pipelines.
+ \item The fibration $p$ forgets content and keeps structure.
+\end{itemize}
+
+\subsubsection*{DHO Example}
+
+A specific pipeline to solve and plot DHO has a shape. 
+$p$ maps that pipeline to its shape:
+
+\begin{itemize}
+ \item input $\mapsto$ $S$-object: 
+ \textsf{Introduce} $\to$ \textsf{Solve} $\to$ \textsf{Check} $\to$ \textsf{Plot}.
+\end{itemize}
+
+\subsubsection*{FRFP prompts}
+
+\begin{quote}
+\textbf{User:} 
+``For the DHO pipeline you used, give me its shape and explain which structural choices (branching, looping) it involves.'' 
+\end{quote}
+
+\newpage
+
+\section{A.3 Combined System: Grothendieck Construction (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the ``Grothendieck-style semidirect product $N \ltimes E$'' section.
+
+\subsection{A.3.1 Semidirect Product $N \ltimes E$ (Companion)}
+
+\subsubsection*{Plain-language view}
+
+You combine navigation $N$ and explicit pipelines $E$ into a single structure:
+
+\[
+N \ltimes E
+\]
+(pronounced \emph{N semidirect E}).
+
+This captures:
+
+\begin{itemize}
+ \item how navigation transforms pipelines,
+ \item how pipelines sit over shapes,
+ \item how actions in $N$ act on $E$ in a coherent way.
+\end{itemize}
+
+\subsubsection*{DHO Example}
+
+For DHO, $N \ltimes E$ can encode:
+
+\begin{itemize}
+ \item a particular pipeline (solve, verify, plot),
+ \item a navigation move to a related pipeline (different solver, different parameters),
+ \item the combined object representing both the current state and navigation context.
+\end{itemize}
+
+\subsection{A.3.2 Rewrite System on $N \ltimes E$ (Companion)}
+
+You then define a rewriting system on $N \ltimes E$, so navigation plus pipelines can be normalized:
+
+\begin{itemize}
+ \item eliminating redundant moves,
+ \item simplifying compound navigations,
+ \item yielding canonical normal forms.
+\end{itemize}
+
+\subsubsection*{FRFP example}
+
+\begin{quote}
+\textbf{User:} 
+``Given the full navigation-plus-pipeline object for my DHO exploration, normalize it using the rewrite rules in Appendix~A and show me a canonical representation of where we are in the analysis.'' 
+\end{quote}
+
+\newpage
+
+\section{A.4 Semantics and Tacit Correctness (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the ``Semantics and Tacit Correctness'' section, including the semantic functor into a tacit
+preorder-enriched category.
+
+\subsubsection*{Plain-language view}
+
+You build a semantics mapping from explicit pipelines into a tacit correctness structure:
+
+\begin{itemize}
+ \item There is a functor (semantic interpretation) taking pipelines (or their normal forms) into
+ a tacit domain that expresses what \emph{should} be correct.
+ \item This functor is used to state correctness theorems:
+ if the explicit pipeline is well-formed and certain conditions hold, then the induced tacit state
+ satisfies a correctness property.
+\end{itemize}
+
+\subsubsection*{DHO Example}
+
+Semantically, a DHO pipeline that:
+
+\begin{itemize}
+ \item uses correct equations,
+ \item applies valid solving rules,
+ \item checks results,
+\end{itemize}
+
+should map to a tacit correctness claim like:
+
+\begin{itemize}
+ \item ``Under the given assumptions, the solution and its qualitative behavior are correct.''
+\end{itemize}
+
+FRFP does not let the AI assert this tacit correctness itself; instead, the semantics lets you prove 
+a theorem:
+
+\begin{quote}
+If the pipeline satisfies conditions $X$, $Y$, $Z$, then any human using it as specified will have a
+path to correct tacit evaluation.
+\end{quote}
+
+\newpage
+
+\section{A.5 Main Theorems (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the section containing the main theorems: well-formedness, confluence, canonicality,
+decidability, correctness preservation, etc.
+
+\subsubsection*{Plain-language view}
+
+You prove results like:
+
+\begin{itemize}
+ \item \textbf{Well-formedness:} TDG terms / pipelines are well-typed in the category structure.
+ \item \textbf{Confluence:} different reduction paths lead to the same normal form.
+ \item \textbf{Decidability:} certain key properties are algorithmically decidable.
+ \item \textbf{Correctness preservation:} explicit rewriting preserves semantic correctness.
+ \item \textbf{Semantic correctness:} under your axioms, the FRFP architecture supports correct
+ tacit evaluation if humans follow the protocol.
+\end{itemize}
+
+\subsubsection*{DHO Example}
+
+For the DHO:
+
+\begin{itemize}
+ \item multiple ways to solve the ODE (characteristic polynomial, Laplace transforms, etc.) can be
+ shown to be confluent at the level of solutions.
+ \item pipeline normalization ensures that different explicit workflows lead to equivalent
+ representations of the solution.
+\end{itemize}
+
+\subsubsection*{FRFP prompts}
+
+\begin{quote}
+\textbf{User:} 
+``Explain in simple terms what the confluence theorem for TDG means for my DHO analysis. 
+Why does it mean I don't have to worry about which solving path the system took, as long as it's valid?'' 
+\end{quote}
+
+\newpage
+
+\section{A.6 Worked Examples (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See ``Worked Examples'' section, including TDG term \& shape, navigation examples, etc.
+
+\subsubsection*{Plain-language view}
+
+You provide concrete examples of:
+
+\begin{itemize}
+ \item specific TDG terms,
+ \item their shapes,
+ \item navigation between them,
+ \item reduction to normal forms.
+\end{itemize}
+
+\subsubsection*{DHO-flavored parallel}
+
+You can imagine analogous DHO examples:
+
+\begin{itemize}
+ \item A full TDG term representing ``introduce DHO $\to$ solve $\to$ verify $\to$ plot''.
+ \item The shape capturing its control structure.
+ \item Navigation from this pipeline to one that uses a different solver.
+ \item Reduction showing that two pipelines are equivalent.
+\end{itemize}
+
+\newpage
+
+\section{A.7 Conversation Pipeline Diagram (Companion)}
+
+\paragraph{Reference in Appendix A.}
+See the conversation pipeline diagram at the end of Appendix~A.
+
+\subsubsection*{Plain-language view}
+
+This diagram ties everything together:
+
+\begin{itemize}
+ \item explicit pipelines in $E$ (driven by TDG),
+ \item navigation moves in $N$,
+ \item the fibration over shapes $S$,
+ \item boundary morphism $RB$,
+ \item tacit operations $TE$, $HFD$,
+ \item and the overall FRFP conversation loop.
+\end{itemize}
+
+\subsubsection*{DHO Example}
+
+For a DHO-focused session, the conversation pipeline might look like:
+
+\begin{enumerate}
+ \item $RI$: you specify the DHO task.
+ \item TDG-driven $EC$/$ED$ pipeline computes and checks solutions.
+ \item $RB$: results presented to you.
+ \item $TE$/$HFD$: you evaluate and decide next steps.
+ \item $RI$: you issue new explicit instructions (e.g., change parameters, change model).
+ \item Repeat.
+\end{enumerate}
+
+\subsubsection*{FRFP-style prompts that align with the diagram}
+
+\begin{quote}
+\textbf{User:} 
+``At each step, clearly separate: (1) what you are computing explicitly, (2) what you expect me to evaluate tacitly, and (3) what new explicit options I have. 
+Annotate your messages accordingly.'' 
+\end{quote}
+
+A system implementing FRFP could label its messages explicitly as:
+
+\begin{itemize}
+ \item \textsf{[EXPLICIT-RESULT]},
+ \item \textsf{[REQUEST-TACIT-EVAL]},
+ \item \textsf{[OPTIONS-FOR-RI]}.
+\end{itemize}
+
+\newpage
+
+\section*{Closing Notes}
+
+This companion:
+
+\begin{itemize}
+ \item Mirrors the structure of your Appendix~A.
+ \item Avoids rewriting the formal mathematics from the appendix.
+ \item Provides conceptual, example-driven commentary with a running DHO example.
+ \item Suggests FRFP-style prompts that match each construction.
+\end{itemize}
+
+To turn this into a tutorial or case study, you can:
+
+\begin{itemize}
+ \item Add your own DHO-specific TDG terms and diagrams.
+ \item Expand the worked examples in A.6 with concrete DHO derivations.
+ \item Cross-link this companion with the main appendix via hyperref.
+\end{itemize}

@@ -1,0 +1,194 @@
+\documentclass[11pt]{article}
+
+% ---------- Encoding / fonts ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}        % Latin Modern: reliable math/text glyph coverage
+
+% ---------- Layout / typography ----------
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}      % better PDF text shaping; helps readability
+\usepackage{xcolor}
+
+% ---------- Math packages ----------
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}             % bold math
+\usepackage{stmaryrd}       % provides \llbracket \rrbracket
+\usepackage{mathrsfs}       % optional: \mathscr
+
+% ---------- Lists / diagrams ----------
+\usepackage{enumitem}       % consistent lists
+\usepackage{tikz-cd}        % commutative diagrams
+
+% ---------- Hyperlinks / bookmarks ----------
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{natbib}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+% ============================================================
+% Theorem environments
+% ============================================================
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{assumption}[theorem]{Assumption}
+
+% ============================================================
+% FRFP Macros (use everywhere; avoids symbol drift)
+% ============================================================
+
+\newcommand{\FRFP}{FRFP}
+\newcommand{\Cfull}{C_{\mathrm{full}}}
+\newcommand{\Ecat}{\mathcal{E}} % explicit category
+\newcommand{\Tcat}{\mathcal{T}} % tacit category
+\newcommand{\Ncat}{\mathcal{N}} % navigation groupoid
+\newcommand{\Scat}{\mathcal{S}} % shapes
+\newcommand{\TDG}{\mathsf{TDG}} % Task Decomposition Grammar
+\newcommand{\RB}{\mathsf{RB}}   % Representational Backflow
+\newcommand{\RI}{\mathsf{RI}}
+\newcommand{\EC}{\mathsf{EC}}
+\newcommand{\ED}{\mathsf{ED}}
+\newcommand{\TE}{\mathsf{TE}}
+\newcommand{\HFD}{\mathsf{HFD}}
+\newcommand{\Req}{\mathsf{Req}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Obj}{\mathrm{Ob}}
+\newcommand{\BRANCH}{\mathsf{BRANCH}}
+\newcommand{\PARALLEL}{\mathsf{PARALLEL}}
+\newcommand{\LOOP}{\mathsf{LOOP}}
+
+% aliases for explicit / tacit space used in the appendix
+\newcommand{\Espace}{\mathcal{E}} % explicit space
+\newcommand{\Tspace}{\mathcal{T}} % tacit space
+
+% encoding / decoding
+\newcommand{\enc}{\mathsf{enc}}
+\newcommand{\dec}{\mathsf{dec}}
+
+% semantic RB and free-category notation
+\newcommand{\RBsharp}{\RB^{\sharp}}
+\newcommand{\FreeCat}{\mathsf{FreeCat}}
+\newcommand{\Ufun}{U_E}
+
+% shape constructors (non-conflicting names)
+\newcommand{\chain}{\mathsf{chain}}
+\newcommand{\branch}{\mathsf{branch}}
+\newcommand{\loopshape}{\mathsf{loop}}
+
+% frameworks category name: \Frm_1
+\newcommand{\Frm}{\mathsf{Frm}} % so \Frm_1 works
+
+% example navigation generators (purely illustrative)
+\newcommand{\TRYMODEL}{\mathsf{TRYMODEL}}
+\newcommand{\ADDASSUMPTION}{\mathsf{ADDASSUMPTION}}
+\newcommand{\DROPASSUMPTION}{\mathsf{DROPASSUMPTION}}
+\newcommand{\MERGE}{\mathsf{MERGE}}
+\newcommand{\RESTART}{\mathsf{RESTART}}
+
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\shape}{\mathsf{shape}}
+
+\newcommand{\Inst}{\mathsf{Inst}}
+\newcommand{\HP}{\mathcal{HP}}
+\newcommand{\Sem}{\mathsf{Sem}}
+\newcommand{\Esem}{\mathcal{E}_{\mathrm{sem}}}
+
+\newcommand{\Empty}{\varnothing}
+\newcommand{\Eobj}{E}
+\newcommand{\Tobj}{T}
+
+% Semantic brackets
+\newcommand{\sem}[1]{\llbracket #1 \rrbracket}
+
+% Semidirect / Grothendieck notation
+\newcommand{\NltimesE}{\Ncat \ltimes \Ecat}
+\newcommand{\NltimesEsem}{\Ncat \ltimes \Esem}
+
+% Logic-ish convenience
+\newcommand{\defeq}{\mathrel{\vcentcolon=}}
+\newcommand{\eqdef}{\mathrel{=\vcentcolon}}
+
+
+\title{Foundational Reasoning and Feedback Protocol (FRFP):\\
+A Formal Architecture for Long-Horizon Human--AI Scientific Collaboration}
+
+\author{Vijay Nadendla\\[0.3ex]
+Independent Researcher\\
+vnadendla@gmail.com}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{center}
+\textbf{Working paper.} A separate mathematical companion to Appendix~A and a Volume~II, \emph{FRFP: Case Studies, Patterns, and Practice for Long-Horizon Human--AI Collaboration}, are in preparation and will be uploaded as companion working papers.
+\end{center}
+
+
+\begin{abstract}
+We propose the Foundational Reasoning and Feedback Protocol (FRFP), a formal architecture for long-horizon scientific collaboration between human agents and AI systems. FRFP enforces a sharp separation between explicit representations, which may be manipulated by machines, and tacit epistemic states, which are exclusive to human agents and bear correctness authority. On top of this separation, FRFP builds a free algebra of explicit task decompositions and navigation steps, realized as a Grothendieck-style semidirect product \(N \ltimes E\) of explicit pipelines with a navigation groupoid. A semantic functor \(J{-}K : N \ltimes E \to T\) into a preorder-enriched tacit category, together with a correctness quotient \(\gamma : \mathrm{Ob}(T) \to J\), yields observable judgments that are invariant under admissible refactorings and normalization in \(N \ltimes E\).
+
+Using this architecture, we develop a dynamic theory of long-run interaction. Tacit context degrades under use, requirement maps encode what is needed to safely endorse explicit artifacts in a given context, and hallucination is defined structurally as a mismatch between tacit state and requirements at the moment of acceptance. Under qualitative but pessimistic assumptions on degradation, feedback, and recurring nontrivial tasks, we prove inevitability theorems: along sufficiently long admissible runs, hallucination occurs almost surely, and protocol-level ``safe horizons'' are necessarily finite. We then lift the framework to epistemic populations, institutions, and governance operators, showing that explicit-only consensus and monitoring cannot in general eliminate hallucination or recover tacit correctness. Finally, we extract protocol and interface rules---together with FRFP-compatible system instructions---for building explicit-only AI tools that support powerful exploration while preserving human-exclusive grounding and auditability at the level of whole scientific and regulatory workflows.
+
+Appendix~\ref{app:business-frfp}  provides a practitioner-facing ``business version'' of FRFP: a non-technical overview of the architecture, examples in scientific and regulated workflows, an implementation roadmap, common pitfalls, and a short design checklist for teams deploying AI systems.
+
+\end{abstract}
+
+
+\pagebreak
+\tableofcontents
+\pagebreak
+\include{MainPaper}
+\pagebreak
+\appendix
+\clearpage
+\appendix
+
+% Visible appendix heading
+\section*{Appendices}
+\addcontentsline{toc}{section}{Appendices}
+% Robust appendix numbering (fixes ".1" issue)
+\renewcommand{\thesection}{\Alph{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+\section{A}
+\input{appendix_a_la_te_xDEC17}
+\pagebreak
+\input{appendix_b_la_te_xDEC17}
+\pagebreak
+\input{appendix_c_la_te_xDEC20}
+\pagebreak
+\input{appendix_d_la_te_xDEC20}
+\pagebreak
+\input{appendix_e_la_te_xDEC20}
+\pagebreak
+\input{appendix_f_la_te_xDEC20}
+\pagebreak
+\section{B}
+\input{Protocols}
+\pagebreak
+\input{caststudies}
+\pagebreak
+\input{LLMinstructions}
+\pagebreak
+\input{promptexamples}
+\pagebreak
+\input{Business}
+\pagebreak
+\input{frfp-references}
+\end{document}

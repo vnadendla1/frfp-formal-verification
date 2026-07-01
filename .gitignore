@@ -1,0 +1,20 @@
+# Lean build cache
+.lake/
+
+# Archive / working scratch files
+archive/
+
+# Python implementation
+Implementation/
+
+# Large model files
+models/
+*.bin
+*.gguf
+*.safetensors
+
+# OS/editor noise
+.DS_Store
+*.swp
+__pycache__/
+*.pyc

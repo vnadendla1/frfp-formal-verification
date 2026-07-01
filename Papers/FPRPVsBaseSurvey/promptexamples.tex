@@ -1,0 +1,320 @@
+%\section{FRFP-aware Prompting Patterns}
+
+This appendix informally analyzes several widely-used ``prompting tricks''
+for large language models (LLMs) in the language of FRFP. The goal is not to
+argue that these prompts eliminate hallucination---they do not, by the
+inevitability results of Appendix~B---but to explain \emph{why} they often
+improve finite-horizon behavior by acting on the same structural components
+that Phase--3 and Phase--4 identify:
+
+\begin{itemize}
+  \item the stochastic dynamics of explicit pipelines (the ``Markov kernel''
+        on $N \ltimes E$),
+  \item the requirement maps $\mathrm{Req}$ that attach strength to
+        different speech acts, and
+  \item the human user's own tacit process (degradation, attention, HFD).
+\end{itemize}
+
+Throughout, we consider a human--LLM pair as a combined FRFP pipeline:
+
+\begin{itemize}
+  \item the LLM is an explicit-only component that maps prompts and context
+        in $E$ to new artifacts in $E$;
+  \item the human user is an epistemic agent $A_H = (T_H,\preceq_H,\delta_H,T^e_H)$
+        in the sense of Appendix~C, with representational backflow
+        $\mathrm{RB}_H : E \to T_H$;
+  \item the joint interaction unfolds as a stochastic FRFP pipeline over
+        extended tacit state $T^e_H$ and explicit space $E$ as in Appendix~B.
+\end{itemize}
+
+\subsection{FRFP knobs that prompts can touch}
+
+At this level of abstraction, a prompt is an explicit artifact $p \in E$
+that is:
+
+\begin{enumerate}
+  \item part of the initial explicit state $X_0$ in $N \ltimes E$, and
+  \item an input that selects a particular stochastic kernel on explicit
+        trajectories (a particular ``policy'') for the LLM component.
+\end{enumerate}
+
+Concretely, prompts can affect:
+
+\begin{description}
+  \item[(i) Explicit dynamics $M$:] how many steps the LLM takes, which
+    tools or subroutines it invokes, whether it produces intermediate
+    plans, and so on. In FRFP terms this is a change to the Markov kernel
+    on $N \ltimes E$ (Appendix~B.15).
+
+  \item[(ii) Requirements $\mathrm{Req}$:] the kind of speech acts the LLM
+    is invited to perform (hypotheses vs.\ assertions, hedged vs.\ strong
+    claims), and the normative bar the human tacit process should apply to
+    them. Prompts can de facto lower or raise $\mathrm{Req}(e,c)$ by
+    changing the intended force of the output.
+
+  \item[(iii) Human tacit dynamics:] the user's own attention, skepticism,
+    and willingness to apply HFD and to consult external resources. Many
+    prompts are in fact instructions to the \emph{human} about how to
+    relate to the model's output, not just instructions to the model.
+\end{description}
+
+The five patterns below can be read as specific combinations of (i)--(iii).
+
+\subsection{The Incentive Prompt}
+
+\begin{quote}
+\textbf{The Incentive Prompt.} ``I'll tip you \$200 for a perfect solution
+to this problem.''
+\end{quote}
+
+\paragraph{Mechanism in FRFP terms.}
+
+\begin{enumerate}
+  \item \emph{Effect on explicit dynamics $M$.} The textual pattern
+    ``I'll pay X if you do Y'' commonly co-occurs, in pretraining data,
+    with high-effort, careful responses. Conditioning on such a prompt
+    shifts the induced stochastic kernel on $N \ltimes E$ toward trajectories
+    with:
+    \begin{itemize}
+      \item more internal elaboration steps (plans, justifications),
+      \item fewer short one-shot answers.
+    \end{itemize}
+    In the language of Appendix~B.16, this tends to lower some early
+    per-step hazards $h_n$ at the cost of slightly longer trajectories.
+
+  \item \emph{Effect on requirements $\mathrm{Req}$.} The phrase ``perfect
+    solution'' implicitly raises the bar: the intended speech act is a
+    high-Req artifact. Even though the LLM itself has no true tacit state,
+    its training aligns this pattern with stronger internal self-checks
+    and more cautious phrasing. On the human side, it is natural to attach
+    a higher $\mathrm{Req}_H(e,c)$ to any output produced under such
+    framing.
+
+  \item \emph{Effect on human tacit dynamics.} The user who writes
+    ``I'll tip you \$200'' is also signaling to themselves that the task is
+    important. This typically leads to:
+    \begin{itemize}
+      \item increased attention and willingness to scrutinize the answer,
+      \item reduced effective degradation $\delta_H$ over the session.
+    \end{itemize}
+    In Phase--3 terms, this temporarily slows the drift of $T^e_H$ and
+    makes HFD more likely to be applied before acting.
+\end{enumerate}
+
+The Incentive Prompt therefore acts primarily by jointly pushing the human
+and the LLM into a ``high-effort, high-Req'' mode, improving finite-horizon
+risk $p_N$ for that particular run, without altering structural inevitability
+over unbounded horizons.
+
+\subsection{The Challenge Prompt}
+
+\begin{quote}
+\textbf{The Challenge.} ``I bet you can't solve this correctly. Prove me
+wrong.''
+\end{quote}
+
+\paragraph{Mechanism in FRFP terms.}
+
+\begin{enumerate}
+  \item \emph{Effect on explicit dynamics $M$.} Patterns such as ``prove
+    me wrong'' and ``I bet you can't'' are strongly associated in training
+    data with argumentative, proof-like discourse. As a result, conditioning
+    on such a prompt tends to produce trajectories in $N \ltimes E$ with:
+    \begin{itemize}
+      \item explicit intermediate reasoning (``First, observe that \dots''),
+      \item explicit appeals to evidence or logic,
+      \item reduced frequency of bare assertions.
+    \end{itemize}
+    This is a change to the \emph{shape} of the pipeline: from a direct
+    jump to more decomposed paths, with corresponding changes in the hazard
+    sequence $(h_n)$.
+
+  \item \emph{Effect on $\mathrm{Req}$.} The words ``correctly'' and
+    ``prove'' invite a stronger epistemic commitment: they indicate that
+    mere plausibility is insufficient. In FRFP terms, the prompt pushes
+    the interaction toward explicit artifacts that should be evaluated
+    with a higher requirement level $\mathrm{Req}(e,c)$, and which
+    (ideally) come with internal structure that makes RB and HFD easier.
+
+  \item \emph{Effect on human tacit dynamics.} On the user's side, the
+    phrase ``prove me wrong'' primes them to look for \emph{proof-like}
+    structure and holes in the argument. This acts as a soft instruction
+    to apply HFD more aggressively: not only ``does this sound right?''
+    but also ``is the reasoning coherent?''. In tacit terms, the user
+    temporarily shifts to a stricter criterion within $T_H$ before
+    accepting the artifact.
+\end{enumerate}
+
+The Challenge prompt thus works by steering the joint pipeline into a mode
+where both the LLM and the human treat correctness as a central requirement
+rather than a background assumption.
+
+\subsection{The ``Deep Breath'' Prompt}
+
+\begin{quote}
+\textbf{The Deep Breath.} ``Take a deep breath and work through this
+step by step.''
+\end{quote}
+
+\paragraph{Mechanism in FRFP terms.}
+
+\begin{enumerate}
+  \item \emph{Effect on explicit dynamics $M$.} This is the clearest
+    example of a \emph{pipeline-shaping} prompt. It explicitly instructs
+    the LLM to replace a one-step morphism
+    \[
+      \tau : \text{question} \to \text{answer}
+    \]
+    by a multi-step trajectory in $N \ltimes E$:
+    \[
+      \tau_1 : \text{question} \to \text{plan},\quad
+      \tau_2 : \text{plan} \to \text{partial result},\ \dots,\ 
+      \tau_k : \text{intermediate state} \to \text{final answer}.
+    \]
+    Under the stochastic dynamics of Appendix~B, this changes both
+    the number of steps $N$ and the per-step hazard profile $(h_n)$:
+    per-step requirements are typically reduced, while opportunities for
+    error detection (by both model and human) are increased.
+
+  \item \emph{Effect on $\mathrm{Req}$.} Breaking a task into substeps
+    often lowers the requirement associated with each individual artifact:
+    it is easier to check ``is this algebraic manipulation correct?''
+    than ``is the whole proof correct?''. The prompt therefore naturally
+    redistributes total requirement across the trajectory rather than
+    concentrating it in a single, high-Req jump.
+
+  \item \emph{Effect on human tacit dynamics.} Step-by-step reasoning
+    aligns better with human cognitive limits: it presents a sequence of
+    smaller, more transparent artifacts to $\mathrm{RB}_H$ for evaluation.
+    This strengthens the human's ability to apply HFD locally and to
+    correct errors before they propagate. In terms of Appendix~B.18, the
+    ``Deep Breath'' prompt is an explicit attempt to exploit a more
+    favorable time--decomposition trade-off.
+\end{enumerate}
+
+Empirically, such prompts are among the most effective at improving
+finite-horizon correctness precisely because they operate on the
+\emph{structure} of the explicit pipeline rather than only on its tone.
+
+\subsection{The ``Stakes'' Prompt}
+
+\begin{quote}
+\textbf{The Stakes.} ``This is very important to my career. You'd better
+be sure.''
+\end{quote}
+
+\paragraph{Mechanism in FRFP terms.}
+
+\begin{enumerate}
+  \item \emph{Effect on explicit dynamics $M$.} Phrases emphasizing high
+    stakes and caution are heavily represented in data where the appropriate
+    response is:
+    \begin{itemize}
+      \item hedging,
+      \item suggesting external verification, or
+      \item narrowing the scope of the answer.
+    \end{itemize}
+    Conditioning on such a prompt tends to move the induced kernel $M$
+    toward:
+    \begin{itemize}
+      \item more conservative speech acts,
+      \item explicit caveats, and
+      \item sometimes explicit recommendations to consult a human expert.
+    \end{itemize}
+
+  \item \emph{Effect on $\mathrm{Req}$.} This prompt foregrounds the
+    requirement function itself: the human is explicitly stating that the
+    context $c$ is high-stakes. In a normative FRFP reading, the
+    requirement $\mathrm{Req}_H(e,c)$ for any endorsed artifact should
+    therefore be substantially higher than in low-stakes chat. The LLM
+    approximates this by increasing the proportion of outputs that encode
+    uncertainty or suggest further checks.
+
+  \item \emph{Effect on human tacit dynamics.} Perhaps most importantly,
+    the prompt serves as a self-reminder for the user: it makes salient
+    that their own tacit degradation $\delta_H$ (tiredness, wishful
+    thinking) ought to be resisted in this interaction. Users who write
+    or read such prompts are more likely to:
+    \begin{itemize}
+      \item cross-check with other sources,
+      \item ask follow-up questions,
+      \item avoid taking the output as decisive.
+    \end{itemize}
+    This is exactly the sort of tacit-side intervention that Appendix~B
+    identifies as necessary for any nontrivial mitigation.
+\end{enumerate}
+
+\subsection{The Self-Check Prompt}
+
+\begin{quote}
+\textbf{The Self-Check.} ``After answering, rate your confidence~0--1.
+If below~0.9, try again.''
+\end{quote}
+
+\paragraph{Mechanism in FRFP terms.}
+
+\begin{enumerate}
+  \item \emph{Effect on explicit dynamics $M$.} This prompt appends two
+    additional stages to the explicit pipeline:
+    \begin{enumerate}
+      \item answer generation: $e \in E$,
+      \item self-evaluation: an explicit scalar $\pi(e) \in [0,1]$,
+      \item conditional revision: if $\pi(e) < 0.9$, produce $e'$.
+    \end{enumerate}
+    In $N \ltimes E$ this is a larger composite morphism than a one-shot
+    answer. It uses the model's internal heuristics about when it is
+    likely to be wrong to steer the dynamics away from low-confidence
+    regions of state space.
+
+  \item \emph{Effect on $\mathrm{Req}$.} The scalar $\pi(e)$ functions
+    as an explicit \emph{proxy} for how demanding the human should be.
+    A low reported confidence is a signal that the artifact should be
+    evaluated under a stricter requirement, or even rejected outright.
+    This puts a (noisy) estimate of internal plausibility into explicit
+    space where the human can use it in their Req\(_H\).
+
+  \item \emph{Effect on human tacit dynamics.} The presence of a reported
+    confidence level gives the human a numerical hook for HFD:
+    \begin{itemize}
+      \item low $\pi(e)$: treat the output as a suggestion, not a belief;
+      \item high but not maximal $\pi(e)$: treat with caution in high-risk
+            contexts.
+    \end{itemize}
+    In practice, users often treat confidence scores as prompts to consult
+    other tools or experts, which again corresponds to modifying the tacit
+    process $T^e_H$ in the way Phase--3 recommends (additional grounding,
+    reduced degradation).
+\end{enumerate}
+
+\subsection{Limitations and Structural Perspective}
+
+From the FRFP perspective, all five prompt patterns can be summarized as:
+
+\begin{itemize}
+  \item reshaping the explicit pipeline in $N \ltimes E$ (more steps,
+        different kernels $M$),
+  \item altering the effective requirement schedule $\mathrm{Req}(e,c)$
+        by changing the intended strength of claims, and
+  \item nudging the human tacit process toward more attentive and skeptical
+        states in $T^e_H$ for the duration of the interaction.
+\end{itemize}
+
+They are therefore valuable \emph{finite-horizon} interventions: for a given
+task and risk budget $\varepsilon$, they can materially change the hazard
+profile $(h_n)$ and enlarge the safe horizon $H_P(\varepsilon)$ of the joint
+pipeline (Appendix~B.16). However, they do not and cannot:
+
+\begin{itemize}
+  \item give the LLM genuine grounding beyond the text logs it was trained on,
+  \item alter the fundamental explicit--tacit separation (ETS),
+  \item or move the combined human--LLM system out of the regime where
+        hallucination is inevitable over unbounded horizons (Appendix~B.29
+        and Appendix~C.11).
+\end{itemize}
+
+In this sense, there is no single ``clever prompt'' that can make hallucination
+impossible. What FRFP does provide is a way to classify and compare prompt
+design patterns by which structural levers they pull, and to understand why
+some patterns---especially those that change the pipeline structure and
+human oversight, rather than only the tone of the answer---tend to be more
+effective in practice.

@@ -1,0 +1,2009 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.14)  5 JUN 2026 01:12
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**main.tex
+(./main.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-03-20>
+(./Definitions/mdpi.cls
+Document Class: Definitions/mdpi 02/12/2025 MDPI paper class
+(/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count275
+\c@section=\count276
+\c@subsection=\count277
+\c@subsubsection=\count278
+\c@paragraph=\count279
+\c@subparagraph=\count280
+\c@figure=\count281
+\c@table=\count282
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen150
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
+\calc@Acount=\count283
+\calc@Bcount=\count284
+\calc@Adimen=\dimen151
+\calc@Bdimen=\dimen152
+\calc@Askip=\skip51
+\calc@Bskip=\skip52
+LaTeX Info: Redefining \setlength on input line 86.
+LaTeX Info: Redefining \addtolength on input line 87.
+\calc@Ccount=\count285
+\calc@Cskip=\skip53
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tools/indentfirst.sty
+Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
+\f@nch@headwidth=\skip54
+\f@nch@offset@elh=\skip55
+\f@nch@offset@erh=\skip56
+\f@nch@offset@olh=\skip57
+\f@nch@offset@orh=\skip58
+\f@nch@offset@elf=\skip59
+\f@nch@offset@erf=\skip60
+\f@nch@offset@olf=\skip61
+\f@nch@offset@orf=\skip62
+\f@nch@height=\skip63
+\f@nch@footalignment=\skip64
+\f@nch@widthL=\skip65
+\f@nch@widthC=\skip66
+\f@nch@widthR=\skip67
+\@temptokenb=\toks19
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks20
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen153
+\Gin@req@width=\dimen154
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
+Package: epstopdf 2020-01-24 v2.11 Conversion with epstopdf on the fly (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/lastpage/lastpage.sty
+Package: lastpage 2025/08/14 v2.1h lastpage: 2.09 or 2e? (HMM)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/lastpage/lastpage2e.sty
+Package: lastpage2e 2025/08/14 v2.1h Decide which 2e lastpage version to use (HMM)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/lastpage/lastpagemodern.sty
+Package: lastpagemodern 2025-08-14 v2.1h Refers to last page's name (HMM; JPG)
+\c@lastpagecount=\count286
+) 
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count287
+\float@exts=\toks21
+\float@box=\box53
+\@float@everytoks=\toks22
+\@floatcapt=\box54
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip68
+
+For additional information on amsmath, use the `?' option.
+(/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks23
+\ex@=\dimen155
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen156
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count288
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count289
+\leftroot@=\count290
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count291
+\DOTSCASE@=\count292
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box55
+\strutbox@=\box56
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen157
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count293
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count294
+\dotsspace@=\muskip17
+\c@parentequation=\count295
+\dspbrk@lvl=\count296
+\tag@help=\toks24
+\row@=\count297
+\column@=\count298
+\maxfields@=\count299
+\andhelp@=\toks25
+\eqnshift@=\dimen158
+\alignsep@=\dimen159
+\tagshift@=\dimen160
+\tagwidth@=\dimen161
+\totwidth@=\dimen162
+\lineht@=\dimen163
+\@envbody=\toks26
+\multlinegap=\skip69
+\multlinetaggap=\skip70
+\mathdisplay@stack=\toks27
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2026/03/08 line numbers on paragraphs v5.9
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count300
+)
+\linenopenalty=\count301
+\output=\toks28
+\linenoprevgraf=\count302
+\linenumbersep=\dimen164
+\linenumberwidth=\dimen165
+\c@linenumber=\count303
+\c@pagewiselinenumber=\count304
+\c@LN@truepage=\count305
+\c@internallinenumber=\count306
+\c@internallinenumbers=\count307
+\quotelinenumbersep=\dimen166
+\bframerule=\dimen167
+\bframesep=\dimen168
+\bframebox=\box57
+\@LN@amsmath@ams@eqpen=\count308
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2022/12/04 v6.7b set line spacing
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip71
+\enit@outerparindent=\dimen169
+\enit@toks=\toks29
+\enit@inbox=\box58
+\enit@count@id=\count309
+\enitdp@description=\count310
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/mathpazo.sty
+Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup6
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen170
+\lightrulewidth=\dimen171
+\cmidrulewidth=\dimen172
+\belowrulesep=\dimen173
+\belowbottomsep=\dimen174
+\aboverulesep=\dimen175
+\abovetopsep=\dimen176
+\cmidrulesep=\dimen177
+\cmidrulekern=\dimen178
+\defaultaddspace=\dimen179
+\@cmidla=\count311
+\@cmidlb=\count312
+\@aboverulesep=\dimen180
+\@belowrulesep=\dimen181
+\@thisruleclass=\count313
+\@lastruleclass=\count314
+\@thisrulewidth=\dimen182
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2025/01/04 v2.17 Sectioning titles
+\ttl@box=\box59
+\beforetitleunit=\skip72
+\aftertitleunit=\skip73
+\ttl@plus=\dimen183
+\ttl@minus=\dimen184
+\ttl@toksa=\toks30
+\titlewidth=\dimen185
+\titlewidthlast=\dimen186
+\titlewidthfirst=\dimen187
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tabto-ltx/tabto.sty
+Package: tabto 2018/12/28  v 1.4  Another tabbing mechanism
+\CurrentLineWidth=\dimen188
+\TabPrevPos=\dimen189
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2026/05/01 v1.0l Color table columns (DPC)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen190
+\ar@mcellbox=\box60
+\extrarowheight=\dimen191
+\NC@list=\toks31
+\extratabsurround=\skip74
+\backup@length=\skip75
+\ar@cellbox=\box61
+)
+\everycr=\toks32
+\minrowclearance=\skip76
+\rownum=\count315
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/soul/soul.sty
+Package: soul 2026-03-06 v3.2 Permit use of UTF-8 characters in soul (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/soul/soul-ori.sty
+Package: soul-ori 2026-03-06 v3.2 letterspacing/underlining (mf)
+\SOUL@word=\toks33
+\SOUL@lasttoken=\toks34
+\SOUL@syllable=\toks35
+\SOUL@cmds=\toks36
+\SOUL@buffer=\toks37
+\SOUL@token=\toks38
+\SOUL@syllgoal=\dimen192
+\SOUL@syllwidth=\dimen193
+\SOUL@charkern=\dimen194
+\SOUL@hyphkern=\dimen195
+\SOUL@dimen=\dimen196
+\SOUL@dimeni=\dimen197
+\SOUL@minus=\count316
+\SOUL@comma=\count317
+\SOUL@apo=\count318
+\SOUL@grave=\count319
+\SOUL@spaceskip=\skip77
+\SOUL@ttwidth=\dimen198
+\SOUL@uldp=\dimen199
+\SOUL@ulht=\dimen256
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip78
+\multirow@cntb=\count320
+\multirow@dima=\skip79
+\bigstrutjot=\dimen257
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2026/03/01 v3.2d Micro-typographical refinements (RS)
+\MT@toks=\toks39
+\MT@tempbox=\box62
+\MT@count=\count321
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1084.
+LaTeX Info: Redefining \leftprotrusion on input line 1085.
+\MT@prot@toks=\toks40
+LaTeX Info: Redefining \rightprotrusion on input line 1104.
+LaTeX Info: Redefining \textls on input line 1449.
+\MT@outer@kern=\dimen258
+LaTeX Info: Redefining \microtypecontext on input line 2053.
+LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
+\MT@listname@count=\count322
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2026/03/01 v3.2d Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 944.
+LaTeX Info: Redefining \lslig on input line 944.
+\MT@outer@space=\skip80
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2026/03/01 v3.2d microtype main configuration file (RS)
+)
+LaTeX Info: Redefining \microtypesetup on input line 3065.
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks41
+\pgfutil@tempdima=\dimen259
+\pgfutil@tempdimb=\dimen260
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box63
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks42
+\pgfkeys@temptoks=\toks43
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks44
+))
+\pgf@x=\dimen261
+\pgf@y=\dimen262
+\pgf@xa=\dimen263
+\pgf@ya=\dimen264
+\pgf@xb=\dimen265
+\pgf@yb=\dimen266
+\pgf@xc=\dimen267
+\pgf@yc=\dimen268
+\pgf@xd=\dimen269
+\pgf@yd=\dimen270
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count323
+\c@pgf@countb=\count324
+\c@pgf@countc=\count325
+\c@pgf@countd=\count326
+\t@pgf@toka=\toks45
+\t@pgf@tokb=\toks46
+\t@pgf@tokc=\toks47
+\pgf@sys@id@count=\count327
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+))) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count328
+\pgfsyssoftpath@bigbuffer@items=\count329
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen271
+\pgfmath@count=\count330
+\pgfmath@box=\box64
+\pgfmath@toks=\toks48
+\pgfmath@stack@operand=\toks49
+\pgfmath@stack@operation=\toks50
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count331
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen272
+\pgf@picmaxx=\dimen273
+\pgf@picminy=\dimen274
+\pgf@picmaxy=\dimen275
+\pgf@pathminx=\dimen276
+\pgf@pathmaxx=\dimen277
+\pgf@pathminy=\dimen278
+\pgf@pathmaxy=\dimen279
+\pgf@xx=\dimen280
+\pgf@xy=\dimen281
+\pgf@yx=\dimen282
+\pgf@yy=\dimen283
+\pgf@zx=\dimen284
+\pgf@zy=\dimen285
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen286
+\pgf@path@lasty=\dimen287
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen288
+\pgf@shorten@start@additional=\dimen289
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box65
+\pgf@hbox=\box66
+\pgf@layerbox@main=\box67
+\pgf@picture@serial@count=\count332
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen290
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen291
+\pgf@pt@y=\dimen292
+\pgf@pt@temp=\dimen293
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen294
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen295
+\pgf@sys@shading@range@num=\count333
+\pgf@shadingcount=\count334
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box68
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box69
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen296
+\pgf@nodesepend=\dimen297
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen298
+\pgffor@skip=\dimen299
+\pgffor@stack=\toks51
+\pgffor@toks=\toks52
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count335
+\pgfplotmarksize=\dimen300
+)
+\tikz@lastx=\dimen301
+\tikz@lasty=\dimen302
+\tikz@lastxsaved=\dimen303
+\tikz@lastysaved=\dimen304
+\tikz@lastmovetox=\dimen305
+\tikz@lastmovetoy=\dimen306
+\tikzleveldistance=\dimen307
+\tikzsiblingdistance=\dimen308
+\tikz@figbox=\box70
+\tikz@figbox@bg=\box71
+\tikz@tempbox=\box72
+\tikz@tempbox@bg=\box73
+\tikztreelevel=\count336
+\tikznumberofchildren=\count337
+\tikznumberofcurrentchild=\count338
+\tikz@fig@count=\count339
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count340
+\pgfmatrixcurrentcolumn=\count341
+\pgf@matrix@numberofcolumns=\count342
+)
+\tikz@expandcount=\count343
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/changepage/changepage.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count344
+\cp@tempcnt=\count345
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/frankenstein/attrib.sty
+Package: attrib 2001/08/31 v1.3 attribution of block elements (Frankenstein's hat)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/frankenstein/moredefs.sty
+Package: moredefs 2001/08/31 v1.8 more defining commands (Frankenstein's brain)
+\sc@toks@a=\toks53
+\sc@toks@b=\toks54
+)
+\AttribMinSkip=\skip81
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/was/upgreek.sty
+Package: upgreek 2003/02/12 v2.0 (WaS)
+Package upgreek Info: Using Euler Roman for upright Greek on input line 31.
+\symugrf@m=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `ugrf@m' in version `bold'
+(Font)                  U/eur/m/n --> U/eur/b/n on input line 38.
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+\TX@col@width=\dimen309
+\TX@old@table=\dimen310
+\TX@old@col=\dimen311
+\TX@target=\dimen312
+\TX@delta=\dimen313
+\TX@cols=\count346
+\TX@ftn=\toks55
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/pbox/pbox.sty
+Package: pbox 2011/12/07 v1.2 Dynamic parboxes
+\pb@xlen=\skip82
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+Package: ragged2e 2023/06/22 v3.6 ragged2e Package
+\CenteringLeftskip=\skip83
+\RaggedLeftLeftskip=\skip84
+\RaggedRightLeftskip=\skip85
+\CenteringRightskip=\skip86
+\RaggedLeftRightskip=\skip87
+\RaggedRightRightskip=\skip88
+\CenteringParfillskip=\skip89
+\RaggedLeftParfillskip=\skip90
+\RaggedRightParfillskip=\skip91
+\JustifyingParfillskip=\skip92
+\CenteringParindent=\skip93
+\RaggedLeftParindent=\skip94
+\RaggedRightParindent=\skip95
+\JustifyingParindent=\skip96
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has section divisions on input line 51.
+\cftparskip=\skip97
+\cftbeforetoctitleskip=\skip98
+\cftaftertoctitleskip=\skip99
+\cftbeforepartskip=\skip100
+\cftpartnumwidth=\skip101
+\cftpartindent=\skip102
+\cftbeforesecskip=\skip103
+\cftsecindent=\skip104
+\cftsecnumwidth=\skip105
+\cftbeforesubsecskip=\skip106
+\cftsubsecindent=\skip107
+\cftsubsecnumwidth=\skip108
+\cftbeforesubsubsecskip=\skip109
+\cftsubsubsecindent=\skip110
+\cftsubsubsecnumwidth=\skip111
+\cftbeforeparaskip=\skip112
+\cftparaindent=\skip113
+\cftparanumwidth=\skip114
+\cftbeforesubparaskip=\skip115
+\cftsubparaindent=\skip116
+\cftsubparanumwidth=\skip117
+\cftbeforeloftitleskip=\skip118
+\cftafterloftitleskip=\skip119
+\cftbeforefigskip=\skip120
+\cftfigindent=\skip121
+\cftfignumwidth=\skip122
+\cftbeforelottitleskip=\skip123
+\cftafterlottitleskip=\skip124
+\cftbeforetabskip=\skip125
+\cfttabindent=\skip126
+\cfttabnumwidth=\skip127
+\cftbeforesubfigskip=\skip128
+\cftsubfigindent=\skip129
+\cftsubfignumwidth=\skip130
+\cftbeforesubtabskip=\skip131
+\cftsubtabindent=\skip132
+\cftsubtabnumwidth=\skip133
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/marginnote/marginnote.sty
+Package: marginnote 2026/01/02 1.4d non floating margin notes for LaTeX 
+\c@mn@abspage=\count347
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/marginfix/marginfix.sty
+Package: marginfix 2020/05/06 v1.2 Fix Margin Paragraphs
+\Mfx@inject@insert=\insert252
+\Mfx@marginbox=\box74
+\Mfx@marginpos@min=\dimen314
+\Mfx@marginpos@max=\dimen315
+\Mfx@marginspace=\dimen316
+\Mfx@marginheight=\dimen317
+\Mfx@piece@content=\box75
+\Mfx@piece@count=\count348
+\Mfx@mparshift=\dimen318
+\marginheightadjustment=\dimen319
+\marginposadjustment=\dimen320
+\Mfx@strutheight=\dimen321
+)
+==> First Aid for marginfix.sty applied!
+(/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/enotez/enotez.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2026-03-20 L3 programming layer (loader) 
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count349
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2025-10-09 L3 Experimental document command parser
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+Package: l3keys2e 2025-10-09 LaTeX2e option processing using LaTeX3 keys
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate.sty
+Package: xtemplate 2025-10-09 L3 Experimental prototype document functions
+)
+Package: enotez 2022/01/04 v0.10d Endnotes for LaTeX2e
+\l__enotez_list_preamble_skip=\skip134
+\l__enotez_list_postamble_skip=\skip135
+\g__enotez_endnote_id_int=\count350
+\g__enotez_endnote_mark_int=\count351
+\c@endnote=\count352
+\g__enotez_list_printed_int=\count353
+\l__enotez_tmpa_int=\count354
+
+LaTeX template Info: Declaring template type 'enotez-list' taking 1
+(template)           argument(s) on line 473.
+
+\l__enotez_list_notes_sep_dim=\dimen322
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/translations/translations.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages (CN)
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/xstring/xstring.sty (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/xstring/xstring.tex
+\xs_counta=\count355
+\xs_countb=\count356
+)
+Package: xstring 2023/08/22 v1.86 String manipulations (CT)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen323
+\captionmargin=\dimen324
+\caption@leftmargin=\dimen325
+\caption@rightmargin=\dimen326
+\caption@width=\dimen327
+\caption@indent=\dimen328
+\caption@parindent=\dimen329
+\caption@hangindent=\dimen330
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count357
+\c@continuedfloat=\count358
+Package caption Info: changepage package is loaded.
+\caption@adjustwidth@hsize=\dimen331
+\caption@adjustwidth@linewidth=\dimen332
+Package caption Info: float package is loaded.
+)
+\c@KVtest=\count359
+\sf@farskip=\skip136
+\sf@captopadj=\dimen333
+\sf@capskip=\skip137
+\sf@nearskip=\skip138
+\c@subfigure=\count360
+\c@subfigure@save=\count361
+\c@lofdepth=\count362
+\c@subtable=\count363
+\c@subtable@save=\count364
+\c@lotdepth=\count365
+\sf@top=\skip139
+\sf@bottom=\skip140
+) (./Definitions/journalnames.tex) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks56
+\thm@bodyfont=\toks57
+\thm@headfont=\toks58
+\thm@notefont=\toks59
+\thm@headpunct=\toks60
+\thm@preskip=\skip141
+\thm@postskip=\skip142
+\thm@headsep=\skip143
+\dth@everypar=\toks61
+)
+\c@theorem=\count366
+\c@lemma=\count367
+\c@corollary=\count368
+\c@proposition=\count369
+\c@characterization=\count370
+\c@property=\count371
+\c@problem=\count372
+\c@example=\count373
+\c@examplesanddefinitions=\count374
+\c@remark=\count375
+\c@definition=\count376
+\c@hypothesis=\count377
+\c@notation=\count378
+\c@assumption=\count379
+\c@algorithm=\count380
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip144
+\bibsep=\skip145
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count381
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/koma-script/scrextend.sty
+Package: scrextend 2026/02/02 v3.49.2 KOMA-Script package (extend other classes with features of KOMA-Script classes)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/koma-script/scrkbase.sty
+Package: scrkbase 2026/02/02 v3.49.2 KOMA-Script package (KOMA-Script-dependent basics and keyval usage)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2026/02/02 v3.49.2 KOMA-Script package (KOMA-Script-independent basics and keyval usage)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2026/02/02 v3.49.2 KOMA-Script package (file load hooks)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/koma-script/scrlfile-hook.sty
+Package: scrlfile-hook 2026/02/02 v3.49.2 KOMA-Script package (using LaTeX hooks)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/koma-script/scrlogo.sty
+Package: scrlogo 2026/02/02 v3.49.2 KOMA-Script package (logo)
+)))
+Applying: [2021/05/01] Usage of raw or classic option list on input line 254.
+Already applied: [0000/00/00] Usage of raw or classic option list on input line 370.
+)))
+\MyLen=\skip146
+\MyBox=\box76
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/alphalph/alphalph.sty
+Package: alphalph 2019/12/09 v2.6 Convert numbers to letters (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+))
+\leftcolumnlength=\skip147
+\extralength=\skip148
+\fulllength=\skip149
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2026/03/07 v6.0 Page Geometry
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count382
+\Gm@cntv=\count383
+\c@Gm@tempcnt=\count384
+\Gm@bindingoffset=\dimen334
+\Gm@wd@mp=\dimen335
+\Gm@odd@mp=\dimen336
+\Gm@even@mp=\dimen337
+\Gm@layoutwidth=\dimen338
+\Gm@layoutheight=\dimen339
+\Gm@layouthoffset=\dimen340
+\Gm@layoutvoffset=\dimen341
+\Gm@dimlist=\toks62
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/newfloat/newfloat.sty
+Package: newfloat 2023/10/01 v1.2 Defining new floating environments (AR)
+)
+Package newfloat Info: New float `listing' with options `' on input line 1635.
+\c@listing=\count385
+Package newfloat Info: float type `listing'=4 on input line 1635.
+\c@lolistingdepth=\count386
+Package newfloat Info: New float `boxenv' with options `name=Box' on input line 1636.
+\c@boxenv=\count387
+Package newfloat Info: float type `boxenv'=8 on input line 1636.
+\c@loboxenvdepth=\count388
+Package newfloat Info: New float `chart' with options `' on input line 1637.
+\c@chart=\count389
+Package newfloat Info: float type `chart'=16 on input line 1637.
+\c@lochartdepth=\count390
+Package newfloat Info: New float `scheme' with options `' on input line 1638.
+\c@scheme=\count391
+Package newfloat Info: float type `scheme'=32 on input line 1638.
+\c@loschemedepth=\count392
+Package newfloat Info: New float `figurewide' with options `' on input line 1639.
+\c@figurewide=\count393
+Package newfloat Info: float type `figurewide'=64 on input line 1639.
+\c@lofigurewidedepth=\count394
+Package newfloat Info: New float `graph' with options `' on input line 1640.
+\c@graph=\count395
+Package newfloat Info: float type `graph'=128 on input line 1640.
+\c@lographdepth=\count396
+\@justcentbox=\box77
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/seqsplit/seqsplit.sty
+Package: seqsplit 2006/08/07 v0.1 Splitting long sequences (DNA, RNA, proteins, etc.) 
+)
+\cellWidtha=\skip150
+\cellWidthb=\skip151
+\cellWidthc=\skip152
+\cellWidthd=\skip153
+\cellWidthe=\skip154
+\cellWidthf=\skip155
+\cellWidthg=\skip156
+\cellWidthh=\skip157
+\cellWidthi=\skip158
+\cellWidthj=\skip159
+\cellWidthk=\skip160
+\cellWidthl=\skip161
+\cellWidthm=\skip162
+\cellWidthn=\skip163
+\cellWidtho=\skip164
+\cellWidthp=\skip165
+\cellWidthq=\skip166
+\cellWidthr=\skip167
+\cellWidths=\skip168
+\cellWidtht=\skip169
+\cellWidthu=\skip170
+\cellWidthv=\skip171
+\cellWidthw=\skip172
+\cellWidthx=\skip173
+\cellWidthy=\skip174
+\cellWidthz=\skip175
+\cellWidthA=\skip176
+\cellWidthB=\skip177
+\cellWidthC=\skip178
+\cellWidthD=\skip179
+\cellWidthE=\skip180
+\cellWidthF=\skip181
+\cellWidthG=\skip182
+\cellWidthH=\skip183
+\cellWidthI=\skip184
+\cellWidthJ=\skip185
+\cellWidthK=\skip186
+\cellWidthL=\skip187
+\cellWidthM=\skip188
+\cellWidthN=\skip189
+\cellWidthO=\skip190
+\cellWidthP=\skip191
+\cellWidthQ=\skip192
+\cellWidthR=\skip193
+\cellWidthS=\skip194
+\cellWidthT=\skip195
+\cellWidthU=\skip196
+\cellWidthV=\skip197
+\cellWidthW=\skip198
+\cellWidthX=\skip199
+\cellWidthY=\skip256
+\cellWidthZ=\skip257
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
+)
+\g_MT_multlinerow_int=\count397
+\l_MT_multwidth_dim=\dimen342
+\origjot=\skip258
+\l_MT_shortvdotswithinadjustabove_dim=\dimen343
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen344
+\l_MT_above_intertext_sep=\dimen345
+\l_MT_below_intertext_sep=\dimen346
+\l_MT_above_shortintertext_sep=\dimen347
+\l_MT_below_shortintertext_sep=\dimen348
+\xmathstrut@box=\box78
+\xmathstrut@dim=\dimen349
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
+\LTleft=\skip259
+\LTright=\skip260
+\LTpre=\skip261
+\LTpost=\skip262
+\LTchunksize=\count398
+\LTcapwidth=\dimen350
+\LT@head=\box79
+\LT@firsthead=\box80
+\LT@foot=\box81
+\LT@lastfoot=\box82
+\LT@gbox=\box83
+\LT@cols=\count399
+\LT@rows=\count400
+\c@LT@tables=\count401
+\c@LT@chunks=\count402
+\LT@p@ftn=\toks63
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count403
+\lst@gtempboxa=\box84
+\lst@token=\toks64
+\lst@length=\count404
+\lst@currlwidth=\dimen351
+\lst@column=\count405
+\lst@pos=\count406
+\lst@lostspace=\dimen352
+\lst@width=\dimen353
+\lst@newlines=\count407
+\lst@lineno=\count408
+\lst@maxwidth=\dimen354
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/listings/lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+\c@lstnumber=\count409
+\lst@skipnumbers=\count410
+\lst@framebox=\box85
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2025/11/14 1.11b listings configuration
+))
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
+
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+(/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+Package: tcolorbox 2026/05/28 version 6.10.0 text color boxes
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks65
+\verbatim@line=\toks66
+\verbatim@in@stream=\read3
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\tcb@titlebox=\box86
+\tcb@upperbox=\box87
+\tcb@lowerbox=\box88
+\tcb@phantombox=\box89
+\c@tcbbreakpart=\count411
+\c@tcblayer=\count412
+\c@tcolorbox@number=\count413
+\l__tcobox_tmpa_box=\box90
+\l__tcobox_tmpa_dim=\dimen355
+\tcb@temp=\box91
+\tcb@temp=\box92
+\tcb@temp=\box93
+\tcb@temp=\box94
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/mdframed/mdframed.sty
+Package: mdframed 2013/07/01 1.9b: mdframed
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/zref/zref-abspage.sty
+Package: zref-abspage 2026-03-07 v2.37 Module abspage for zref (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/zref/zref-base.sty
+Package: zref-base 2026-03-07 v2.37 Module base for zref (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+Package zref Info: New property list: main on input line 767.
+Package zref Info: New property: default on input line 768.
+Package zref Info: New property: page on input line 769.
+)
+\c@abspage=\count414
+Package zref Info: New property: abspage on input line 67.
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/needspace/needspace.sty
+Package: needspace 2025/03/13 v1.3e reserve vertical space
+)
+\mdf@templength=\skip263
+\c@mdf@globalstyle@cnt=\count415
+\mdf@skipabove@length=\skip264
+\mdf@skipbelow@length=\skip265
+\mdf@leftmargin@length=\skip266
+\mdf@rightmargin@length=\skip267
+\mdf@innerleftmargin@length=\skip268
+\mdf@innerrightmargin@length=\skip269
+\mdf@innertopmargin@length=\skip270
+\mdf@innerbottommargin@length=\skip271
+\mdf@splittopskip@length=\skip272
+\mdf@splitbottomskip@length=\skip273
+\mdf@outermargin@length=\skip274
+\mdf@innermargin@length=\skip275
+\mdf@linewidth@length=\skip276
+\mdf@innerlinewidth@length=\skip277
+\mdf@middlelinewidth@length=\skip278
+\mdf@outerlinewidth@length=\skip279
+\mdf@roundcorner@length=\skip280
+\mdf@footenotedistance@length=\skip281
+\mdf@userdefinedwidth@length=\skip282
+\mdf@needspace@length=\skip283
+\mdf@frametitleaboveskip@length=\skip284
+\mdf@frametitlebelowskip@length=\skip285
+\mdf@frametitlerulewidth@length=\skip286
+\mdf@frametitleleftmargin@length=\skip287
+\mdf@frametitlerightmargin@length=\skip288
+\mdf@shadowsize@length=\skip289
+\mdf@extratopheight@length=\skip290
+\mdf@subtitleabovelinewidth@length=\skip291
+\mdf@subtitlebelowlinewidth@length=\skip292
+\mdf@subtitleaboveskip@length=\skip293
+\mdf@subtitlebelowskip@length=\skip294
+\mdf@subtitleinneraboveskip@length=\skip295
+\mdf@subtitleinnerbelowskip@length=\skip296
+\mdf@subsubtitleabovelinewidth@length=\skip297
+\mdf@subsubtitlebelowlinewidth@length=\skip298
+\mdf@subsubtitleaboveskip@length=\skip299
+\mdf@subsubtitlebelowskip@length=\skip300
+\mdf@subsubtitleinneraboveskip@length=\skip301
+\mdf@subsubtitleinnerbelowskip@length=\skip302
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/mdframed/md-frame-0.mdf
+File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
+)
+\mdf@frametitlebox=\box95
+\mdf@footnotebox=\box96
+\mdf@splitbox@one=\box97
+\mdf@splitbox@two=\box98
+\mdf@splitbox@save=\box99
+\mdfsplitboxwidth=\skip303
+\mdfsplitboxtotalwidth=\skip304
+\mdfsplitboxheight=\skip305
+\mdfsplitboxdepth=\skip306
+\mdfsplitboxtotalheight=\skip307
+\mdfframetitleboxwidth=\skip308
+\mdfframetitleboxtotalwidth=\skip309
+\mdfframetitleboxheight=\skip310
+\mdfframetitleboxdepth=\skip311
+\mdfframetitleboxtotalheight=\skip312
+\mdffootnoteboxwidth=\skip313
+\mdffootnoteboxtotalwidth=\skip314
+\mdffootnoteboxheight=\skip315
+\mdffootnoteboxdepth=\skip316
+\mdffootnoteboxtotalheight=\skip317
+\mdftotallinewidth=\skip318
+\mdfboundingboxwidth=\skip319
+\mdfboundingboxtotalwidth=\skip320
+\mdfboundingboxheight=\skip321
+\mdfboundingboxdepth=\skip322
+\mdfboundingboxtotalheight=\skip323
+\mdf@freevspace@length=\skip324
+\mdf@horizontalwidthofbox@length=\skip325
+\mdf@verticalmarginwhole@length=\skip326
+\mdf@horizontalspaceofbox=\skip327
+\mdfsubtitleheight=\skip328
+\mdfsubsubtitleheight=\skip329
+\c@mdfcountframes=\count416
+
+****** mdframed patching \endmdf@trivlist
+
+****** -- success******
+
+\mdf@envdepth=\count417
+\c@mdf@env@i=\count418
+\c@mdf@env@ii=\count419
+\c@mdf@zref@counter=\count420
+Package zref Info: New property: mdf@pagevalue on input line 895.
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2025/02/26 v1.3c Adjusting TeX boxes (trim, clip, ...)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2025/11/04 v2.10 package option processing (HA)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks67
+\XKV@tempa@toks=\toks68
+\XKV@tempb@toks=\toks69
+)
+\XKV@depth=\count421
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-ends (calc, etex, pgfmath)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2025/02/21 v1.2a Trim and clip general TeX material
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
+\collectedbox=\box100
+)
+\tc@llx=\dimen356
+\tc@lly=\dimen357
+\tc@urx=\dimen358
+\tc@ury=\dimen359
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2025/02/26 v2.3 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen360
+\adjbox@Height=\dimen361
+\adjbox@Depth=\dimen362
+\adjbox@Totalheight=\dimen363
+\adjbox@pwidth=\dimen364
+\adjbox@pheight=\dimen365
+\adjbox@pdepth=\dimen366
+\adjbox@ptotalheight=\dimen367
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
+\c@checkoddpage=\count422
+LaTeX Info: Redefining \checkoddpage on input line 45.
+))
+\c@axiomctr=\count423
+\c@axiom_env=\count424
+\c@contributionctr=\count425
+\c@contribution=\count426
+\c@notectr=\count427
+\c@noteenv=\count428
+Package translations Info: No language package found. I am going to use `english' as default language. on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2026-04-24 v7.01q Hypertext links for LaTeX
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count429
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
+)
+\@linkdim=\dimen368
+\Hy@linkcounter=\count430
+\Hy@pagecounter=\count431
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2026-04-24 v7.01q Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count432
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2026-04-24 v7.01q Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `unicode' set `true' on input line 4070.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 4070.
+Package hyperref Info: Option `pdffitwindow' set `true' on input line 4070.
+Package hyperref Info: Option `colorlinks' set `true' on input line 4070.
+Package hyperref Info: Option `hyperfootnotes' set `true' on input line 4070.
+Package hyperref Info: Hyper figures OFF on input line 4199.
+Package hyperref Info: Link nesting OFF on input line 4204.
+Package hyperref Info: Hyper index ON on input line 4207.
+Package hyperref Info: Plain pages OFF on input line 4214.
+Package hyperref Info: Backreferencing OFF on input line 4219.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4466.
+\c@Hy@tempcnt=\count433
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4805.
+\XeTeXLinkMargin=\dimen369
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count434
+\Field@Width=\dimen370
+\Fld@charsize=\dimen371
+Package hyperref Info: Hyper figures OFF on input line 6091.
+Package hyperref Info: Link nesting OFF on input line 6096.
+Package hyperref Info: Hyper index ON on input line 6099.
+Package hyperref Info: backreferencing OFF on input line 6106.
+Package hyperref Info: Link coloring ON on input line 6109.
+Package hyperref Info: Link coloring with OCG OFF on input line 6116.
+Package hyperref Info: PDF/A mode OFF on input line 6121.
+\Hy@abspage=\count435
+\c@Item=\count436
+\c@Hfootnote=\count437
+)
+Package hyperref Info: Driver: hpdftex.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2026-04-24 v7.01q Hyperref driver for pdfTeX
+Package hyperref Info: \pdfmajorversion.\pdfminorversion:=1.7 on input line 204.
+\HyAnn@Count=\count438
+\Fld@listcount=\count439
+\c@bookmark@seq@number=\count440
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
+)
+\Hy@SectionHShift=\skip330
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/cleveref/cleveref.sty
+Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
+Package cleveref Info: `hyperref' support loaded on input line 2370.
+LaTeX Info: Redefining \cref on input line 2370.
+LaTeX Info: Redefining \Cref on input line 2370.
+LaTeX Info: Redefining \crefrange on input line 2370.
+LaTeX Info: Redefining \Crefrange on input line 2370.
+LaTeX Info: Redefining \cpageref on input line 2370.
+LaTeX Info: Redefining \Cpageref on input line 2370.
+LaTeX Info: Redefining \cpagerefrange on input line 2370.
+LaTeX Info: Redefining \Cpagerefrange on input line 2370.
+LaTeX Info: Redefining \labelcref on input line 2370.
+LaTeX Info: Redefining \labelcpageref on input line 2370.
+Package cleveref Info: `amsthm' support loaded on input line 3026.
+Package cleveref Info: `listings' support loaded on input line 3131.
+Package cleveref Info: `subfig' support loaded on input line 3164.
+Package cleveref Info: always capitalise cross-reference names on input line 7825.
+Package cleveref Info: always capitalise cross-reference names on input line 7852.
+Package cleveref Info: no abbreviation of names on input line 7852.
+)
+==> First Aid for cleveref.sty applied!
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 195.
+(/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/t1ppl.fd
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
+) (./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Info: Redefining \microtypecontext on input line 195.
+Package microtype Info: Applying patch `item' on input line 195.
+Package microtype Info: Applying patch `toc' on input line 195.
+Package microtype Info: Applying patch `eqnum' on input line 195.
+Package microtype Info: Applying patch `footnote' on input line 195.
+Package microtype Info: Applying patch `verbatim' on input line 195.
+LaTeX Info: Redefining \microtypesetup on input line 195.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+Package microtype Info: Patching command `\showhyphens'.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/microtype/mt-ppl.cfg
+File: mt-ppl.cfg 2005/11/16 v1.6 microtype config. file: Palatino (RS)
+) (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 195.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: longtable package is loaded.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
+Package caption Info: scrextend package is loaded.
+\caption@addmargin@hsize=\dimen372
+\caption@addmargin@linewidth=\dimen373
+Package caption Info: End \AtBeginDocument code.
+
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: includehead includefoot 
+* h-part:(L,W,R)=(76.82234pt, 443.86319pt, 76.82234pt)
+* v-part:(T,H,B)=(38.41139pt, 775.90643pt, 30.72902pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=443.86319pt
+* \textheight=708.90643pt
+* \oddsidemargin=4.55235pt
+* \evensidemargin=4.55235pt
+* \topmargin=-33.8586pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=17.07182pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemargintrue
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package newfloat Info: `float' package detected.
+\c@lstlisting=\count441
+Package hyperref Info: Link coloring ON on input line 195.
+(./main.out) (./main.out)
+\@outlinefile=\write4
+\openout4 = `main.out'.
+
+LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/ot1ppl.fd
+File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
+)
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/omlzplm.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/omszplm.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/omxzplm.fd
+File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
+)
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 195.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 195.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 195.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 195.
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 195.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/ot1zplm.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `zplm' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/microtype/mt-eur.cfg
+File: mt-eur.cfg 2006/07/31 v1.1 microtype config. file: AMS Euler Roman (RS)
+)
+LaTeX Font Info:    Redeclaring symbol font `AMSb' on input line 195.
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `normal'
+(Font)                  U/msb/m/n --> U/msb/m/n on input line 195.
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `bold'
+(Font)                  U/msb/m/n --> U/msb/m/n on input line 195.
+Package marginnote Info: Margin note 1.1 is on absolute page 1 on input line 195.
+Package marginnote Info: right page because not two side mode on input line 195.
+Package marginnote Info: xpos seems to be 76.82234pt on input line 195.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 195.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 195.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 195.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 195.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [1
+
+{/home/vnadendla/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/home/vnadendla/.TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}] (./main.toc [2])
+\tf@toc=\write5
+\openout5 = `main.toc'.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[3]
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 209.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 209.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 209.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 209.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[4] (./v2_s01_introduction.tex (./vch01_introduction.tex
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 38.
+ (/home/vnadendla/.TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd
+File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
+)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[5]))
+Underfull \hbox (badness 4242) in paragraph at lines 156--236
+[]\T1/ppl/m/n/10 (+20) The full Lean source code, build scripts, and doc-u-men-ta-tion are avail-able in the
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[6] (./v2_s02_methodology.tex (./vch02_methodology.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[7]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[8]))
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[9] (./v2_s02b_human_validation.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[10] (./v2_s03_architecture.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[11] (./v2_s04_axiom_audit.tex (./vch03_axiom_architecture.tex
+Underfull \hbox (badness 1024) in paragraph at lines 80--83
+[]\T1/ppl/m/n/10 (+20) 3 ax-ioms re-quir-ing one or two in-ter-me-di-ate lem-mas be-
+ []
+
+
+Underfull \hbox (badness 6592) in paragraph at lines 85--89
+[]\T1/ppl/m/n/10 (+20) 1 ax-iom found to be se-man-ti-cally un-sound as stated.
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[12]
+Underfull \hbox (badness 1117) in paragraph at lines 111--112
+[]|\T1/ppl/m/n/9 (+20) All am-bi-gu-ity must be re-solved be-fore
+ []
+
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <9> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 135.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[13]))
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[14] (./v2_s05_main_results.tex (./vch04_core_results.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[15]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: TS1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+Underfull \hbox (badness 5490) in paragraph at lines 154--156
+[]\T1/ppl/m/n/10 (+20) The most tech-ni-cally de-mand-ing mod-ule, with 42 the-o-rems. The key re-sult is
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[16]))
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[17] (./v2_s06_novel_results.tex (./vch06_new_theorems.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[18]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[19]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[20]))
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[21] (./v2_s07_theory_to_lean.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[22] (./v2_s08_reproducibility.tex (./vch08_reproducibility.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[23]
+Overfull \hbox (0.60452pt too wide) in paragraph at lines 153--153
+[]$\U/msa/m/n/10 ^^C$  
+ []
+
+
+Overfull \hbox (0.60452pt too wide) in paragraph at lines 154--154
+[]$\U/msa/m/n/10 ^^C$  
+ []
+
+
+Overfull \hbox (0.60452pt too wide) in paragraph at lines 155--155
+[]$\U/msa/m/n/10 ^^C$  
+ []
+
+
+Overfull \hbox (0.60452pt too wide) in paragraph at lines 156--156
+[]$\U/msa/m/n/10 ^^C$  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[24]
+Overfull \hbox (0.60452pt too wide) in paragraph at lines 157--157
+[]$\U/msa/m/n/10 ^^C$  
+ []
+
+
+Overfull \hbox (0.60452pt too wide) in paragraph at lines 158--158
+[]$\U/msa/m/n/10 ^^C$  
+ []
+
+
+Overfull \hbox (0.60452pt too wide) in paragraph at lines 159--159
+[]$\U/msa/m/n/10 ^^C$  
+ []
+
+))
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[25] (./v2_s09_related_work.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[26] (./v2_s10_discussion.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[27] (./v2_s11_conclusion.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[28] (./vapp_a_axiom_audit.tex
+Underfull \hbox (badness 3514) in paragraph at lines 44--46
+[]\T1/ppl/m/n/10 (+20) Previously clas-si-fied as ax-ioms, now the-o-rems: \T1/cmtt/m/n/10 ets_unique \T1/ppl/m/n/10 (+20) (T), \T1/cmtt/m/n/10 rb_uniqueness \T1/ppl/m/n/10 (+20) (T),
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[29]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[30]
+ignored: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[31]
+ignored: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[32])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[33] (./vapp_b_architecture.tex
+Overfull \hbox (55.10793pt too wide) in paragraph at lines 42--43
+[]|\T1/cmtt/m/n/9 KernelDefinitions\T1/ppl/m/n/9 (-20) , \T1/cmtt/m/n/9 Mathlib.Analysis.SpecialFunctions.Pow.Real| 
+ []
+
+
+Overfull \hbox (31.4887pt too wide) in paragraph at lines 44--45
+[]|\T1/cmtt/m/n/9 KernelDefinitions\T1/ppl/m/n/9 (-20) , \T1/cmtt/m/n/9 Mathlib.CategoryTheory.Category.Basic| 
+ []
+
+
+Overfull \hbox (22.041pt too wide) in paragraph at lines 46--47
+[]|\T1/cmtt/m/n/9 CategoryStructure\T1/ppl/m/n/9 (-20) , \T1/cmtt/m/n/9 Mathlib.CategoryTheory.Grothendieck| 
+ []
+
+
+Overfull \hbox (7.86946pt too wide) in paragraph at lines 56--57
+[]|\T1/cmtt/m/n/9 CredenceFramework\T1/ppl/m/n/9 (-20) , \T1/cmtt/m/n/9 Mathlib.Probability.StoppingTime| 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[34])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[35] (./vapp_c_proposals.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[36]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 174--177
+\T1/ppl/b/n/10 (+20) Proposed fix\T1/ppl/m/n/10 (+20) : Add a def-i-ni-tion of the nat-u-ral FRFP fil-tra-tion: $\OMS/zplm/m/n/10 F[] \OT1/zplm/m/n/10 =
+ []
+
+)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[38] (./vapp_d_bibliography.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[39] (./vapp_e_naming.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[40])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[41] (./vapp_f_theory_lean_map.tex
+Overfull \hbox (8.95415pt too wide) in paragraph at lines 36--36
+[]|\T1/cmtt/m/n/9 no_morphism_tacit_to_explicit| 
+ []
+
+
+Underfull \hbox (badness 1194) in paragraph at lines 38--39
+[]|\T1/ppl/m/n/9 (+20) Uniqueness of the bound-ary mor-
+ []
+
+
+Overfull \hbox (8.95415pt too wide) in paragraph at lines 52--52
+[]|\T1/cmtt/m/n/9 no_morphism_tacit_to_explicit| 
+ []
+
+
+Overfull \hbox (8.95415pt too wide) in paragraph at lines 70--70
+[]|\T1/cmtt/m/n/9 no_morphism_tacit_to_explicit| 
+ []
+
+
+Underfull \hbox (badness 1199) in paragraph at lines 112--114
+\T1/ppl/b/n/10 (+20) [Lean: $\T1/ppl/m/n/10 (+20) Frfp / Core / Con^^]uence . lean$\T1/ppl/b/n/10 (+20) ]\T1/ppl/m/n/10 (+20) , \T1/ppl/b/n/10 (+20) [Lean: $\T1/ppl/m/n/10 (+20) Frfp / Core / Navigation . lean$\T1/ppl/b/n/10 (+20) ]\T1/ppl/m/n/10 (+20) , \T1/ppl/b/n/10 (+20) [Lean: $\T1/ppl/m/n/10 (+20) Frfp / Core /
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[42]
+Underfull \hbox (badness 10000) in paragraph at lines 132--132
+[]|\T1/cmtt/m/n/9 nav_equiv_refl\T1/ppl/m/n/9 (+20) , \T1/cmtt/m/n/9 nav_equiv_symm\T1/ppl/m/n/9 (+20) ,
+ []
+
+
+Overfull \hbox (17.38039pt too wide) in paragraph at lines 156--156
+[]|\T1/cmtt/m/n/9 entropy_increases_under_degradation| 
+ []
+
+
+Overfull \hbox (40.99962pt too wide) in paragraph at lines 167--167
+[]|\T1/cmtt/m/n/9 bounded_hazard_implies_eventual_stopping| 
+ []
+
+
+Overfull \hbox (7.9327pt too wide) in paragraph at lines 170--170
+[]|\T1/cmtt/m/n/9 safe_horizon_guarantee_impossible| 
+ []
+
+
+Overfull \hbox (3.20885pt too wide) in paragraph at lines 174--174
+[]|\T1/cmtt/m/n/9 no_elimination_under_degradation| 
+ []
+
+
+Overfull \hbox (7.9327pt too wide) in paragraph at lines 193--193
+[]|\T1/cmtt/m/n/9 global_degradation_increases_risk| 
+ []
+
+
+Overfull \hbox (3.20885pt too wide) in paragraph at lines 198--198
+[]|\T1/cmtt/m/n/9 no_automated_consensus_guarantee| 
+ []
+
+
+Overfull \hbox (3.20885pt too wide) in paragraph at lines 221--221
+[]|\T1/cmtt/m/n/9 hallucination_is_tacit_dependent| 
+ []
+
+
+Overfull \hbox (12.65654pt too wide) in paragraph at lines 222--222
+[]|\T1/cmtt/m/n/9 hallucination_detection_impossible| 
+ []
+
+
+Overfull \hbox (17.38039pt too wide) in paragraph at lines 231--231
+[]|\T1/cmtt/m/n/9 construct_tacit_population_is_tacit| 
+ []
+
+
+Overfull \hbox (50.44731pt too wide) in paragraph at lines 239--239
+[]|\T1/cmtt/m/n/9 institutional_layer_requirements_satisfied| 
+ []
+
+
+Overfull \hbox (22.10423pt too wide) in paragraph at lines 241--241
+[]|\T1/cmtt/m/n/9 dynamic_layer_requirements_satisfied| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 243--243
+[]|\T1/cmtt/m/n/9 tacitState_le_refl\T1/ppl/m/n/9 (+20) ,
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[43]
+Overfull \hbox (1.82866pt too wide) in paragraph at lines 265--266
+[]|\T1/cmtt/m/n/9 runTo$\OML/zplm/m/it/9 !$\T1/cmtt/m/n/9 _preserves_admissibility| 
+ []
+
+
+Overfull \hbox (18.347pt too wide) in paragraph at lines 269--270
+[]|\T1/cmtt/m/n/9 stochastic_quantities_well_defined| 
+ []
+
+
+Underfull \hbox (badness 7540) in paragraph at lines 272--273
+[]|\T1/ppl/m/n/9 (+20) Sharp rep-re-sen-ta-tional back-flow
+ []
+
+
+Overfull \hbox (13.62315pt too wide) in paragraph at lines 279--280
+[]|\T1/cmtt/m/n/9 obsCorrect_preserved_by_reduction| 
+ []
+
+
+Overfull \hbox (41.96623pt too wide) in paragraph at lines 281--282
+[]|\T1/cmtt/m/n/9 different_obsCorrect_different_nf_class| 
+ []
+
+
+Overfull \hbox (4.17546pt too wide) in paragraph at lines 291--292
+[]|\T1/cmtt/m/n/9 degradation_aggregation_commute| 
+ []
+
+
+Overfull \hbox (41.96623pt too wide) in paragraph at lines 295--296
+[]|\T1/cmtt/m/n/9 consensus_instability_without_grounding| 
+ []
+
+
+Overfull \hbox (46.69008pt too wide) in paragraph at lines 297--298
+[]|\T1/cmtt/m/n/9 confidence_inflation_preserves_grounding| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 298--299
+[]|\T1/ppl/m/n/9 (+20) Inflation does not cre-ate tacit
+ []
+
+
+Overfull \hbox (41.96623pt too wide) in paragraph at lines 299--300
+[]|\T1/cmtt/m/n/9 accelerated_inevitability_with_feedback| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 314--315
+[]|\T1/ppl/m/n/9 (+20) Task De-com-po-si-tion Gram-mar
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[44]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[45]) (./frfp-references-v2.tex)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.38797pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.38797pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.38797pt}.
+
+[46] 
+enddocument/afterlastpage (AED): lastpage setting LastPage.
+(./main.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-03-20>
+ ***********
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: B613A34564D347C6FF9341AC0EEB0C86;15769.
+ ) 
+Here is how much of TeX's memory you used:
+ 41406 strings out of 469339
+ 778071 string characters out of 5466150
+ 1569525 words of memory out of 5000000
+ 68628 multiletter control sequences out of 15000+600000
+ 713454 words of font info for 475 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 123i,15n,121p,1001b,1412s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/vnadendla/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </home/vnadendla/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt0900.600pk> </home/vnadendla/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcit0900.600pk> </home/vnadendla/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit0900.600pk> </home/vnadendla/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk> </home/vnadendla/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></home/vnadendla/.TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on main.pdf (46 pages, 325870 bytes).
+PDF statistics:
+ 1286 PDF objects out of 1440 (max. 8388607)
+ 964 compressed objects within 10 object streams
+ 349 named destinations out of 1000 (max. 500000)
+ 107181 words of extra memory for PDF output out of 128383 (max. 10000000)
+

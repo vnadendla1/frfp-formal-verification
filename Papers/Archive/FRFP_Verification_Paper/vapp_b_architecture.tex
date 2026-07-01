@@ -1,0 +1,118 @@
+% ===================================================================
+\section{Appendix B: Module Architecture and Dependency Map}
+\label{app:architecture}
+% ===================================================================
+
+\subsection*{Overview}
+
+The FRFP Lean library is structured in five dependency layers. No module imports
+a module from a higher layer. The dependency graph is acyclic; the build system
+(Lake) verifies this property.
+
+\subsection*{Layer Dependency Summary}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Layer & Modules & Depends on \\
+\midrule
+L1 Kernel & KernelDefinitions & Mathlib only \\
+L2 Float & FloatTheory, FloatMonotonicity & Mathlib, L1 \\
+L3 Structure & CategoryStructure, PipelineComposition, & L1, L2, Mathlib \\
+ & GrothConstruction, Termination & \\
+L4 Semantics & SemanticCorrectness, TacitDependence, & L1, L2, L3, Mathlib \\
+ & ExplicitArtifact, ReductionSemantics, & \\
+ & ConfluenceProof, RunsTrajectories & \\
+L5 Governance & CollectiveLayer, GovernanceProofs, & L1--L4, Mathlib \\
+ & AmbiguityProtocol, CredenceFramework, & \\
+ & DegradationModel, StoppingTime, & \\
+ & SurvivalAnalysis, GovernanceSafeExtension & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Detailed Import Graph}
+
+\begin{center}
+\begin{tabular}{lp{8cm}}
+\toprule
+Module & Direct Imports \\
+\midrule
+\texttt{KernelDefinitions} & \texttt{Mathlib.Tactic}, \texttt{Mathlib.Data.Finset.Basic} \\
+\texttt{FloatTheory} & \texttt{KernelDefinitions}, \texttt{Mathlib.Analysis.SpecialFunctions.Pow.Real} \\
+\texttt{FloatMonotonicity} & \texttt{FloatTheory} \\
+\texttt{CategoryStructure} & \texttt{KernelDefinitions}, \texttt{Mathlib.CategoryTheory.Category.Basic} \\
+\texttt{PipelineComposition} & \texttt{CategoryStructure} \\
+\texttt{GrothConstruction} & \texttt{CategoryStructure}, \texttt{Mathlib.CategoryTheory.Grothendieck} \\
+\texttt{Termination} & \texttt{KernelDefinitions}, \texttt{Mathlib.Order.WellFounded} \\
+\texttt{ReductionSemantics} & \texttt{Termination}, \texttt{KernelDefinitions} \\
+\texttt{ConfluenceProof} & \texttt{Termination}, \texttt{ReductionSemantics} \\
+\texttt{SemanticCorrectness} & \texttt{ReductionSemantics}, \texttt{GrothConstruction} \\
+\texttt{TacitDependence} & \texttt{KernelDefinitions} \\
+\texttt{ExplicitArtifact} & \texttt{ReductionSemantics} \\
+\texttt{RunsTrajectories} & \texttt{SemanticCorrectness} \\
+\texttt{CredenceFramework} & \texttt{FloatMonotonicity}, \texttt{KernelDefinitions} \\
+\texttt{DegradationModel} & \texttt{CredenceFramework} \\
+\texttt{StoppingTime} & \texttt{CredenceFramework}, \texttt{Mathlib.Probability.StoppingTime} \\
+\texttt{SurvivalAnalysis} & \texttt{StoppingTime} \\
+\texttt{CollectiveLayer} & \texttt{CredenceFramework}, \texttt{SemanticCorrectness} \\
+\texttt{GovernanceProofs} & \texttt{CollectiveLayer} \\
+\texttt{AmbiguityProtocol} & \texttt{GovernanceProofs} \\
+\texttt{GovernanceSafeExtension} & \texttt{GovernanceProofs} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Root and Top-Level Files}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+File & Role \\
+\midrule
+\texttt{Frfp.lean} & Root re-export: imports all 21 core modules \\
+\texttt{FRFPReport.lean} & Executable theorem inventory report \\
+\texttt{lakefile.lean} & Build configuration \\
+\texttt{lean-toolchain} & Pins Lean version \\
+\texttt{lake-manifest.json} & Locks exact Mathlib commit \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Minimal Module Dependency Map}
+
+The three minimal modules compile independently of the full core:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Module & Imports \\
+\midrule
+\texttt{Frfp/Minimal/MinimalCore.lean} & \texttt{Mathlib.Tactic} only \\
+\texttt{Frfp/Minimal/MinimalBasis.lean} & \texttt{MinimalCore} \\
+\texttt{Frfp/Minimal/MinimalReport.lean} & \texttt{MinimalBasis} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This independence is intentional. The minimal basis can be used as a lightweight
+dependency for projects that only need the 7-primitive FRFP foundation.
+
+\subsection*{Theorem Count by Layer}
+
+\begin{center}
+\begin{tabular}{lrl}
+\toprule
+Layer & Theorems & Key topics \\
+\midrule
+L1 Kernel & 8 & Object types, primitives, kernel invariants \\
+L2 Float & 31 & IEEE 754 arithmetic, credence bounds \\
+L3 Structure & 46 & Category axioms, composition, Grothendieck, termination \\
+L4 Semantics & 70 & Reduction, confluence, denotational semantics, bijection \\
+L5 Governance & 114 & Probability, degradation, collective layer, governance \\
+\midrule
+\textbf{Total (core)} & \textbf{269} & \\
+\textbf{Minimal} & \textbf{15} & \\
+\bottomrule
+\end{tabular}
+\end{center}

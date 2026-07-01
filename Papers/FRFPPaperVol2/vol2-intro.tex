@@ -1,0 +1,200 @@
+\chapter{From Concepts to Case Studies: FRFP in the Wild}
+
+Volume I developed the \emph{Foundational Reasoning and Feedback Protocol} (FRFP) as a protocol-level account of long-horizon human--AI collaboration. Its central architectural commitment is the explicit/tacit split: AI systems are confined to an explicit mode of machine-manipulable representations and pipelines, while correctness and endorsement remain tacit and human-exclusive. A single review-and-belief-update boundary carries explicit artefacts into tacit evaluation, with no direct channel in the opposite direction. Within that architecture, Volume I establishes theorem-level claims about long-run behaviour, including structural limits on what can be guaranteed by explicit-only systems in sufficiently complex domains.
+
+Volume II turns outward. It treats FRFP not as a normative proposal but as a descriptive lens on real socio-technical systems that have already been built and deployed. The aim is not to score points against particular organisations or technologies. The aim is to test whether FRFP clarifies what went right, what went wrong, and which structural patterns recur across superficially unrelated episodes.
+
+\section{Scope: What We Study in Volume II}
+
+The core material of this volume consists of case studies drawn from domains where long-horizon behaviour, organisational embedding, and feedback over time are decisive. The cases are selected to span three regimes. First are high-impact failures and near-misses, including IBM Watson for Oncology (and the broader Watson Health programme), Amazon’s experimental AI recruiting engine, COMPAS in criminal justice, Anthropic’s ``Project Vend'' vending-machine agent, Zillow Offers and algorithmic home-flipping, \emph{Mata v.~Avianca} and hallucinated legal citations, and JPMorgan’s CIO ``London Whale'' trading losses.
+
+Second are constructive but mixed systems that clearly work at scale yet raise deeper FRFP questions about governance, boundaries, and long-horizon reliance, including large-scale recommender systems, neural machine translation, and general-purpose large language models. Third are outstanding successes under strong constraints, including AlphaFold, autonomous diabetic retinopathy screening, and Waymo’s driverless ride-hailing services. The point of this tripartite scope is comparative: FRFP should not only diagnose failure, but also explain why certain systems succeed when their semantics are narrow, their boundaries are hard, and their safe horizons are enforced in practice.
+
+In addition to external case studies, Volume II includes an internal methodological case: an early ``V01'' attempt to reason about long-horizon human--AI collaboration using narrative system-design language prior to the development of FRFP’s mathematical core. That attempt did not sharply separate explicit and tacit spaces, lacked a formal notion of runs and safe horizons, and treated governance as heuristics rather than as an analysable layer. We include it as a meta-case study because it fails in precisely the structural ways FRFP is designed to make legible.
+
+\section{Method: The Common FRFP Idiom Used in Every Case Study}
+
+Each case study in this volume follows a common idiom so that very different systems can be compared on shared structural axes. We begin by describing the system and its institutional context, then identify the explicit space \(E\) (the representations, pipelines, and decision rules machines manipulate) and the tacit space \(T\) (the epistemic, normative, and practical states of the relevant human actors and institutions). We then treat the system as a run or family of runs in the skew-product \(N \ltimes E\) introduced in Volume I: a (possibly branching) sequence of explicit states and operations, parametrised by time, data, and environment.
+
+Against this backdrop, we ask four recurring questions. First, \emph{explicit semantics}: what mapping is the system actually implementing in explicit space, and is that mapping well-defined and externally evaluable? Second, \emph{boundary design}: where are the boundaries between explicit outputs and tacit endorsement, and who is formally and de facto deciding? Third, \emph{safe horizons and dynamics}: over what horizons is the system used without explicit re-grounding, and are there designed limits and reset mechanisms? Fourth, \emph{institutional semantics and non-automation}: how do organisational structures and regulators act as operators on populations of tacit states, and are they treating explicit metrics as advisory signals or as substitutes for tacit governance functions that FRFP argues cannot be automated?
+
+Across case studies we use FRFP descriptively first. We do not assume systems ``should'' have been designed according to FRFP. We ask whether observed success or failure can be understood as a consequence of how the system instantiates (or violates) explicit/tacit separation, boundary discipline, safe horizons, and institutional non-automation. This yields two payoffs: it supports structural classification across domains, and it makes clear which changes would count as genuine safety improvements under the FRFP lens (for example, changes that modify run-level risk over finite horizons rather than only improving a snapshot metric).
+
+\section{How to Use the Concept Lookup}
+
+To avoid reintroducing formal objects in every case study, the next chapter provides a compact Concept Lookup. Definitions of runs and trajectories, boundaries, and risk objects (including safe-horizon language) live there and are referenced throughout the remainder of the volume. The case studies therefore focus on concrete systems and institutional mechanics, while relying on the Lookup for stable terminology and notation.
+
+% ============================================================
+% FRFP Concept Lookup (Volume II quick reference)
+% Suggested placement: after "Introduction to Volume II: FRFP in the Wild"
+% or as Section 6.0 just before Chapter 7 case studies.
+% ============================================================
+
+\chapter{FRFP Concept Lookup (Quick Reference)}
+\label{ch:frfp-lookup}
+
+\noindent\textbf{Purpose.}
+This chapter is a 1--2 page lookup of the main FRFP objects referenced throughout Volume II.
+Case studies may cite it directly (e.g.\ ``see Chapter~\ref{ch:frfp-lookup}, \S\ref{sec:lookup-risk}'')
+instead of re-explaining safe horizons, boundaries, and runs.
+
+\section{FRFP in one paragraph}
+FRFP (Foundational Reasoning and Feedback Protocol) models long-horizon human--AI workflows by
+separating \emph{explicit} artefacts and computations from \emph{tacit} human and institutional
+judgement. The AI operates only in explicit space; correctness and endorsement live only in tacit
+space. The only channel from explicit to tacit is a one-way boundary suffix:
+\[
+\mathrm{RB} \;\to\; \mathrm{TE} \;\to\; \mathrm{HFD},
+\]
+so that tacit evaluation enters the workflow only at explicit handoff and human decision.
+
+\section{Two spaces and the boundary}
+\label{sec:lookup-spaces}
+
+\paragraph{Explicit space $E$.}
+The set of objects that can be written, computed, logged, checked, and transmitted mechanically:
+representations, intermediate results, proofs/derivations, code, summaries, scores, dashboards,
+and any structured artefact manipulated by the machine side of the system.
+
+\paragraph{Tacit space $T$.}
+Human (and institutional) states that bear correctness, responsibility, and normative evaluation:
+endorsement, acceptance, grounded judgment, ethical/legal responsibility, contextual understanding,
+and operational authority.
+
+\paragraph{Boundary suffix: RB $\to$ TE $\to$ HFD.}
+\begin{itemize}
+\item \textbf{RB (Representational Backflow):} explicit artefacts are returned to humans.
+\item \textbf{TE (Tacit Evaluation):} humans evaluate the artefacts in tacit space.
+\item \textbf{HFD (Human Final Decision):} humans accept, reject, or revise; endorsement happens here.
+\end{itemize}
+\noindent\emph{Case-study cue:} many failures are boundary failures (rhetorical ``decision support'' with
+de facto automation/deference).
+
+\section{Primitive roles and pipeline grammar}
+\label{sec:lookup-primitives}
+
+FRFP decomposes workflows into the following primitives:
+\begin{itemize}
+\item \textbf{RI (Representation Initiation):} a human provides an explicit input state.
+\item \textbf{EC (Explicit Computation):} explicit transformations in $E$ (inference, search, summarisation).
+\item \textbf{ED (Explicit Diagnostics):} explicit checks in $E$ (consistency checks, audits, uncertainty flags).
+\item \textbf{RB $\to$ TE $\to$ HFD:} boundary and final endorsement in $T$.
+\end{itemize}
+A typical pipeline is an explicit sub-pipeline $Q$ (built from RI, EC, ED and structural combinators)
+followed by the boundary:
+\[
+P \;:=\; Q \,;\, \mathrm{RB} \,;\, \mathrm{TE} \,;\, \mathrm{HFD}.
+\]
+
+\section{Runs and trajectories ($N \ltimes E$)}
+\label{sec:lookup-runs}
+
+\paragraph{Navigation $N$.}
+Navigation captures reversible changes in representation and strategy (branching, backtracking,
+rewriting problem statements, switching decompositions). Formally, navigation steps are treated as
+invertible moves.
+
+\paragraph{Skew product / Grothendieck construction $N \ltimes E$.}
+A long-horizon execution is not just a single explicit computation but a \emph{trajectory} interleaving
+navigation and explicit transformations. A run can be viewed as a sequence of extended states that
+record (i) time/iteration, (ii) navigation choices, and (iii) explicit artefacts.
+
+\paragraph{Case-study cue.}
+Two systems may have similar static outputs yet differ in long-run behaviour because their runs
+induce different drift dynamics and different failure rates over long horizons.
+
+\section{Semantics: from explicit workflows to tacit meaning}
+\label{sec:lookup-semantics}
+
+A semantic map assigns tacit meaning to explicit workflows. On explicit pipelines,
+the induced semantics can be written schematically as
+\[
+\llbracket e \rrbracket \;:=\; \mathrm{HFD} \circ \mathrm{TE} \circ \mathrm{RB}^{\#}(e),
+\]
+i.e.\ explicit artefacts become meaningful only after boundary evaluation and final human decision.
+The notation $J{-}K$ is used for the induced tacit-state semantics of combined (navigation + explicit)
+configurations.
+
+\section{Static vs.\ dynamic behaviour and dynamic refinement}
+\label{sec:lookup-dynamics}
+
+\paragraph{Static equivalence.}
+Two pipelines may be \emph{statically equivalent} (same normal form in $N \ltimes E$ and same tacit
+semantics $J{-}K$).
+
+\paragraph{Dynamic inequivalence.}
+Even when statically equivalent, pipelines can have different long-run risk profiles (different
+distributions of failure over time/iterations).
+
+\paragraph{Dynamic refinement.}
+Given two stochastic implementations $P_1, P_2$ with hallucination times $\tau_1, \tau_2$ and finite-horizon
+risks $p^{(i)}_N := \mathbb{P}(\tau_i \le N)$, we say $P_2$ \emph{dynamically refines} $P_1$ if
+\[
+\forall N \in \mathbb{N},\qquad p^{(2)}_N \le p^{(1)}_N,
+\]
+equivalently $\tau_2$ stochastically dominates $\tau_1$.
+\emph{One-sentence takeaway:} a change is a real safety improvement (in FRFP’s dynamic sense) when it
+never increases finite-horizon hallucination risk, even if the static pipeline ``looks the same.''
+
+\section{Risk objects: hallucination time, hazard, and safe horizons}
+\label{sec:lookup-risk}
+
+\paragraph{Hallucination and hallucination time $\tau$.}
+A hallucination occurs when an artefact is endorsed that fails to meet the active requirements.
+Let $\tau$ be the (random) index of the first hallucination along a run.
+
+\paragraph{Finite-horizon risk $p_N$ and survival $S_N$.}
+Define $A_N := \{\tau \le N\}$. Then
+\[
+p_N := \mathbb{P}(A_N) = \mathbb{P}(\tau \le N),
+\qquad
+S_N := \mathbb{P}(\tau > N) = 1 - p_N.
+\]
+
+\paragraph{Hazard profile $(h_n)_{n\ge 0}$.}
+The discrete hazard $h_n$ is the conditional probability of first hallucination at step $n$
+given survival up to $n-1$. It yields the product form
+\[
+S_N = \prod_{n=0}^{N} (1 - h_n),
+\qquad
+p_N = 1 - S_N,
+\]
+making explicit how small per-step hazards accumulate over long runs.
+
+\paragraph{Safe-horizon functional $H_{P}(\varepsilon)$.}
+For a pipeline implementation $P$ and risk budget $\varepsilon \in (0,1)$, define
+\[
+H_{P}(\varepsilon)
+\;:=\;
+\sup\{N \in \mathbb{N} \;:\; p_N \le \varepsilon\}.
+\]
+Interpretation: $H_{P}(\varepsilon)$ is the maximum run length allowed under $P$ before hallucination
+within the horizon exceeds the tolerated probability $\varepsilon$.
+
+\paragraph{Design cue for Volume II.}
+Case studies can treat \emph{restart policies, logging, audits, UI changes, human-in-the-loop gates,
+and institutional review} as attempts to reshape $(h_n)$ and improve $H_{P}(\varepsilon)$.
+
+\section{Institutional operators and explicit-only limits}
+\label{sec:lookup-institutions}
+
+Institutions act on populations of tacit states (training, credentialing, regulation, incentives,
+liability, and governance). A recurring failure mode is \emph{explicit-only governance}:
+processes that aggregate explicit artefacts (dashboards, checklists, vendor reports) without preserving
+the tacit grounding and authority required for genuine endorsement.
+\emph{Case-study cue:} many governance schemes can smooth variance, but cannot in general recover tacit
+correctness purely from explicit aggregation.
+
+\section{How to cite this lookup from case studies}
+\label{sec:lookup-cite}
+
+When a case study mentions:
+\begin{itemize}
+\item \textbf{``runs'' / ``long horizon'' / ``drift''} $\to$ cite \S\ref{sec:lookup-runs}.
+\item \textbf{``boundary'' / ``signing'' / ``approval''} $\to$ cite \S\ref{sec:lookup-spaces}.
+\item \textbf{``safe horizons'' / ``overreliance over time''} $\to$ cite \S\ref{sec:lookup-risk}.
+\item \textbf{``real safety improvement''} $\to$ cite \S\ref{sec:lookup-dynamics}.
+\item \textbf{``governance'' / ``institutional embedding''} $\to$ cite \S\ref{sec:lookup-institutions}.
+\end{itemize}
+
+\clearpage

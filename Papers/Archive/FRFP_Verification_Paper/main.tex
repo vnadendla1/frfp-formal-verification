@@ -1,0 +1,265 @@
+%  Preprints.org template — MDPI mdpi.cls
+\documentclass[preprints,article,accept,pdftex,oneauthor]{Definitions/mdpi}
+
+% MDPI internal commands — do not modify
+\firstpage{1}
+\makeatletter
+\setcounter{page}{\@firstpage}
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+\datereceived{ }
+\daterevised{ }
+\dateaccepted{ }
+\datepublished{ }
+\hreflink{https://doi.org/}
+
+%=================================================================
+\Title{FRFP Lean Formal Verification: A Machine-Checked Companion to the Foundational Reasoning and Feedback Protocol}
+\TitleCitation{FRFP Lean Formal Verification: A Machine-Checked Companion to the Foundational Reasoning and Feedback Protocol}
+
+\Author{Vijaya Nadendla $^{1,\dagger}$}
+\AuthorNames{Vijaya Nadendla}
+\isAPAStyle{%
+  \AuthorCitation{Nadendla, V.}
+}{%
+  \isChicagoStyle{%
+    \AuthorCitation{Nadendla, Vijaya.}
+  }{%
+    \AuthorCitation{Nadendla, V.}
+  }
+}
+
+\address{$^{1}$ \quad Independent Researcher}
+\firstnote{Current address: 51 Linwood Dr, Monroe Township, NJ 08831.}
+
+\abstract{We present a complete machine-checked formalization of the Foundational Reasoning
+and Feedback Protocol (FRFP) using the Lean~4 proof assistant. Starting from the
+published FRFP theory, we formalize 21 modules comprising 269 verified theorems
+and 155 fully cited axioms, with zero outstanding \texttt{sorry} placeholders and
+zero uncited assumptions. Beyond confirming existing claims, the formalization
+shows that the original 11-axiom basis reduces to 7 independent primitives, with
+4 former axioms derivable as theorems from the remaining core. Three non-trivial
+results emerge directly from Lean proof obligations: a canonical
+earliest-unresolved-witness theorem, a governance-safe trace-extension theorem,
+and a protocol normal-form decomposition theorem. We describe the AI-assisted
+development methodology (vibecoding), characterize observed failure modes and
+success rates, and provide a complete reproducibility package.}
+
+\keyword{formal verification; proof assistants; Lean~4; AI governance; FRFP;
+axiom minimization; mechanized mathematics}
+
+%=================================================================
+% Additional packages (not already loaded by mdpi.cls)
+\usepackage{mathtools}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage{adjustbox}
+
+\setlength{\emergencystretch}{3em}
+\AtBeginEnvironment{tabular}{\small}
+\BeforeBeginEnvironment{tabular}{\begin{adjustbox}{max width=\textwidth,center}}
+\AfterEndEnvironment{tabular}{\end{adjustbox}}
+
+% --- Theorem environments ---
+% mdpi.cls already defines: Theorem, Lemma, Corollary, Proposition,
+%   Definition, Example, Remark, Notation, Assumption (capitalized).
+% Provide lowercase aliases for compatibility with chapter files.
+\newenvironment{theorem}{\begin{Theorem}}{\end{Theorem}}
+\newenvironment{lemma}{\begin{Lemma}}{\end{Lemma}}
+\newenvironment{corollary}{\begin{Corollary}}{\end{Corollary}}
+\newenvironment{proposition}{\begin{Proposition}}{\end{Proposition}}
+\newenvironment{definition}{\begin{Definition}}{\end{Definition}}
+\newenvironment{remark}{\begin{Remark}}{\end{Remark}}
+\newenvironment{example}{\begin{Example}}{\end{Example}}
+% axiom_env, contribution, noteenv not in mdpi.cls — define separately
+\newcounter{axiomctr}
+\newtheorem{axiom_env}{Axiom}[section]
+\newcounter{contributionctr}
+\newtheorem{contribution}{Contribution}[section]
+\newcounter{notectr}
+\newtheorem{noteenv}{Note}[section]
+% Alias \begin{note} to noteenv
+\let\note\noteenv
+\let\endnote\endnoteenv
+
+% --- Lean reference commands ---
+\newcommand{\leanref}[1]{\textbf{[Lean:} \nolinkurl{#1}\textbf{]}}
+
+% --- Lean listings style ---
+\lstdefinelanguage{Lean4}{
+  keywords={def,theorem,lemma,axiom,structure,inductive,where,match,with,
+            fun,let,in,have,show,by,intro,apply,exact,simp,rfl,cases,induction,
+            forall,exists,if,then,else,namespace,end,import,open,section,
+            class,instance,variable,noncomputable,opaque},
+  keywordstyle=\color{blue!70!black}\bfseries,
+  comment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  commentstyle=\color{green!50!black}\itshape,
+  stringstyle=\color{red!70!black},
+  sensitive=true,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  backgroundcolor=\color{gray!5},
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  literate=
+    {≤}{{$\le$}}1
+    {≥}{{$\ge$}}1
+    {→}{{$\to$}}1
+    {↔}{{$\leftrightarrow$}}1
+    {∀}{{$\forall$}}1
+    {∃}{{$\exists$}}1
+    {∧}{{$\land$}}1
+    {∨}{{$\lor$}}1
+    {¬}{{$\neg$}}1
+    {∈}{{$\in$}}1
+    {∉}{{$\notin$}}1
+    {≠}{{$\neq$}}1
+    {⊆}{{$\subseteq$}}1
+    {⊂}{{$\subset$}}1
+    {⊢}{{$\vdash$}}1
+    {⊣}{{$\dashv$}}1
+    {⊥}{{$\bot$}}1
+    {⊤}{{$\top$}}1
+    {ℕ}{{$\mathbb{N}$}}1
+    {ℤ}{{$\mathbb{Z}$}}1
+    {ℚ}{{$\mathbb{Q}$}}1
+    {ℝ}{{$\mathbb{R}$}}1
+    {×}{{$\times$}}1
+    {§}{{\S}}1
+    {·}{{$\cdot$}}1
+    {ω}{{$\omega$}}1
+    {Ω}{{$\Omega$}}1
+    {⟨}{{$\langle$}}1
+    {⟩}{{$\rangle$}}1,
+}
+
+\lstdefinelanguage{bash}{
+  keywords={cd,curl,grep,awk,sed,sort,wc,lake,elan,sudo},
+  keywordstyle=\color{blue!70!black}\bfseries,
+  comment=[l]{\#},
+  commentstyle=\color{green!50!black}\itshape,
+  sensitive=true,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  backgroundcolor=\color{gray!5},
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+}
+
+\lstset{language=Lean4,breaklines=true,breakatwhitespace=false,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}}
+
+% --- Proposal/finding box ---
+\newenvironment{proposal}[1]{%
+  \begin{tcolorbox}[colback=blue!5,colframe=blue!50!black,title={\textbf{Proposal #1}}]
+}{%
+  \end{tcolorbox}
+}
+
+\newenvironment{finding}{%
+  \begin{tcolorbox}[colback=green!5,colframe=green!50!black,title={\textbf{Key Finding}}]
+}{%
+  \end{tcolorbox}
+}
+
+% --- Math shorthands ---
+\newcommand{\Czero}{\mathbf{C}_0}
+\newcommand{\Ecat}{\mathbf{E}_{\mathrm{cat}}}
+\newcommand{\Tcat}{\mathbf{T}_{\mathrm{cat}}}
+\newcommand{\Eobj}{E_0}
+\newcommand{\Tobj}{T_0}
+\newcommand{\RI}{\mathrm{RI}}
+\newcommand{\EC}{\mathrm{EC}}
+\newcommand{\ED}{\mathrm{ED}}
+\newcommand{\RB}{\mathrm{RB}}
+\newcommand{\TE}{\mathrm{TE}}
+\newcommand{\HFD}{\mathrm{HFD}}
+
+% ===================================================================
+\begin{document}
+% ===================================================================
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section*{Key Metrics at a Glance}
+% ===================================================================
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Metric & Value \\
+\midrule
+Lean version & 4.29.0 \\
+Mathlib version & v4.29.0 \\
+Core modules & 21 \\
+Minimal modules & 3 \\
+Total theorems proven & 269 (core) + 15 (minimal) \\
+Total axioms & 155 \\
+Uncited axioms & 0 \\
+Live \texttt{sorry} & 0 \\
+Build jobs & 3305 \\
+Original basis size & 11 \\
+Reduced basis size & 7 \\
+Axioms converted to theorems & 4 (ETS, RB, AE, MD) \\
+Novel theorems & 3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+% ===================================================================
+% Chapters
+% ===================================================================
+\input{vch01_introduction}
+\newpage
+\input{vch02_methodology}
+\newpage
+\input{vch03_axiom_architecture}
+\newpage
+\input{vch04_core_results}
+\newpage
+\input{vch05_reduced_basis}
+\newpage
+\input{vch06_new_theorems}
+\newpage
+\input{vch07_case_studies}
+\newpage
+\input{vch08_reproducibility}
+
+\newpage
+% ===================================================================
+% Appendices
+% ===================================================================
+\appendix
+\input{vapp_a_axiom_audit}
+\newpage
+\input{vapp_b_architecture}
+\newpage
+\input{vapp_c_proposals}
+\newpage
+\input{vapp_d_bibliography}
+\newpage
+\input{vapp_e_naming}
+\newpage
+\input{vapp_f_theory_lean_map}
+
+% ===================================================================
+\end{document}

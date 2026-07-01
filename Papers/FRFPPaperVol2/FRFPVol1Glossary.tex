@@ -1,0 +1,175 @@
+\chapter{Glossary}
+\label{ch:glossary}
+\begin{description}
+
+\item[Admissible run] A run that counts as “allowed” because it follows the interaction/protocol constraints throughout.
+
+\item[Alignment Restriction (AR)] A constraint that the system’s explicit actions must occur only in response to explicit instructions present in the trace.
+
+\item[Ambiguity Resolution] If an instruction has multiple materially different interpretations, the system must stop and request clarification rather than resolving it implicitly.
+
+\item[Boundary Discipline] The protocol requirement that “where endorsement becomes real” is controlled: outputs remain pre-endorsement artifacts until a human boundary decision.
+
+\item[Canonical Ordering Rule] A UI/protocol rule: outputs must follow the order “explicit reasoning/exploration $\rightarrow$ artifact presentation $\rightarrow$ termination,” with no evaluative language after artifacts are presented.
+
+\item[Closure criteria] A set of conditions under which humans decide a long-horizon collaboration is “done,” since pipelines can otherwise be extended indefinitely.
+
+\item[Collective hallucination] A population-level notion of a serious error event occurring in a collective execution (not just one individual’s slip).
+
+\item[Collective state] The shared explicit situation of a population at a moment in time, including the population and its communication structure.
+
+\item[Communication graph] A directed “who-can-consume-whose-artefacts” network: explicit artefacts can flow along edges, but tacit state does not.
+
+\item[Conceptual stability] A closure criterion: the main claims’ explicit normal forms remain stable across multiple iterations of exploration/navigation.
+
+\item[Context archives] Checkpointed “snapshots” of the current explicit state (definitions, assumptions, intermediate results) saved as canonical starting points for later replay/extension.
+
+\item[Correctness Non-Interference] Once a human provides a correctness judgment, the system must not reinterpret/override it; it may only provide new artifacts if requested.
+
+\item[Dialogic Reproducibility Protocol] A reproducibility notion for human--AI dialogue: an independent team should be able to reconstruct an equivalent explicit pipeline and obtain the same observed judgment outcome.
+
+\item[Dynamic refinement] A change counts as a real improvement when it does not worsen long-run (finite-horizon) risk relative to the previous implementation.
+
+\item[Epistemic Algebra architecture] The formal package of structures that makes the pipeline world cohere (explicit pipelines + navigation + their combination + boundary preservation).
+
+\item[Epistemic population (Pop)] A collection of epistemic agents treated as a single population object, with structure-preserving maps between populations.
+
+\item[Execution trace] A run trace: a finite or infinite sequence of reachable combined configurations produced as the pipeline executes over time.
+
+\item[Explicit Algebra Discipline] A constraint that reasoning must be structured as explicit pipelines built only from allowed explicit primitives and structural composition (no tacit operations inside).
+
+\item[Explicit pipeline form] A requirement that reasoning be expressed as a typed pipeline of explicit steps (initiation, computation, diagnostics, structural decomposition), excluding tacit steps.
+
+\item[Explicit reduction] The rewrite/normalization discipline for explicit artefacts/pipelines (well-typed, terminating, confluent).
+
+\item[Explicit--tacit separation] The core constraint: the system operates only on explicit artifacts; correctness/endorsement remain human/tacit.
+
+\item[Explicit-only institution] An institution that attempts to produce correctness judgments using only explicit artefacts (without access to tacit judgments).
+
+\item[Finite-horizon survival and hazard] A way to describe risk accumulation over steps: survival is “no failure yet,” hazard is the stepwise chance of first failure given survival so far.
+
+\item[Free explicit category] The space of explicit pipelines as the freely generated structure from the pipeline primitives (so interpretations extend uniquely).
+
+\item[Grothendieck construction (combined system)] The standard construction combining navigation choices with explicit pipelines into a single combined run space.
+
+\item[Hallucination Safety Posture] An operational stance: assume tacit context degrades over long interactions, confidence can inflate, and plausibility is not grounding—so frame outputs as candidates and encourage independent verification.
+
+\item[Institutional aggregator] A rule that turns a multiset of individual correctness judgments into an institutional outcome (or suspension).
+
+\item[Institutional outcome] The institution’s stance after applying its aggregator rule to collected judgments.
+
+\item[Institutional stability] The property that when a population’s judgment profile settles, the institution’s outcome also settles (even if wrong).
+
+\item[Interaction Limitation (IL)] A constraint that runs are turn-based and respect externally imposed bounds (e.g., finite-length turns).
+
+\item[Interaction Protocol admissibility predicate] The predicate that defines which execution traces count as protocol-admissible by enforcing IL/AR/MD and forbidding tacit reconstruction/correctness-oracle behavior.
+
+\item[Intent Locking] A constraint that the explicit task intent must be identified at the start and treated as fixed unless the human explicitly revises it (no silent drift).
+
+\item[Markovian collective dynamics] A collective run model where the next collective state is sampled from a structured transition rule (who acts, what explicit move, and how artifacts propagate).
+
+\item[Meta-Compliance Clause] If a user requests a tacit judgment, the system must refuse politely, restate the explicit--tacit boundary, and offer explicit diagnostics/alternatives instead.
+
+\item[Mode Discipline (MD)] A constraint that no tacit operators appear inside the explicit phase; tacit transitions occur only after the boundary.
+
+\item[Mode Restriction] The rule that the system may operate only in explicit mode and must not claim correctness or make final judgments.
+
+\item[Navigation category] The formal space of reversible “strategy/representation moves” between pipeline shapes.
+
+\item[Navigation groupoid] Navigation where every move is reversible (supports exploration/backtracking).
+
+\item[Navigation neutrality] The rule that exploration over alternative representations/assumptions is allowed, but the system must not declare any path “more correct.”
+
+\item[No tacit reconstruction] The rule that the system must not infer/reconstruct tacit judgments from prior user responses, tone, or apparent agreement; tacit state is treated as opaque.
+
+\item[Normal-form explicit identity] A notion of “same explicit artifact” where artifacts count as the same if they normalize to the same canonical form.
+
+\item[One-way boundary] The rule that transitions from explicit artifacts to correctness judgment occur only via the human; system outputs are pre-boundary artifacts.
+
+\item[Population semantic profile] The multiset of observable judgments across a replication family; raw material for institutional correctness at population scale.
+
+\item[Population semantics (functor)] A mapping from collective explicit state to the collection of agents’ tacit states after consuming artifacts and updating.
+
+\item[Prohibited Language] A ban on phrases that imply final correctness (“this is correct,” “the right answer is,” etc.), with suggested non-evaluative alternatives.
+
+\item[Projection to shapes] The mapping sending any explicit pipeline to its structural “shape” (chain/branch/parallel/loop).
+
+\item[Replay procedures] A reproducibility audit method: reconstruct a pipeline from archived context/logs, normalize it, and check whether the resulting recorded judgment outcome matches.
+
+\item[Replication family] A set of runs (often one per agent) used to study variability across agents/conditions under the same pipeline constraints.
+
+\item[Repeatability] A run-level property: repeated executions mostly yield the same outcome after enough repetitions.
+
+\item[Reproducibility] An institution-level property: across sufficiently large compatible populations, the institutional outcome remains invariant.
+
+\item[Role and authority declaration] A protocol statement that the system has no tacit epistemic authority and that correctness decisions belong exclusively to the human user.
+
+\item[Safe horizon (at tolerance)] The maximum allowed operational extent before the probability of a serious error exceeds a chosen tolerance; i.e., the enforced “must re-ground/reset by here.”
+
+\item[Semantic correctness theorem] The guarantee (under stated constraints) that observable correctness outcomes depend on the tacit evaluation of the explicit pipeline, not on the particular exploration trajectory.
+
+\item[Shape category] The category whose objects are pipeline shapes and whose morphisms are structural rewiring maps.
+
+\item[Shape of a TDG term] The extraction of the pipeline’s structural form (chain/branch/parallel/loop) from its concrete term.
+
+\item[Source--reason traceability] The requirement that each published claim be traceable to a logged explicit pipeline plus the human evaluation checkpoints that endorsed it.
+
+\item[Structured interaction traces] Record each interaction step as a typed pipeline action (initiation, computation, diagnostics, navigation, boundary), including versions/tools/artifacts.
+
+\item[Syntactic explicit identity] A notion of “same explicit artifact” where artifacts are identical as literal representations.
+
+\item[TDG shape] The grammar of allowed pipeline shapes: chain, branching, parallel composition, and looping.
+
+\item[Termination Rule] When an explicit pipeline is complete, output should terminate cleanly with no evaluative summary appended afterward.
+
+\end{description}
+
+\begin{description}
+
+\item[AI-Explicit Restriction (AE)] A constraint that forbids the AI from hiding tacit judgment inside explicit computation or diagnostics.
+
+\item[Boundary morphism (RB)] The designated interface step where explicit artefacts are presented for human evaluation (the only explicit-to-tacit handoff allowed).
+
+\item[Causal Purity (CP)] A separation requirement that keeps diagnostics from covertly becoming tacit evaluation.
+
+\item[Correctness Separation Constraint (CSC)] A constraint that correctness decisions must not be delegated to explicit computation.
+
+\item[Correctness preservation (informal)] If a workflow is admissible, then refactoring the explicit reasoning or exploration route (without violating constraints) should not change the human correctness outcome.
+
+\item[Epistemic Algebra canonicality] A claim that under the stated axioms/constraints, the combined navigation + explicit pipeline structure is essentially forced.
+
+\item[Epistemic Spaces axioms (ETS, HEG, HEC, RB, CP, AE)] The foundational axiom set that fixes primitive roles and enforces explicit/tacit separation and boundary-only correctness endorsement.
+
+\item[Epistemic Spaces initiality] A universality claim: any framework obeying the same primitive roles and axioms factors through the FRFP kernel.
+
+\item[Explicit--Tacit Separation (ETS)] An axiom enforcing strict separation: explicit computation manipulates artefacts; correctness/endorsement lives only on the tacit side.
+
+\item[Explicit-only impossibility / Non-automation no-go results] Structural limits: purely explicit mechanisms cannot, in general, enforce or decide tacit-dependent guarantees.
+
+\item[Human-Exclusive Closure (HEC)] An axiom that final acceptance/rejection cannot be performed by the explicit system; it requires a human final decision.
+
+\item[Human-Exclusive Grounding (HEG)] An axiom that correctness grounding requires human tacit evaluation.
+
+\item[Inevitability theorem (hallucination eventually occurs in long runs)] Under the stated degradation/recurrence assumptions, failures occur over sufficiently long admissible runs, implying finite safe horizons at any fixed tolerance.
+
+\item[Interaction Protocols constraints (IL, AR, MD, NTER, CSC)] The interface-level constraint bundle defining allowed interactions and forbidding tacit reconstruction or correctness delegation.
+
+\item[No Tacit Evaluation Reconstruction (NTER)] A constraint forbidding the system from reconstructing or simulating tacit evaluation internally from explicit traces.
+
+\item[No automated consensus guarantee] A collective-level no-go: no fully automated consensus pipeline can guarantee hallucination-free outputs across all admissible runs and populations under the separation axioms.
+
+\item[Representational Backflow axiom (RB axiom)] The axiom making the boundary the unique allowed explicit-to-tacit interface, preventing hidden channels.
+
+\item[Semantic RB functor] A device that assigns to each explicit pipeline the content received for human evaluation, making the handoff explicit and trackable.
+
+\end{description}
+
+\begin{description}
+
+\item[Assumption 5 (Degradation under sustained assistance)] If a high-performing assistant supplies most solutions and the user mostly accepts them with limited independent checking, then beyond some horizon the user’s independent performance and error-detection degrade relative to an unaided baseline.
+
+\item[Assumption 10 (Degradation below the requirement floor)] There exists a nontrivial requirement floor such that sustained degradation eventually pushes grounding below that floor.
+
+\item[Hallucination inevitability (deterministic case)] Under Assumption 10 and recurring nontrivial demands, every sufficiently long run must contain at least one endorsed artefact that exceeds the available grounding unless resets or re-grounding occur.
+
+\end{description}

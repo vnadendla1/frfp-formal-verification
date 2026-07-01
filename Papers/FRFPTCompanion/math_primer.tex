@@ -1,0 +1,582 @@
+% This file is intended to be included via \input{} or \include{}.
+% It contains no preamble and no document environment.
+
+\section*{Math Primer for Appendix A}
+
+ Math Primer for Understanding Appendix A\par
+
+This primer introduces the minimum mathematical concepts needed to understand Appendix A of the FRFP paper.
+Everything is presented in poster-style blocks, with motivation first, intuition second, and formal meaning last.\par
+
+No prior category theory is assumed.\par
+
+\section*{1. OBJECTS}
+
+\subsection*{[PHASE] BLOCK 1 --- What Is an Object?}
+
+Motivation: We need to talk about things before we can talk about transforming them.\par
+
+An object is simply a thing we care about.\par
+
+\n\n\begin{itemize}\n\item a number
+\item a vector
+\item a workflow
+\item a pipeline\n\end{itemize}
+
+Note: Key Idea: Objects are states, configurations, or entities --- not actions.\par
+
+\subsection*{[PHASE] BLOCK 2 --- Objects in FRFP}
+
+Motivation: The AI must reason about explicit artifacts at multiple levels of granularity.\par
+
+In FRFP, there are two related but distinct senses in which we talk about objects:\par
+
+Atomic objects: RI, EC, ED\par
+
+Composite objects: explicit pipelines built from RI, EC, ED\par
+
+Both are objects, but they play different roles.\par
+
+Every pipeline is a thing the system can:\n\n\begin{itemize}\n\item inspect
+\item transform
+\item compare\n\end{itemize}
+
+\section*{2. MORPHISMS (TRANSFORMATIONS)}
+
+\subsection*{[PHASE] BLOCK 1 --- What Is a Morphism?}
+
+Motivation: Reasoning is not static --- things change.\par
+
+A morphism is an allowed transformation from one object to another.\par
+
+Written as:\par
+
+A $\to$ B\par
+
+Meaning: > There is a permitted way to go from A to B. \par
+
+\subsection*{[PHASE] BLOCK 2 --- Morphisms as Reasoning Steps}
+
+Motivation: Reasoning is not static --- but not everything is transformable in the same way.\par
+
+In FRFP, morphisms primarily act on composite objects (pipelines), not on atomic objects directly.\par
+
+Pipelines change via explicit reductions\par
+
+Atomic objects serve as stable building blocks\par
+
+Note: Key Idea: Objects exist at multiple levels, but not all levels have interesting morphisms.\par
+
+Formal clarification: Atomic objects (RI, EC, ED) admit only identity morphisms, while all nontrivial morphisms of the explicit category E act on composite objects (explicit pipelines) built from them.\par
+
+Motivation: To model reasoning, we must model steps.\par
+
+In FRFP:\n\n\begin{itemize}\n\item morphisms represent explicit reasoning steps
+\item each step is inspectable and rule-governed\n\end{itemize}
+
+Note: Objects = states of reasoning
+Note: Morphisms = steps of reasoning\par
+
+\section*{3. COMPOSITION}
+
+\subsection*{[PHASE] BLOCK 1 --- Why Composition Matters}
+
+Motivation: Reasoning happens in multiple steps.\par
+
+If:\par
+
+A $\to$ B
+B $\to$ C\par
+
+then we can compose them:\par
+
+A $\to$ C\par
+
+\subsection*{[PHASE] BLOCK 2 --- Composition Is Associative}
+
+Motivation: Grouping steps should not affect outcomes.\par
+
+Doing:\par
+
+(A $\to$ B) $\to$ C\par
+
+is the same as:\par
+
+A $\to$ (B $\to$ C)\par
+
+ This property makes long chains of reasoning manageable.\par
+
+\section*{4. IDENTITY MORPHISMS (STRUCTURAL IDENTITIES)}
+
+\subsection*{[PHASE] BLOCK 1 --- Doing Nothing Is Still a Step}
+
+Motivation: Any formal system must allow no change.\par
+
+For every object A, there is an identity morphism:\par
+
+id\_A : A $\to$ A\par
+
+Meaning: > Leave A exactly as it is. \par
+
+\subsection*{[PHASE] BLOCK 2 --- Why Structural Identities Matter}
+
+Motivation: Without identities, composition breaks.\par
+
+Identities guarantee:\n\n\begin{itemize}\n\item pipelines can remain unchanged
+\item composition laws hold
+\item equivalence can be defined\n\end{itemize}
+
+Note: In FRFP: Structural identities mean the same pipeline is still the same pipeline.\par
+
+\section*{5. ALGEBRAIC STRUCTURE}
+
+\subsection*{[PHASE] BLOCK 1 --- What Does Algebraic Mean Here?}
+
+Motivation: We want to prove things about reasoning, not just run it.\par
+
+ Algebraic structure means:\n\n\begin{itemize}\n\item objects
+\item transformations
+\item rules for combining transformations
+\item predictable behavior\n\end{itemize}
+
+It does not mean equations or numbers.\par
+
+\subsection*{[PHASE] BLOCK 2 --- Why Algebraic Structure Enables Formal Reasoning}
+
+Motivation: Proofs require stable rules.\par
+
+Because the system has algebraic structure, we can prove:\n\n\begin{itemize}\n\item termination
+\item normalization
+\item equivalence
+\item correctness preservation\n\end{itemize}
+
+Key point: Without algebraic structure, none of these claims are meaningful.\par
+
+\section*{6. CATEGORIES (THE MINIMAL FRAMEWORK)}
+
+\subsection*{[PHASE] BLOCK 1 --- What Is a Category?}
+
+Motivation: We want the smallest structure that supports formal reasoning.\par
+
+A category consists of: 1. objects 2. morphisms between objects 3. composition of morphisms 4. identity morphisms\par
+
+That s it.\par
+
+\subsection*{[PHASE] BLOCK 2 --- Why Categories Appear in FRFP}
+
+Motivation: FRFP needs structure, not decoration.\par
+
+Categories allow us to:\n\n\begin{itemize}\n\item model workflows as objects
+\item model reasoning as morphisms
+\item guarantee compositional correctness\n\end{itemize}
+
+ Category theory is used because it is the weakest tool that works.\par
+
+\section*{7. GROUPS (FOR CONTRAST)}
+
+\subsection*{[PHASE] BLOCK 1 --- What Is a Group?}
+
+Motivation: To understand categories and navigation, it helps to see what they generalize.\par
+
+A group has:\n\n\begin{itemize}\n\item a single underlying object
+\item elements acting as transformations of that object
+\item an identity element
+\item inverses for every element\n\end{itemize}
+
+Everything is reversible and acts on one thing.\par
+
+Note: Example intuition: Rotations of a square, permutations of a fixed set.\par
+
+\subsection*{[PHASE] BLOCK 2 --- Why FRFP Does Not Use Groups}
+
+Motivation: Reasoning and restructuring do not act on a single fixed object.\par
+
+Explicit reduction:\n\n\begin{itemize}\n\item simplifies
+\item loses syntactic detail
+\item is directional\n\end{itemize}
+
+Navigation:\n\n\begin{itemize}\n\item is invertible
+\item but moves between different shapes\n\end{itemize}
+
+Note: Hence: FRFP needs something more general than groups.\par
+
+\section*{8. GROUPOIDS (THE RIGHT NOTION FOR NAVIGATION)}
+
+\subsection*{[PHASE] BLOCK 1 --- What Is a Groupoid?}
+
+Motivation: We need reversibility without collapsing everything to one object.\par
+
+A groupoid is:\n\n\begin{itemize}\n\item a category
+\item with many objects
+\item where every morphism is invertible\n\end{itemize}
+
+Note: Intuition: A groupoid is a group with many objects. \par
+
+\subsection*{[PHASE] BLOCK 2 --- Why Navigation Forms a Groupoid}
+
+Motivation: Structural refactorings must be reversible but may change form.\par
+
+In FRFP navigation:\n\n\begin{itemize}\n\item objects = shapes
+\item morphisms = invertible structural rewrites
+\item rewrites go between different shapes\n\end{itemize}
+
+Each rewrite has an inverse, but there is no single global shape.\par
+
+Note: Conclusion: Navigation is a groupoid, not a group.\par
+
+\subsection*{[PHASE] BLOCK 3 --- One-Sentence Formal Clarification}
+
+Navigation is modeled as a groupoid rather than a group because structural rewrites are invertible but act between many distinct shapes, not as symmetries of a single shape.\par
+
+\section*{9. WHY CARTESIAN LIFTING IS A CORE HUMAN--AI SAFETY IDEA}
+
+\subsection*{[PHASE] BLOCK 1 --- Why Lifting Is Needed at All}
+
+Motivation: If structure and content are independent, changing structure should not change computation --- so why do anything?\par
+
+The subtlety is this:\n\n\begin{itemize}\n\item structure and content are independent in meaning
+\item but content is still located inside structure\n\end{itemize}
+
+When structure changes, the meaning must stay the same, but the placement of content must be updated.\par
+
+\subsection*{[PHASE] BLOCK 2 --- What Goes Wrong If Lifting Is Implicit}
+
+Motivation: Hidden mechanisms break trust.\par
+
+If lifting were implicit:\n\n\begin{itemize}\n\item the AI could reinterpret content during restructuring
+\item structure changes could smuggle in computation
+\item meaning preservation would be an assumption, not a theorem\n\end{itemize}
+
+ Silent movement is silent reasoning.\par
+
+\subsection*{[PHASE] BLOCK 3 --- What Explicit Lifting Guarantees}
+
+Motivation: Humans need refactoring to be as safe as mathematics.\par
+
+By making lifting:\n\n\begin{itemize}\n\item explicit (it is a visible operation)
+\item canonical (there is only one correct way)
+\item unique (no ambiguity)\n\end{itemize}
+
+you get:\n\n\begin{itemize}\n\item semantic invariance (meaning does not change)
+\item confluence (order of edits does not matter)
+\item human trust (nothing hidden can happen)\n\end{itemize}
+
+ Key Insight: Cartesian lifting plays the same safety role for structure/content separation that the tacit/explicit boundary plays for human/AI separation.\par
+
+\subsection*{[PHASE] BLOCK 4 --- One-Sentence Takeaway}
+
+Cartesian lifting exists because structure changes the placement of computation even when it must not change its meaning, and lifting is the unique, explicit rule that updates this interface safely.\par
+
+\section*{SUPER SUMMARY --- HOW THIS PRIMER CONNECTS TO APPENDIX A}
+
+Objects $\to$ explicit objects (atomic RI/EC/ED and composite pipelines)\par
+
+Morphisms $\to$ explicit reasoning steps\par
+
+Composition $\to$ multi-step reasoning\par
+
+Identity $\to$ structural sameness\par
+
+Algebraic structure $\to$ provable properties\par
+
+Category $\to$ minimal framework that supports all of the above\par
+
+ This primer provides exactly the tools needed to understand Appendix A --- nothing more, nothing less.\par
+
+\section*{HOW TO READ SYMBOLS (A POSTER-STYLE GUIDE)}
+
+This page explains how to read the symbols used throughout Appendix A and the math primer. Nothing new is introduced --- this is purely about interpretation.\par
+
+\subsection*{[PHASE] BLOCK 1 --- Objects and Membership}
+
+Symbol:\par
+
+e E\par
+
+Read as:\par
+
+ e is an explicit pipeline (an object in the explicit category). \par
+
+Informal meaning:\par
+
+e is a concrete, inspectable workflow\par
+
+it lives entirely in the explicit world\par
+
+\subsection*{[PHASE] BLOCK 2 --- Morphisms (Arrows)}
+
+Symbol:\par
+
+e $\to$ e'\par
+
+Read as:\par
+
+ There is an allowed explicit transformation from pipeline e to pipeline e'. \par
+
+Informal meaning:\par
+
+one step (or many steps) of explicit reasoning\par
+
+often a simplification or normalization\par
+
+\subsection*{[PHASE] BLOCK 3 --- Explicit Reduction}
+
+Symbol:\par
+
+e $\to\_\{e\}$ e'\par
+
+Read as:\par
+
+ Pipeline e explicitly reduces to pipeline e'. \par
+
+Informal meaning:\par
+
+computation happened\par
+
+expressions simplified\par
+
+no structural reorganization yet\par
+
+\subsection*{[PHASE] BLOCK 4 --- Identity Morphisms}
+
+Symbol:\par
+
+id\_e : e $\to$ e\par
+
+Read as:\par
+
+ The pipeline e stays exactly the same. \par
+
+Informal meaning:\par
+
+a formal way of saying do nothing \par
+
+required so pipelines behave like mathematical objects\par
+
+\subsection*{[PHASE] BLOCK 5 --- Composition of Morphisms}
+
+Symbol:\par
+
+e $\to$ e' $\to$ e \par
+
+Read as:\par
+
+ First transform e into e', then transform e' into e . \par
+
+Informal meaning:\par
+
+multi-step reasoning\par
+
+chaining explicit steps\par
+
+\subsection*{[PHASE] BLOCK 6 --- Categories}
+
+Symbol:\par
+
+E, S, N\par
+
+Read as:\par
+
+ A collection of objects together with allowed transformations between them. \par
+
+Informal meaning in FRFP:\par
+
+E = explicit pipelines + explicit reductions\par
+
+S = shapes + structure-preserving maps\par
+
+N = navigation steps (invertible structural rewrites)\par
+
+\subsection*{[PHASE] BLOCK 7 --- Fibers}
+
+Symbol:\par
+
+E\_S = \{ e E | shape(e) = S \}\par
+
+Read as:\par
+
+ All explicit pipelines whose structure is S. \par
+
+Informal meaning:\par
+
+a folder (S)\par
+
+containing all pipelines with that structure\par
+
+\subsection*{[PHASE] BLOCK 8 --- Functions and Functors}
+
+Symbol:\par
+
+p : E $\to$ S\par
+
+Read as:\par
+
+ A rule that maps each explicit pipeline to its shape. \par
+
+Informal meaning:\par
+
+a consistent translation from one kind of object to another\par
+
+preserves relationships between objects\par
+
+\subsection*{[PHASE] BLOCK 9 --- Semantic Interpretation}
+
+Symbol:\par
+
+\(\llbracket$e\rrbracket\)\par
+
+Read as:\par
+
+ The human-interpretable meaning of pipeline e. \par
+
+Informal meaning:\par
+
+what the explicit computation means\par
+
+evaluated by humans using tacit judgment\par
+
+\subsection*{[PHASE] BLOCK 10 --- Navigation Action}
+
+Symbol:\par
+
+$\sigma \cdot e$ = e'\par
+
+Read as:\par
+
+ Apply the structural rewrite $\sigma$ to pipeline e, producing pipeline e'. \par
+
+Informal meaning:\par
+
+move the workflow to a new structure\par
+
+content follows structure safely\par
+
+[PHASE] SUPER SUMMARY --- HOW TO READ THE MATH\par
+
+Symbols describe:\par
+
+what exists (objects)\par
+
+what is allowed (morphisms)\par
+
+how steps combine (composition)\par
+
+how structure and content relate (functions, functors)\par
+
+how meaning is assigned (\(\llbracket$ \rrbracket\))\par
+
+ Rule of thumb: Every symbol in Appendix A refers to an explicit, inspectable object or transformation --- never to hidden reasoning.\par
+
+End of How to Read Symbols Poster Page\par
+
+\section*{CONCEPT MAP --- HOW FRFP IS BUILT (DUAL-FLOW VIEW)}
+
+This poster-style diagram shows two parallel conceptual flows --- content and structure --- and where they are formally synchronized. Read top to bottom.\par
+
+CONTENT FLOW (EXPLICIT REASONING) STRUCTURE FLOW (WORKFLOW FORM)
+
+ 
+ OBJECTS TDG / SHAPES 
+ (What the AI reasons on) (Pure structure only) 
+ 
+ Atomic: RI, EC, ED Grammar \& skeletons 
+ Composite: Pipelines 
+ 
+ 
+ 
+ 
+ MORPHISMS SHAPE CATEGORY S 
+ (Explicit reductions $\to\_\{e\}$) (Shapes as objects) 
+ 
+ Identity + computation Structure-preserving 
+ 
+ 
+ 
+ 
+ COMPOSITION NAVIGATION N 
+ (Chaining reductions) (Invertible rewrites) 
+ 
+ e $\to$ e' $\to$ e Reorder / refactor form 
+ 
+ 
+ 
+ 
+ ALGEBRAIC STRUCTURE 
+ (Rule-governed behavior) 
+ 
+ Normalization possible 
+ 
+ 
+ 
+ 
+ CATEGORY E 
+ (Explicit world) 
+ 
+ Pipelines + $\to\_\{e\}$ 
+ 
+ 
+ 
+ 
+ 
+ FIBRATION p : E $\to$ S 
+ (Content structure) 
+ 
+ Pipelines live over 
+ shapes (fibers) 
+ 
+ 
+ 
+ 
+ CARTESIAN LIFTING 
+ (Safe synchronization) 
+ 
+ Structure moves 
+ content follows 
+ 
+ 
+ 
+ 
+ COMBINED SYSTEM N $\ltimes$ E 
+ (Structure + content) 
+ 
+ Morphisms: ($\sigma$, f) 
+ 
+ 
+ 
+ 
+ SEMANTICS 
+ \(\llbracket$ \rrbracket\) , RB, TE, HFD 
+ 
+ Explicit $\to$ Meaning 
+ 
+ 
+ 
+ 
+ FRFP THEOREMS 
+ (What we can prove) 
+ 
+ \item Normalization 
+ \item Confluence 
+ \item Correctness 
+ \item Semantic invariance 
+ \par
+
+[PHASE] HOW TO READ THIS DIAGRAM\par
+
+The left column develops explicit content and computation\par
+
+The right column develops pure structure and reorganization\par
+
+They are intentionally separate until the fibration\par
+
+The fibration is the first synchronization point\par
+
+Everything below it depends on both flows\par
+
+Key point: Key insight: Structure never changes meaning, and content never dictates structure --- they are coordinated only via principled mechanisms.\par
+
+[PHASE] ONE-SENTENCE BIG PICTURE\par
+
+FRFP develops content and structure independently, synchronizes them via fibration and lifting, and only then proves global correctness and semantic stability.\par
+
+End of Concept Map Poster Page\par

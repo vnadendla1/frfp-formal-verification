@@ -1,0 +1,169 @@
+%\section{Protocols and Institutional Designs Compatible with FRFP}
+This appendix describes protocols and institutional patterns that are compatible with the
+formal architecture developed in the main text. All constructions here are grounded in
+the existing FRFP mathematics: explicit--tacit separation, pipeline semantics in
+\(N \ltimes E\), correctness invariance under navigation, the dynamic analysis of
+hallucination, and the impossibility of fully automating correctness from explicit
+artifacts alone. We do not introduce new theorems; instead, we translate the formal
+constraints into practical rules for long-horizon human--AI collaboration.
+
+\subsection{Foundational Rules for FRFP-Compatible Practice}
+
+We state four operational rules that any FRFP-compatible workflow or institution
+should satisfy. Each rule is a protocol-level reflection of a mathematical property
+of the architecture.
+
+\paragraph{Rule 1 (Explicit confinement).}
+All machine-mediated operations occur in the explicit category \(E\): symbolic
+transformations, derivations, simulations, code execution, and navigation in
+\(N \ltimes E\). The system never claims tacit authority or correctness. The only
+boundary from explicit to tacit space is the backflow map \(RB : E \to T\), which
+hands explicit artifacts to human agents for tacit evaluation.
+
+\paragraph{Rule 2 (Human-exclusive grounding).}
+Correctness, acceptance, and responsibility live exclusively in tacit space \(T\).
+Observable judgments are given by \(\gamma \circ \llbracket - \rrbracket\), where
+\(\llbracket - \rrbracket : N \ltimes E \to T\) is the semantic functor and
+\(\gamma : \mathrm{Ob}(T) \to J\) is the correctness quotient. In protocol terms:
+only humans may accept, reject, or suspend judgment on claims; AI systems present
+explicit proposals and diagnostics but never act as final arbiters.
+
+\paragraph{Rule 3 (Source–reason traceability).}
+Every published claim must be traceable to:
+(i) a normal-form explicit pipeline \(P \in N \ltimes E\), and
+(ii) a sequence of tacit evaluations triggered by its boundary step \(RB\).
+Formally, reproducible provenance means that independent investigators can reconstruct
+a pipeline whose normal form has the same explicit semantics and yields the same
+observable tacit judgment \(\gamma(\llbracket P \rrbracket)\). In practice this
+requires versioned logs of prompts, model configurations, code, and intermediate
+artifacts, together with human evaluation checkpoints.
+
+\paragraph{Rule 4 (Integrity under navigation).}
+Because FRFP guarantees that \(\gamma \circ \llbracket - \rrbracket\) is invariant
+under explicit reduction and navigation in \(N \ltimes E\), protocols must preserve
+this invariance at the interface level: branching, backtracking, and exploratory
+reformulations are allowed and encouraged, but they are always treated as alternative
+paths toward a single tacit evaluation, not as independent correctness claims. User
+interfaces and institutional processes should therefore separate:
+(i) exploratory branches in explicit space, and
+(ii) the consolidated tacit judgments to which they are ultimately submitted.
+
+\subsection{Dialogic Reproducibility Protocol}
+
+The FRFP semantics suggest a concrete notion of reproducibility for human--AI
+dialogue. A dialogic workflow is reproducible when an independent team can reconstruct
+an explicit pipeline \(P' \in N \ltimes E\) whose normal form is equivalent to the
+original pipeline \(P\) up to navigation, and for which the resulting tacit
+judgments coincide:
+\[
+  \gamma(\llbracket P' \rrbracket) = \gamma(\llbracket P \rrbracket).
+\]
+
+A minimal protocol compatible with this notion has three components.
+
+\paragraph{(1) Structured interaction traces.}
+Each interaction with the AI system is recorded as a typed step in a TDG-generated
+pipeline: representation initiation (RI), explicit computation (EC), explicit
+diagnostics (ED), navigation steps in \(N\), and boundary steps \(RB\). Logs include
+model version, code or tool calls, and the explicit artifacts produced at each stage.
+
+\paragraph{(2) Context archives.}
+At designated checkpoints, the current explicit state (definitions, assumptions,
+intermediate results) is serialized as a context artifact in \(E\). These context
+snapshots serve as canonical entry points for future pipelines and allow independent
+teams to replay or extend the reasoning using the same initial explicit data.
+
+\paragraph{(3) Replay procedures.}
+A reproducibility audit consists of reconstructing a pipeline from archived context
+and logs, reducing it to normal form in \(N \ltimes E\), and checking whether the
+resulting tacit judgment matches the recorded outcome. Discrepancies expose either
+implementation errors, insufficient logging, or tacit disagreements, each of which
+can then be investigated explicitly.
+
+\subsection{Closure Criteria for Long-Horizon Collaboration}
+
+Because FRFP pipelines can in principle be extended indefinitely, closure is not
+automatic; it is a governed decision by human agents. We define closure criteria
+that align with the FRFP semantics and the correctness invariance theorem.
+
+\paragraph{Conceptual stability.}
+The explicit normal forms associated with the main claims remain stable across
+multiple iterations of exploration and navigation. Operationally, further TDG
+expansions and navigation steps in \(N \ltimes E\) no longer change the canonical
+explicit structures relevant to the claims. This reflects the fact that
+\(\gamma \circ \llbracket - \rrbracket\) depends only on the semantic content of the
+pipeline, not on its construction history.
+
+\paragraph{Evidential sufficiency.}
+Every major claim is linked to a well-typed explicit pipeline whose semantic image
+\(\llbracket P \rrbracket \in T\) justifies the corresponding tacit judgment under
+the agreed standards of the field (proof obligations, error bounds, empirical
+thresholds). In practice, this means that each claim is backed by explicit
+derivations, simulations, or data analyses that can be inspected and replayed.
+
+\paragraph{Provenance completeness.}
+For each published claim, the associated pipeline and its key checkpoints are
+recorded in sufficient detail to satisfy the dialogic reproducibility protocol
+above. This ensures that future investigators can reconstruct \(P\), check its
+normal form, and compare their tacit judgments with those originally recorded.
+
+Closure is declared when these three conditions hold for the main claims and no
+new FRFP-compatible pipeline, starting from the archived context, is expected to
+change the relevant tacit judgments. At that point, the interaction transitions
+from open-ended exploration to a stable record suitable for publication and
+institutional review.
+
+\subsection{Illustrative Case Study: Stress-Testing a Financial Strategy}
+
+We briefly sketch how these rules specialize in a stylized financial case study.
+The goal is not to introduce new mathematics but to show how FRFP-compatible
+protocols can be instantiated in a concrete domain.
+
+\paragraph{Scenario.}
+A team is developing a portfolio rebalancing strategy under hierarchical limits
+and wishes to stress-test it using both human expertise and AI tools. The explicit
+artifacts \(E\) include model code, parameter sets, shock scenarios, and summary
+statistics; tacit space \(T\) represents human judgments about adequacy, risk, and
+regulatory acceptability.
+
+\paragraph{Pipelines and navigation.}
+The team uses the AI system to generate candidate stress-test pipelines: baseline
+scenarios, moderate shocks, and tail events (e.g., adding a tail scenario with a
+spread shock at or above the \(99\)th percentile in a sector). Each pipeline is a
+TDG term in \(N \ltimes E\), built from explicit primitives (scenario generation,
+simulation runs, aggregation) and navigation steps (branching on alternative models,
+rolling back to prior assumptions, refining constraints).
+
+\paragraph{Dialogic reproducibility.}
+At each major checkpoint, the team archives:
+(i) the explicit configuration (portfolio state, limits, scenarios);
+(ii) the simulation outputs; and
+(iii) the corresponding AI-generated analyses.
+Human evaluators record tacit judgments on whether the current set of scenarios,
+including tail shocks, sufficiently probes the relevant risk surfaces. A reproducible
+record thus consists of:
+\begin{itemize}
+  \item the explicit pipeline \(P\) with its normal form (the set of scenarios and
+        computations actually used), and
+  \item the sequence of tacit judgments \(\gamma(\llbracket P \rrbracket)\) at closure.
+\end{itemize}
+
+\paragraph{Closure and institutional use.}
+Closure is reached when:
+(i) additional navigation moves (e.g., adding more variations of the \(99\)th percentile
+shocks) no longer change the team’s tacit assessment of the strategy’s robustness;
+(ii) each risk statement (e.g., “the strategy remains feasible under shocks up to
+X”) is backed by explicit simulations; and
+(iii) all relevant pipelines and checkpoints are logged for replay.
+An institution (such as a risk committee) can then review the explicit pipelines
+and associated tacit judgments, but by the non-automation results in the FRFP
+appendices it cannot replace human evaluation with a purely explicit surrogate
+without losing the correctness guarantees.
+
+\medskip
+
+These protocols and patterns are not additional axioms; they are practical
+consequences of the FRFP architecture. They show how explicit confinement, human-
+exclusive grounding, correctness invariance, and the structure of hallucination
+and institutional limits can be used to design concrete workflows and institutions
+for long-horizon human--AI collaboration.

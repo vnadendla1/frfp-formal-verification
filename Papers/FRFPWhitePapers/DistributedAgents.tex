@@ -1,0 +1,137 @@
+%\section{Disciplined agents and FRFP-compatible tooling}
+%\label{app:disciplined-agents}
+
+This appendix gives an informal account of \emph{disciplined agents} and supporting tooling in the sense used in the main text. The aim is not to introduce new mathematical structure, but to make concrete what it means, operationally, for AI systems and surrounding infrastructure to respect the FRFP boundary between explicit and tacit modes.
+
+\subsection{Disciplined agents: informal definition}
+
+Recall that FRFP separates:
+\begin{itemize}
+  \item an \emph{explicit} mode, consisting of machine-manipulable artefacts and pipelines (text, code, models, data, proofs, logs, plans, and their compositions); and
+  \item a \emph{tacit} mode, consisting of human-exclusive evaluative states (understanding, background know-how, context-dependent judgments of adequacy, credibility, and acceptance).
+\end{itemize}
+
+\begin{definition}[Disciplined agent]
+A \emph{disciplined agent} is an AI system, together with its immediate runtime wrapper, that:
+\begin{enumerate}
+  \item is strictly confined to the explicit side of FRFP (it manipulates only explicit artefacts);
+  \item exposes its behaviour as explicit \emph{pipelines} rather than opaque one-shot outputs;
+  \item is designed to integrate with, and defer to, human tacit oversight at clearly identified boundary points; and
+  \item satisfies a small set of protocol-level constraints (explicit confinement, source--reason traceability, navigation integrity, and competence-aware behaviour).
+\end{enumerate}
+\end{definition}
+
+Intuitively, a disciplined agent is not a ``governing mind'' or an autonomous decision-maker. It is a tool for constructing and transforming explicit structures in a way that keeps humans firmly in control of correctness and acceptance.
+
+\subsection{Core requirements for disciplined agents}
+
+We now spell out the core constraints that characterise disciplined agents. These are phrased operationally so that they can be checked against concrete systems.
+
+\paragraph{(1) Explicit confinement.}
+The agent must operate entirely in explicit mode:
+\begin{itemize}
+  \item All inputs are explicit artefacts (prompts, queries, specifications, code, data references, prior outputs).
+  \item All outputs are explicit artefacts (drafts, summaries, plans, code, annotations, proposed transformations).
+  \item The system \emph{does not} attempt to simulate or replace human tacit judgments such as final acceptance, ethical endorsement, or institutional approval.
+\end{itemize}
+In particular, disciplined agents do not emit binding ``decisions''; they emit explicit proposals that require human uptake at the boundary.
+
+\paragraph{(2) Boundary awareness and deference.}
+The agent must be designed to respect the FRFP boundary:
+\begin{itemize}
+  \item It treats human review, modification, or rejection of artefacts as the only source of correctness-bearing updates.
+  \item It does not override, silently correct, or back-solve against recorded human judgments.
+  \item It exposes natural \emph{handoff points} where humans are expected to inspect, accept, revise, or discard artefacts before they are used downstream.
+\end{itemize}
+
+\paragraph{(3) Source--reason traceability.}
+The agent must support inspection of \emph{why} a given explicit artefact was produced:
+\begin{itemize}
+  \item Outputs should be accompanied, where feasible, by their immediate \emph{source} artefacts (citations, code paths, configuration) and a short rationale in explicit form.
+  \item Transformations of artefacts (e.g., ``summarise'', ``refactor'', ``combine'') should be logged as steps in a pipeline rather than only as final states.
+  \item It should be possible for a human reviewer to trace a given explicit artefact back along the pipeline to its inputs and major intermediate decisions.
+\end{itemize}
+This supports auditability and post-hoc diagnosis of failure modes, and matches the FRFP focus on whole-pipeline correctness.
+
+\paragraph{(4) Navigation integrity.}
+Disciplined agents must treat exploration and navigation as first-class:
+\begin{itemize}
+  \item The agent may support branching, backtracking, and ``what if'' exploration of explicit artefacts, but navigation steps should not silently alter prior artefacts or logs.
+  \item Changes to context (e.g., switching between tasks, loading a different dataset, swapping model versions) should be explicit and recorded.
+  \item The agent should avoid conflating logically distinct threads of work into a single undifferentiated interaction history.
+\end{itemize}
+The goal is to prevent subtle corruption of context---for example, accidental reuse of assumptions from one scenario in a different scenario without explicit acknowledgement.
+
+\paragraph{(5) Competence awareness and safe failure.}
+Disciplined agents must represent and communicate their own limitations:
+\begin{itemize}
+  \item For tasks outside their competence, agents should decline, escalate to a human, or request clarification rather than hallucinating confident-sounding content.
+  \item They should provide machine-readable signals of task difficulty and uncertainty, enabling external \emph{competence monitors} to enforce conservative behaviour in high-stakes settings.
+  \item Where applicable, they should be designed to degrade gracefully under load (e.g., by narrowing scope or switching to safer default behaviours) rather than silently increasing risk.
+\end{itemize}
+
+\subsubsection*{Explicit correctness engines as disciplined components}
+A common disciplined-agent pattern is to couple a generative system with an explicit correctness engine:
+for example, a large language model that proposes code or proofs, paired with a compiler, test harness,
+or interactive theorem prover that checks those artefacts against a fixed specification. In FRFP, such
+engines live entirely in the explicit category $E$ and implement EC/ED steps: they take explicit artefacts
+as input and return explicit accept/reject signals, error traces, or certified artefacts.
+
+From the protocol point of view:
+\begin{itemize}
+  \item The generative component explores the explicit search space (pipelines in $N \ltimes E$).
+  \item The correctness engine filters or annotates these proposals according to the inner explicit
+        specification.
+  \item Human tacit agents remain responsible for choosing the specification, interpreting certified
+        artefacts, and deciding when the explicit engine is sufficient or needs to be revised.
+\end{itemize}
+Explicit correctness engines can therefore materially shrink the space of explicit mistakes, but they do
+not eliminate the need for tacit oversight. They are inner modules inside the explicit side of FRFP,
+not substitutes for tacit correctness at the agent, institutional, or governance layers.
+
+\subsection{Tooling around disciplined agents}
+
+Disciplined agents are not expected to enforce all of these constraints on their own. In practice, they are supported by a small ecosystem of tools and services organised around the FRFP boundary:
+
+\paragraph{Run-keepers.}
+A \emph{run-keeper} is a lightweight service that:
+\begin{itemize}
+  \item records explicit pipelines as first-class objects (with identifiable runs, steps, and artefacts);
+  \item attaches metadata such as timestamps, model or system versions, and task descriptors; and
+  \item exposes interfaces for human reviewers to annotate, accept, reject, or escalate artefacts at designated boundary points.
+\end{itemize}
+Run-keepers turn ad hoc chats or scripts into structured executions that can be reasoned about using FRFP semantics.
+
+\paragraph{Context managers.}
+A \emph{context manager} controls the explicit context presented to an agent at each step:
+\begin{itemize}
+  \item It decides which prior artefacts, summaries, and parameters are surfaced as inputs for a given action.
+  \item It separates logically distinct threads of work, avoiding unintended leakage of context across tasks, clients, or regulatory boundaries.
+  \item It can enforce policies on maximum horizon length, required review steps, and archival of explicit records.
+\end{itemize}
+
+\paragraph{Competence monitors.}
+A \emph{competence monitor} is an external process that supervises calls to disciplined agents:
+\begin{itemize}
+  \item It integrates explicit uncertainty signals, task descriptors, and domain policies to decide when human review is mandatory.
+  \item It can throttle, block, or reroute agent actions in high-risk regimes (for example, when horizons exceed specified safe limits, or when tasks touch regulated domains).
+  \item It can maintain hazard profiles and empirical safe-horizon estimates for specific combinations of agents, tasks, and institutions.
+\end{itemize}
+
+\paragraph{Connectors and adapters.}
+Finally, disciplined agents often sit behind \emph{connectors} to external systems:
+\begin{itemize}
+  \item Adapters translate between domain-specific data formats (e.g., EHR systems, trading platforms, document repositories) and FRFP-style explicit artefacts.
+  \item Policy layers ensure that only artefacts that have passed through the appropriate boundary checks are emitted back into production systems.
+\end{itemize}
+
+\subsection{Relation to the main text}
+
+The constructions above are intended as an operational counterpart to the formal FRFP architecture:
+\begin{itemize}
+  \item Explicit confinement and boundary awareness align with the explicit/tacit separation and the one-way review boundary developed in the core model.
+  \item Run-keepers and context managers provide concrete implementations of explicit pipelines and navigation patterns, making whole-run semantics observable.
+  \item Competence monitors and governance-oriented adapters give one way to respect the impossibility and non-automation results: they keep correctness authority in human tacit space while still using AI systems intensively on the explicit side.
+\end{itemize}
+
+In later volumes, we expect to refine these notions into more detailed design patterns and system-level blueprints. The present appendix is only intended to clarify the use of ``disciplined agents'' and FRFP-compatible tooling as contributions of this volume.

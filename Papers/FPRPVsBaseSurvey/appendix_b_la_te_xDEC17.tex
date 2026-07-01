@@ -1,0 +1,1232 @@
+
+%\section{Pipeline Dynamics}
+%\label{app:pipeline-dynamics}
+
+\subsubsection{Purpose and Scope}
+The discussion in the Appendix till now formalizes
+\emph{static} correctness of individual FRFP pipelines, Epistemic Dynamics
+analyzes what happens when such pipelines are iterated by the same
+human--AI system over many turns. The focus is on:
+\begin{enumerate}
+  \item persistence and degradation of tacit context;
+  \item explicit-only hallucinations and their containment;
+  \item confidence inflation and requirement escalation;
+  \item feedback-coupled degradation and accelerated hallucination;
+  \item stochastic and finite-horizon pipelines.
+\end{enumerate}
+No collective or institutional mechanisms are assumed in this section;
+these appear in latter.
+
+Throughout, we fix the Epistemic structure and work
+with the underlying tacit context space \(T\) and explicit artifact
+space \(E\).
+
+%======================================================================
+\subsubsection{Tacit Context Space}
+%======================================================================
+
+Each human agent possesses a tacit context space \(T\), equipped with a
+preorder \(\preceq\).
+
+\begin{definition}[Tacit context preorder]
+The binary relation \(\preceq\) on \(T\) is read as:
+\[
+t_1 \preceq t_2
+\quad\text{``\(t_1\) is epistemically no stronger than \(t_2\)''}.
+\]
+We write \(t_1 \prec t_2\) if \(t_1 \preceq t_2\) and \(t_2 \not\preceq t_1\).
+\end{definition}
+
+No algebraic structure on \(T\) is assumed beyond this preorder. The
+categorical tacit structure  (one-object category,
+primitives \(\TE,\HFD\), correctness quotient \(\gamma\)) is still in
+force, but for dynamic analysis we work primarily with the underlying
+preordered set \((T,\preceq)\).
+
+%======================================================================
+\subsubsection{Context Degradation}
+%======================================================================
+
+Tacit context degrades over time due to forgetting, misplaced trust,
+habituation, and other long-run effects.
+
+\begin{definition}[Context degradation]
+A \emph{context degradation} operator is a function
+\[
+\delta : T \to T
+\]
+modeling loss of grounding across turns. We assume:
+\begin{enumerate}
+  \item \textbf{Monotonicity}:
+        \(\delta(t) \preceq t\) for all \(t \in T\).
+  \item \textbf{Strict decay somewhere}:
+        there exists \(t \in T\) with \(\delta(t) \prec t\).
+  \item \textbf{Non-invertibility}:
+        \(\delta\) has no right inverse; i.e., there is no function
+        \(f:T\to T\) such that \(\delta \circ f = \mathrm{id}_T\).
+\end{enumerate}
+We write \(\delta^n\) for the \(n\)-fold iterate of \(\delta\).
+\end{definition}
+
+Intuitively, \(\delta\) expresses the part of tacit dynamics that is
+\emph{purely degrading}. In this appendix we deliberately ignore
+repair/refresh operations (e.g., reading textbooks, taking breaks) to
+obtain worst-case inevitability results. Repair can be modeled by
+separate operators \(\rho:T\to T\), but these are left for future work.
+
+%======================================================================
+\subsubsection{Dynamic Interpretation of Pipelines}
+%======================================================================
+
+We now interpret complete FRFP pipelines as transformations of tacit
+context.
+
+Let \(E_{\mathrm{sem}}\) be the explicit semantic category and \(\RB^\sharp : E_{\mathrm{sem}}\to T\) the semantic
+backflow (Section~A.0.5). For each explicit pipeline \(e\in
+E_{\mathrm{sem}}\), the Epistemic Space suffix \(\TE,\HFD\) yields a tacit
+transformer
+\[
+t \longmapsto \HFD \circ \TE \circ \RB^\sharp(e,t),
+\]
+where we allow the tacit state \(t\) to modulate interpretation
+(e.g., via background knowledge).
+
+\begin{definition}[Pipeline transformer]
+A \emph{complete FRFP pipeline} \(P\) at a given turn consists of:
+\begin{itemize}
+  \item an explicit artifact \(e \in E_{\mathrm{sem}}\) produced by the
+        AI system via explicit computation and navigation;
+  \item the canonical tacit suffix \(\RB \to \TE \to \HFD\);
+  \item subsequent degradation \(\delta\).
+\end{itemize}
+It induces a tacit transformer
+\[
+\llbracket P \rrbracket_\delta : T \to T,\qquad
+\llbracket P \rrbracket_\delta(t)
+ :=
+ \delta\bigl( \HFD\circ\TE\circ\RB^\sharp(e,t)\bigr).
+\]
+\end{definition}
+
+\begin{definition}[Run]
+A \emph{run} (or \emph{pipeline execution}) is a sequence
+\[
+t_0, t_1, t_2,\dots
+\]
+of tacit states such that there exist pipelines
+\(P_0, P_1, P_2,\dots\) with
+\[
+t_{n+1}
+  = \llbracket P_n \rrbracket_\delta(t_n)
+\quad\text{for all } n \geq 0.
+\]
+\end{definition}
+
+We will often also track the explicit artifacts \(e_n\) and credences
+\(c_n\) associated with each \(P_n\); this is made precise in
+Sections~\ref{sec:B7-confidence} and~\ref{sec:B15-stochastic}.
+
+%======================================================================
+\subsubsection{Requirements and Hallucination}
+%======================================================================
+
+We formalize hallucination in terms of a requirement map on explicit
+artifacts.
+
+\begin{definition}[Requirement map]
+A \emph{requirement map} is a function
+\[
+\Req : E \times \mathbb{R}_{\ge 0} \to T
+\]
+assigning to each explicit artifact \(e \in E\) and tacit credence
+\(c\ge 0\) a required tacit grounding \(\Req(e,c)\). We require:
+\begin{enumerate}
+  \item \textbf{Monotonicity in credence}:
+        if \(c_1 \le c_2\) then
+        \(\Req(e,c_1) \preceq \Req(e,c_2)\);
+  \item \textbf{Nontriviality}:
+        there exist artifacts whose requirements strictly exceed others
+        in the preorder.
+\end{enumerate}
+When credence is suppressed, we write \(\Req(e)\) for a baseline
+requirement (e.g., at default credence).
+\end{definition}
+
+\begin{definition}[Hallucination]
+Let \(t\in T\) be the tacit state at evaluation time, \(e\in E\) an
+explicit artifact, and \(c\ge 0\) the tacit credence assigned to
+\(e\). A \emph{hallucination} occurs at this step if
+\[
+t \prec \Req(e,c).
+\]
+We say that the artifact \(e\) is \emph{hallucinated} (relative to
+\((t,c)\)) in this case.
+\end{definition}
+
+\begin{remark}[Structural nature of hallucination]
+In this formalism, hallucination is an \emph{implementation-agnostic}
+relation between tacit state \(t\), requirement \(\Req(e,c)\), and
+explicit artifact \(e\). It does not depend on the model's internal
+computation or intent. Concrete architectures (e.g., LLMs) shape
+\emph{how often} trajectories enter states with \(t \prec
+\Req(e,c)\), but do not appear in the definition itself.
+\end{remark}
+
+%======================================================================
+\subsubsection{Hallucination Inevitability}
+%======================================================================
+
+We now state a baseline hallucination inevitability theorem for
+deterministic degradation dynamics.
+
+To capture recurring nontrivial demands, we restrict to runs that keep
+encountering artifacts whose requirements exceed a fixed lower bound.
+
+\begin{definition}[Nontrivial requirement floor]
+A requirement floor is a tacit state \(r\in T\). A run
+\((t_n,e_n,c_n)_{n\ge 0}\) has \emph{recurring nontrivial demands}
+relative to \(r\) if there exists an infinite subsequence
+\((n_k)_{k\ge 0}\) such that
+\[
+\Req(e_{n_k},c_{n_k}) \succeq r
+\quad\text{for all }k.
+\]
+\end{definition}
+
+We also assume that degradation eventually pushes tacit states below
+this floor.
+
+\begin{assumption}[Baseline degradation below the requirement floor]
+\label{assump:baseline-degradation}
+There exists \(r\in T\) such that for every initial tacit state
+\(t_0\in T\), there exists \(N\in\mathbb{N}\) with
+\[
+\delta^N(t_0) \prec r.
+\]
+\end{assumption}
+
+This is a strengthening of ``strict decay somewhere'': it requires that
+every trajectory ultimately falls below the floor \(r\).
+
+\begin{theorem}[Hallucination inevitability]
+\label{thm:baseline-inevitability}
+Assume:
+\begin{enumerate}
+  \item context degradation \(\delta\) satisfies monotonicity,
+        non-invertibility, and
+        Assumption~\ref{assump:baseline-degradation};
+  \item requirements admit a nontrivial floor \(r\) and are monotone in
+        credence;
+  \item a run \((t_n,e_n,c_n)_{n\ge 0}\) has recurring nontrivial
+        demands relative to \(r\).
+\end{enumerate}
+Then every infinite run produces at least one hallucination; i.e., there
+exists \(n\) with
+\[
+t_n \prec \Req(e_n,c_n).
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By Assumption~\ref{assump:baseline-degradation}, for any initial
+\(t_0\) there exists \(N\) with \(\delta^N(t_0) \prec r\). Consider the
+given run and the subsequence \((n_k)\) along which
+\(\Req(e_{n_k},c_{n_k})\succeq r\). For sufficiently large \(k\),
+monotonicity of \(\delta\) and recurrence of nontrivial demands imply
+that
+\[
+t_{n_k} \preceq \delta^{m}(t_0) \prec r \preceq \Req(e_{n_k},c_{n_k})
+\]
+for some \(m\), so \(t_{n_k} \prec \Req(e_{n_k},c_{n_k})\), i.e., a
+hallucination. A detailed proof can be given by induction along the
+run, but the key idea is that degradation eventually drives tacit
+grounding below a floor that requirements exceed infinitely often.
+\end{proof}
+
+\begin{remark}
+The theorem applies to \emph{nontrivial, open-ended} task streams with
+recurrent demands above a fixed floor. Trivial avoidance regimes (e.g.,
+restricting to a tiny class of always-easy tasks or always answering
+``I don't know'') fall outside the intended scope.
+\end{remark}
+
+%======================================================================
+\subsubsection{Explicit-Only Hallucinations}
+%======================================================================
+We now isolate explicit artifacts that are produced entirely within explicit reasoning, but which can be
+hallucinated relative to some tacit state encountered along a run.
+
+\begin{definition}[Explicit-only hallucination]
+An \emph{explicit-only hallucination} is an explicit artifact
+\(e \in E\) such that:
+\begin{enumerate}
+  \item \(e\) is well-typed and syntactically valid as an FRFP explicit
+        object;
+  \item \(e\) is surface-plausible under an explicit plausibility
+        functional (Section~\ref{sec:B7-confidence});
+  \item there exists a tacit state \(t\) and credence \(c\) encountered
+        in some run such that
+        \(t \prec \Req(e,c)\).
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[Containment but not elimination]
+Nothing in Epistemic Space or Epistemic Algebra forbids the production of explicit-only
+hallucinations. Eliminating them entirely would require either:
+\begin{itemize}
+  \item an explicit correctness oracle, or
+  \item a simulation of tacit evaluation inside explicit space,
+\end{itemize}
+both of which would violate Explicit--Tacit Separation (ETS) and
+Human-Exclusive Grounding (HEG).
+
+The explicit--tacit separation guarantees \emph{containment}, not
+\emph{elimination}: explicit-only hallucinations cannot become
+correctness judgments without passing through \(\RB\), but they may
+still be produced arbitrarily often within explicit space.
+\end{proposition}
+
+%======================================================================
+\subsubsection{Confidence Inflation}
+\label{sec:B7-confidence}
+%======================================================================
+
+We model how plausible explicit artifacts raise tacit credence even
+when they do not increase grounding.
+
+\begin{definition}[Explicit plausibility]
+An \emph{explicit plausibility functional} is a map
+\[
+\pi : E \to [0,1],
+\]
+measuring surface coherence, fluency, or apparent authority of explicit
+artifacts.
+\end{definition}
+
+We extend tacit state with a credence component.
+
+\begin{definition}[Extended tacit state]
+Let
+\[
+T^e := T \times \mathbb{R}_{\ge 0}
+\]
+be the space of extended tacit states \((t,c)\), where \(t\in T\) is
+grounding and \(c\) is tacit credence (how settled or reliable the
+agent treats the current artifact).
+\end{definition}
+
+\begin{definition}[Confidence inflation]
+A \emph{confidence inflation operator} is a map
+\[
+\Phi : (T^e \times E) \to T^e,\qquad
+\Phi\bigl( (t,c), e \bigr)
+ :=
+ (t,\; c + \varphi(\pi(e))),
+\]
+where \(\varphi:[0,1]\to \mathbb{R}_{\ge 0}\) is monotone increasing.
+
+We require that \(\Phi\) does not increase tacit grounding:
+\[
+\Phi\bigl((t,c),e\bigr) = (t',c') \quad\Rightarrow\quad t' = t.
+\]
+\end{definition}
+
+Thus confidence inflation changes only the agent's interpretive stance
+(higher credence), not the underlying grounding \(t\).
+
+\begin{remark}
+Confidence inflation captures the structural asymmetry between
+``feeling confident'' and ``being grounded''. Systems optimized for
+producing well-formed, plausible outputs (e.g., LLMs) inevitably
+exhibit this asymmetry: they can increase credence by producing
+plausible artifacts without necessarily increasing grounding.
+\end{remark}
+
+%======================================================================
+\subsubsection{Requirement Escalation Under Plausibility}
+%======================================================================
+
+Credence affects what requirements are appropriate: asserting
+high-credence claims demands stronger grounding.
+
+\begin{definition}[Requirement escalation]
+The requirement map \(\Req : E \times \mathbb{R}_{\ge 0} \to T\) is
+\emph{escalatory} if it is monotone in credence, i.e.,
+\[
+c_1 \le c_2 \quad\Rightarrow\quad
+\Req(e,c_1) \preceq \Req(e,c_2),
+\]
+for all \(e\in E\). Repeated exposure to highly plausible artifacts
+(large \(\pi(e)\)) can then raise requirements even if the explicit
+content \(e\) is unchanged.
+\end{definition}
+
+Combining confidence inflation and requirement escalation, we see that
+the same explicit artifact can acquire higher requirements over time as
+agents become more confident in it.
+
+%======================================================================
+\subsubsection{Feedback-Coupled Degradation}
+%======================================================================
+
+We now allow degradation to depend on credence, introducing a feedback
+loop: overconfidence reduces skepticism and checking, accelerating loss
+of grounding.
+
+\begin{definition}[Feedback-coupled degradation]
+A \emph{feedback-coupled degradation} operator is a function
+\[
+\delta^\star : T^e \to T,\qquad
+\delta^\star(t,c) = \delta_c(t),
+\]
+where \(\delta_c : T \to T\) is a family of degradation operators
+indexed by credence \(c\), satisfying:
+\begin{enumerate}
+  \item \textbf{Credence monotonicity}:
+        for fixed \(t\), if \(c_1 \le c_2\) then
+        \(\delta^\star(t,c_2) \preceq \delta^\star(t,c_1)\);
+        i.e., higher confidence weakens effective grounding.
+  \item \textbf{Consistency with baseline degradation}:
+        \(\delta^\star(t,0) = \delta(t)\) for all \(t\).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Extended run with feedback]
+An \emph{extended run} is a sequence
+\[
+(t_0,c_0,e_0), (t_1,c_1,e_1), \dots
+\]
+such that, at each step \(n\),
+\begin{align*}
+(t_n^+, c_n^+) &= \Phi\bigl((t_n,c_n), e_n\bigr)
+      &&\text{(confidence inflation)},\\
+t_{n+1} &= \delta^\star(t_n^+, c_n^+)
+      &&\text{(feedback-coupled degradation)},\\
+c_{n+1} &\text{ chosen by tacit update (e.g., reset or carry-over)}.
+\end{align*}
+\end{definition}
+
+The exact rule for updating \(c_{n+1}\) can be left abstract; all we
+require is that confidence inflation can push credence arbitrarily high
+along some runs.
+
+%======================================================================
+\subsubsection{Rate of Context Loss}
+%======================================================================}
+
+We can analyze the rate at which tacit grounding is lost under
+feedback-coupled degradation.
+
+\begin{definition}[Grounding measure and loss rate]
+Let \(\mu : T \to \mathbb{R}_{\ge 0}\) be any monotone measure of tacit
+grounding (used only for analysis). For an extended run
+\((t_n,c_n,e_n)\), define the instantaneous loss rate at turn \(n\) by
+\[
+\rho_n := \mu(t_n) - \mu\bigl(\delta^\star(t_n,c_n)\bigr).
+\]
+\end{definition}
+
+\begin{proposition}[Loss rate increases with credence]
+Under the credence-monotonicity assumption for \(\delta^\star\) and
+monotonicity of \(\mu\), the loss rate \(\rho_n\) is non-decreasing in
+\(c_n\). In particular, higher credence does not slow context loss and
+may accelerate it.
+\end{proposition}
+
+\begin{proof}
+If \(c_1 \le c_2\), then
+\(\delta^\star(t,c_2) \preceq \delta^\star(t,c_1)\) and
+monotonicity of \(\mu\) yields
+\(\mu(\delta^\star(t,c_2)) \le \mu(\delta^\star(t,c_1))\). Thus
+\[
+\mu(t) - \mu(\delta^\star(t,c_2))
+\;\ge\;
+\mu(t) - \mu(\delta^\star(t,c_1)),
+\]
+so \(\rho_n\) increases with \(c_n\).
+\end{proof}
+
+%======================================================================
+\subsubsection{Accelerated Hallucination}
+%======================================================================
+
+We now combine confidence inflation, requirement escalation, and
+feedback-coupled degradation.
+
+\begin{definition}[Feedback-coupled update]
+Along an extended run, the joint update
+\[
+(t_{n+1}, c_{n+1})
+ =
+\Bigl(
+  \delta^\star\bigl( t_n, c_n + \varphi(\pi(e_n))\bigr),\;
+  c_{n+1}
+\Bigr)
+\]
+captures the combined effect of:
+\begin{itemize}
+  \item confidence inflation
+        \((t_n, c_n) \mapsto (t_n, c_n + \varphi(\pi(e_n)))\);
+  \item degradation \(\delta^\star\), which is more severe at higher
+        credence.
+\end{itemize}
+Grounding weakens faster while requirements grow stronger (via
+\(\Req(e_n,c_n)\)).
+\end{definition}
+
+This creates a widening gap between available grounding \(t_n\) and
+demanded grounding \(\Req(e_n,c_n)\), leading to accelerated
+hallucination.
+
+%======================================================================
+\subsubsection{Accelerated Hallucination Inevitability}
+%======================================================================
+
+We can now state a strengthened inevitability theorem in the presence
+of feedback.
+
+\begin{assumption}[Unbounded credence under plausibility]
+There exists \(\bar{\pi} \in (0,1]\) such that for any initial credence
+\(c_0\) and any infinite sequence of artifacts with
+\(\pi(e_n) \ge \bar{\pi}\) infinitely often, the accumulated credence
+\[
+c_n^{+} := c_0 + \sum_{k=0}^{n-1} \varphi(\pi(e_k))
+\]
+tends to \(+\infty\) along a subsequence.
+\end{assumption}
+
+\begin{theorem}[Accelerated hallucination inevitability]
+\label{thm:accelerated-inevitability}
+Assume:
+\begin{enumerate}
+  \item baseline context degradation \(\delta\) is monotone and
+        non-invertible and satisfies
+        Assumption~\ref{assump:baseline-degradation};
+  \item confidence inflation \(\Phi\) with
+        \(\varphi(\bar{\pi}) > 0\) for some \(\bar{\pi}\in(0,1]\);
+  \item requirement escalation: \(\Req\) is monotone in credence;
+  \item feedback-coupled degradation \(\delta^\star\) is credence-monotone
+        and reduces to \(\delta\) at zero credence;
+  \item the run contains infinitely many \emph{surface-plausible}
+        explicit artifacts with \(\pi(e_n) \ge \bar{\pi}\) and recurring
+        nontrivial demands relative to some floor \(r\).
+\end{enumerate}
+Then:
+\begin{enumerate}
+  \item hallucination occurs in finite time; i.e., there exists
+        \(n < \infty\) such that \(t_n \prec \Req(e_n,c_n)\);
+  \item the minimum such \(n\) is strictly smaller than in the baseline
+        degradation model without feedback (for any fixed initial
+        state and pipeline sequence), in the sense that feedback cannot
+        increase time-to-hallucination.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By unbounded credence under plausibility and the presence of infinitely
+many plausible artifacts, credence \(c_n\) grows without bound along
+some subsequence. By credence-monotonicity of \(\delta^\star\) and
+requirement escalation, higher credence simultaneously:
+\begin{itemize}
+  \item increases required grounding \(\Req(e_n,c_n)\), and
+  \item accelerates degradation of available grounding via
+        \(\delta^\star\).
+\end{itemize}
+Thus the gap
+\[
+t_n \prec \Req(e_n,c_n)
+\]
+is reached in finite time, and strictly earlier than under the baseline
+degradation \(\delta\) alone, where the same sequence of artifacts
+would produce slower loss of grounding and lower requirements.
+A fully formal proof can be obtained by coupling two runs (with and
+without feedback) and using the monotone measure \(\mu\) to compare
+times at which \(\mu(t_n)\) falls below \(\mu(\Req(e_n,c_n))\).
+\end{proof}
+
+
+\subsubsection{Degradation--repair dynamics and entropy drift}
+\label{app:delta-rho}
+We extend the Epistemic Dynamics to include abstract repair. The aim is to state conditions under
+which repair delays or reshapes, but does not remove, long-run degradation.
+
+\begin{definition}[Entropy functional on $T$]
+An \emph{entropy functional} on the tacit category $T$ is a map $S : T \to \mathbb{R}$ such that
+\begin{enumerate}
+  \item $t \preceq t' \Rightarrow S(t) \le S(t')$ for all $t,t' \in T$; and
+  \item there exists $S_{\mathrm{req}} \in \mathbb{R}$ such that $S(t) \le S_{\mathrm{req}}$ whenever $t$
+  meets the relevant requirement floor(s), and $S(t) > S_{\mathrm{req}}$ implies that accepting a
+  nontrivial demand at $t$ yields an FRFP-hallucination in the sense $t_n \prec \mathrm{Req}(e_n,c_n)$.
+\end{enumerate}
+Thus $S(t)$ measures a grounding deficit: larger values correspond to more degraded tacit states.
+\end{definition}
+
+We consider runs $(t_n)_{n \ge 0}$ in $T$ evolving under a mixture of degradation and repair, and
+write $S_n := S(t_n)$. Let $D_n,R_n \in \{0,1\}$ indicate, respectively, whether step $n$ processes a
+nontrivial demand and whether a repair operation is applied.
+
+\begin{assumption}[Task-induced degradation]\label{ass:delta-entropy}
+There exists $\varepsilon > 0$ such that for all $t \in T$ and all nontrivial demand steps to which the
+Epistemic Dynamics apply,
+\[
+  S(\delta(t)) \;\ge\; S(t) + \varepsilon.
+\]
+\end{assumption}
+
+\begin{assumption}[Bounded repair]\label{ass:rho-entropy}
+There exists $B < \infty$ such that for all admissible repair operators $\rho : T \to T$ and all
+$t \in T$,
+\[
+  S(\rho(t)) \;\ge\; S(t) - B.
+\]
+\end{assumption}
+
+Combining these, for each $N$ we have
+\begin{equation}\label{eq:Sn-balance}
+  S_N \;\ge\; S_0 + \varepsilon \sum_{n=1}^N D_n \;-\; B \sum_{n=1}^N R_n,
+\end{equation}
+where the sums record entropy produced by nontrivial tasks and removed by repair.
+\begin{theorem}[Deterministic entropy drift and inevitability]\label{thm:delta-rho-deterministic}
+Suppose Assumptions~\ref{ass:delta-entropy} and~\ref{ass:rho-entropy} hold and that
+$(D_n,R_n)_{n \ge 1}$ satisfies
+\[
+  \liminf_{N \to \infty} \frac{1}{N}\sum_{n=1}^N D_n \;\ge\; \alpha > 0,
+  \qquad
+  \limsup_{N \to \infty} \frac{1}{N}\sum_{n=1}^N R_n \;\le\; \beta < \infty.
+\]
+Assume further that there exists $\gamma > 0$ with
+\[
+  \varepsilon \alpha - B \beta \;\ge\; \gamma > 0.
+\]
+Then there exists $N_0$ such that $S_N \ge S_0 + \gamma N$ for all $N \ge N_0$. In particular, for
+any finite $S_{\mathrm{req}}$ the hitting time
+\[
+  \sigma_{\mathrm{req}} := \inf\{n \ge 0 : S_n > S_{\mathrm{req}}\}
+\]
+is finite. If nontrivial demands recur after $\sigma_{\mathrm{req}}$ and the protocol sometimes accepts
+artifacts at those steps with credence corresponding to $S_{\mathrm{req}}$, then along some admissible
+run an FRFP-hallucination event $t_n \prec \mathrm{Req}(e_n,c_n)$ occurs.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Divide~\eqref{eq:Sn-balance} by $N$ and apply the liminf/limsup bounds on the empirical
+frequencies of $D_n$ and $R_n$ to obtain
+\[
+  \liminf_{N \to \infty} \frac{S_N - S_0}{N}
+  \;\ge\; \varepsilon \alpha - B \beta \;\ge\; \gamma > 0.
+\]
+Hence $S_N \ge S_0 + \gamma N$ for all large $N$, so $S_N$ eventually exceeds any finite
+$S_{\mathrm{req}}$ and $\sigma_{\mathrm{req}} < \infty$. The hallucination clause follows from the
+definition of $S_{\mathrm{req}}$ and the criterion $t_n \prec \mathrm{Req}(e_n,c_n)$ at an accepted
+nontrivial demand.
+\end{proof}
+\begin{theorem}[Stochastic entropy drift and almost-sure inevitability]\label{thm:delta-rho-stochastic}
+Suppose Assumptions~\ref{ass:delta-entropy} and~\ref{ass:rho-entropy} hold and that
+$(D_n,R_n)_{n \ge 1}$ is stationary and ergodic with
+\[
+  \mathbb{E}[D_1] = \bar{d} > 0,
+  \qquad
+  \mathbb{E}[R_1] = \bar{r} < \infty.
+\]
+Assume that
+\[
+  \varepsilon \bar{d} - B \bar{r} \;=\; \gamma > 0.
+\]
+Then almost surely
+\[
+  \liminf_{N \to \infty} \frac{S_N - S_0}{N} \;\ge\; \gamma > 0,
+\]
+so $S_N \to +\infty$ almost surely. In particular, the hitting time
+$\sigma_{\mathrm{req}} := \inf\{n \ge 0 : S_n > S_{\mathrm{req}}\}$ is almost surely finite. Under the
+same acceptance and recurrence conditions as in Theorem~\ref{thm:delta-rho-deterministic}, the
+hallucination time $\tau(\omega)$ in the Epistemic Dynamics stochastic semantics satisfies $P(\tau < \infty) = 1$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By the ergodic theorem, almost surely
+\[
+  \lim_{N \to \infty} \frac{1}{N}\sum_{n=1}^N D_n = \bar{d},
+  \qquad
+  \lim_{N \to \infty} \frac{1}{N}\sum_{n=1}^N R_n = \bar{r}.
+\]
+Together with~\eqref{eq:Sn-balance} this yields
+\[
+  \liminf_{N \to \infty} \frac{S_N - S_0}{N} \;\ge\; \varepsilon \bar{d} - B \bar{r} = \gamma > 0
+  \quad\text{a.s.}
+\]
+Thus $S_N \to +\infty$ almost surely and $\sigma_{\mathrm{req}} < \infty$ almost surely; whenever a
+nontrivial demand is accepted at or after $\sigma_{\mathrm{req}}$, the hallucination criterion is met at
+some finite step, so $P(\tau < \infty) = 1$.
+\end{proof}
+\begin{remark}[Counter-scenarios and safe horizons]\label{rem:delta-rho-counter}
+The drift condition in Theorems~\ref{thm:delta-rho-deterministic} and~\ref{thm:delta-rho-stochastic}
+formalizes a high-load, bounded-repair regime: nontrivial demands occur with positive asymptotic
+frequency, repair has bounded one-step effect, and net entropy production $\varepsilon \bar{d}$
+exceeds maximal entropy removal $B \bar{r}$. In this regime, repair changes the timing and shape
+of hallucination risk but does not eliminate it.
+
+Several counter-scenarios lie at or beyond this domain. In \emph{balanced or negative drift}
+regimes, repair investment is large enough that $B \bar{r} \ge \varepsilon \bar{d}$ and $S_N$ can remain
+tight or decrease. In \emph{unbounded repair} regimes, one allows repair moves with no global
+bound $B$ (e.g.\ costless, arbitrarily frequent ``oracle refresh'' operations or always-perfect staff
+replacement), violating Assumption~\ref{ass:rho-entropy}. In \emph{low-demand} regimes, such as
+rare emergency committees, the effective demand frequency $\bar{d}$ may be so small that modest
+repair keeps $S$ below $S_{\mathrm{req}}$ over relevant horizons.
+
+Within the high-load, bounded-repair regime, improving repair capacity modifies the hazard profile
+$(h_n)_{n \ge 0}$ and increases the safe-horizon functional $H_P(\varepsilon)$, but for any fixed
+stochastic FRFP pipeline $P$ satisfying the drift condition, $H_P(\varepsilon)$ remains finite for every
+$\varepsilon \in (0,1)$: one cannot obtain a global guarantee of ``no hallucinations ever'' over
+unbounded horizons by bounded repair alone.
+\end{remark}
+
+%======================================================================
+\subsubsection{Stochastic Pipelines and Their Impact}
+\label{sec:B15-stochastic}
+%======================================================================
+
+We extend the preceding results to stochastic FRFP pipelines.
+
+\subsubsubsection*{Trajectories and probability measures}
+
+\begin{definition}[Trajectory]
+Fix an initial extended state \((t_0,c_0,e_0)\in T\times
+\mathbb{R}_{\ge 0}\times E\). A \emph{trajectory} (or \emph{run}) is a
+sequence
+\[
+\omega
+ =
+\bigl( (t_0,c_0,e_0), (t_1,c_1,e_1), (t_2,c_2,e_2), \dots \bigr)
+\]
+such that each \((t_{n+1},c_{n+1},e_{n+1})\) is obtained from
+\((t_n,c_n,e_n)\) by one application of the FRFP pipeline, tacit
+evaluation, confidence update, and degradation (possibly
+feedback-coupled).
+\end{definition}
+
+Let \(\Omega\) denote the set of all such trajectories. Let
+\(\Omega_{\mathrm{allowed}}\subseteq \Omega\) be the subset of
+trajectories that satisfy the structural assumptions of this appendix
+(degradation, recurring requirements, etc.).
+
+We consider two equivalent presentations of stochasticity:
+\begin{itemize}
+  \item \emph{Random-seed semantics:} extend the state space with a
+        random seed \(r\), and suppose there is a deterministic update
+        map
+        \[
+        F: T^e\times E \times R \to T^e \times E \times R
+        \]
+        such that each \(r\in R\) induces a unique trajectory
+        \(\omega(r)\in\Omega\).
+  \item \emph{Markov-kernel semantics:} one-step evolution is described
+        by a Markov kernel
+        \[
+        K : T^e\times E \to \mathcal{D}(T^e\times E),
+        \]
+        where \(\mathcal{D}(\cdot)\) indicates probability
+        distributions; a trajectory \(\omega\) is then a sample path of
+        the stochastic process generated by \(K\).
+\end{itemize}
+
+In either case, a \emph{stochastic FRFP pipeline} is identified with a
+probability measure \(\mathbb{P}\) on \(\Omega\) induced by the
+underlying randomness.
+
+\subsubsubsection*{Hallucination events}
+
+Recall the hallucination criterion: hallucination at step \(n\) occurs
+when
+\[
+t_n \prec \Req(e_n,c_n).
+\]
+
+\begin{definition}[Hallucination events]
+For a trajectory \(\omega\in\Omega\) and \(n\ge 0\), define the
+indicator
+\[
+H_n(\omega)
+ :=
+ \mathbf{1}\bigl[t_n \prec \Req(e_n,c_n)\bigr] \in \{0,1\}.
+\]
+Define the \emph{eventual hallucination indicator}
+\[
+H(\omega)
+ :=
+ \mathbf{1}\bigl[ \exists n\ge 0 : H_n(\omega)=1 \bigr].
+\]
+Thus \(H(\omega)=1\) iff the trajectory \(\omega\) contains at least one
+hallucination.
+\end{definition}
+
+\begin{assumption}[Pathwise inevitability]
+\label{assump:pathwise-inevitability}
+Suppose the structural assumptions of Sections~B.1--B.12 hold (on
+degradation, requirements, and feedback), and that the baseline or
+accelerated hallucination inevitability theorem has been established in
+the deterministic setting. We assume:
+\[
+\forall \omega \in \Omega_{\mathrm{allowed}}:\quad H(\omega)=1.
+\]
+That is, every allowed infinite trajectory eventually produces a
+hallucination.
+\end{assumption}
+
+\begin{theorem}[Almost-sure inevitability under stochastic pipelines]
+\label{thm:stochastic-inevitability}
+Let \(\mathbb{P}\) be any probability measure on \(\Omega\) whose
+support is contained in \(\Omega_{\mathrm{allowed}}\). Then
+\[
+\mathbb{P}\bigl( \text{eventual hallucination} \bigr)
+ =
+\mathbb{P}\bigl( \{\omega : H(\omega)=1\} \bigr)
+ =
+1.
+\]
+\end{theorem}
+
+\begin{proof}
+By Assumption~\ref{assump:pathwise-inevitability}, \(H(\omega)=1\) for
+all \(\omega\in\Omega_{\mathrm{allowed}}\). Since \(\mathbb{P}\) is
+supported on \(\Omega_{\mathrm{allowed}}\), we have \(H(\omega)=1\) for
+\(\mathbb{P}\)-almost every \(\omega\). Hence
+\[
+\mathbb{P}(\text{eventual hallucination})
+ =
+\int_{\Omega} H(\omega)\, d\mathbb{P}(\omega)
+ =
+\int_{\Omega} 1\, d\mathbb{P}(\omega)
+ =
+1.
+\]
+\end{proof}
+
+Thus passing from deterministic to stochastic pipelines does not weaken
+the inevitability result: randomness merely selects \emph{which}
+hallucinating trajectory is realized, not whether hallucination occurs.
+
+\subsubsubsection*{Probabilistic confluence}
+
+Stochasticity breaks single-outcome confluence but yields a natural
+probabilistic analogue.
+
+\begin{definition}[Output distribution and probabilistic confluence]
+Fix a time \(n\ge 0\) and initial state \((t_0,c_0,e_0)\). Let
+\(\mathbb{P}\) be a stochastic FRFP pipeline with support in
+\(\Omega_{\mathrm{allowed}}\). The \emph{time-\(n\) output
+distribution} is the pushforward measure
+\[
+\mu_n^{\mathbb{P}} := (e_n)_\# \mathbb{P},
+\]
+where \(e_n:\Omega\to E\) maps a trajectory to its explicit artifact at
+step \(n\).
+
+Two stochastic implementations \(\mathbb{P}_1,\mathbb{P}_2\) are
+\emph{probabilistically confluent at time \(n\)} if they induce the same
+output distribution \(\mu_n^{\mathbb{P}_1}=\mu_n^{\mathbb{P}_2}\) on
+\(E\).
+\end{definition}
+
+If both implementations correspond to the same Markov kernel on
+\(T^e\times E\), they are probabilistically confluent at every time
+\(n\). This notion provides a distributional counterpart to the
+canonical-form and confluence properties discussed earlier.
+
+%======================================================================
+\subsubsection{Finite-Horizon Pipelines and Their Impact}
+%======================================================================
+
+We now study the effect of restricting attention to finite prefixes of
+trajectories, both in deterministic and stochastic settings.
+
+\subsubsubsection*{Hallucination time}
+
+\begin{definition}[Hallucination time]
+For a trajectory \(\omega\in\Omega\), define the \emph{hallucination
+time}
+\[
+\tau(\omega)
+ :=
+ \inf\{ n \ge 0 : t_n \prec \Req(e_n,c_n) \},
+\]
+with the convention \(\tau(\omega)=+\infty\) if the set is empty (i.e.,
+if no hallucination ever occurs).
+\end{definition}
+
+Thus \(\tau(\omega) < \infty\) iff \(\omega\) contains at least one
+hallucination. In terms of Definition~B.13.2, \(H(\omega) =
+\mathbf{1}[\tau(\omega) < \infty]\).
+
+\begin{lemma}[Pathwise inevitability and finite hallucination time]
+Under Assumption~\ref{assump:pathwise-inevitability} (pathwise
+inevitability), we have
+\[
+\forall \omega \in \Omega_{\mathrm{allowed}}:\quad \tau(\omega) < \infty.
+\]
+\end{lemma}
+
+\begin{proof}
+By Assumption~\ref{assump:pathwise-inevitability}, for each
+\(\omega\in\Omega_{\mathrm{allowed}}\) there exists some \(n\) with
+\(H_n(\omega)=1\). By definition of \(\tau\), this implies that
+\(\tau(\omega)\) is the infimum of a nonempty subset of \(\mathbb{N}\),
+hence finite.
+\end{proof}
+
+A \emph{finite horizon} of length \(N\) corresponds to observing only
+the prefix
+\[
+\omega_{\le N}
+ :=
+((t_0,c_0,e_0),\dots,(t_N,c_N,e_N)).
+\]
+We say that a trajectory \emph{hallucinates within horizon \(N\)} if
+\(\tau(\omega)\le N\).
+
+\begin{remark}[No universal finite bound in general]
+Pathwise inevitability (\(\tau(\omega) < \infty\) for all allowed
+\(\omega\)) does not imply the existence of a universal finite upper
+bound \(N^\ast\) such that \(\tau(\omega)\le N^\ast\) for all
+\(\omega\in\Omega_{\mathrm{allowed}}\). In general, for any fixed
+\(N\) there may exist trajectories with \(\tau(\omega) > N\).
+\end{remark}
+
+\subsubsubsection*{A finite-time bound under strengthened assumptions}
+
+If desired, one can obtain a finite-time upper bound under stronger
+assumptions.
+
+\begin{assumption}[Uniform loss and requirement floor]
+\label{assump:uniform-loss}
+Suppose there exist:
+\begin{itemize}
+  \item a grounding measure \(\mu:T\to\mathbb{R}_{\ge 0}\);
+  \item a requirement level \(r\in T\) and constant \(\alpha>0\) with
+        \(\mu(r)=\alpha\);
+  \item a constant \(\varepsilon>0\);
+\end{itemize}
+such that, for every allowed trajectory
+\(\omega=((t_n,c_n,e_n))_{n\ge 0}\):
+\begin{enumerate}
+  \item \emph{Monotone loss:} \(\mu(t_{n+1})\le\mu(t_n)\) for all
+        \(n\).
+  \item \emph{Uniform loss above \(r\):} whenever \(\mu(t_n)>\alpha\),
+        we have
+        \[
+        \mu(t_n) - \mu(t_{n+1}) \ge \varepsilon.
+        \]
+  \item \emph{Recurrent requirement:} there exists an infinite sequence
+        \((n_k)\) with \(\Req(e_{n_k},c_{n_k})\succeq r\) for all
+        \(k\).
+\end{enumerate}
+\end{assumption}
+
+\begin{lemma}[Finite-time bound under uniform loss]
+\label{lem:finite-time-bound}
+Under Assumption~\ref{assump:uniform-loss}, every allowed trajectory
+\(\omega\) satisfies
+\[
+\tau(\omega)
+ \le
+N^\ast
+ :=
+\left\lceil \frac{\mu(t_0) - \alpha}{\varepsilon} \right\rceil.
+\]
+That is, a hallucination must occur by time \(N^\ast\).
+\end{lemma}
+
+\begin{proof}
+By monotone loss and the uniform-loss condition, as long as
+\(\mu(t_n)>\alpha\),
+\[
+\mu(t_{n+1}) \le \mu(t_n) - \varepsilon.
+\]
+By induction, for any \(n\) with this property,
+\[
+\mu(t_n) \le \mu(t_0) - n\varepsilon.
+\]
+For \(n = N^\ast\) we obtain \(\mu(t_{N^\ast}) \le \alpha =
+\mu(r)\). By recurrence of requirements, there exists some \(k\) with
+\(n_k \le N^\ast\) and \(\Req(e_{n_k},c_{n_k}) \succeq r\). Using
+monotonicity of \(\mu\) with respect to \(\preceq\), we conclude that
+\[
+t_{n_k} \preceq r \preceq \Req(e_{n_k},c_{n_k}),
+\]
+and in fact \(t_{n_k} \prec \Req(e_{n_k},c_{n_k})\) for nontrivial
+requirements, so \(\tau(\omega)\le n_k \le N^\ast\).
+\end{proof}
+
+These stronger conditions are not needed for the main inevitability
+results, but they demonstrate that finite-time bounds are available in
+regimes with sufficiently uniform context loss and recurrent demands.
+
+\subsubsubsection*{Stochastic finite horizons}
+
+Returning to the stochastic setting, we can describe how
+finite-horizon hallucination probabilities behave.
+
+\begin{definition}[Finite-horizon hallucination probability]
+Fix a horizon \(N\in\mathbb{N}\). Define the event
+\[
+A_N := \{\omega\in\Omega : \tau(\omega) \le N\},
+\]
+and the corresponding probability
+\[
+p_N := \mathbb{P}(A_N)
+     = \mathbb{P}(\tau \le N).
+\]
+Thus \(p_N\) is the probability that a random run hallucinates within
+the first \(N\) steps.
+\end{definition}
+
+\begin{proposition}[Monotone convergence of finite-horizon probabilities]
+Assume almost-sure inevitability
+(Theorem~\ref{thm:stochastic-inevitability}), i.e.,
+\(\mathbb{P}(\tau<\infty)=1\). Then:
+\begin{enumerate}
+  \item The sequence \((p_N)_{N\ge 0}\) is non-decreasing:
+        \(p_N \le p_{N+1}\) for all \(N\).
+  \item \(\displaystyle \lim_{N\to\infty} p_N = 1\).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For each \(\omega\), the events \(\{\tau(\omega)\le N\}\) are nested:
+\(\{\tau\le N\}\subseteq\{\tau\le N+1\}\). Hence
+\(A_N\subseteq A_{N+1}\) and \(p_N\le p_{N+1}\). Moreover,
+\(\{\tau<\infty\}=\bigcup_{N} A_N\), so by continuity of probability
+from below,
+\[
+\mathbb{P}(\tau<\infty)
+ =
+\lim_{N\to\infty} \mathbb{P}(A_N)
+ =
+\lim_{N\to\infty} p_N.
+\]
+By assumption, \(\mathbb{P}(\tau<\infty)=1\), so
+\(\lim_{N\to\infty} p_N=1\).
+\end{proof}
+
+\begin{proposition}[Multiple runs over a fixed horizon]
+Fix a horizon \(N\) and consider \(K\in\mathbb{N}\) independent
+trajectories \(\omega^{(1)},\dots,\omega^{(K)}\), with corresponding
+hallucination times \(\tau^{(i)}\). Then:
+\begin{enumerate}
+  \item The probability that no trajectory hallucinates within horizon
+        \(N\) is
+        \[
+        \mathbb{P}\bigl(\forall i,\ \tau^{(i)} > N\bigr)
+         = (1-p_N)^K.
+        \]
+  \item The probability that at least one trajectory hallucinates
+        within horizon \(N\) is
+        \[
+        1 - (1-p_N)^K.
+        \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By independence,
+\[
+\mathbb{P}(\tau^{(i)} > N) = 1 - p_N
+\]
+for each \(i\), so
+\[
+\mathbb{P}\bigl(\forall i,\ \tau^{(i)} > N\bigr)
+ =
+\prod_{i=1}^K (1-p_N)
+ =
+(1-p_N)^K.
+\]
+The complementary event has probability \(1-(1-p_N)^K\).
+\end{proof}
+
+These results show how inevitability manifests at finite horizons: for
+any fixed horizon, hallucination remains probabilistic (\(p_N<1\) in
+general), but as the horizon length or number of runs increases, the
+probability that hallucination has occurred approaches~1.
+
+\medskip
+
+Future work lifts these individual dynamics to populations of agents and
+explicit consensus mechanisms.
+% ------------------------------------------------------------------
+% New material after Proposition B.38 in Appendix B
+% ------------------------------------------------------------------
+
+\subsubsection*{B.16 Hazard Functions and Safe Horizons}
+
+We now refine finite-horizon analysis by introducing per-step hazard and a derived notion of
+``safe horizon'' for a given stochastic FRFP pipeline.
+
+\begin{definition}[Per-step hazard]\label{def:hazard}
+Let $\tau : \Omega \to \mathbb{N} \cup \{\infty\}$ be the hallucination time of Definition~B.31,
+and let $P$ be a stochastic FRFP pipeline with associated distribution of $\tau$.
+For each $n \in \mathbb{N}$ with $P(\tau \ge n) > 0$ we define the (discrete) hazard at step $n$ by
+\[
+  h_n := P(\tau = n \mid \tau \ge n)
+       = \frac{P(\tau = n)}{P(\tau \ge n)}.
+\]
+If $P(\tau \ge n) = 0$ we set $h_n := 0$.
+\end{definition}
+
+Intuitively, $h_n$ is the conditional probability that a run first hallucinates at step $n$,
+given that it has not hallucinated earlier. The sequence $(h_n)_{n \ge 0}$ is a pipeline-level
+summary of how risk is distributed along the trajectory.
+
+\begin{definition}[Finite-horizon survival and hazard]\label{def:survival}
+For $N \in \mathbb{N}$ let
+\[
+  S_N := P(\tau > N) = 1 - p_N
+\]
+be the survival probability at horizon $N$, where $p_N = P(\tau \le N)$ is the finite-horizon
+hallucination probability from Definition~B.36. Whenever $P(\tau \ge n) > 0$ for all $n$,
+the survival probabilities admit the product representation
+\[
+  S_N = \prod_{n=0}^{N} (1 - h_n),
+\]
+so that the finite-horizon risk $p_N = 1 - S_N$ can be understood as the cumulative effect
+of per-step hazards.
+\end{definition}
+
+This representation makes explicit the trade-off between (i) the number of steps in a pipeline
+and (ii) the hazard profile $(h_n)$ induced by its design (e.g. decomposition, tool calls,
+or repeated self-checks).
+
+\begin{definition}[Safe horizon at tolerance $\varepsilon$]\label{def:safe-horizon}
+Fix a tolerance level $\varepsilon \in (0,1)$. The $\varepsilon$-safe horizon of a stochastic
+FRFP pipeline $P$ is defined as
+\[
+  H_P(\varepsilon)
+  := \sup\{\,N \in \mathbb{N} : p_N \le \varepsilon\,\}
+  \in \mathbb{N} \cup \{\infty\}.
+\]
+When $H_P(\varepsilon)$ is finite, any horizon $N \le H_P(\varepsilon)$ satisfies
+$P(\tau \le N) \le \varepsilon$, i.e. hallucination within that horizon is at most
+$\varepsilon$-likely.
+\end{definition}
+
+\begin{remark}[Design interpretation]
+The safe-horizon functional $H_P(\varepsilon)$ isolates a pipeline-level design parameter:
+for a given stochastic implementation $P$ and admissible risk budget $\varepsilon$, it
+characterizes how long a single run can safely be extended before hallucination becomes
+probable. Changes to decomposition, step-ordering, or intermediate checks can therefore
+be compared in terms of their effect on $(h_n)$ and $H_P(\varepsilon)$, even when the
+underlying explicit pipeline is statically equivalent in $N \ltimes E$.
+\end{remark}
+
+Combining Definition~\ref{def:safe-horizon} with Proposition~B.38, we can also analyze
+restart and parallelization policies: for example, running $K$ independent instances of a
+pipeline up to horizon $N \le H_P(\varepsilon)$ yields hallucination probability
+$1 - (1 - p_N)^K$, which can be bounded using the same tolerance parameter.
+
+\subsubsection*{B.17 Dynamic Refinement of Pipelines}
+
+We next introduce a notion of dynamic refinement between stochastic FRFP pipelines that
+compares their hallucination-time distributions.
+
+\begin{definition}[Dynamic refinement]\label{def:dynamic-refinement}
+Let $P_1, P_2$ be stochastic FRFP pipelines on the same state space and admissible trajectory
+set $\Omega_{\mathrm{allowed}}$, with induced hallucination times $\tau_1, \tau_2$ and
+finite-horizon probabilities
+\[
+  p_N^{(i)} := P_i(\tau_i \le N), \quad N \in \mathbb{N}, \; i \in \{1,2\}.
+\]
+We say that $P_2$ is a \emph{dynamic refinement} (or \emph{dynamically safer variant}) of $P_1$
+if for all $N \in \mathbb{N}$ we have
+\[
+  p_N^{(2)} \;\le\; p_N^{(1)}.
+\]
+Equivalently, $\tau_2$ stochastically dominates $\tau_1$ in the usual sense.
+\end{definition}
+
+\begin{remark}[Static vs dynamic equivalence]
+Two pipelines may be statically equivalent in the sense of Appendix~A (same normal form in
+$N \ltimes E$ and same tacit semantics $J{-}K$), yet dynamically inequivalent: they can induce
+different hazard profiles and hence different hallucination-time distributions.
+Dynamic refinement isolates this difference at the level of trajectories, not static syntax:
+$P_2$ improves on $P_1$ precisely when it never increases finite-horizon hallucination risk.
+\end{remark}
+
+\begin{remark}[Limitations]
+Dynamic refinement is a partial order on stochastic implementations, not an absolute
+guarantee of safety: if the baseline pipeline $P_1$ satisfies the inevitability conditions
+of Theorems~B.11, B.25, and B.29, then so does any refinement $P_2$. Refinements can
+delay hallucination and reduce risk over practically relevant horizons, but they cannot
+eliminate hallucination altogether without violating the structural assumptions of this
+appendix.
+\end{remark}
+% ------------------------------------------------------------------
+% New subsection at the end of Appendix B
+% ------------------------------------------------------------------
+
+\subsubsection*{B.18 Structural implications of pipeline dynamics}
+
+The move from static FRFP pipelines to the dynamic setting of this appendix
+turns time and iteration into first-class objects. Beyond the inevitability
+results of Theorems~B.11, B.25, and B.29, this buys several structural
+notions that will be used in later appendices and case studies.
+
+\paragraph{(1) Hazard profiles and safe horizons.}
+Definition~B.31 endows each stochastic FRFP implementation with a
+hallucination time $\tau$, and Definitions~B.36 and~\ref{def:hazard} refine
+this to a finite-horizon risk curve $(p_N)_{N \ge 0}$ and a discrete hazard
+sequence $(h_n)_{n \ge 0}$. The safe-horizon functional
+$H_P(\varepsilon)$ in Definition~\ref{def:safe-horizon} abstracts how long a
+given pipeline can be run, under a fixed stochastic implementation $P$ and
+risk budget $\varepsilon$, before hallucination becomes likely. Thus even
+when static semantics and correctness are fixed, pipeline dynamics exposes a
+new design degree of freedom: the shape of the hazard profile along a run.
+
+\paragraph{(2) Time--decomposition trade-offs.}
+In the static theory of Appendices~A and~B.1--B.3, different decompositions
+of a task into explicit steps are equivalent whenever they normalize to the
+same morphism in $N \ltimes E$ and share the same tacit semantics $J{-}K$.
+Once trajectories are considered, this equivalence is refined: more
+fine-grained decompositions typically reduce the requirement demanded at
+individual steps, but also increase the length of the trajectory and the
+opportunity for degradation to act. Pipeline dynamics therefore makes precise
+a basic design tension: reshaping a task into ``more steps'' can both reduce
+per-step hazard and increase cumulative risk, and only the dynamic
+quantities $(h_n)$ and $(p_N)$ decide which effect dominates in a concrete
+setting.
+
+\paragraph{(3) Dynamic refinement of implementations.}
+Definition~\ref{def:dynamic-refinement} introduces a partial order on
+stochastic implementations of the \emph{same} static pipeline: $P_2$
+dynamically refines $P_1$ when it never increases finite-horizon risk.
+This separates:
+\begin{itemize}
+  \item static equivalence in $N \ltimes E$ (same normal form, same tacit
+        semantics), from
+  \item dynamic safety properties (how quickly hallucination emerges under a
+        particular scheduling, tool use pattern, or feedback coupling).
+\end{itemize}
+Subsequent appendices will use this distinction to talk about pipeline-level
+improvements that do not change what a system computes in principle, but do
+change how its risk unfolds in time.
+
+\paragraph{(4) Session limits, restart policies, and composition.}
+Because hallucination is represented as a stopping time and finite-horizon
+probabilities are explicit, Appendix~B supports principled discussion of
+session limits and restarts. Proposition~B.38 already shows how repeated
+runs over a fixed horizon aggregate risk via $1 - (1 - p_N)^K$. In more
+complex settings, this allows single-pipeline guarantees (bounds on $p_N$
+or $H_P(\varepsilon)$) to be composed into system-level guarantees for
+restart, parallelization, or human-in-the-loop oversight policies, much as
+Appendix~A.10 composes agent-level inevitability into collective inevitability.
+
+\paragraph{(5) Localizing and targeting failure modes.}
+Finally, working with trajectories rather than only normal forms means that
+hallucination can be localized to segments of a run: particular regions of
+the state space, update rules, or phases of the pipeline where hazard is
+concentrated. This enables targeted interventions (for example, inserting
+human checks or additional tools only before entering high-hazard regions)
+that would be invisible in a purely static semantics.
+
+Taken together, these structures show that pipeline dynamics is not only a
+way to restate hallucination inevitability in stochastic language. It also
+provides a vocabulary---hazard, safe horizons, dynamic refinement, and
+time--decomposition trade-offs---for comparing and improving FRFP pipelines
+\emph{without} altering their underlying explicit semantics in $N \ltimes E$.

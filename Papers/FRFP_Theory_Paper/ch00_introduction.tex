@@ -1,0 +1,81 @@
+\section{Introduction}
+\label{ch:intro}
+
+The Foundational Reasoning and Feedback Protocol (FRFP) is a formal framework for structuring
+reasoning and evaluation in systems that combine machine computation with human judgment. It
+is based on a fundamental distinction between \emph{explicit} processes, which operate on
+representations and can be executed mechanically, and \emph{tacit} processes, which determine
+correctness, validity, and acceptance.
+
+Earlier presentations of FRFP introduced this structure as a conceptual and theoretical framework
+for long-horizon human--AI collaboration. This paper provides an updated and consolidated formal
+specification of the framework. The presentation reflects refinements arising from complete
+formalization, including simplification of the primitive basis, clarification of key definitions,
+and strengthening of structural constraints.
+
+The purpose of this document is to present the current form of FRFP as a self-contained system.
+The focus is on precise definitions and derivable properties rather than on formal verification or proof
+mechanics. Where earlier versions differ, the refined formulation given here is taken as authoritative.
+
+The remainder of the paper develops the framework starting from a minimal categorical kernel
+that captures the separation between explicit and tacit domains.
+
+\subsection*{Validation Boundary: Lean and Human Roles}
+
+This theory paper follows the same validation boundary used in the Lean companion.
+Lean is the correctness oracle for formal derivations: once a theorem is accepted by
+Lean, no human re-check of proof steps is required. Human validation serves a
+\emph{different} role: it governs commitments.
+
+Concretely:
+\begin{itemize}
+  \item \textbf{Lean verifies proofs}: derivations are correct relative to stated definitions and axioms.
+  \item \textbf{Humans validate commitments}: statement intent, premise legitimacy, and publication scope.
+\end{itemize}
+
+Under FRFP, this distinction is structural rather than optional: explicit derivation is
+machine-checkable, while normative acceptance remains a tacit-space responsibility.
+
+\subsection*{The FRFP Document Ecosystem}
+
+This paper is part of a broader research program organized into three layers. Understanding
+where this document fits will help the reader navigate the full body of work.
+
+\textbf{Theory layer.} The mathematical foundations of FRFP are developed across three documents.
+\textit{FRFPPaper Vol.~1} introduced the explicit--tacit separation, the representational boundary,
+and the formal protocol constraints. The present document supersedes that account with a
+consolidated and corrected specification, incorporating refinements that emerged from complete
+formalization. For readers who require a pedagogical introduction to the underlying mathematics,
+the \textit{FRFP Companion Tutorial} provides accessible explanations of the key structures
+before any formal development. The \textit{Lean Formalization} companion paper records the
+machine-checked verification of this theory in Lean~4, including 269 theorems, a basis reduction
+from 11 premises to 7, and novel results not present in earlier versions.
+
+\textbf{Engineering layer.} \textit{FRFPPaper Vol.~2} applies the theoretical framework to a
+corpus of canonical socio-technical case studies. The \textit{FRFP Technical Specification}
+translates the abstract protocol constraints into implementable procedures for LLM-based
+reasoning pipelines. A series of \textit{FRFP White Papers} (e.g., \textit{Beyond Prompt
+Engineering}) provides engineering-facing interpretations of the protocol and its practical
+consequences.
+
+\textbf{Evaluation layer.} \textit{FRFP Vol.~3: Experimental Methods for Evaluating AI Agents} defines a
+general controlled-evaluation framework for AI reasoning systems. The \textit{FRFP vs.\ Base
+Survey} applies that framework to empirically assess protocol-guided reasoning against baseline
+LLM outputs, using normalized one-page analytical summaries as the evaluation artifacts for
+blinded human raters.
+
+\medskip
+\noindent\textbf{Recommended reading path.} A reader new to FRFP should begin with
+\textit{FRFPPaper Vol.~1}, which provides the motivation, conceptual development, and
+theoretical arguments underlying the framework. The present document should then be read
+as the authoritative formal specification: it refines and consolidates the definitions from
+Vol.~1 but does not repeat its motivating discussion. Readers who find the mathematics
+unfamiliar should consult the FRFP Companion Tutorial before or alongside this document.
+After this document, readers interested in machine-checked proofs should proceed to the
+Lean Formalization companion. Readers whose primary interest is deployment or empirical
+evaluation should continue to the Engineering and Evaluation layers in sequence.
+
+Practitioners and engineers whose primary interest is implementation rather than formal
+theory may proceed directly to \textit{FRFPPaper Vol.~2}, which provides an
+engineering-oriented exposition of the framework through detailed socio-technical case
+studies, and to the \textit{FRFP Technical Specification} for operational protocol rules.

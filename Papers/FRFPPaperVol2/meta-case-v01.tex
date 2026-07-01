@@ -1,0 +1,35 @@
+
+\chapter{Meta-Case Study 0: The First Attempt at Long-Horizon Human--AI Collaboration}
+
+Before FRFP acquired its current mathematical form, we wrote an earlier, informal framework for long-horizon human--AI collaboration. It was articulated in system- and product-design language: workflows, phases, roles, and governance checklists. This chapter treats that attempt as a meta-case study. The point is not self-criticism for its own sake, but calibration: without a semantic layer, it is easy to over-trust explicit diagrams and narrative protocols and to confuse the map with the territory.:contentReference[oaicite:2]{index=2}
+
+This chapter is deliberately concise. We do not reintroduce the core FRFP objects here. For the definitions of explicit and tacit spaces, boundaries, runs, and safe horizons, see Chapters 2--3 and the Concept Lookup (especially \S4.2, \S4.4, \S4.7, and \S4.8). The purpose here is to show, in one concrete instance, what goes wrong when those objects are absent.
+
+\section{What the Early Framework Tried to Do}
+
+The V01 framework tried to answer a concrete design question: how should we structure workflows, roles, and institutions so that humans and advanced AI systems can collaborate on long-horizon scientific and technical projects without losing control or clarity? It emphasised iterative scientific loops, role design across humans and tools, governance guardrails, and a long-horizon orientation. In form, it resembled many ``responsible AI'' best-practices documents: rich in diagrams and process language, but poor in semantics.:contentReference[oaicite:3]{index=3}
+
+\section{How V01 Looks in FRFP Terms}
+
+Viewed through FRFP, V01 had the right ambitions but lacked the objects needed to make those ambitions precise. It treated the system as a workflow to be described, rather than as an explicit space with typed artefacts and well-defined operators (see Lookup \S4.3). As a result, it could not state cleanly what transformations were allowed, what they meant, or what correctness conditions attached to AI-generated artefacts. The explicit space was present only as an amorphous set of ``things in the system''---datasets, models, documents, AI suggestions, and tracking metadata---without a semantics that distinguished hypotheses from evidence, drafts from commitments, or exploration from endorsement.:contentReference[oaicite:4]{index=4}
+
+V01 also relied heavily on tacit human judgment---principal investigators deciding credibility, committees providing oversight, teams noticing drift and misuse---but treated this tacit layer as an inexhaustible background resource. It did not model how tacit skills and beliefs evolve under repeated AI use, how incentives shape attention, or how long-horizon reliance changes what humans are able to notice and correct. FRFP’s explicit/tacit separation exists precisely to prevent this slippage: tacit evaluation is real work with its own dynamics, not a free safety margin (see Chapter 2 and Lookup \S4.2).:contentReference[oaicite:5]{index=5}
+
+Most importantly, V01’s boundaries were narrative rather than structural. It spoke in phrases such as ``final review,'' ``governance sign-off,'' and ``PI approval,'' but it did not treat these as first-class boundary events with specified inputs, authority, and non-automatable constraints. FRFP forces the opposite discipline: boundaries are objects that must be located in the run, endowed with the information required for evaluation, and protected against hollowing-out by automation and rhetoric (see Lookup \S4.2).:contentReference[oaicite:6]{index=6}
+
+Finally, V01 had no notion of a safe horizon. It implicitly assumed that a carefully designed workflow, once in place, could be iterated indefinitely. FRFP treats that as a category error: long-horizon use changes the environment, changes the humans, and changes the incentives. Safe horizons make this explicit by forcing a limit on how far a workflow may run before re-grounding is mandatory (see Lookup \S4.7).:contentReference[oaicite:7]{index=7}
+
+\section{Where and Why the Early Framework Broke Down}
+
+These absences did not merely reduce elegance; they blocked specific kinds of reasoning. Without explicit semantics and typed artefacts, V01 could not distinguish benign rewriting of representations from transformations that create commitments. Without first-class boundaries, it could not specify where endorsement lives or how responsibility attaches to actions taken downstream of AI outputs. Without safe horizons, it could not express run-level degradation risks, even when those risks are produced by the repeated use of an otherwise ``reasonable'' protocol. And without an institutional semantic layer, governance remained prose: a checklist appended to a workflow diagram, rather than an operator that changes which runs are admissible and how failures propagate through a population (see Lookup \S4.8).:contentReference[oaicite:8]{index=8}:contentReference[oaicite:9]{index=9}
+
+\section{What the Early Failure Taught Us}
+
+This meta-case yields four lessons, each of which is treated as a first-class design constraint in FRFP. First, you need a typed explicit space: it is not enough to list ``data, models, and documents''; you must specify what kinds of artefacts exist and what transformations mean. Second, boundaries must be first-class objects: a protocol is not safe because it contains the words ``human review''; it is safe only if boundary events are located, specified, and protected. Third, safe horizons are necessary even for ``good'' workflows: long-horizon use is not a free repetition of a short-horizon design. Fourth, governance must be part of the semantics: institutional structures must be analysable on equal footing with technical pipelines, because they determine which runs are permitted and which failure modes become systematic rather than exceptional.:contentReference[oaicite:10]{index=10}:contentReference[oaicite:11]{index=11}:contentReference[oaicite:12]{index=12}
+
+These lessons are not restated elsewhere in Volume II as slogans. They are operationalised through the case-study template and the counterfactual designs, which ask in each domain what the explicit space is, where the boundary events are, what the safe horizons are, and what institutional operators are shaping the distribution of runs (see the methodology chapters that follow).
+
+\section{How This Meta-Case Fits into Volume II}
+
+Within this volume, the meta-case plays three roles. It calibrates the reader: FRFP is not a lens applied only to other people’s systems. It also provides a conceptual genealogy: FRFP’s core notions arose from the limits of narrative frameworks in long-horizon design, not from abstraction alone. Finally, it bridges to practice by highlighting that many current governance documents remain at the V01 stage: rich in workflows, poor in semantics. FRFP is offered as a route from prose to analysable constraints, and from intentions to run-level guarantees and limits where such guarantees are possible.:contentReference[oaicite:13]{index=13}
+

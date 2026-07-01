@@ -1,0 +1,384 @@
+% ===================================================================
+\section{Appendix A: Full Axiom Audit}
+\label{app:axiom_audit}
+% ===================================================================
+
+This appendix provides the complete per-module axiom audit, listing every axiom
+in the final build with its classification and citation.
+
+\subsection*{Audit Legend}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Code & Meaning \\
+\midrule
+\textbf{P} & Theory premise (FRFP base axiom) \\
+\textbf{R} & Published reference (cited external result) \\
+\textbf{T} & Converted to theorem (was axiom; proof now exists) \\
+\textbf{D} & Dead code (unreferenced; not in active build) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: KernelDefinitions (7 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lllp{5cm}}
+\toprule
+Axiom & Code & Source & Notes \\
+\midrule
+\texttt{heg\_axiom} & P & FRFP Theory & Human-exclusive grounding \\
+\texttt{hec\_axiom} & P & FRFP Theory & Human-exclusive closure \\
+\texttt{cp\_axiom} & P & FRFP Theory & Compositional pipelines \\
+\texttt{il\_axiom} & P & FRFP Theory & Intent locking \\
+\texttt{ar\_axiom} & P & FRFP Theory & Ambiguity resolution \\
+\texttt{nter\_axiom} & P & FRFP Theory & No tacit emulation/reconstruction \\
+\texttt{csc\_axiom} & P & FRFP Theory & Correctness stability constraint \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Previously classified as axioms, now theorems: \texttt{ets\_unique} (T),
+\texttt{rb\_uniqueness} (T), \texttt{ai\_executable} (T).
+
+% -------------------------------------------------------------------
+\subsection*{Module: FloatTheory (35 axioms)}
+% -------------------------------------------------------------------
+
+All 35 axioms cite IEEE Std 754-2019. Key examples:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & IEEE Section \\
+\midrule
+\texttt{float\_add\_comm} & R & IEEE 754-2019, §5.1 \\
+\texttt{float\_mul\_comm} & R & IEEE 754-2019, §5.2 \\
+\texttt{float\_le\_refl} & R & IEEE 754-2019, §5.10 \\
+\texttt{float\_le\_trans} & R & IEEE 754-2019, §5.10 \\
+\texttt{float\_le\_antisymm} & R & IEEE 754-2019, §5.10 \\
+\texttt{float\_add\_le\_add\_right} & R & IEEE 754-2019, §5.1 \\
+\texttt{float\_mul\_le\_mul\_of\_nonneg} & R & IEEE 754-2019, §5.2 \\
+\texttt{float\_zero\_le} & R & IEEE 754-2019, §5.10 \\
+\texttt{float\_le\_one\_of\_credence} & R & IEEE 754-2019 + FRFP credence def. \\
+(27 additional arithmetic/order axioms) & R & IEEE 754-2019 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: FloatMonotonicity (24 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & Source \\
+\midrule
+\texttt{float\_foldl\_mono\_of\_mono} & R & IEEE 754-2019 + Rudin 1976, Ch.~4 \\
+\texttt{float\_map\_mono} & R & IEEE 754-2019 \\
+\texttt{credence\_clamp\_idempotent} & R & IEEE 754-2019 \\
+(21 additional monotonicity axioms) & R & IEEE 754-2019 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: CategoryStructure (7 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & Source \\
+\midrule
+\texttt{ecat\_id\_left} & R & Mac Lane 1971, Ch.~I \\
+\texttt{ecat\_id\_right} & R & Mac Lane 1971, Ch.~I \\
+\texttt{ecat\_assoc} & R & Mac Lane 1971, Ch.~I \\
+\texttt{tcat\_id\_left} & R & Mac Lane 1971, Ch.~I \\
+\texttt{tcat\_id\_right} & R & Mac Lane 1971, Ch.~I \\
+\texttt{tcat\_assoc} & R & Mac Lane 1971, Ch.~I \\
+\texttt{nav\_equiv\_is\_groupoid} & R & Mac Lane 1971, Ch.~I \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: Termination (4 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & Source \\
+\midrule
+\texttt{term\_step\_count\_bounded} & R & Baader \& Nipkow 1998, Ch.~2 \\
+\texttt{reduction\_wf} & R & Baader \& Nipkow 1998, Ch.~2 \\
+\texttt{no\_infinite\_chain} & R & Baader \& Nipkow 1998, Ch.~2 \\
+\texttt{normal\_form\_exists} & R & Baader \& Nipkow 1998, Ch.~2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: ReductionSemantics (6 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & Source \\
+\midrule
+\texttt{reduction\_explicit} & R & Baader \& Nipkow 1998, §4.2 \\
+\texttt{reduction\_tacit} & R & Baader \& Nipkow 1998, §4.3 \\
+\texttt{reduction\_combined} & R & Baader \& Nipkow 1998, §4.4 \\
+\texttt{nav\_equiv\_refl} & R & Baader \& Nipkow 1998, §1.1 \\
+\texttt{nav\_equiv\_symm} & R & Baader \& Nipkow 1998, §1.1 \\
+\texttt{nav\_equiv\_trans} & R & Baader \& Nipkow 1998, §1.1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: ConfluenceProof (2 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & Source \\
+\midrule
+\texttt{newman\_lemma} & R & Newman 1942, Annals of Mathematics 43(2) \\
+\texttt{diamond\_property\_local} & R & Baader \& Nipkow 1998, §2.7 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: SemanticCorrectness (8 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & Source \\
+\midrule
+\texttt{sem\_function\_total} & P & FRFP Theory (semantic totality) \\
+\texttt{obs\_function\_total} & P & FRFP Theory (observation totality) \\
+\texttt{groth\_fibration} & R & Mac Lane 1971, Ch.~XII \\
+\texttt{encode\_injective} & R & Rudin 1976, Ch.~2 \\
+\texttt{decode\_injective} & R & Rudin 1976, Ch.~2 \\
+\texttt{encode\_decode} & R & Standard bijection theory \\
+\texttt{decode\_encode} & R & Standard bijection theory \\
+\texttt{sem\_type\_preserving} & P & FRFP Theory \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Module: TacitDependence (5 axioms)}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Axiom & Code & Source \\
+\midrule
+\texttt{nter\_axiom} (copy) & P & FRFP Theory \\
+\texttt{tacit\_not\_explicit} & P & FRFP Theory (ETS) \\
+\texttt{tacit\_closure\_human\_only} & P & FRFP Theory (HEC) \\
+\texttt{reconstruction\_impossible} & P & FRFP Theory (NTER) \\
+\texttt{grounding\_requires\_human} & P & FRFP Theory (HEG) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Modules: CollectiveLayer, GovernanceProofs, and Remaining (82 axioms)}
+% -------------------------------------------------------------------
+
+The remaining 82 axioms across 11 modules divide as:
+
+\begin{center}
+\begin{tabular}{lrrl}
+\toprule
+Module group & Axioms & Code & Primary source \\
+\midrule
+Collective / Governance (4 modules) & 30 & P/R & FRFP Theory + Billingsley 1995 \\
+Credence / Degradation / Survival (4 modules) & 21 & R & Billingsley 1995, Durrett 2019 \\
+ExplicitArtifact & 3 & P & FRFP Theory \\
+RunsTrajectories & 4 & R & Billingsley 1995 \\
+AmbiguityProtocol & 5 & P & FRFP Theory \\
+GovernanceSafeExtension & 0 & -- & Pure theorem module \\
+Stopping time / Measurability & 6 & R & Billingsley 1995, Durrett 2019 \\
+PipelineComposition & 0 & -- & Pure theorem module \\
+Grothendieck & 0 & -- & Pure theorem module \\
+\midrule
+GraphTheory helper & 1 & R & Diestel 2010, Ch.~1 \\
+Information theory helper & 1 & R & Cover \& Thomas 2006, Ch.~2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection*{Total Summary}
+
+\begin{center}
+\begin{tabular}{lrl}
+\toprule
+Code & Count & Meaning \\
+\midrule
+P (premises) & 40 & FRFP base axioms and their copies/variants \\
+R (references) & 115 & Standard published results \\
+T (theorems) & 41 & Converted from axiom to proven theorem \\
+D (dead code) & 58 & Unreferenced in active build \\
+\midrule
+\textbf{Active axioms (P + R)} & \textbf{155} & \textbf{Final build total} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Theory-to-Lean Theorem Correspondence}
+\label{sec:theory_lean_table}
+% -------------------------------------------------------------------
+
+The following table maps every named theorem and lemma in the FRFP Theory Paper
+to its machine-checked Lean counterpart.  The \textbf{Status} column uses the
+canonical labels defined in Appendix~F and Section~\ref{sec:status-semantics}:
+\textbf{Proved} (stated in theory text and proved in Lean),
+\textbf{Demoted} (former axiom now a proved theorem), and
+\textbf{Novel} (discovered during formalization, not in original theory text).
+
+\begingroup\footnotesize
+\begin{longtable}{>{\raggedright\arraybackslash}p{3.8cm}l>{\raggedright\arraybackslash}p{7.1cm}l}
+\toprule
+Theory Paper Claim & Ch. & Lean Name(s) & Status \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\footnotesize\textit{(Table continued from previous page)}} \\[2pt]
+\toprule
+Theory Paper Claim & Ch. & Lean Name(s) & Status \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\footnotesize\textit{(Continued on next page)}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{4}{l}{\textit{Ch.~1 — The Kernel Category}} \\[2pt]
+Explicit--Tacit Separation
+  & 1 & \texttt{no\_morphism\_tacit\_to\_explicit}, \texttt{no\_morphism\_T0\_to\_E0}  & Proved \\
+Uniqueness of boundary morphism
+  & 1 & \texttt{RB\_unique\_boundary}              & Proved \\
+AI executability partition
+  & 1 & \texttt{AI\_explicit\_only}, \texttt{AI\_preserves\_explicit}, \texttt{human\_only\_not\_AI} & Proved \\
+Composition preserves typing
+  & 1 & \texttt{explicit\_composition\_closed}     & Proved \\
+Phase partition
+  & 1 & \texttt{primitive\_completeness}, \texttt{primitive\_well\_typed} & Proved \\
+Boundary uniqueness by phase
+  & 1 & \texttt{RB\_is\_boundary}                  & Proved \\
+No tacit-to-explicit return
+  & 1 & \texttt{no\_morphism\_tacit\_to\_explicit}, \texttt{RI\_is\_explicit}, \texttt{TE\_is\_tacit} & Proved \\
+\midrule
+\multicolumn{4}{l}{\textit{Ch.~2 — Reduced Axiom Basis (demoted axioms)}} \\[2pt]
+ETS is a theorem
+  & 2 & \texttt{no\_morphism\_tacit\_to\_explicit}  & Demoted \\
+RB uniqueness is a theorem
+  & 2 & \texttt{RB\_unique\_boundary}               & Demoted \\
+AE is a theorem
+  & 2 & \texttt{AI\_explicit\_only}                 & Demoted \\
+MD is a theorem
+  & 2 & \texttt{degradation\_monotone}              & Demoted \\
+\midrule
+\multicolumn{4}{l}{\textit{Ch.~3 — Reduction and Confluence}} \\[2pt]
+Termination
+  & 3 & \texttt{combined\_reduction\_properties}    & Proved \\
+Local confluence of $\to_c$
+  & 3 & \texttt{combined\_reduction\_properties}    & Proved \\
+Confluence (Church--Rosser)
+  & 3 & \texttt{combined\_reduction\_properties}, \texttt{nav\_confluent} & Proved \\
+Normal form uniqueness mod $\equiv_\nabla$
+  & 3 & \texttt{unique\_normal\_forms}, \texttt{normal\_form\_unique}, \texttt{nav\_equiv\_equivalence} & Proved \\
+Observable invariance
+  & 3 & \texttt{semantic\_correctness\_theorem}, \texttt{obsCorrect\_invariant} & Proved \\
+Protocol normal form
+  & 3 & \texttt{normal\_forms\_exist\_unique}       & Proved \\
+\midrule
+\multicolumn{4}{l}{\textit{Ch.~4 — Denotational and Operational Semantics}} \\[2pt]
+Reduction induces morphism
+  & 4 & \texttt{reduction\_induces\_morphism}, \texttt{reduction\_on\_objects} & Proved \\
+Denotational--operational agreement
+  & 4 & \texttt{semantic\_functor\_properties}, \texttt{sem\_respects\_reduction} & Proved \\
+Navigation equivalence is equiv.
+  & 4 & \texttt{nav\_equiv\_equivalence}, \texttt{nav\_equiv\_refl/symm/trans} & Proved \\
+Pipeline immutability
+  & 4 & \texttt{reduction\_system\_well\_defined}   & Proved \\
+\midrule
+\multicolumn{4}{l}{\textit{Ch.~5 — Dynamic and Probabilistic Layer}} \\[2pt]
+Degradation monotonicity
+  & 5 & \texttt{degradation\_monotone}, \texttt{degradation\_contractive} & Proved \\
+Entropy drift monotonicity
+  & 5 & \texttt{deterministic\_entropy\_drift}, \texttt{entropy\_increases\_under\_degradation} & Proved \\
+Survival product formula
+  & 5 & \texttt{survival\_product\_formula}         & Proved \\
+Hazard--survival relation
+  & 5 & \texttt{hazard\_survival\_relation}         & Proved \\
+Survival monotonicity
+  & 5 & \texttt{survival\_monotone},\newline\texttt{survival\_monotone\_decreasing} & Proved \\
+Geometric survival
+  & 5 & \texttt{geometric\_survival}                & Proved \\
+Infinite product limit
+  & 5 & \texttt{bounded\_hazard\_implies\_}\newline\texttt{eventual\_stopping},\newline\texttt{monotone\_convergence\_pN} & Proved \\
+Safe horizon characterization
+  & 5 & \texttt{safe\_horizon\_guarantee\_impossible}, \texttt{safe\_horizon\_is\_tacit\_dependent} & Proved \\
+Tacit irreversibility
+  & 5 & \texttt{no\_elimination\_under\_degradation}, \texttt{tacit\_evaluation\_necessary} & Proved \\
+\midrule
+\multicolumn{4}{l}{\textit{Ch.~6 — Collective and Governance Layer}} \\[2pt]
+Population collapse bound
+  & 6 & \texttt{global\_degradation\_increases\_risk}, \texttt{no\_fully\_automated\_governance} & Proved \\
+No grounding by consensus
+  & 6 & \texttt{consensus\_no\_grounding\_creation}, \texttt{consensus\_requires\_tacit\_oracle} & Proved \\
+Governance safe extension
+  & 6 & \texttt{governance\_non\_automation}, \texttt{oversight\_necessity\_theorem} & Proved \\
+Collective entropy drift
+  & 6 & \texttt{degradation\_aggregation\_commute}  & Proved \\
+\midrule
+\multicolumn{4}{l}{\textit{Ch.~7 — Novel Results from Formalization}} \\[2pt]
+First unresolved witness
+  & 7 & \texttt{hallucination\_is\_tacit\_dependent}, \texttt{hallucination\_detection\_impossible} & Novel \\
+Governance safe extension (novel)
+  & 7 & \texttt{governance\_non\_automation}, \texttt{oversight\_necessity\_theorem} & Novel \\
+Protocol normal form (novel)
+  & 7 & \texttt{normal\_forms\_exist\_unique}       & Novel \\
+Tacit source classification
+  & 7 & \texttt{TE\_is\_tacit}, \texttt{HFD\_is\_tacit} & Proved \\
+Tacit source stays tacit
+  & 7 & \texttt{construct\_tacit\_population\_is\_tacit} & Proved \\
+AI steps never target tacit space
+  & 7 & \texttt{AI\_explicit\_only}                 & Proved \\
+AI/human disjoint
+  & 7 & \texttt{human\_only\_not\_AI}               & Proved \\
+Unique boundary entry
+  & 7 & \texttt{RB\_unique\_boundary}               & Proved \\
+IL pairwise intent consistency
+  & 7 & \texttt{institutional\_layer\_requirements\_satisfied} & Proved \\
+AR: no unresolved ambiguity
+  & 7 & \texttt{dynamic\_layer\_requirements\_satisfied} & Proved \\
+CSC: lock is monotone
+  & 7 & \texttt{tacitState\_le\_refl}, \texttt{tacitState\_le\_trans} & Proved \\
+\midrule
+\textbf{Total} & & \textbf{45 theory claims $\to$ 79 Lean theorems} & \\
+\end{longtable}
+\endgroup
+
+{\raggedright\noindent\leanref{Frfp/Core/Kernel.lean}, \leanref{Frfp/Core/Navigation.lean},
+\leanref{Frfp/Core/Confluence.lean}, \leanref{Frfp/Core/Grothendieck.lean},
+\leanref{Frfp/Core/Semantics.lean}, \leanref{Frfp/Core/SemanticCorrectness.lean},
+\leanref{Frfp/Core/DynamicLayer.lean}, \leanref{Frfp/Core/ProbabilityProven.lean},
+\leanref{Frfp/Core/TacitDependence.lean}, \leanref{Frfp/Core/InstitutionalLayer.lean},
+\leanref{Frfp/Core/CollectiveLayer.lean}, \leanref{Frfp/Core/Governance.lean}\par}

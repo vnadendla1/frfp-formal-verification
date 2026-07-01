@@ -1,0 +1,342 @@
+% FRFP Formal Verification Bibliography
+% Maintained for axiom justification and theoretical foundations
+% Last updated: April 17, 2026
+
+% ============================================================================
+% SYNTAX-SEMANTICS GAP & SEMANTIC AXIOM JUSTIFICATION
+% ============================================================================
+
+@article{harnad1990symbol,
+  title={The symbol grounding problem},
+  author={Harnad, Stevan},
+  journal={Physica D: Nonlinear Phenomena},
+  volume={42},
+  number={1-3},
+  pages={335--346},
+  year={1990},
+  publisher={Elsevier},
+  note={Establishes that syntactic symbol manipulation cannot access semantic meaning without grounding. Primary reference for explicit\_mechanism\_tacit\_predicate\_gap axiom.}
+}
+
+@book{polanyi1966tacit,
+  title={The Tacit Dimension},
+  author={Polanyi, Michael},
+  year={1966},
+  publisher={University of Chicago Press},
+  note={Classic work on knowledge that cannot be fully formalized or made explicit. Core reference for tacit knowledge framework. "We can know more than we can tell."}
+}
+
+@book{polanyi1958personal,
+  title={Personal Knowledge: Towards a Post-Critical Philosophy},
+  author={Polanyi, Michael},
+  year={1958},
+  publisher={University of Chicago Press},
+  note={Foundational work on tacit knowledge and personal judgment in scientific knowledge.}
+}
+
+@article{searle1980minds,
+  title={Minds, brains, and programs},
+  author={Searle, John R.},
+  journal={Behavioral and Brain Sciences},
+  volume={3},
+  number={3},
+  pages={417--424},
+  year={1980},
+  publisher={Cambridge University Press},
+  note={Chinese Room argument demonstrating that syntactic processing does not yield semantic understanding.}
+}
+
+@article{godel1931formally,
+  title={{\"U}ber formal unentscheidbare S{\"a}tze der Principia Mathematica und verwandter Systeme I},
+  author={G{\"o}del, Kurt},
+  journal={Monatshefte f{\"u}r Mathematik und Physik},
+  volume={38},
+  pages={173--198},
+  year={1931},
+  publisher={Springer},
+  note={Incompleteness theorems showing fundamental limits of formal systems.}
+}
+
+@incollection{mccarthy1969some,
+  title={Some philosophical problems from the standpoint of artificial intelligence},
+  author={McCarthy, John and Hayes, Patrick J.},
+  booktitle={Machine Intelligence},
+  volume={4},
+  pages={463--502},
+  year={1969},
+  editor={Meltzer, B. and Michie, D.},
+  publisher={Edinburgh University Press},
+  note={Introduces the frame problem: difficulty of formalizing common-sense reasoning and implicit context.}
+}
+
+@book{peirce1931collected,
+  title={Collected Papers of Charles Sanders Peirce},
+  author={Peirce, Charles Sanders},
+  editor={Hartshorne, Charles and Weiss, Paul},
+  year={1931--1958},
+  publisher={Harvard University Press},
+  volumes={8},
+  note={Type-token distinction and foundations of semiotics.}
+}
+
+% ============================================================================
+% FLOATING-POINT ARITHMETIC & NUMERICAL STANDARDS
+% ============================================================================
+
+@techreport{ieee754-2019,
+  title={{IEEE} Standard for Floating-Point Arithmetic},
+  author={{IEEE}},
+  institution={IEEE Computer Society},
+  number={IEEE Std 754-2019},
+  year={2019},
+  note={Revision of IEEE 754-2008. Defines arithmetic formats, operations, conversions, and exceptions for binary and decimal floating-point arithmetic. Justifies FloatTheory.lean axioms.}
+}
+
+@book{muller2018handbook,
+  title={Handbook of Floating-Point Arithmetic},
+  author={Muller, Jean-Michel and Brunie, Nicolas and de Dinechin, Florent and Jeannerod, Claude-Pierre and Joldes, Mioara and Lef{\`e}vre, Vincent and Melquiond, Guillaume and Revol, Nathalie and Torres, Serge},
+  year={2018},
+  edition={2nd},
+  publisher={Birkh{\"a}user},
+  note={Comprehensive reference on floating-point arithmetic theory and implementation.}
+}
+
+@inproceedings{boldo2011flocq,
+  title={Flocq: A unified library for proving floating-point algorithms in Coq},
+  author={Boldo, Sylvie and Melquiond, Guillaume},
+  booktitle={2011 IEEE 20th Symposium on Computer Arithmetic},
+  pages={243--252},
+  year={2011},
+  organization={IEEE},
+  note={Formal verification library for floating-point arithmetic in Coq proof assistant.}
+}
+
+% ============================================================================
+% PROBABILITY THEORY & MEASURE THEORY
+% ============================================================================
+
+@book{billingsley1995probability,
+  title={Probability and Measure},
+  author={Billingsley, Patrick},
+  year={1995},
+  edition={3rd},
+  publisher={Wiley},
+  note={Standard reference for probability theory and measure-theoretic foundations. Cited for DynamicLayer.lean probability axioms.}
+}
+
+@book{durrett2019probability,
+  title={Probability: Theory and Examples},
+  author={Durrett, Rick},
+  year={2019},
+  edition={5th},
+  publisher={Cambridge University Press},
+  note={Comprehensive probability theory reference with detailed treatment of convergence theorems.}
+}
+
+% ============================================================================
+% REWRITING THEORY & CONFLUENCE
+% ============================================================================
+
+@book{baader1998term,
+  title={Term Rewriting and All That},
+  author={Baader, Franz and Nipkow, Tobias},
+  year={1998},
+  publisher={Cambridge University Press},
+  note={Standard reference for term rewriting systems, Newman's lemma, confluence, and critical pair analysis. Cited for Navigation.lean and Confluence.lean axioms.}
+}
+
+@book{terese2003term,
+  title={Term Rewriting Systems},
+  author={{Terese}},
+  year={2003},
+  publisher={Cambridge University Press},
+  series={Cambridge Tracts in Theoretical Computer Science},
+  volume={55},
+  note={Comprehensive treatment of rewriting theory including confluence and termination.}
+}
+
+@article{newman1942theories,
+  title={On theories with a combinatorial definition of "equivalence"},
+  author={Newman, Maxwell Herman Alexander},
+  journal={Annals of Mathematics},
+  pages={223--243},
+  year={1942},
+  publisher={JSTOR},
+  note={Original paper proving Newman's lemma: local confluence + termination implies confluence.}
+}
+
+% ============================================================================
+% CATEGORY THEORY
+% ============================================================================
+
+@book{maclane1998categories,
+  title={Categories for the Working Mathematician},
+  author={Mac Lane, Saunders},
+  year={1998},
+  edition={2nd},
+  publisher={Springer},
+  series={Graduate Texts in Mathematics},
+  volume={5},
+  note={Standard reference for category theory. Cited for Grothendieck construction and category axioms.}
+}
+
+@book{leinster2014basic,
+  title={Basic Category Theory},
+  author={Leinster, Tom},
+  year={2014},
+  publisher={Cambridge University Press},
+  series={Cambridge Studies in Advanced Mathematics},
+  volume={143},
+  note={Modern introduction to category theory with constructive perspective.}
+}
+
+% ============================================================================
+% FORMAL VERIFICATION & PROOF ASSISTANTS
+% ============================================================================
+
+@book{lean4reference,
+  title={The Lean 4 Reference Manual},
+  author={{Lean Community}},
+  year={2024},
+  publisher={GitHub},
+  url={https://github.com/leanprover/lean4},
+  note={Official reference for Lean 4 theorem prover used in FRFP formal verification.}
+}
+
+@article{moura2021lean,
+  title={The {Lean} 4 theorem prover and programming language},
+  author={de Moura, Leonardo and Ullrich, Sebastian},
+  journal={Automated Deduction--CADE 28},
+  pages={625--635},
+  year={2021},
+  publisher={Springer},
+  note={Description of Lean 4 architecture and design principles.}
+}
+
+@inproceedings{avigad2014lean,
+  title={The {Lean} theorem prover},
+  author={de Moura, Leonardo and Kong, Soonho and Avigad, Jeremy and van Doorn, Floris and von Raumer, Jakob},
+  booktitle={International Conference on Automated Deduction},
+  pages={378--388},
+  year={2015},
+  organization={Springer},
+  note={Introduction to the Lean theorem prover (version 2/3).}
+}
+
+@misc{mathlib2020,
+  title={The {Lean} mathematical library},
+  author={{Mathlib Community}},
+  year={2020},
+  howpublished={\url{https://github.com/leanprover-community/mathlib4}},
+  note={Comprehensive mathematics library for Lean 4 containing formalized proofs.}
+}
+
+% ============================================================================
+% AI SAFETY & ALIGNMENT (FRFP Context)
+% ============================================================================
+
+@book{russell2019human,
+  title={Human Compatible: Artificial Intelligence and the Problem of Control},
+  author={Russell, Stuart},
+  year={2019},
+  publisher={Viking},
+  note={Discusses value alignment and control problems in AI systems.}
+}
+
+@article{amodei2016concrete,
+  title={Concrete problems in {AI} safety},
+  author={Amodei, Dario and Olah, Chris and Steinhardt, Jacob and Christiano, Paul and Schulman, John and Man{\'e}, Dan},
+  journal={arXiv preprint arXiv:1606.06565},
+  year={2016},
+  note={Identifies key safety challenges including reward hacking and distributional shift.}
+}
+
+% ============================================================================
+% EPISTEMOLOGY & KNOWLEDGE REPRESENTATION
+% ============================================================================
+
+@book{hintikka1962knowledge,
+  title={Knowledge and Belief: An Introduction to the Logic of the Two Notions},
+  author={Hintikka, Jaakko},
+  year={1962},
+  publisher={Cornell University Press},
+  note={Foundations of epistemic logic relevant to agent knowledge modeling.}
+}
+
+@article{mccarthy1987generality,
+  title={Generality in artificial intelligence},
+  author={McCarthy, John},
+  journal={Communications of the ACM},
+  volume={30},
+  number={12},
+  pages={1030--1035},
+  year={1987},
+  publisher={ACM},
+  note={Discusses challenges of general knowledge representation in AI.}
+}
+
+% ============================================================================
+% IMPOSSIBILITY RESULTS & THEORETICAL LIMITS
+% ============================================================================
+
+@article{rice1953classes,
+  title={Classes of recursively enumerable sets and their decision problems},
+  author={Rice, Henry Gordon},
+  journal={Transactions of the American Mathematical Society},
+  volume={74},
+  number={2},
+  pages={358--366},
+  year={1953},
+  publisher={JSTOR},
+  note={Rice's theorem on undecidability of non-trivial properties of programs.}
+}
+
+@book{sipser2012introduction,
+  title={Introduction to the Theory of Computation},
+  author={Sipser, Michael},
+  year={2012},
+  edition={3rd},
+  publisher={Cengage Learning},
+  note={Standard reference for computability theory and undecidability results.}
+}
+
+% ============================================================================
+% GOVERNANCE & INSTITUTIONAL THEORY
+% ============================================================================
+
+@book{ostrom1990governing,
+  title={Governing the Commons: The Evolution of Institutions for Collective Action},
+  author={Ostrom, Elinor},
+  year={1990},
+  publisher={Cambridge University Press},
+  note={Analysis of governance mechanisms and collective action problems.}
+}
+
+@article{arrow1950difficulty,
+  title={A difficulty in the concept of social welfare},
+  author={Arrow, Kenneth J.},
+  journal={Journal of Political Economy},
+  volume={58},
+  number={4},
+  pages={328--346},
+  year={1950},
+  publisher={University of Chicago Press},
+  note={Arrow's impossibility theorem on social choice and voting.}
+}
+
+% ============================================================================
+% NOTES FOR MAINTAINERS
+% ============================================================================
+
+% This bibliography supports the FRFP formal verification project axiom justification.
+% 
+% Key axioms and their primary references:
+% - explicit_mechanism_tacit_predicate_gap: Harnad1990, Polanyi1966, Searle1980
+% - FloatTheory axioms: IEEE754-2019, Muller2018
+% - DynamicLayer probability axioms: Billingsley1995
+% - Navigation/Confluence axioms: Baader1998, Newman1942
+% - Grothendieck axioms: MacLane1998
+% - ETS principle: Polanyi1966, Harnad1990
+%
+% When adding new axioms, ensure they are properly justified with citations.
+% Update this file before publication to include all referenced works.

@@ -1,0 +1,356 @@
+% ===================================================================
+\section{Appendix F: Theory-to-Lean Correspondence}
+\label{app:theory_lean_map}
+% ===================================================================
+
+This appendix provides a complete traceability record mapping every named theorem
+and lemma in the FRFP Theory Paper to its machine-checked counterpart in the Lean
+formalization.  It also lists Lean-only results that have no direct theory-paper
+antecedent.
+
+\subsection*{Legend}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Status & Meaning \\
+\midrule
+\textbf{Proved} & Fully proved in Lean; no \texttt{sorry} \\
+\textbf{Axiomatized} & Stated as Lean \texttt{axiom}; external grounding cited \\
+\textbf{Lean-only} & Proved in Lean; not stated in Theory Paper \\
+\textbf{Novel} & New result discovered through formalization \\
+\textbf{Demoted} & Was an axiom in earlier draft; now a proved theorem \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Chapter 1 — The Kernel Category}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5.2cm}lp{4.5cm}l}
+\toprule
+Theory Paper Claim & \S & Lean Name & Status \\
+\midrule
+Explicit--Tacit Separation
+  & 1.4 & \texttt{no\_morphism\_tacit\_to\_explicit} & Proved \\
+  &     & \texttt{no\_morphism\_T0\_to\_E0}           & Proved \\
+Uniqueness of the boundary morphism
+  & 1.4 & \texttt{RB\_unique\_boundary}                & Proved \\
+AI executability partition
+  & 1.4 & \texttt{AI\_explicit\_only}                  & Proved \\
+  &     & \texttt{AI\_preserves\_explicit}              & Proved \\
+  &     & \texttt{human\_only\_not\_AI}                 & Proved \\
+Composition preserves typing
+  & 1.5 & \texttt{explicit\_composition\_closed}        & Proved \\
+Phase partition
+  & 1.6 & \texttt{primitive\_completeness}              & Proved \\
+  &     & \texttt{primitive\_well\_typed}               & Proved \\
+Boundary uniqueness by phase
+  & 1.6 & \texttt{RB\_is\_boundary}                     & Proved \\
+No tacit-to-explicit return
+  & 1.7 & \texttt{no\_morphism\_tacit\_to\_explicit}    & Proved \\
+  &     & \texttt{RI\_is\_explicit}, \texttt{TE\_is\_tacit} & Proved \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\leanref{Frfp/Core/Kernel.lean}
+
+% -------------------------------------------------------------------
+\subsection*{Chapter 2 — The Reduced Axiom Basis}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5.2cm}lp{4.5cm}l}
+\toprule
+Theory Paper Claim & \S & Lean Name & Status \\
+\midrule
+ETS is a theorem (demoted)
+  & 2.2 & \texttt{no\_morphism\_tacit\_to\_explicit}    & Demoted \\
+RB uniqueness is a theorem (demoted)
+  & 2.2 & \texttt{RB\_unique\_boundary}                 & Demoted \\
+AE is a theorem (demoted)
+  & 2.2 & \texttt{AI\_explicit\_only}                   & Demoted \\
+MD is a theorem (demoted)
+  & 2.2 & \texttt{degradation\_monotone}                & Demoted \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\leanref{Frfp/Core/Kernel.lean}, \leanref{Frfp/Core/DynamicLayer.lean}
+
+% -------------------------------------------------------------------
+\subsection*{Chapter 3 — Reduction and Confluence}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5.2cm}lp{5.2cm}l}
+\toprule
+Theory Paper Claim & \S & Lean Name & Status \\
+\midrule
+Termination
+  & 3.5 & \texttt{combined\_reduction\_properties}      & Proved \\
+Local confluence of $\to_c$
+  & 3.6 & \texttt{combined\_reduction\_properties}      & Proved \\
+Confluence (Church--Rosser)
+  & 3.7 & \texttt{combined\_reduction\_properties}      & Proved \\
+  &     & \texttt{nav\_confluent}                       & Proved \\
+Normal form uniqueness mod $\equiv_\nabla$
+  & 3.8 & \texttt{unique\_normal\_forms}                & Proved \\
+  &     & \texttt{normal\_form\_unique}                 & Proved \\
+  &     & \texttt{nav\_equiv\_equivalence}              & Proved \\
+Observable invariance
+  & 3.9 & \texttt{semantic\_correctness\_theorem}       & Proved \\
+  &     & \texttt{obsCorrect\_invariant}                & Proved \\
+Protocol normal form
+  & 3.10 & \texttt{normal\_forms\_exist\_unique}        & Proved \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\leanref{Frfp/Core/Confluence.lean}, \leanref{Frfp/Core/Navigation.lean},
+\leanref{Frfp/Core/SemanticCorrectness.lean}
+
+% -------------------------------------------------------------------
+\subsection*{Chapter 4 — Denotational and Operational Semantics}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5.2cm}lp{5.2cm}l}
+\toprule
+Theory Paper Claim & \S & Lean Name & Status \\
+\midrule
+Reduction induces morphism
+  & 4.3 & \texttt{reduction\_induces\_morphism}         & Proved \\
+  &     & \texttt{reduction\_on\_objects}               & Proved \\
+Denotational--operational agreement
+  & 4.8 & \texttt{semantic\_functor\_properties}        & Proved \\
+  &     & \texttt{sem\_respects\_reduction}             & Proved \\
+Navigation equivalence is an equiv.\ relation
+  & 4.9 & \texttt{nav\_equiv\_equivalence}              & Proved \\
+  &     & \texttt{nav\_equiv\_refl}, \texttt{nav\_equiv\_symm}, \texttt{nav\_equiv\_trans} & Proved \\
+Pipeline immutability
+  & 4.10 & \texttt{reduction\_system\_well\_defined}    & Proved \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\leanref{Frfp/Core/Grothendieck.lean}, \leanref{Frfp/Core/Semantics.lean},
+\leanref{Frfp/Core/SemanticCorrectness.lean}, \leanref{Frfp/Core/OperationalSemantics.lean}
+
+% -------------------------------------------------------------------
+\subsection*{Chapter 5 — Dynamic and Probabilistic Layer}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5.2cm}lp{5.2cm}l}
+\toprule
+Theory Paper Claim & \S & Lean Name & Status \\
+\midrule
+Degradation monotonicity
+  & 5.3 & \texttt{degradation\_monotone}                & Proved \\
+  &     & \texttt{degradation\_contractive}             & Proved \\
+Entropy drift monotonicity
+  & 5.4 & \texttt{deterministic\_entropy\_drift}        & Proved \\
+  &     & \texttt{entropy\_increases\_under\_degradation} & Proved \\
+Survival product formula
+  & 5.5 & \texttt{survival\_product\_formula}           & Proved \\
+Hazard--survival relation
+  & 5.5 & \texttt{hazard\_survival\_relation}           & Proved \\
+Survival monotonicity
+  & 5.5 & \texttt{survival\_monotone}                   & Proved \\
+  &     & \texttt{survival\_monotone\_decreasing}       & Proved \\
+Geometric survival
+  & 5.5 & \texttt{geometric\_survival}                  & Proved \\
+Infinite product limit
+  & 5.5 & \texttt{bounded\_hazard\_implies\_eventual\_stopping} & Proved \\
+  &     & \texttt{monotone\_convergence\_pN}            & Proved \\
+Safe horizon characterization
+  & 5.6 & \texttt{safe\_horizon\_guarantee\_impossible} & Proved \\
+  &     & \texttt{safe\_horizon\_is\_tacit\_dependent}  & Proved \\
+  &     & \texttt{safeHorizon\_monotone\_in\_states}    & Proved \\
+Tacit irreversibility
+  & 5.7 & \texttt{no\_elimination\_under\_degradation}  & Proved \\
+  &     & \texttt{tacit\_evaluation\_necessary}         & Proved \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\leanref{Frfp/Core/DynamicLayer.lean}, \leanref{Frfp/Core/ProbabilityProven.lean},
+\leanref{Frfp/Core/TacitDependence.lean}
+
+% -------------------------------------------------------------------
+\subsection*{Chapter 6 — Collective and Governance Layer}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5.2cm}lp{5.2cm}l}
+\toprule
+Theory Paper Claim & \S & Lean Name & Status \\
+\midrule
+Population collapse bound
+  & 6.4 & \texttt{global\_degradation\_increases\_risk} & Proved \\
+  &     & \texttt{no\_fully\_automated\_governance}     & Proved \\
+No grounding by consensus
+  & 6.5 & \texttt{consensus\_no\_grounding\_creation}   & Proved \\
+  &     & \texttt{consensus\_requires\_tacit\_oracle}   & Proved \\
+  &     & \texttt{no\_automated\_consensus\_guarantee}  & Proved \\
+Governance safe extension
+  & 6.6 & \texttt{governance\_non\_automation}          & Proved \\
+  &     & \texttt{oversight\_necessity\_theorem}        & Proved \\
+Collective entropy drift
+  & 6.7 & \texttt{degradation\_aggregation\_commute}    & Proved \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\leanref{Frfp/Core/InstitutionalLayer.lean}, \leanref{Frfp/Core/CollectiveLayer.lean},
+\leanref{Frfp/Core/TacitDependence.lean}, \leanref{Frfp/Core/Governance.lean}
+
+% -------------------------------------------------------------------
+\subsection*{Chapter 7 — Novel Results from Formalization}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5.2cm}lp{5.2cm}l}
+\toprule
+Theory Paper Claim & \S & Lean Name & Status \\
+\midrule
+First unresolved witness
+  & 7.1 & \texttt{hallucination\_is\_tacit\_dependent}  & Novel \\
+  &     & \texttt{hallucination\_detection\_impossible} & Novel \\
+Governance safe extension (novel)
+  & 7.2 & \texttt{governance\_non\_automation}          & Novel \\
+  &     & \texttt{oversight\_necessity\_theorem}        & Novel \\
+Protocol normal form (novel)
+  & 7.3 & \texttt{normal\_forms\_exist\_unique}         & Novel \\
+Tacit source classification
+  & 7.4 & \texttt{TE\_is\_tacit}, \texttt{HFD\_is\_tacit} & Proved \\
+Tacit source stays tacit
+  & 7.4 & \texttt{construct\_tacit\_population\_is\_tacit} & Proved \\
+AI steps never target tacit space
+  & 7.4 & \texttt{AI\_explicit\_only}                   & Proved \\
+AI/human disjoint
+  & 7.4 & \texttt{human\_only\_not\_AI}                 & Proved \\
+Unique boundary entry
+  & 7.4 & \texttt{RB\_unique\_boundary}                 & Proved \\
+IL pairwise intent consistency
+  & 7.4 & \texttt{institutional\_layer\_requirements\_satisfied} & Proved \\
+AR: no unresolved ambiguity
+  & 7.4 & \texttt{dynamic\_layer\_requirements\_satisfied} & Proved \\
+CSC: lock is monotone
+  & 7.4 & \texttt{tacitState\_le\_refl}, \texttt{tacitState\_le\_trans} & Proved \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\leanref{Frfp/Core/Kernel.lean}, \leanref{Frfp/Core/TacitDependence.lean},
+\leanref{Frfp/Core/Navigation.lean}, \leanref{Frfp/Core/Governance.lean}
+
+% -------------------------------------------------------------------
+\subsection*{Lean-Only Results (No Theory Paper Antecedent)}
+% -------------------------------------------------------------------
+
+These theorems were proved in Lean as part of establishing the formalization but
+do not correspond to a named claim in the Theory Paper.  They are either auxiliary
+lemmas, module-requirement witnesses, or results that emerged from proof
+obligations and have not yet been incorporated into the Theory Paper.
+
+\begin{center}
+\begin{tabular}{p{5cm}lp{5cm}}
+\toprule
+Lean Name & Module & Description \\
+\midrule
+\texttt{runTo\textomega\_preserves\_admissibility}
+  & OperationalSemantics & runToOmega bijection preserves admissibility \\
+\texttt{runs\_are\_measurable}
+  & OperationalSemantics & Stochastic runs are measurable \\
+\texttt{stochastic\_quantities\_well\_defined}
+  & OperationalSemantics & Well-definedness of the probability space \\
+\texttt{RB\_sharp\_consistent\_with\_RB}
+  & Semantics & Sharp representational backflow agrees with RB \\
+\texttt{RB\_sharp\_explicit\_to\_tacit}
+  & Semantics & Sharp RB maps explicit to tacit \\
+\texttt{sem\_nav\_mono}
+  & Semantics & Semantic functor is monotone under navigation \\
+\texttt{obsCorrect\_preserved\_by\_nav}
+  & Semantics & Observational correctness stable under navigation \\
+\texttt{obsCorrect\_preserved\_by\_reduction}
+  & Semantics & Observational correctness stable under reduction \\
+\texttt{different\_obsCorrect\_different\_nf\_class}
+  & SemanticCorrectness & Distinct correctness classes have distinct NF classes \\
+\texttt{obsCorrect\_class\_invariant}
+  & SemanticCorrectness & Correctness class is an invariant \\
+\texttt{sameNF\_refl/symm/trans}
+  & ExplicitArtifact & NF equivalence is a congruence \\
+\texttt{sameSyn\_implies\_sameNF}
+  & ExplicitArtifact & Syntactic equality implies NF equality \\
+\texttt{syn\_refines\_nf}
+  & ExplicitArtifact & Syntactic reduction refines NF \\
+\texttt{degradation\_aggregation\_commute}
+  & InstitutionalLayer & Degradation commutes with aggregation \\
+\texttt{stability\_not\_correctness}
+  & InstitutionalLayer & Stability does not imply correctness \\
+\texttt{consensus\_instability\_without\_grounding}
+  & InstitutionalLayer & Consensus without grounding is unstable \\
+\texttt{confidence\_inflation\_preserves\_grounding}
+  & DynamicLayer & Inflation does not create tacit grounding \\
+\texttt{accelerated\_inevitability\_with\_feedback}
+  & DynamicLayer & Feedback accelerates hallucination inevitability \\
+\texttt{redundancy\_extends\_horizon}
+  & CollectiveLayer & Redundancy extends (but does not eliminate) safe horizon \\
+\texttt{resilience\_connectivity}
+  & CollectiveLayer & Population resilience depends on connectivity \\
+\texttt{grothendieck\_category\_exists}
+  & Grothendieck & The semidirect product $N \ltimes E$ forms a category \\
+\texttt{grothendieck\_assoc}
+  & Grothendieck & Associativity of Grothendieck composition \\
+\texttt{reduction\_compose}
+  & Grothendieck & Reduction is compositional \\
+\texttt{navigation\_design\_decision}
+  & Navigation & Documents key design choice for nav.\ orientation \\
+\texttt{free\_explicit\_algebra}
+  & TDG & Task Decomposition Grammar forms a free explicit algebra \\
+\texttt{TE\_idempotent}, \texttt{HFD\_idempotent}
+  & TDG & Task expansion / human-feedback ops are idempotent \\
+\texttt{TE\_HFD\_commute}
+  & TDG & Task expansion and HFD commute \\
+\texttt{phase1\_initiality}
+  & Phase1 & Phase-1 kernel is initial among admissible systems \\
+\texttt{phase1\_uniqueness}
+  & Phase1 & Uniqueness of the Phase-1 functor \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection*{Coverage Summary}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Category & Theory Claims & Lean Theorems \\
+\midrule
+Ch.\ 1: Kernel Category         & 7  & 14 \\
+Ch.\ 2: Reduced Basis           & 4  & 4 (demoted) \\
+Ch.\ 3: Reduction \& Confluence & 7  & 11 \\
+Ch.\ 4: Semantics               & 4  & 12 \\
+Ch.\ 5: Dynamic Layer           & 8  & 16 \\
+Ch.\ 6: Collective Layer        & 4  & 8 \\
+Ch.\ 7: Novel Results           & 11 & 14 \\
+\midrule
+\textbf{Total theory-mapped}    & \textbf{45} & \textbf{79} \\
+Lean-only (no antecedent)       & ---         & 27 \\
+\midrule
+\textbf{Grand total}            & \textbf{45} & \textbf{106} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The 61 additional Lean theorems beyond the 45 theory claims arise from
+(a) multiple Lean lemmas required to establish a single theory claim,
+(b) auxiliary well-definedness and requirements-satisfaction witnesses,
+and (c) the 27 Lean-only results listed above.

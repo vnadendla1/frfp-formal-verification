@@ -1,0 +1,422 @@
+\chapter{How to Use This Volume and Do an FRFP Case Study}
+\label{ch:frfp-method}
+
+Volume~II is meant to be used, not just read. This chapter provides a reusable method for analysing existing human--AI systems and for designing new ones using the FRFP lens. It also explains how to navigate the case studies that follow. The goal is practical: produce comparable analyses across domains, and turn those analyses into protocol-level constraints rather than slogans.
+
+This chapter does not re-define the core objects. For the definitions of explicit and tacit spaces and the institutional layer, see Chapter~2. For runs and long-horizon behaviour, see Chapter~3. For compact notation---including boundaries, safe horizons, and risk objects---see the Concept Lookup.
+
+\section{What This Volume Is For}
+
+This volume serves three audiences. Researchers and engineers can use it to reason about long-horizon behaviour and institutional embedding when designing models, agents, and pipelines. Practitioners and decision-makers in domains such as healthcare, finance, law, and governance can use it to evaluate deployments and to specify where safety, fairness, and control must live in protocol rather than in rhetoric. Analysts and students can use it as a systematic way to dissect past AI successes and failures without collapsing the analysis into anecdotes or single-metric evaluations.
+
+A typical workflow is simple. Read the opening chapters and this one to internalise the case-study template and the vocabulary of boundaries, runs, and horizons. Then read case studies opportunistically by domain or theme. Finally, reuse the template to analyse your own systems or to write new case studies in domains not covered here.
+
+\section{Methodology I: Retrospective FRFP Case Studies}
+\label{sec:frfp-retrospective}
+
+Retrospective FRFP case studies are structured analyses of long-horizon human--AI collaboration. They treat an explicit space \(E\), a tacit space \(T\), and an institutional layer as first-class objects, then analyse how runs unfold over time, where boundaries turn explicit artefacts into tacit commitments, which safe horizons constrain repetition, and which institutional operators govern admissible behaviour. Across the case studies in this volume, severe failures are rarely explained by a single wrong output. They arise when run-level commitments exceed what explicit semantics and tacit oversight can support, and when institutions treat explicit artefacts and metrics as substitutes for tacit governance.
+
+The steps below are designed so that two analysts studying different domains can still produce comparable outputs.
+
+\subsection{Step 1: Define the System and Its Context}
+
+Start with a concrete system, not an abstract capability. Describe what is being built or deployed, where it runs, who built it, who uses it, and what downstream actions it influences. State the stakes in domain terms, then state what the domain would count as success and failure. This anchoring prevents the analysis from drifting into generic claims. In this volume, the difference between ``an oncology assistant'' and Watson for Oncology, or between ``a pricing model'' and Zillow Offers, is precisely the context: the institutional embedding and the commitments made in the world.
+
+\subsection{Step 2: Identify Explicit Space \(E\): Artefacts, Pipelines, and Claimed Semantics}
+
+Define \(E\) as the artefacts and transformations the machine side manipulates: inputs, models, outputs, and pipelines. Do not stop at a component inventory. Characterise the intended explicit semantics: what mapping the system claims to implement, and what artefacts function as evidence inside the pipeline. Operationally, name the main input types, the model families or rule engines, the main outputs (scores, recommendations, offers, ranked lists), and the update loops (retraining, threshold tuning, policy changes). The aim is not perfect formalisation, but enough precision that, in principle, independent ground truth could be used to evaluate correctness.
+
+The case studies show why this step is load-bearing. In London Whale, a risk metric ceased to function as a reliable signal for tacit risk assessment. In Zillow Offers, explicit pricing models were treated as sufficient to support large volumes of binding commitments even as conditions shifted.
+
+\subsection{Step 3: Identify Tacit Space \(T\): Judgment, Responsibility, and Standards}
+
+Define \(T\) as the configuration of beliefs, skills, norms, and responsibilities of the humans and institutions who live with the consequences. Name the relevant individual roles (clinicians, traders, judges, engineers, users) and the collective roles (teams, committees, boards, courts, regulators). Identify the domain’s standards: what counts as correct, safe, fair, or acceptable practice. The purpose is not exhaustive sociology; it is to locate where correctness is judged and where responsibility attaches.
+
+A recurring pattern in the later case studies is that when \(T\) is overloaded or structurally sidelined, explicit artefacts become de facto bearers of correctness. The protocol then behaves as though endorsement were automated, even when the paperwork says ``human in the loop.''
+
+\subsection{Step 4: Map Runs in \(N \ltimes E\): The Long-Horizon Object}
+
+Write the run-level story. A run is a sequence of explicit states and operations unfolding over time, interleaved with boundary decisions and institutional updates that reshape what happens next. The shift is from snapshot evaluation to run evaluation: what happens as the system is repeatedly used, scaled, and embedded in workflow?
+
+You do not need full mathematics to do this well. You need enough structure to answer three questions: what is repeated, what becomes committed, and what changes as repetition accumulates. In Zillow Offers, the run is a continuous acquisition-and-sale process with exposure accumulating over time. In Watson for Oncology, the relevant run includes adoption, trust, workflow adaptation, and the possibility of long-horizon overreliance even when early outputs are sometimes rejected.
+
+\subsection{Step 5: Analyse Boundary Design: Where Endorsement Becomes Real}
+
+Boundaries are the points in the run where explicit artefacts become tacit commitments. The methodological question is not whether the system is described as ``decision support.'' The question is where endorsement occurs in practice, who has authority there, what information is available at that moment, and what incentives or workflow constraints distort evaluation.
+
+A stable failure mode is boundary rhetoric without boundary engineering. Strong analyses end this step with a plain statement: \emph{this is where the system becomes real}. If endorsement happens via signing a clinical plan, placing a trade, filing a document, or scaling a programme based on a metric, then those events must be treated as boundary events with required artefacts and logs.
+
+\subsection{Step 6: Characterise Safe Horizons: When Repetition Requires Re-grounding}
+
+Safe horizons are protocol-level limits on how far a system may run before re-grounding is mandatory. The point is empirical: repeated use changes humans, incentives, and environment, so tacit oversight is not constant across time. This step asks what mechanisms exist to reset, throttle, revalidate, or halt runs as they deepen.
+
+You can treat horizons qualitatively when data are unavailable, but the output must remain precise: what counts as a reset, who can trigger it, what evidence is required, and what is paused or rolled back. Across the case studies, the most severe failures correlate with absent or unenforced safe horizons: the run deepens until something breaks.
+
+\subsection{Step 7: Identify Institutional Operators: Who Changes the Rules of the Run}
+
+Institutions and regulators act as operators on populations of tacit states and on admissible runs. Name the internal governance bodies (risk committees, ethics boards, safety teams, quality programmes) and external bodies (regulators, courts, professional associations), and describe how their actions change what runs are permitted.
+
+A key diagnostic is whether governance is collapsing into explicit-only signals. If decisions are driven primarily by dashboards and reports from the explicit pipeline, without an independent tacit channel capable of enforcing boundaries and horizons, then the institution is effectively attempting explicit-only governance. The case studies show how often this is the background condition for large failures.
+
+\subsection{Step 8: Construct an FRFP Counterfactual: A Testable Alternative Protocol}
+
+End with a counterfactual that holds fixed the domain and broad goals while changing protocol structure. This is not speculative futurism. It is a compact set of constraints that would plausibly have altered the run: changes to explicit semantics, boundary design, safe horizons, and institutional operators. Write counterfactuals as constraints rather than aspirations. Specify what artefacts must be presented at boundaries, what must be logged, what triggers resets or throttling, and which institutional body has authority to change the system after incidents.
+
+\section{Methodology II: Greenfield FRFP for New Deployments}
+\label{sec:frfp-greenfield}
+
+Greenfield FRFP work reverses the direction of fit. Instead of reconstructing \(E\), \(T\), and runs after the fact, it designs the space of admissible runs before deployment. The objects are the same; the deliverable changes. The deliverable is a deployment specification: admissibility rules, boundary event definitions, logging requirements, safe-horizon policies, diagnostics, and governance operators.
+
+Begin by declaring non-goals: what the system will not automate, and which decisions must remain human endorsements at defined boundaries. Then define \(E\) as a typed interface contract rather than as a component list: input and output types, permitted transformations, and evidence requirements for any artefact that may reach a boundary. Define \(T\) as concrete roles with authority, time budgets, competence assumptions, and known incentive conflicts. If tacit evaluation is infeasible at operational tempo, the protocol is misdesigned regardless of model quality.
+
+Next, specify admissible run families. At minimum, describe normal-operation runs, degraded-operation runs, adversarial runs, and growth runs. Locate commitment points in each family: moments where the system causes binding action. Engineer boundaries as explicit events with required artefact bundles and decision logs, with override and escalation rules. Set safe horizons before launch: caps, scheduled audits, drift triggers that force downgrade to advisory-only mode, and reset mechanisms that roll back or halt subsystems.
+
+Greenfield monitoring must be run-aware, not only snapshot-based. Track boundary behaviour (acceptance and override rates, decision latency), error discovery lag, accumulating exposure, and user adaptation signals. Finally, specify institutional operators and change-control as part of the system: who can change thresholds, prompts, model versions, and UI affordances; who can tighten or relax horizons; who can suspend the system and under what evidence; and how incidents trigger protocol updates. Where possible, include an independent tacit channel---audit, expert review, or external assessment---that can override metric comfort.
+
+A greenfield specification should also pre-register failure playbooks. If indicators move, the institution should not improvise. It should execute a committed response: downgrade mode, freeze expansion, audit, reset, or halt the relevant run family. This is the greenfield analogue of the counterfactual: it specifies, in advance, how unacceptable runs will be prevented or terminated.
+
+\section{How to Read the Case Studies in This Volume}
+
+You do not need to read Volume~II linearly. If you work in a specific domain, start with the relevant cluster of case studies, then use the Concept Lookup and this chapter for orientation. If you want cross-domain insight, read as a pattern library: compare cases where the same structural failure appears under different surface features. The volume is organised so that boundary capture, safe-horizon violations, and explicit-only governance recur as legible motifs across domains.
+
+\section{Applying FRFP to Your Own System: A Compact Checklist}
+
+If you are evaluating or designing a system, you can use a short checklist derived from the methodology. Write down \(E\) as a typed set of artefacts and pipelines and state the explicit task. Write down \(T\) as the set of human and institutional actors and the tacit standards they apply. Trace one or two typical runs, including feedback loops and scaling paths. Mark boundary events where endorsement becomes commitment, and state what information is available there. Specify safe horizons in time, scale, and domain, and state what triggers resets, throttles, or shutdown. Name the institutional operators that can change the system’s behaviour and describe how. Finally, sketch two or three protocol changes that would move the system toward FRFP alignment, written as constraints and triggers rather than aspirations.
+
+\section{Limitations of This Method}
+
+FRFP does not yield a single scalar ``safety score.'' It offers a structural vocabulary and a way to see recurring patterns. Not every system can or should be forced into narrow, fully specified tasks; sometimes the correct conclusion is that a desired level of automation is structurally inappropriate for the domain. Institutional dynamics are complex, and FRFP’s operator language abstracts heavily; case studies cannot capture every political and social nuance. Even with these caveats, the separation FRFP enforces---between semantics in \(E\), governance in \(T\), and long-horizon dynamics in runs---makes it possible to compare very different systems within a single volume and to turn lessons into protocol-level constraints.
+
+The remainder of Volume~II applies this template to concrete cases. Readers are encouraged to adapt it to their own domains, add domain-specific checks, and treat FRFP as a shared language rather than as a fixed checklist.
+
+
+\section(Alternative approach}
+% ============================================================
+% Chapter X — Bottom-Up FRFP Case-Study Methodology (from Glossary)
+% Example thread: JPMorgan CIO “London Whale” (2012)
+% ============================================================
+
+\chapter{A Bottom-Up FRFP Case-Study Methodology}
+\label{ch:frfp-bottom-up-method}
+
+This chapter replaces a top-down “field manual” with a bottom-up method derived from the FRFP glossary.
+Instead of starting from abstract categories, we start from the operational concepts a case study must
+make concrete: what artefacts exist, where endorsement happens, how repeated use changes oversight,
+how institutions aggregate judgments, and what cannot be guaranteed.
+
+The output of the method is not prose. It is a set of case-study deliverables that make the system
+auditable: ledgers, registers, maps, and profiles. Once those deliverables exist, narrative writing
+becomes straightforward and comparisons across cases become possible.
+
+Throughout, we illustrate each step using the JPMorgan CIO losses commonly known as the “London Whale.”
+The examples reference the kinds of primary sources you will typically rely on:
+
+\begin{itemize}
+  \item \textbf{Company-authored internal investigation / postmortem:}
+        \emph{Report of JPMorgan Chase \& Co. Management Task Force Regarding 2012 CIO Losses}
+        (Jan 16, 2013). \emph{(“Task Force Report”)}
+  \item \textbf{Regulator/legislative investigation (primary public record):}
+        U.S. Senate Permanent Subcommittee on Investigations (PSI), \emph{Chase Whale Trades: A Case History of Derivatives Risks and Abuses}
+        (2013). \emph{(“Senate PSI Report” and hearing materials)}
+  \item \textbf{Enforcement action:}
+        SEC administrative order / settlement materials (2013) regarding disclosures, controls, and valuation.
+        \emph{(“SEC Order”)}
+  \item \textbf{Issuer disclosure:}
+        JPMorgan 8-K and investor communications during 2012 as the loss was disclosed and revised.
+        \emph{(“8-K / investor communications”)}
+\end{itemize}
+
+\section{How to Use This Method}
+
+For each case, you produce the deliverables in order (Methods 0--12). Each deliverable is a concrete object
+you can show to a reviewer. If you cannot fill a deliverable from available sources, that absence is itself
+a finding: it indicates missing traceability, weak governance, or non-auditable operation.
+
+\section{Method 0: Choose the Unit of Analysis}
+\label{sec:m0-unit}
+
+\paragraph{Deliverable: Case unit declaration.}
+State exactly what system you are studying and where the population boundary lies.
+
+\begin{itemize}
+  \item Is the case about a \emph{product} (a tool), a \emph{deployment at one site}, a \emph{program across sites},
+        a \emph{portfolio}, or an \emph{institution-level process}?
+  \item Who is “in the system” (teams, committees, business units) and who is “outside” (regulators, external auditors)?
+  \item What explicit artefacts flow between those actors (reports, marks, dashboards), and what does \emph{not} flow (tacit judgment)?
+\end{itemize}
+
+\paragraph{London Whale example.}
+A useful unit is: \emph{the CIO Synthetic Credit Portfolio (SCP) risk-taking and control process in 2012},
+including the CIO trading desk, CIO risk management, firm-wide risk committees, valuation control, and senior management
+interfaces. The population boundary is “CIO + its control and escalation chain” rather than “JPMorgan as a whole,”
+because the sources describe a distinct set of actors, artefacts, and governance paths (Task Force Report; Senate PSI Report).
+
+\section{Method 1: Build the Explicit Artefact Ledger}
+\label{sec:m1-ledger}
+
+\paragraph{Deliverable: Explicit Artefact Ledger.}
+Inventory what the system can write, read, compute, circulate, and store. This is where many case studies become concrete.
+
+\paragraph{Include.}
+\begin{itemize}
+  \item \textbf{Inputs:} market data, positions, trade tickets, pricing curves, model parameters.
+  \item \textbf{Intermediates:} valuation marks, sensitivity/risk measures, limit utilizations, exceptions, approvals.
+  \item \textbf{Outputs:} P\&L reports, risk dashboards, committee packets, management summaries, disclosures.
+  \item \textbf{Logs / archives:} email/chat excerpts (if public), meeting minutes, model-change records, limit-change records.
+  \item \textbf{Flows:} who receives what, when, in what format (the “communication graph” in plain terms).
+  \item \textbf{Identity rules:} what counts as the “same” artefact over time (e.g., revised P\&L, amended marks, reissued risk report),
+        and when normalization happens (e.g., end-of-day reports vs intraday).
+\end{itemize}
+
+\paragraph{London Whale example.}
+From the Task Force Report and Senate PSI Report you can populate a ledger including: daily risk reports,
+Value-at-Risk outputs and model parameters, limit frameworks and exceptions, valuation marks and marking disputes,
+and escalation communications. From 8-K / investor communications you add the public-facing disclosure artefacts
+and their revisions over time.
+
+\section{Method 2: Draw the Pipeline Shape + Navigation Map}
+\label{sec:m2-shape}
+
+\paragraph{Deliverable: Pipeline topology + steering moves.}
+Represent the workflow as a pipeline shape (linear, branching review, parallel checks, repeated cycles) and list the steering moves
+available to humans/teams: rerun, retry, override, roll back, escalate, defer, or reroute.
+
+\paragraph{Include.}
+\begin{itemize}
+  \item \textbf{Shape:} is the process mostly linear (trade $\rightarrow$ report $\rightarrow$ review),
+        branching (multiple committees), parallel (independent control functions), looping (daily/weekly cycles)?
+  \item \textbf{Navigation moves:} how do actors revise the workflow?
+        Examples: revise valuation marks, change a risk model, increase limits, reclassify a portfolio, change reporting thresholds.
+  \item \textbf{Presentation ordering:} where do summaries appear relative to raw evidence?
+        Ordering is part of control: a dashboard that suppresses dissenting diagnostics is a structural feature.
+\end{itemize}
+
+\paragraph{London Whale example.}
+The sources support a \emph{looping} pipeline: daily trading and marking feeding daily risk and P\&L reporting,
+with \emph{branching} reviews (desk/risk/management) and periodic committee escalation.
+Key steering moves include: changes to the risk model and its parameters, adjustments to limits and their enforcement,
+and valuation/marking adjustments during the dispute period (Task Force Report; Senate PSI Report).
+
+\section{Method 3: Specify the Tacit Authority Map}
+\label{sec:m3-authority}
+
+\paragraph{Deliverable: Tacit Authority Map.}
+Name who bears correctness and responsibility, under what standard, and with what authority to override or halt.
+
+\paragraph{Include.}
+\begin{itemize}
+  \item \textbf{Roles:} traders, desk heads, CIO risk, firm-wide risk, valuation control, senior management.
+  \item \textbf{Authority:} who can approve limit changes, accept model changes, override controls, halt trading?
+  \item \textbf{Standards:} what does “correct” mean in domain terms (accurate marks, credible risk estimates,
+        compliant disclosures, reliable escalation)?
+  \item \textbf{Non-interference norm:} once a human/committee makes a judgment, how is it recorded and protected from being silently overwritten?
+\end{itemize}
+
+\paragraph{London Whale example.}
+The case turns on mismatches between nominal authority and practical authority: formal responsibility existed,
+but escalation and challenge failed under pressure and ambiguity (Task Force Report; Senate PSI Report).
+You can map: who “owned” valuation integrity, who “owned” risk-limit enforcement, and who “owned” public disclosure decisions (SEC Order; 8-Ks).
+
+\section{Method 4: Identify Boundary Events and Their Bundles}
+\label{sec:m4-boundaries}
+
+\paragraph{Deliverable: Boundary Register.}
+A boundary event is where an artefact becomes a commitment: a trade is approved, a valuation is accepted,
+a limit is increased, a disclosure is filed, a remediation is signed off.
+
+\paragraph{For each boundary event, record.}
+\begin{itemize}
+  \item \textbf{Endorsed artefact:} what exactly is being accepted?
+  \item \textbf{Bundle shown:} what evidence/provenance/alternatives were visible?
+  \item \textbf{Allowed actions:} accept/reject/modify/override; escalation rules.
+  \item \textbf{Log:} what was recorded (decision + rationale category + identity + timestamp)?
+\end{itemize}
+
+\paragraph{London Whale example (illustrative boundary events).}
+\begin{itemize}
+  \item \textbf{Limit changes and exceptions:} approvals where risk controls were loosened or exceptions tolerated (Task Force Report; Senate PSI Report).
+  \item \textbf{Model changes:} acceptance of changes to risk measurement (especially when used to justify reduced apparent risk) (Task Force Report; Senate PSI Report).
+  \item \textbf{Valuation marks:} decisions about where to mark positions and how to resolve disputes (Senate PSI Report; SEC Order).
+  \item \textbf{Public disclosure:} filing events where the firm committed to a public narrative and control posture (8-Ks; SEC Order).
+\end{itemize}
+
+\section{Method 5: Define Admissibility and Find Boundary Leaks}
+\label{sec:m5-leaks}
+
+\paragraph{Deliverable: Admissibility \& Leak Report.}
+Write down the rules that were supposed to constrain behavior, then document how practice deviated.
+
+\paragraph{Include.}
+\begin{itemize}
+  \item \textbf{Stated constraints:} policies, limit frameworks, model governance expectations, escalation rules.
+  \item \textbf{Observed deviations:} workarounds, silent defaults, scope creep, shadow automation, “informal approvals.”
+  \item \textbf{Leak types:}
+        \begin{itemize}
+          \item \emph{Boundary capture:} outputs treated as authoritative without meaningful challenge.
+          \item \emph{Correctness delegation:} controls reduced to dashboards or model outputs standing in for judgment.
+          \item \emph{Tacit reconstruction:} decisions justified by inferred intent rather than explicit evidence.
+        \end{itemize}
+\end{itemize}
+
+\paragraph{London Whale example.}
+The PSI materials and internal report describe control breakdowns, disputes over valuation, contested model use,
+and escalation failures—i.e., the lived protocol differed from the nominal one (Task Force Report; Senate PSI Report; SEC Order).
+
+\section{Method 6: Construct Run Families and the Replication Set}
+\label{sec:m6-runs}
+
+\paragraph{Deliverable: Run Family Catalogue + Replication Set.}
+A case study is not “what happened once,” but “what tends to happen under repeated embedding.”
+
+\paragraph{Minimum run families.}
+\begin{itemize}
+  \item \textbf{Normal-operation runs:} routine days/weeks under standard controls.
+  \item \textbf{Stressed runs:} time pressure, liquidity shocks, missing inputs, staffing constraints.
+  \item \textbf{Drift runs:} gradual changes in exposures, habituation to exceptions, “new normal” governance.
+  \item \textbf{Adversarial runs:} gaming thresholds, strategic marking, incentive-driven concealment.
+  \item \textbf{Growth runs:} scaling position size, scope expansion, loosening limits, broader reliance.
+\end{itemize}
+
+\paragraph{Replication set.}
+Where possible, identify multiple comparable slices: different desks, different time windows, or repeated committee decisions.
+Replication can be across teams (internal) or across documents (Task Force vs PSI vs SEC vs disclosures).
+
+\paragraph{London Whale example.}
+The PSI chronology supports run segmentation: early period where exposure grows; a period of model/limit changes;
+a period of valuation disputes; and a late period of escalating losses and disclosure revisions.
+You can treat these as distinct run families (normal $\rightarrow$ drift $\rightarrow$ stressed/adversarial) anchored in the same artefact ledger.
+
+\section{Method 7: Define the Collective Failure Criterion}
+\label{sec:m7-failure}
+
+\paragraph{Deliverable: Collective Failure Definition.}
+Define what counts as a “serious failure” at institution scale in this case.
+
+\paragraph{Examples.}
+\begin{itemize}
+  \item A risk-control process accepts invalid risk measures as a basis for increased exposure.
+  \item A valuation process accepts marks that fail domain standards, enabling misreporting or delayed loss recognition.
+  \item Governance fails to escalate in time, allowing exposure to compound.
+  \item Public disclosure commits to a materially misleading description of risk/control posture.
+\end{itemize}
+
+\paragraph{London Whale example.}
+A defensible collective failure criterion is: \emph{the organization allowed a growing, concentrated derivatives position to persist while internal controls and escalation mechanisms failed, leading to large losses and subsequent control/disclosure findings.}
+The criterion is anchored by the firm’s own postmortem framing, the Senate’s findings, and the SEC’s enforcement posture (Task Force Report; Senate PSI Report; SEC Order; 8-Ks).
+
+\section{Method 8: Extract Horizon \& Degradation Dynamics}
+\label{sec:m8-horizon}
+
+\paragraph{Deliverable: Horizon \& Degradation Profile.}
+Identify how repetition changed oversight and how exposure accumulated over time.
+
+\paragraph{Include.}
+\begin{itemize}
+  \item \textbf{Oversight degradation mechanisms:} normalization of exceptions, reduced challenge, habituation to “good-looking” metrics,
+        copy-forward governance (reusing prior approvals without re-grounding).
+  \item \textbf{Requirement floor:} minimum diligence needed to remain safe (e.g., independent marking discipline, independent risk challenge).
+  \item \textbf{Caps/resets/revalidation:} what practical stop conditions existed? were they triggered? could they be executed under pressure?
+  \item \textbf{Compounding exposure:} how did small per-step decisions compound into large risk?
+\end{itemize}
+
+\paragraph{London Whale example.}
+The source set supports a long-horizon story: rising exposure, weakening effective constraints, contested measurements,
+and delayed decisive intervention. This is where the case stops being “a bad trade” and becomes “a run-level governance failure”
+(Task Force Report; Senate PSI Report).
+
+\section{Method 9: Model the Institutional Decision Mechanism}
+\label{sec:m9-institution}
+
+\paragraph{Deliverable: Institutional Mechanism Sheet.}
+Document how many local judgments were combined into outcomes (limits, approvals, disclosure narratives, remediation plans).
+
+\paragraph{Include.}
+\begin{itemize}
+  \item \textbf{Who aggregated judgments:} which committees, executives, control functions.
+  \item \textbf{Combining rule in practice:} vote, chair decision, threshold triggers, “business override,” default acceptance unless challenged.
+  \item \textbf{Stability vs oscillation:} did governance settle on a coherent stance, or oscillate as losses/disputes evolved?
+  \item \textbf{Explicit-only collapse:} did dashboards/metrics become substitutes for judgment?
+\end{itemize}
+
+\paragraph{London Whale example.}
+The Task Force and PSI sources provide material for mapping escalation and decision aggregation:
+how information moved upward, how disputes were resolved (or not), and when senior-level decisions did or did not change the run (Task Force Report; Senate PSI Report; SEC Order).
+
+\section{Method 10: Do the Auditability \& Replay Test}
+\label{sec:m10-replay}
+
+\paragraph{Deliverable: Replayability Verdict.}
+Could an independent reviewer reconstruct what was endorsed and why?
+
+\paragraph{Checks.}
+\begin{itemize}
+  \item Are traces complete enough to reconstruct key decisions (limit/model/marking/disclosure)?
+  \item Are context archives present (what was known when a decision was made)?
+  \item Can we “replay” the decision path from artefacts to commitments and reach the same institutional outcome?
+  \item Where does ambiguity break replay (missing logs, missing rationale categories, informal approvals)?
+\end{itemize}
+
+\paragraph{London Whale example.}
+One reason the case is analysable is that the PSI report and Task Force report include detailed chronologies and document excerpts.
+But a case-study deliverable should still explicitly record what cannot be reconstructed from public record and where gaps remain (Task Force Report; Senate PSI Report; 8-Ks; SEC Order).
+
+\section{Method 11: State the No-Go Pressure and Choose a Feasible Operating Mode}
+\label{sec:m11-nogo}
+
+\paragraph{Deliverable: No-Go Pressure Note.}
+State what cannot be guaranteed under the observed constraints.
+
+\paragraph{Typical outputs.}
+\begin{itemize}
+  \item Purely metric-driven oversight cannot guarantee safe operation in complex, incentive-laden environments.
+  \item Without enforceable resets/caps, long-horizon accumulation makes severe failure increasingly likely.
+  \item “More reporting” is not a control if it does not preserve authority, challenge, and actionability at boundaries.
+\end{itemize}
+
+\paragraph{London Whale example.}
+The public record supports a conclusion that governance and control mechanisms failed under long-horizon stress and incentive pressure,
+and that “explicit-only” proxies (metrics and reports) did not by themselves preserve safety or correct valuation discipline
+(Task Force Report; Senate PSI Report; SEC Order).
+
+\section{Method 12: Produce the Dynamic Refinement Counterfactual}
+\label{sec:m12-counterfactual}
+
+\paragraph{Deliverable: Counterfactual protocol changes.}
+Propose changes that reduce long-run risk by tightening boundaries, reducing leakage, imposing horizons, improving replayability,
+and strengthening institutional mechanisms. Write counterfactuals as enforceable constraints and triggers.
+
+\paragraph{London Whale example (illustrative counterfactuals).}
+\begin{itemize}
+  \item \textbf{Boundary hardening:} make limit exceptions time-bounded with mandatory escalation and written rationale categories.
+  \item \textbf{Model-change gating:} require independent control approval and post-change backtesting before a model can be used to justify increased exposure.
+  \item \textbf{Valuation dispute protocol:} enforce a protected marking-resolution boundary where disputes trigger position caps or forced de-risking until resolved.
+  \item \textbf{Safe-horizon caps:} impose exposure caps that tighten automatically when overrides accumulate or when error-discovery lag increases.
+  \item \textbf{Replayability upgrades:} require structured decision logs linking each binding approval to the artefact bundle visible at the time.
+\end{itemize}
+
+These counterfactuals should be testable: they imply observable changes in run families (fewer drift runs, earlier resets, less boundary capture),
+not just better-looking dashboards.
+
+\section{Summary: The Bottom-Up Case Study Template}
+
+A complete FRFP case study produced by this methodology consists of the following deliverables:
+
+\begin{enumerate}
+  \item Case unit declaration (unit + population boundary).
+  \item Explicit Artefact Ledger.
+  \item Pipeline Shape + Navigation Map.
+  \item Tacit Authority Map.
+  \item Boundary Register (events + bundles).
+  \item Admissibility \& Leak Report.
+  \item Run Family Catalogue + Replication Set.
+  \item Collective Failure Criterion.
+  \item Horizon \& Degradation Profile.
+  \item Institutional Mechanism Sheet.
+  \item Auditability \& Replay Test.
+  \item No-Go Pressure Note.
+  \item Dynamic Refinement Counterfactual.
+\end{enumerate}
+
+This bottom-up structure is intentionally mechanical. It forces the analysis to land on concrete artefacts,
+concrete endorsement moments, and concrete governance mechanisms—so the case study can support diagnosis,
+comparison, and redesign rather than only narrative hindsight.

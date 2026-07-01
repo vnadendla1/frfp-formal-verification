@@ -1,0 +1,269 @@
+% ============================================================
+% Appendix E — Institutions and Design Constraints (Phase-6)
+% ============================================================
+
+%\subsection{Institutions and Design Constraints}
+
+\subsubsection{Purpose and Scope}
+
+Appendix A till now establishes that correctness in FRFP is structurally tacit,
+non-automatable, and dynamically fragile under repeated interaction.
+Appendix~A.11 formalizes no-go results showing that no single agent or pipeline
+can eliminate hallucination, drift, or semantic collapse.
+
+This appendix studies the \emph{institutional layer} required to stabilize
+knowledge production over long time horizons.  Institutions are treated not
+as social artifacts but as \emph{formal epistemic mechanisms} that operate on
+collections of runs, agents, and tacit judgments.
+
+The goal is to characterize which institutional constraints are
+\emph{necessary}, which are \emph{insufficient}, and which are
+\emph{structurally unavoidable} for scientific correctness.
+
+\subsubsection{Epistemic Populations}
+\label{sec:appendix-E1}
+
+\begin{definition}[Epistemic agent, institutional view]\label{def:B82}
+An \emph{epistemic agent} is an epistemic agent in the sense of Definition~B.46 of Appendix~C: a tuple
+\[
+  A_i = (T_i, \preceq_i, \delta_i, T^e_i),
+\]
+where
+\begin{itemize}
+  \item $T_i$ is a tacit context space equipped with a preorder $\preceq_i$ encoding ``at least as grounded as'';
+  \item $\delta_i : T_i \to T_i$ is a (tacit) context degradation operator;
+  \item $T^e_i := T_i \times \mathbb{R}_{\ge 0}$ is the extended tacit state space pairing a grounding $t_i \in T_i$ with a tacit credence $c_i \in \mathbb{R}_{\ge 0}$.
+\end{itemize}
+For each agent $A_i$ we write
+\[
+  \gamma_i : T_i \to J
+\]
+for the induced correctness quotient obtained from the Epistemic Algebra semantic structure (Appendix~A): $\gamma_i(t)$ is the observable correctness judgment when $A_i$ evaluates the tacit state $t$.
+
+We will refer to
+\[
+  (T_i, \preceq_i, \delta_i, T^e_i, \gamma_i)
+\]
+as the \emph{institutional signature} of the agent $A_i$.
+\end{definition}
+
+\begin{definition}[Epistemic population and category \texorpdfstring{$\mathrm{Pop}$}{Pop}]\label{def:B83}
+An \emph{epistemic population} is an object
+\[
+  P = (A_i)_{i \in I}
+\]
+of the category $\mathrm{Pop}$ defined in Definition~B.47 of Appendix~C: a finite or countable family of epistemic agents indexed by a set $I$.
+
+Morphisms $F : P \to P'$ in $\mathrm{Pop}$ are pairs $(f, (F_i)_{i \in I})$, where $f : I \to I'$ is a function on indices and each
+\[
+  F_i : T_i \to T'_{f(i)}
+\]
+is monotone with respect to the tacit preorders and commutes with degradation and extended tacit state. In this appendix we fix an epistemic population
+\[
+  P = (A_i)_{i \in I}
+\]
+unless explicitly stated otherwise. Agents in $P$ may differ in tacit capacity, degradation dynamics, credence behavior, or evaluative norms; no homogeneity is assumed.
+\end{definition}
+
+
+\subsubsection{Runs, Replication, and Population Semantics}
+\label{sec:appendix-E2}
+
+Recall from Appendix~A that a well-typed FRFP pipeline $P$ induces a semantic value $\llbracket P \rrbracket$ in the tacit space and an observable correctness outcome $\gamma(\llbracket P \rrbracket)$. At the dynamic level, Epistemic Dynamics refines this to admissible runs in $N \ltimes E$, and Appendix~~A.11 identifies admissible runs with execution traces satisfying Interaction Protocol constraints. In the collective setting of Appendix~C, such runs are further coupled to population states via the population semantics functor.
+
+\begin{definition}[Admissible run]\label{def:B84}
+Fix a Epistemic Structure well-typed pipeline $P$ and an epistemic agent $A_i$ in the sense of Definition~\ref{def:B82}. An \emph{admissible run} of $P$ by $A_i$ is
+\begin{itemize}
+  \item an admissible execution trace $\rho \in \mathrm{Runs}(P) \subseteq N \ltimes E$ in the sense of Definition~B.61 (Appendix~D), and
+  \item an initial extended tacit state $(t_{i,0}, c_{i,0}) \in T^e_i$ for $A_i$,
+\end{itemize}
+such that the evolution of $(t_{i,n}, c_{i,n})_{n \ge 0}$ along $\rho$ is governed by the Epistemic Dynamics update rules (degradation, confidence inflation, requirement escalation, and feedback-coupled degradation) and the Interaction Protocol constraints are respected at each step.
+\end{definition}
+
+\begin{definition}[Replication family]\label{def:B85}
+Let $P$ be a fixed FRFP pipeline and let
+\[
+  P = (A_i)_{i \in I}
+\]
+be an epistemic population. A \emph{replication family} for $P$ in $P$ is a family
+\[
+  R(P) = \{\rho_i : i \in I_{\mathrm{rep}}\}
+\]
+indexed by a finite or countable subset $I_{\mathrm{rep}} \subseteq I$, where for each $i \in I_{\mathrm{rep}}$,
+\begin{itemize}
+  \item $\rho_i$ is an admissible run of $P$ by agent $A_i$ (Definition~\ref{def:B84}), and
+  \item we write $(t_{i,*}, c_{i,*}) \in T^e_i$ for a chosen evaluation-time extended tacit state along $\rho_i$ (for example, the terminal state when the run halts or the state at a prescribed stopping time).
+\end{itemize}
+Intuitively, $R(P)$ records ``one execution of $P$ per agent'' under potentially different tacit initial conditions and stochastic realizations, but all subject to the same explicit pipeline and admissibility constraints.
+\end{definition}
+
+\begin{definition}[Population semantic profile]\label{def:B86}
+Let $R(P) = \{\rho_i : i \in I_{\mathrm{rep}}\}$ be a replication family for $P$ in $P$, and let
+\[
+  (t_{i,*}, c_{i,*}) \in T^e_i
+\]
+be the evaluation-time extended tacit state associated to $\rho_i$ as above. The \emph{population semantic profile} of $P$ relative to $R(P)$ is the multiset
+\[
+  \mathcal{P}(P; R(P)) \;:=\; \bigl\{ \gamma_i(t_{i,*}) : i \in I_{\mathrm{rep}} \bigr\} \;\subseteq\; J.
+\]
+This multiset---not any single run---will be the basic carrier of institutional correctness at the population level.
+\end{definition}
+
+
+\subsubsection{Institutional Aggregation Operators}
+\label{sec:appendix-E3}
+
+We now formalize how institutions act on population-level correctness data rather than on individual runs or artifacts.
+
+\begin{definition}[Institutional aggregator]\label{def:B87}
+Let $J$ be the space of observable correctness judgments (e.g.\ $J = \{\mathsf{accept}, \mathsf{reject}, \mathsf{revise}\}$). Write $M(J)$ for the collection of finite or countable multisets of elements of $J$. An \emph{institutional aggregator} is a function
+\[
+  I : M(J) \to J \cup \{\bot\},
+\]
+where $\bot$ denotes suspended judgment. Typical examples include majority vote, unanimity, weighted consensus, veto rules, or deliberative deferral.
+
+Given a fixed pipeline $P$ and epistemic population $P$, we may write $I_P$ for the particular aggregator that an institution applies to population semantic profiles $\mathcal{P}(P; R(P))$ arising from replication families $R(P)$ of $P$.
+\end{definition}
+
+\begin{definition}[Institutional outcome]\label{def:B88}
+Let $P$ be a pipeline, $P$ an epistemic population, $R(P)$ a replication family, and $I$ an institutional aggregator. The \emph{institutional outcome} of $P$ relative to $R(P)$ under $I$ is
+\[
+  I_P\bigl(\mathcal{P}(P; R(P))\bigr) \;\in\; J \cup \{\bot\}.
+\]
+By construction, $I_P$ operates only on tacitly produced correctness judgments collected in the multiset $\mathcal{P}(P; R(P))$. No raw explicit artifact or execution trace is directly admissible as an input to $I_P$.
+\end{definition}
+
+\begin{definition}[Explicit-only institution]\label{def:B88prime}
+An institutional aggregator family $(I_P)_P$ is \emph{explicit-only} if, for each pipeline $P$ and replication family $R(P)$, there exists an explicit-only mechanism
+\[
+  M_P : E^k \to J \cup \{\bot\}
+\]
+in the sense of Definition~B.70 of Appendix~D such that
+\[
+  I_P\bigl(\mathcal{P}(P; R(P))\bigr)
+  \;=\;
+  M_P(e_1, \dots, e_k),
+\]
+where $e_1, \dots, e_k \in E$ are the explicit artifacts produced along the admissible runs in $R(P)$, and $M_P$ has no access to any tacit states or tacit correctness outcomes. We will see in Theorem~B.93 that such explicit-only institutions cannot, in general, preserve correctness.
+\end{definition}
+
+
+\subsubsection*{E.4 Repeatability and Reproducibility}
+
+\begin{definition}[Repeatability]
+A pipeline $P$ is repeatable relative to $\mathbb{P}$ if all but finitely many
+elements of $\Sem_{\mathbb{P}}(P)$ are equal.
+\end{definition}
+
+\begin{definition}[Reproducibility]
+A pipeline $P$ is reproducible if for any sufficiently large epistemic
+population $\mathbb{P}'$ compatible with $\mathbb{P}$, the institutional
+outcome is invariant.
+\end{definition}
+
+Repeatability is a property of runs; reproducibility is a property of
+institutions.
+
+\subsubsection*{E.5 Institutional Drift and Decay}
+
+Even if individual agents degrade (Appendix~B), institutions can buffer
+against drift by averaging, vetoing, or deferring.
+
+\begin{definition}[Institutional stability]
+An institution $\mathcal{I}$ is stable if for any pipeline $P$ whose
+population semantic profile converges, the institutional outcome converges.
+\end{definition}
+
+\begin{remark}
+Stability does \emph{not} imply correctness—only resistance to oscillation.
+\end{remark}
+
+\subsubsection{Limits of Institutional Automation (Revised Statement)}
+\label{sec:appendix-E6}
+
+\begin{theorem}[Institutional non-automation]\label{thm:B93}
+Assume ETS and AE, together with the stochastic and population semantics of Appendices~B and~C. Let $(I_P)_P$ be an institutional layer such that for every pipeline $P$ and every replication family $R(P)$ in any epistemic population, the institutional outcome $I_P(\mathcal{P}(P; R(P)))$ is computed by an explicit-only institution in the sense of Definition~\ref{def:B88prime}: there exists an explicit-only mechanism
+\[
+  M_P : E^k \to J \cup \{\bot\}
+\]
+whose inputs are only the explicit artifacts produced along the admissible runs in $R(P)$ and such that
+\[
+  I_P\bigl(\mathcal{P}(P; R(P))\bigr) \;=\; M_P(e_1, \dots, e_k).
+\]
+If, in addition, the institution is correctness-preserving in the sense that for every admissible pipeline $P$ and replication family $R(P)$,
+\[
+  I_P\bigl(\mathcal{P}(P; R(P))\bigr)
+\]
+agrees with the tacit correctness multiset $\{\gamma_i(t_{i,*}) : i \in I_{\mathrm{rep}}\}$ whenever this multiset is pointwise unanimous, then no such institution can exist.
+
+Equivalently: there is no correctness-preserving institutional layer that depends solely on explicit artifacts or explicit-only summaries of those artifacts across all admissible pipelines and populations.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By Corollary~B.78 of Appendix~D, under HEG and HEC there is no explicit-only correctness oracle
+\[
+  \Omega : E \to J
+\]
+that reproduces $\gamma(\llbracket P \rrbracket)$ for all admissible runs of all pipelines. Any explicit-only institution satisfying the hypothesis would induce such an oracle by restricting to replication families of size one and composing
+\[
+  e \;\mapsto\; \{e\} \;\mapsto\; I_P\bigl(\mathcal{P}(P; R(P))\bigr) \;:=\; \Omega(e).
+\]
+Since correctness outcomes are tacit-dependent, this contradicts the no-go theorem for explicit-only mechanisms (Theorem~B.71). Therefore, no purely explicit-only institutional aggregator can preserve correctness across all admissible runs and populations.
+\end{proof}
+
+
+\subsubsection*{E.7 Peer Review as a Formal Operator}
+
+\begin{definition}[Peer review operator]
+Peer review is an institutional aggregator $\mathcal{I}_{\mathrm{PR}}$ whose
+domain consists of independently generated tacit judgments by distinct
+agents, possibly with structured disagreement.
+\end{definition}
+
+Peer review does not eliminate hallucination (Appendix~B) but reduces the
+probability that hallucinated explicit artifacts pass institutional filters.
+
+\subsubsection*{E.8 Consensus Is Not a Fixpoint}
+
+\begin{theorem}[Consensus instability]
+Even stable consensus does not imply semantic correctness.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Consensus is an aggregation over $\gamma(\sem{r})$ values. If the population
+shares a correlated degradation mechanism, consensus may converge on an
+incorrect judgment. This follows from the hallucination inevitability and
+confidence inflation results of Appendix~B.
+\end{proof}
+
+\subsubsection*{E.9 Design Constraints for AI Systems}
+
+Any AI system intended for epistemic use must therefore satisfy:
+
+\begin{itemize}
+\item explicit confinement (Epistemic Space);
+\item exposure of outputs to multiple independent tacit evaluators;
+\item support for suspension of judgment ($\bot$);
+\item resistance to confidence inflation feedback at the institutional level.
+\end{itemize}
+
+These are not ethical desiderata but \emph{formal necessities}.
+
+\subsubsection*{E.10 Summary}
+
+Institutions are not optional add-ons but mathematically required structures
+for long-horizon epistemic stability. They do not eliminate hallucination,
+drift, or error; they bound their impact across populations and time.
+
+FRFP therefore implies a strict separation of roles:
+
+\begin{center}
+\emph{Pipelines compute.  
+Humans judge.  
+Institutions stabilize.}
+\end{center}
+
+Any attempt to collapse these layers violates one of the no-go results proven
+in earlier appendices.
+
+% End Appendix E

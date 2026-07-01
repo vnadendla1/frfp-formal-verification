@@ -1,0 +1,472 @@
+\chapter{Domain-Specific FRFP Implementation Playbooks}
+\label{ch:frfp-domain-playbooks}
+
+This chapter gives concrete, domain-specific playbooks for implementing
+FRFP in three high-impact areas:
+
+\begin{enumerate}
+  \item scientific and engineering research;
+  \item finance and risk management;
+  \item clinical practice and healthcare delivery.
+\end{enumerate}
+
+Each playbook is structured as a short, practical guide:
+
+\begin{itemize}
+  \item typical explicit and tacit spaces in the domain;
+  \item recommended boundary design;
+  \item safe-horizon choices;
+  \item governance patterns;
+  \item a compact implementation checklist.
+\end{itemize}
+
+The aim is not to exhaust domain detail, but to show how the general FRFP
+architecture can be concretely instantiated.
+
+\section{Playbook I: Scientific and Engineering Research}
+\label{sec:playbook-research}
+
+\subsection{Typical Explicit and Tacit Spaces}
+
+\paragraph{Explicit space \(E_{\mathrm{res}}\).}
+
+\begin{itemize}
+  \item datasets, experimental logs, simulation outputs;
+  \item code, models, pipelines, configuration files;
+  \item manuscripts, preprints, lab notebooks, design docs;
+  \item metrics and benchmarks (loss curves, accuracy, error bars).
+\end{itemize}
+
+\paragraph{Tacit space \(T_{\mathrm{res}}\).}
+
+\begin{itemize}
+  \item researchers’ intuitions about what questions are important or
+        tractable;
+  \item judgement about experimental design, artefact quality, and
+        whether results ``make sense'';
+  \item field-wide norms about evidence, novelty, and acceptable risk;
+  \item institutional incentives (career, funding, publication venues).
+\end{itemize}
+
+\subsection{FRFP Boundary Design in Research}
+
+\paragraph{Key boundaries.}
+
+\begin{itemize}
+  \item \textbf{Research claims}:
+        when a result moves from ``internal exploration'' to
+        ``external claim'' (preprint, paper, patent).
+  \item \textbf{Code and model releases}:
+        when an internal tool becomes a public artefact or shared
+        infrastructure.
+  \item \textbf{Project commitments}:
+        when a lab or organisation commits resources to a long-horizon
+        programme (e.g.\ a multi-year line of work or experiment).
+\end{itemize}
+
+\paragraph{Design moves.}
+
+\begin{itemize}
+  \item Require that any \emph{claim-bearing document} (paper, report,
+        safety case) be explicitly marked as such and go through a
+        human review pipeline distinct from AI-assisted drafting.
+  \item Maintain explicit provenance:
+        AI-generated analyses and text are tagged, so that reviewers
+        know when they are endorsing machine-produced content.
+  \item For code/model releases, implement a release gate where
+        technical leads and domain experts jointly sign off on:
+        \begin{itemize}
+          \item domain of validity;
+          \item known failure modes;
+          \item recommended and prohibited uses.
+        \end{itemize}
+\end{itemize}
+
+\subsection{Safe Horizons in Research Programmes}
+
+\paragraph{Temporal horizons.}
+
+\begin{itemize}
+  \item Set explicit review intervals for large programmes:
+        e.g.\ every 6--12 months, with an external or cross-team review
+        of assumptions, goals, and methods.
+  \item For high-risk directions (e.g.\ dual-use capabilities),
+        enforce shorter horizons and require renewal of approval.
+\end{itemize}
+
+\paragraph{Scale horizons.}
+
+\begin{itemize}
+  \item Limit the number of downstream projects that can depend on a
+        single unvalidated model or dataset before more thorough
+        validation is performed.
+  \item For AI tools used across a lab or organisation, cap adoption
+        (e.g.\ number of users or critical workflows) until an initial
+        evaluation phase is complete.
+\end{itemize}
+
+\paragraph{Domain horizons.}
+
+\begin{itemize}
+  \item Require explicit justification before using a tool outside the
+        domain where it was validated (e.g.\ reusing a model trained
+        for one regime in a qualitatively different one).
+  \item Trigger re-grounding when key assumptions (hardware, scale,
+        data sources, institutional context) change.
+\end{itemize}
+
+\subsection{Governance Patterns for Research}
+
+\begin{itemize}
+  \item Establish an internal \textbf{FRFP board} (or adapt an existing
+        research committee) with responsibility for:
+        \begin{itemize}
+          \item approving high-impact projects and releases;
+          \item setting safe-horizon policies;
+          \item reviewing incident reports and near-misses.
+        \end{itemize}
+  \item Integrate FRFP concepts into:
+        \begin{itemize}
+          \item lab meeting culture (explicit discussion of boundaries
+                and tacit judgement);
+          \item mentoring and training (how to use AI tools without
+                eroding core skills);
+          \item collaboration agreements (roles and responsibilities for
+                human and AI components).
+        \end{itemize}
+  \item Align with external institutions:
+        IRBs, safety review boards, professional societies and journals
+        (e.g.\ disclosure of AI-generated analyses and code).
+\end{itemize}
+
+\subsection{Implementation Checklist (Research)}
+
+For a research group or engineering team:
+
+\begin{enumerate}
+  \item \textbf{Write down \(E_{\mathrm{res}}\) and \(T_{\mathrm{res}}\)} for your
+        main projects.
+  \item \textbf{Mark boundaries}:
+        which artefacts count as claims, releases, or commitments?
+  \item \textbf{Define safe horizons} for:
+        \begin{itemize}
+          \item programme duration before review;
+          \item scale of deployment of internal tools;
+          \item reuse of models outside their training domain.
+        \end{itemize}
+  \item \textbf{Set up a lightweight FRFP board} (even 2--3 people) to
+        approve boundary events and horizon extensions.
+  \item \textbf{Instrument provenance}:
+        tag AI-generated analyses and text; log endorsements at
+        boundaries.
+\end{enumerate}
+
+\section{Playbook II: Finance and Risk Management}
+\label{sec:playbook-finance}
+
+\subsection{Typical Explicit and Tacit Spaces}
+
+\paragraph{Explicit space \(E_{\mathrm{fin}}\).}
+
+\begin{itemize}
+  \item trades, orders, positions, and P\&L records;
+  \item risk metrics:
+        VaR, stress tests, greeks, liquidity measures;
+  \item client data, credit histories, transaction logs;
+  \item models and algorithms:
+        pricing models, risk engines, execution algos, ML forecasters;
+  \item policies and limit tables implemented in code or configuration.
+\end{itemize}
+
+\paragraph{Tacit space \(T_{\mathrm{fin}}\).}
+
+\begin{itemize}
+  \item traders’ and portfolio managers’ market intuition;
+  \item risk officers’ judgement about model limitations and stress
+        scenarios;
+  \item executives’ and boards’ beliefs about risk appetite and
+        strategy;
+  \item regulators’ evolving expectations;
+  \item client and market participants’ perceptions of stability and
+        fairness.
+\end{itemize}
+
+\subsection{FRFP Boundary Design in Finance}
+
+\paragraph{Key boundaries.}
+
+\begin{itemize}
+  \item \textbf{Capital allocation and limits}:
+        approvals for large positions, new strategies, or structural
+        hedges.
+  \item \textbf{Model changes}:
+        implementation or retirement of risk/pricing models.
+  \item \textbf{Regulatory and public disclosures}:
+        risk reports, investor communications.
+\end{itemize}
+
+\paragraph{Design moves.}
+
+\begin{itemize}
+  \item Treat \emph{model approval} as a major boundary event:
+        \begin{itemize}
+          \item independent model validation;
+          \item parallel runs with legacy models;
+          \item sign-off by risk and business leadership.
+        \end{itemize}
+  \item Make limit changes and waivers explicit boundary events:
+        who approved, under what rationale, with what horizon.
+  \item Distinguish between \emph{hedging} and \emph{directional}
+        strategies in both code and governance, rather than relying on
+        labels alone.
+\end{itemize}
+
+\subsection{Safe Horizons in Financial Systems}
+
+\paragraph{Temporal horizons.}
+
+\begin{itemize}
+  \item Set review cycles for strategies (e.g.\ quarterly or annual
+        deep dives) independent of short-term P\&L.
+  \item For complex or illiquid portfolios, require more frequent
+        stress tests and scenario reviews.
+\end{itemize}
+
+\paragraph{Scale horizons.}
+
+\begin{itemize}
+  \item Cap notional exposure and risk measures per strategy or book
+        until performance and model fit are demonstrated.
+  \item Tie horizon extensions to both quantitative evidence and tacit
+        review of market structure and counterparty behaviour.
+\end{itemize}
+
+\paragraph{Domain horizons.}
+
+\begin{itemize}
+  \item Restrict model use to markets, instruments, and regimes where
+        assumptions hold; treat entry into new asset classes or
+        liquidity regimes as new domains requiring fresh validation.
+  \item For ML models, monitor for data drift and structural breaks
+        (e.g.\ regime shifts, new regulations); trigger re-grounding.
+\end{itemize}
+
+\subsection{Governance Patterns for Finance}
+
+\begin{itemize}
+  \item Define a \textbf{FRFP-aware risk committee} with authority over:
+        \begin{itemize}
+          \item model approvals and retirements;
+          \item safe-horizon definitions for strategies;
+          \item limit frameworks and escalation procedures.
+        \end{itemize}
+  \item Ensure clear separation of roles:
+        \begin{itemize}
+          \item traders and quants design strategies and models;
+          \item independent risk validates and challenges;
+          \item the committee arbitrates and sets boundaries.
+        \end{itemize}
+  \item Align with external regulators:
+        treat regulatory stress tests and model-risk rules as
+        institutional operators in FRFP terms, and design internal
+        processes to be legible to them.
+\end{itemize}
+
+\subsection{Implementation Checklist (Finance)}
+
+For a trading business, risk group, or fintech:
+
+\begin{enumerate}
+  \item \textbf{Catalogue key models and metrics} in
+        \(E_{\mathrm{fin}}\), including their intended semantics and
+        data sources.
+  \item \textbf{Map tacit risk decisions} in \(T_{\mathrm{fin}}\):
+        who actually decides on exposures, hedges, and new products.
+  \item \textbf{Define boundaries}:
+        \begin{itemize}
+          \item model approval / retirement;
+          \item strategy launch / scale-up;
+          \item limit changes and waivers.
+        \end{itemize}
+  \item \textbf{Set safe horizons} for:
+        \begin{itemize}
+          \item maximum exposure pre-review;
+          \item maximum time between independent stress-testing;
+          \item valid domain of each model.
+        \end{itemize}
+  \item \textbf{Establish or adapt a risk committee} to act as a
+        governance operator with real authority over the above.
+\end{enumerate}
+
+\section{Playbook III: Clinical Practice and Healthcare Delivery}
+\label{sec:playbook-clinical}
+
+\subsection{Typical Explicit and Tacit Spaces}
+
+\paragraph{Explicit space \(E_{\mathrm{clin}}\).}
+
+\begin{itemize}
+  \item electronic health records (EHRs), lab results, imaging data;
+  \item clinical guidelines and order sets;
+  \item AI models for:
+        \begin{itemize}
+          \item diagnosis and screening (e.g.\ DR detection, imaging
+                triage);
+          \item risk prediction (readmission, deterioration, sepsis);
+          \item workflow optimisation and resource allocation.
+        \end{itemize}
+  \item decision-support outputs:
+        alerts, risk scores, recommendations, triage flags, auto-draft
+        notes.
+\end{itemize}
+
+\paragraph{Tacit space \(T_{\mathrm{clin}}\).}
+
+\begin{itemize}
+  \item clinicians' tacit knowledge of patients, disease courses,
+        local practice norms;
+  \item nurses’ and allied staff’s understanding of workflows and
+        practical constraints;
+  \item institutional culture around safety, liability, and autonomy;
+  \item patient trust, preferences, and understanding of care;
+  \item regulator and payer expectations.
+\end{itemize}
+
+\subsection{FRFP Boundary Design in Clinical Settings}
+
+\paragraph{Key boundaries.}
+
+\begin{itemize}
+  \item \textbf{Diagnostic and treatment decisions}:
+        diagnoses entered, treatments ordered, prescriptions signed.
+  \item \textbf{Screening and triage decisions}:
+        who is referred, prioritised, or discharged.
+  \item \textbf{Documentation and billing}:
+        what goes into the official record and claims.
+\end{itemize}
+
+\paragraph{Design moves.}
+
+\begin{itemize}
+  \item Treat AI outputs as structured inputs to clinical reasoning,
+        not as replacements for it:
+        UIs should present recommendations alongside underlying data
+        and uncertainty.
+  \item For autonomous systems (like DR screening AI), make the AI’s
+        \emph{scope} explicit:
+        the specific question it answers, and what it does \emph{not}
+        decide (e.g.\ treatment).
+  \item Require explicit clinician endorsement at key boundaries:
+        entering a diagnosis, confirming a treatment plan, signing a
+        discharge.
+\end{itemize}
+
+\subsection{Safe Horizons in Clinical Programmes}
+
+\paragraph{Temporal horizons.}
+
+\begin{itemize}
+  \item For screening and risk-prediction programmes, define
+        re-evaluation intervals (e.g.\ annually) for both:
+        \begin{itemize}
+          \item model performance;
+          \item workflow and outcome impact (over- and under-treatment).
+        \end{itemize}
+  \item For AI tools used at the bedside, schedule periodic
+        clinician-survey cycles and qualitative feedback rounds.
+\end{itemize}
+
+\paragraph{Scale horizons.}
+
+\begin{itemize}
+  \item Roll out new AI tools in phases:
+        pilot units $\to$ hospital-wide $\to$ system-wide, with clear
+        criteria for progression.
+  \item Limit their use in high-acuity or vulnerable populations until
+        sufficient evidence is available.
+\end{itemize}
+
+\paragraph{Domain horizons.}
+
+\begin{itemize}
+  \item Do not deploy models outside the populations in which they were
+        validated (e.g.\ different hospitals, countries, or demographic
+        mixes) without adaptation and revalidation.
+  \item Explicitly track changes in clinical practice patterns,
+        technology (e.g.\ new imaging devices), and epidemiology that
+        may invalidate prior validations.
+\end{itemize}
+
+\subsection{Governance Patterns for Clinical AI}
+
+\begin{itemize}
+  \item Use or extend existing structures:
+        \begin{itemize}
+          \item clinical governance and safety committees;
+          \item quality-improvement (QI) and patient-safety teams;
+          \item IRBs and ethics boards for research deployments.
+        \end{itemize}
+  \item Give these bodies explicit FRFP responsibilities:
+        \begin{itemize}
+          \item approve indications-for-use and deployment domains;
+          \item set safe horizons and monitoring plans;
+          \item review incidents and near-misses involving AI tools.
+        \end{itemize}
+  \item Align with external operators:
+        regulators (e.g.\ device approvals), payers (reimbursement), and
+        professional societies (guidelines) as external FRFP operators
+        that can change admissible runs.
+\end{itemize}
+
+\subsection{Implementation Checklist (Clinical)}
+
+For a hospital, clinic, or health system:
+
+\begin{enumerate}
+  \item \textbf{Inventory AI tools} in
+        \(E_{\mathrm{clin}}\):
+        what models exist, what they predict, and where they are used
+        in workflows.
+  \item \textbf{Map tacit actors} in
+        \(T_{\mathrm{clin}}\):
+        clinicians, nurses, administrators, patients, regulators.
+  \item \textbf{Define boundaries}:
+        \begin{itemize}
+          \item which decisions AI may take autonomously (if any);
+          \item which require clinician endorsement;
+          \item what gets written into the medical record.
+        \end{itemize}
+  \item \textbf{Set safe horizons}:
+        \begin{itemize}
+          \item pilot sizes and durations;
+          \item review intervals for performance and impact;
+          \item domain limits (sites, populations, devices).
+        \end{itemize}
+  \item \textbf{Empower a clinical AI committee} to:
+        \begin{itemize}
+          \item approve tools and indications;
+          \item oversee monitoring and incident review;
+          \item communicate with external regulators and payers.
+        \end{itemize}
+\end{enumerate}
+
+\section{Using the Playbooks}
+
+These playbooks are deliberately schematic.
+For each domain, they provide:
+
+\begin{itemize}
+  \item a first pass at identifying \(E\), \(T\), boundaries, horizons,
+        and governance operators;
+  \item concrete steps an organisation can take in months, not years,
+        to bring existing or planned systems closer to FRFP alignment.
+\end{itemize}
+
+In practice, implementing FRFP will involve adapting these templates to
+local context and constraints.
+The case studies in Volume~II provide detailed illustrations of how
+similar patterns have failed or succeeded in related systems.
+By combining the playbooks with the pattern language in
+Chapter~\ref{ch:frfp-patterns} and the methodology in
+Chapter~\ref{ch:frfp-method}, practitioners can build domain-specific
+FRFP architectures that are both principled and operational.

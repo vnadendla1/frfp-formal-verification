@@ -1,0 +1,288 @@
+\contentsline {section}{\numberline {1}Interaction Protocols}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Interaction Traces}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Interaction Constraints}{3}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Epistemic Spaces}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Ambient Category and Explicit--Tacit Separation}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Explicit and Tacit Primitives}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Correctness in Tacit Space}{5}{subsection.2.3}%
+\contentsline {paragraph}{Interpretation and scope of tacit correctness.}{5}{section*.2}%
+\contentsline {paragraph}{Hallucination as a protocol-level phenomenon.}{6}{section*.3}%
+\contentsline {paragraph}{Explicit correctness engines.}{6}{section*.4}%
+\contentsline {subsection}{\numberline {2.4}Uniqueness of the FRFP Epistemic Ontology}{6}{subsection.2.4}%
+\contentsline {paragraph}{Operational significance of the FRFP Epistemic Ontology.}{6}{section*.5}%
+\contentsline {section}{\numberline {3}Epistemic Algebra}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Task Decomposition Grammar}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Navigation Groupoid}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Semidirect Product \(\mathcal {N}\ltimes \mathcal {E}\)}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Confluence, Normal Forms, and Decidability}{8}{subsection.3.4}%
+\contentsline {paragraph}{Operational significance of Epistemic Algebra canonicality.}{9}{section*.6}%
+\contentsline {subsection}{\numberline {3.5}Semantic Correctness and Invariance}{9}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Semantic Functor and Observable Correctness}{9}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Canonical Correctness Form}{10}{subsubsection.3.5.2}%
+\contentsline {section}{\numberline {4}Epistemic Dynamics}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tacit Context, Degradation, and Requirements}{10}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Epistemic degradation under long-run AI assistance}{11}{subsection.4.2}%
+\contentsline {paragraph}{Automation, complacency, and deskilling.}{11}{section*.7}%
+\contentsline {paragraph}{Cognitive offloading and the ``Google effect.''}{11}{section*.8}%
+\contentsline {paragraph}{Early evidence of degraded independent performance under AI use.}{12}{section*.9}%
+\contentsline {paragraph}{The formal assumption.}{12}{section*.10}%
+\contentsline {paragraph}{Context degradation.}{13}{section*.11}%
+\contentsline {paragraph}{Requirements and hallucination.}{13}{section*.12}%
+\contentsline {paragraph}{Repair, workload, and the cost--speed tradeoff.}{14}{section*.13}%
+\contentsline {subsection}{\numberline {4.3}Pipeline Transformers and Runs}{14}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Baseline Hallucination Inevitability}{15}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Confidence, Requirement Escalation, and Feedback}{15}{subsection.4.5}%
+\contentsline {paragraph}{Plausibility and confidence.}{15}{section*.14}%
+\contentsline {paragraph}{Requirement escalation and feedback-coupled degradation.}{16}{section*.15}%
+\contentsline {subsection}{\numberline {4.6}Stochastic Pipelines, Ensembles, and Finite Horizons}{16}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Implications}{16}{subsection.4.7}%
+\contentsline {section}{\numberline {5}Collective Epistemic Dynamics}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1}From Single Pipelines to Epistemic Populations}{17}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Collective Dynamics as a Markov System}{18}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Collective Hallucination and Its Inevitability}{19}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Consensus Mechanisms as Explicit-Only Functors}{20}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Structural Notions at the Collective Level}{20}{subsection.5.5}%
+\contentsline {paragraph}{Equivalence of collective protocols.}{20}{section*.16}%
+\contentsline {paragraph}{Refinement order on architectures.}{20}{section*.17}%
+\contentsline {paragraph}{Compositional risk and defense in depth.}{21}{section*.18}%
+\contentsline {paragraph}{Do collectives reduce or increase hallucination risk on fixed horizons?}{21}{section*.19}%
+\contentsline {paragraph}{Non-identifiability from logs.}{21}{section*.20}%
+\contentsline {paragraph}{Scaling and phase-transition questions.}{22}{section*.21}%
+\contentsline {subsection}{\numberline {5.6}Connections to Example Domains and Local Interventions}{22}{subsection.5.6}%
+\contentsline {section}{\numberline {6}Structural Limits of Explicit Mechanisms}{23}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Dynamic Quantities and Long-Horizon Behaviour}{23}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Population-Level Dynamics and Consensus}{24}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Tacit Dependence and Explicit-Only Mechanisms}{25}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Consequences for Detection, Elimination, and Consensus}{25}{subsection.6.4}%
+\contentsline {paragraph}{Detection and elimination.}{25}{section*.22}%
+\contentsline {paragraph}{Correctness oracles.}{26}{section*.23}%
+\contentsline {paragraph}{Consensus and collective guarantees.}{26}{section*.24}%
+\contentsline {subsection}{\numberline {6.5}Implications for Design and Governance}{26}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Institutions for Long-Horizon Human--AI Collaboration}{27}{section.7}%
+\contentsline {subsection}{\numberline {7.1}From Individual Agents to Epistemic Populations}{27}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Replication and Population-Level Semantics}{28}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Institutions as Aggregators over Tacit Judgments}{28}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Why Institutions Cannot Be Fully Automated}{29}{subsection.7.4}%
+\contentsline {section}{\numberline {8}Governance, Law, and Oversight}{30}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Governance as a Meta-Institution}{30}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Explicit-Only Governance and Its Limits}{30}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Law as a Constraint on Governance}{31}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Human Oversight as a Structural Requirement}{31}{subsection.8.4}%
+\contentsline {section}{\numberline {9}Discussion and Outlook}{32}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Design Implications}{32}{subsection.9.1}%
+\contentsline {paragraph}{Kernel-level constraints vs.\ instantiated layers.}{32}{section*.25}%
+\contentsline {subsection}{\numberline {9.2}FRFP as a formalization of the scientific method}{32}{subsection.9.2}%
+\contentsline {paragraph}{A translation dictionary.}{32}{section*.26}%
+\contentsline {paragraph}{Replication, reproducibility, and peer review as FRFP patterns.}{33}{section*.27}%
+\contentsline {paragraph}{What FRFP adds, relative to informal scientific method talk.}{33}{section*.28}%
+\contentsline {paragraph}{Scope and limits of the mapping.}{34}{section*.29}%
+\contentsline {subsection}{\numberline {9.3}Limitations and scope}{34}{subsection.9.3}%
+\contentsline {paragraph}{Single-agent tacit model.}{34}{section*.30}%
+\contentsline {paragraph}{Worst-case focus.}{34}{section*.31}%
+\contentsline {paragraph}{Abstract requirements and tacit semantics.}{34}{section*.32}%
+\contentsline {paragraph}{Level of abstraction.}{34}{section*.33}%
+\contentsline {paragraph}{Scope of inevitability and non-automation claims.}{35}{section*.34}%
+\contentsline {paragraph}{Counter-scenarios for Epistemic Dynamics assumptions.}{35}{section*.35}%
+\contentsline {paragraph}{Scope of novelty.}{35}{section*.36}%
+\contentsline {subsection}{\numberline {9.4}Future Directions}{36}{subsection.9.4}%
+\contentsline {paragraph}{Empirical dynamics of human--AI protocols.}{36}{section*.37}%
+\contentsline {paragraph}{Repair, re-grounding, and reset mechanisms.}{36}{section*.38}%
+\contentsline {paragraph}{Collective architectures and institutions.}{36}{section*.39}%
+\contentsline {paragraph}{Governance, law, and meta-level design.}{36}{section*.40}%
+\contentsline {paragraph}{Richer explicit logics and tooling.}{36}{section*.41}%
+\contentsline {paragraph}{Benchmarking and comparative evaluation.}{37}{section*.42}%
+\contentsline {section}{\numberline {10}Alternative formalisms}{37}{section.10}%
+\contentsline {subsection}{\numberline {10.1}The design space: what varies across architectures}{37}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Architectures that do \emph {not} reduce to FRFP}{37}{subsection.10.2}%
+\contentsline {paragraph}{(A) Bidirectional boundary architectures (\(T\leftrightarrow E\)).}{38}{section*.43}%
+\contentsline {paragraph}{(B) Tacit-in-the-loop AI.}{38}{section*.44}%
+\contentsline {paragraph}{(C) Explicit-only correctness architectures.}{38}{section*.45}%
+\contentsline {paragraph}{(D) Multi-boundary acceptance architectures.}{38}{section*.46}%
+\contentsline {paragraph}{(E) Probabilistic tacit semantics.}{38}{section*.47}%
+\contentsline {subsection}{\numberline {10.3}Which alternatives can be viewed as generalizations of the scientific method}{38}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Why FRFP among the alternatives}{39}{subsection.10.4}%
+\contentsline {paragraph}{Target regime.}{39}{section*.48}%
+\contentsline {paragraph}{Accountability and non-circular semantics.}{39}{section*.49}%
+\contentsline {paragraph}{Minimality and canonicity within the axiom class.}{39}{section*.50}%
+\contentsline {subsection}{\numberline {10.5}Practical reading of this comparison}{39}{subsection.10.5}%
+\contentsline {section}{Appendices}{40}{section*.51}%
+\contentsline {section}{\numberline {A}A}{40}{section.A}%
+\contentsline {subsection}{\numberline {A.1}Foundations}{40}{subsection.A.1}%
+\contentsline {subsubsection}{\numberline {A.1.1}Ambient Category \(C_{\mathrm {full}}\)}{40}{subsubsection.A.1.1}%
+\contentsline {subsubsection}{\numberline {A.1.2}Modal Interpretation of Explicit and Tacit Knowledge}{41}{subsubsection.A.1.2}%
+\contentsline {subsubsection}{\numberline {A.1.3}Explicit Category \(\mathcal {E}\)}{41}{subsubsection.A.1.3}%
+\contentsline {subsubsection}{\numberline {A.1.4}Tacit Category \(\mathcal {T}\)}{41}{subsubsection.A.1.4}%
+\contentsline {paragraph}{Interpretation and non-triviality of $T$.}{42}{section*.52}%
+\contentsline {subsubsection}{\numberline {A.1.5}Boundary Morphism and Semantic RB Functor}{43}{subsubsection.A.1.5}%
+\contentsline {subsubsection}{\numberline {A.1.6}Interaction Protocols and Epistemic Spaces Axioms}{43}{subsubsection.A.1.6}%
+\contentsline {subsection}{\numberline {A.2}Explicit Algebra and the Task Decomposition Grammar}{44}{subsection.A.2}%
+\contentsline {subsubsection}{\numberline {A.2.1}TDG Signature and Free Category}{44}{subsubsection.A.2.1}%
+\contentsline {subsubsection}{\numberline {A.2.2}TDG Grammar}{44}{subsubsection.A.2.2}%
+\contentsline {paragraph}{Nonterminals.}{45}{section*.53}%
+\contentsline {paragraph}{Terminals.}{45}{section*.54}%
+\contentsline {paragraph}{Productions.}{45}{section*.55}%
+\contentsline {subsubsection}{\numberline {A.2.3}Shapes and Shape Category}{45}{subsubsection.A.2.3}%
+\contentsline {subsubsection}{\numberline {A.2.4}Explicit Reduction System}{45}{subsubsection.A.2.4}%
+\contentsline {subsection}{\numberline {A.3}Navigation and Shapes}{46}{subsection.A.3}%
+\contentsline {subsubsection}{\numberline {A.3.1}Navigation Category and Groupoid}{46}{subsubsection.A.3.1}%
+\contentsline {subsubsection}{\numberline {A.3.2}Fibration \(p : E \to S\)}{46}{subsubsection.A.3.2}%
+\contentsline {subsection}{\numberline {A.4}Combined System: Grothendieck Construction}{47}{subsection.A.4}%
+\contentsline {subsubsection}{\numberline {A.4.1}Semidirect Product \(N \ltimes E\)}{47}{subsubsection.A.4.1}%
+\contentsline {subsubsection}{\numberline {A.4.2}Rewrite System on \(N \ltimes E\)}{47}{subsubsection.A.4.2}%
+\contentsline {subsection}{\numberline {A.5}Semantics and Tacit Correctness}{47}{subsection.A.5}%
+\contentsline {subsubsection}{\numberline {A.5.1}Semantic Functor}{47}{subsubsection.A.5.1}%
+\contentsline {subsection}{\numberline {A.6}Main Theorems}{48}{subsection.A.6}%
+\contentsline {subsubsection}{\numberline {A.6.1}Well-Formedness of TDG Pipelines}{48}{subsubsection.A.6.1}%
+\contentsline {subsubsection}{\numberline {A.6.2}Explicit Completeness of TDG}{48}{subsubsection.A.6.2}%
+\contentsline {subsubsection}{\numberline {A.6.3}Minimality of Primitive Set}{48}{subsubsection.A.6.3}%
+\contentsline {subsubsection}{\numberline {A.6.4}Epistemic Spaces Initiality}{49}{subsubsection.A.6.4}%
+\contentsline {paragraph}{Remark A.34a (Non-trivial content of Epistemic Spaces initiality).}{49}{section*.56}%
+\contentsline {subsubsection}{\numberline {A.6.5}Epistemic Algebra Canonicality}{49}{subsubsection.A.6.5}%
+\contentsline {subsubsection}{\numberline {A.6.6}Confluence of \(N \ltimes E\)}{50}{subsubsection.A.6.6}%
+\contentsline {paragraph}{Remark A.37a (Non-trivial aspects of Epistemic Algebra structure).}{50}{section*.57}%
+\contentsline {subsubsection}{\numberline {A.6.7}Semantic Correctness for Epistemic Structure}{51}{subsubsection.A.6.7}%
+\contentsline {subsection}{\numberline {A.7}Worked example: sepsis consult as an FRFP pipeline}{51}{subsection.A.7}%
+\contentsline {paragraph}{TDG and free explicit category.}{51}{section*.58}%
+\contentsline {paragraph}{Reduction and normal form.}{52}{section*.59}%
+\contentsline {paragraph}{Interaction Protocols admissibility.}{52}{section*.60}%
+\contentsline {paragraph}{Epistemic Spaces/Algebra well-typedness.}{53}{section*.61}%
+\contentsline {subsubsection}{\numberline {A.7.1}Purpose and Scope}{54}{subsubsection.A.7.1}%
+\contentsline {subsubsection}{\numberline {A.7.2}Tacit Context Space}{54}{subsubsection.A.7.2}%
+\contentsline {subsubsection}{\numberline {A.7.3}Context Degradation}{54}{subsubsection.A.7.3}%
+\contentsline {subsubsection}{\numberline {A.7.4}Dynamic Interpretation of Pipelines}{55}{subsubsection.A.7.4}%
+\contentsline {subsubsection}{\numberline {A.7.5}Requirements and Hallucination}{55}{subsubsection.A.7.5}%
+\contentsline {subsubsection}{\numberline {A.7.6}Hallucination Inevitability}{56}{subsubsection.A.7.6}%
+\contentsline {subsubsection}{\numberline {A.7.7}Explicit-Only Hallucinations}{56}{subsubsection.A.7.7}%
+\contentsline {subsubsection}{\numberline {A.7.8}Confidence Inflation}{57}{subsubsection.A.7.8}%
+\contentsline {subsubsection}{\numberline {A.7.9}Requirement Escalation Under Plausibility}{58}{subsubsection.A.7.9}%
+\contentsline {subsubsection}{\numberline {A.7.10}Feedback-Coupled Degradation}{58}{subsubsection.A.7.10}%
+\contentsline {subsubsection}{\numberline {A.7.11}Rate of Context Loss}{58}{subsubsection.A.7.11}%
+\contentsline {subsubsection}{\numberline {A.7.12}Accelerated Hallucination}{59}{subsubsection.A.7.12}%
+\contentsline {subsubsection}{\numberline {A.7.13}Accelerated Hallucination Inevitability}{59}{subsubsection.A.7.13}%
+\contentsline {subsubsection}{\numberline {A.7.14}Degradation--repair dynamics and entropy drift}{60}{subsubsection.A.7.14}%
+\contentsline {subsubsection}{\numberline {A.7.15}Stochastic Pipelines and Their Impact}{62}{subsubsection.A.7.15}%
+\contentsline {subsubsection}{\numberline {A.7.16}Finite-Horizon Pipelines and Their Impact}{64}{subsubsection.A.7.16}%
+\contentsline {paragraph}{(1) Hazard profiles and safe horizons.}{68}{section*.65}%
+\contentsline {paragraph}{(2) Time--decomposition trade-offs.}{68}{section*.66}%
+\contentsline {paragraph}{(3) Dynamic refinement of implementations.}{68}{section*.67}%
+\contentsline {paragraph}{(4) Session limits, restart policies, and composition.}{68}{section*.68}%
+\contentsline {paragraph}{(5) Localizing and targeting failure modes.}{68}{section*.69}%
+\contentsline {subsubsection}{\numberline {A.7.17} Purpose and Scope}{70}{subsubsection.A.7.17}%
+\contentsline {subsubsection}{\numberline {A.7.18}Epistemic Agents}{70}{subsubsection.A.7.18}%
+\contentsline {subsubsection}{\numberline {A.7.19}Epistemic Populations}{70}{subsubsection.A.7.19}%
+\contentsline {subsubsection}{\numberline {A.7.20}Shared Explicit Reasoning Category}{71}{subsubsection.A.7.20}%
+\contentsline {subsubsection}{\numberline {A.7.21}Communication Structure}{71}{subsubsection.A.7.21}%
+\contentsline {subsubsection}{\numberline {A.7.22}Collective Dynamics as a Markov System}{71}{subsubsection.A.7.22}%
+\contentsline {subsubsection}{\numberline {A.7.23}Collective Hallucination and Stopping Times}{72}{subsubsection.A.7.23}%
+\contentsline {subsubsection}{\numberline {A.7.24}Consensus as an Explicit Functor}{73}{subsubsection.A.7.24}%
+\contentsline {subsubsection}{\numberline {A.7.25}Functorial Consensus Layer}{73}{subsubsection.A.7.25}%
+\contentsline {subsubsection}{\numberline {A.7.26}Tacit-Stability of Consensus}{73}{subsubsection.A.7.26}%
+\contentsline {subsubsection}{\numberline {A.7.27}Limits of Automated Consensus}{74}{subsubsection.A.7.27}%
+\contentsline {subsubsection}{\numberline {A.7.28}Collective Inevitability}{74}{subsubsection.A.7.28}%
+\contentsline {subsubsection}{\numberline {A.7.29}Structural Implications of Collective Dynamics}{75}{subsubsection.A.7.29}%
+\contentsline {paragraph}{(1) Equivalence classes of collective designs.}{75}{section*.70}%
+\contentsline {paragraph}{(2) Refinement order on collective systems.}{75}{section*.71}%
+\contentsline {paragraph}{(3) Compositional risk analysis.}{75}{section*.72}%
+\contentsline {paragraph}{(4) Limits of monitoring and metrics.}{75}{section*.73}%
+\contentsline {paragraph}{(5) Scaling and phase transitions.}{76}{section*.74}%
+\contentsline {subsubsection}{\numberline {A.7.30}Purpose and Scope}{77}{subsubsection.A.7.30}%
+\contentsline {subsubsection}{\numberline {A.7.31}Standing Assumptions and Notation}{77}{subsubsection.A.7.31}%
+\contentsline {paragraph}{Foundational layers.}{77}{section*.75}%
+\contentsline {paragraph}{Dynamic and collective layers.}{77}{section*.76}%
+\contentsline {subsubsection}{\numberline {A.7.32}Admissible Runs as Interaction Protocol Filtered Executions in N$\ltimes $E}{78}{subsubsection.A.7.32}%
+\contentsline {subsubsection}{\numberline {A.7.33}Two Notions of ``Same Explicit Artifact''}{78}{subsubsection.A.7.33}%
+\contentsline {subsubsection}{\numberline {A.7.34}Tacit Dependence via $\gamma (\llbracket P \rrbracket )$}{79}{subsubsection.A.7.34}%
+\contentsline {subsubsection}{\numberline {A.7.35}Schema Theorem: Tacit-Dependent Guarantees Are Not Explicit-Implementable}{79}{subsubsection.A.7.35}%
+\contentsline {subsubsection}{\numberline {A.7.36}Corollaries (No-Go Family)}{80}{subsubsection.A.7.36}%
+\contentsline {subsubsection}{\numberline {A.7.37}Interpretation and Design Consequences}{82}{subsubsection.A.7.37}%
+\contentsline {subsubsection}{\numberline {A.7.38}Purpose and Scope}{83}{subsubsection.A.7.38}%
+\contentsline {subsubsection}{\numberline {A.7.39}Epistemic Populations}{83}{subsubsection.A.7.39}%
+\contentsline {subsubsection}{\numberline {A.7.40}Runs, Replication, and Population Semantics}{84}{subsubsection.A.7.40}%
+\contentsline {subsubsection}{\numberline {A.7.41}Institutional Aggregation Operators}{85}{subsubsection.A.7.41}%
+\contentsline {subsubsection}{\numberline {A.7.42}Limits of Institutional Automation (Revised Statement)}{86}{subsubsection.A.7.42}%
+\contentsline {subsubsection}{\numberline {A.7.43}Position in the Architecture}{88}{subsubsection.A.7.43}%
+\contentsline {subsubsection}{\numberline {A.7.44}Governance as a Meta-Institution}{88}{subsubsection.A.7.44}%
+\contentsline {subsubsection}{\numberline {A.7.45}Link to Collective Epistemic Dynamics}{89}{subsubsection.A.7.45}%
+\contentsline {subsubsection}{\numberline {A.7.46}Law as a Constraint on Governance}{89}{subsubsection.A.7.46}%
+\contentsline {subsubsection}{\numberline {A.7.47}No Fully Automated Governance}{89}{subsubsection.A.7.47}%
+\contentsline {subsubsection}{\numberline {A.7.48}Human Oversight as a Structural Requirement}{90}{subsubsection.A.7.48}%
+\contentsline {subsubsection}{\numberline {A.7.49}Regulatory Scope}{90}{subsubsection.A.7.49}%
+\contentsline {subsubsection}{\numberline {A.7.50}Final Synthesis}{91}{subsubsection.A.7.50}%
+\contentsline {section}{\numberline {B}B}{92}{section.B}%
+\contentsline {subsection}{\numberline {B.1}Foundational Rules for FRFP-Compatible Practice}{92}{subsection.B.1}%
+\contentsline {paragraph}{Rule 1 (Explicit confinement).}{92}{section*.83}%
+\contentsline {paragraph}{Rule 2 (Human-exclusive grounding).}{92}{section*.84}%
+\contentsline {paragraph}{Rule 3 (Source–reason traceability).}{92}{section*.85}%
+\contentsline {paragraph}{Rule 4 (Integrity under navigation).}{92}{section*.86}%
+\contentsline {subsection}{\numberline {B.2}Dialogic Reproducibility Protocol}{92}{subsection.B.2}%
+\contentsline {paragraph}{(1) Structured interaction traces.}{93}{section*.87}%
+\contentsline {paragraph}{(2) Context archives.}{93}{section*.88}%
+\contentsline {paragraph}{(3) Replay procedures.}{93}{section*.89}%
+\contentsline {subsection}{\numberline {B.3}Closure Criteria for Long-Horizon Collaboration}{93}{subsection.B.3}%
+\contentsline {paragraph}{Conceptual stability.}{93}{section*.90}%
+\contentsline {paragraph}{Evidential sufficiency.}{93}{section*.91}%
+\contentsline {paragraph}{Provenance completeness.}{93}{section*.92}%
+\contentsline {subsection}{\numberline {B.4}Illustrative Case Study: Stress-Testing a Financial Strategy}{93}{subsection.B.4}%
+\contentsline {paragraph}{Scenario.}{94}{section*.93}%
+\contentsline {paragraph}{Pipelines and navigation.}{94}{section*.94}%
+\contentsline {paragraph}{Dialogic reproducibility.}{94}{section*.95}%
+\contentsline {paragraph}{Closure and institutional use.}{94}{section*.96}%
+\contentsline {subsection}{\numberline {B.5}Case Study: ICU Sepsis Prediction Literature Review}{95}{subsection.B.5}%
+\contentsline {paragraph}{Context.}{95}{section*.97}%
+\contentsline {paragraph}{Phase 0 (Interaction discipline).}{95}{section*.98}%
+\contentsline {paragraph}{Phase 1 (Epistemic ontology).}{95}{section*.99}%
+\contentsline {paragraph}{Phase 2 (Explicit pipeline and navigation).}{96}{section*.100}%
+\contentsline {paragraph}{Phase 3 (Hallucination dynamics, informal).}{97}{section*.101}%
+\contentsline {subsection}{\numberline {B.6}Case Study: Financial Scenario Analysis and Stress Testing}{98}{subsection.B.6}%
+\contentsline {paragraph}{Context.}{98}{section*.102}%
+\contentsline {paragraph}{Phase 0 (Interaction discipline).}{98}{section*.103}%
+\contentsline {paragraph}{Phase 1 (Epistemic ontology).}{98}{section*.104}%
+\contentsline {paragraph}{Phase 2 (Explicit pipeline and navigation).}{99}{section*.105}%
+\contentsline {paragraph}{Phase 3 (Hallucination dynamics, informal).}{100}{section*.106}%
+\contentsline {subsection}{\numberline {B.7}Role and Authority Declaration}{102}{subsection.B.7}%
+\contentsline {subsection}{\numberline {B.8}Explicit--Tacit Separation}{102}{subsection.B.8}%
+\contentsline {subsubsection}{\numberline {B.8.1}Mode Restriction}{102}{subsubsection.B.8.1}%
+\contentsline {paragraph}{Permitted actions}{102}{section*.107}%
+\contentsline {paragraph}{Prohibited actions}{102}{section*.108}%
+\contentsline {subsection}{\numberline {B.9}Boundary Discipline}{102}{subsection.B.9}%
+\contentsline {subsubsection}{\numberline {B.9.1}One-Way Boundary}{102}{subsubsection.B.9.1}%
+\contentsline {subsection}{\numberline {B.10}Phase--0 Interaction Constraints}{103}{subsection.B.10}%
+\contentsline {subsubsection}{\numberline {B.10.1}Intent Locking}{103}{subsubsection.B.10.1}%
+\contentsline {subsubsection}{\numberline {B.10.2}Ambiguity Resolution}{103}{subsubsection.B.10.2}%
+\contentsline {subsubsection}{\numberline {B.10.3}Mode Discipline}{103}{subsubsection.B.10.3}%
+\contentsline {subsection}{\numberline {B.11}Explicit Algebra Discipline}{103}{subsection.B.11}%
+\contentsline {subsubsection}{\numberline {B.11.1}Explicit Pipeline Form}{103}{subsubsection.B.11.1}%
+\contentsline {subsubsection}{\numberline {B.11.2} Navigation Neutrality}{103}{subsubsection.B.11.2}%
+\contentsline {subsection}{\numberline {B.12}Canonical Ordering Rule}{104}{subsection.B.12}%
+\contentsline {subsection}{\numberline {B.13}Correctness Non-Interference}{104}{subsection.B.13}%
+\contentsline {subsection}{\numberline {B.14}Hallucination Safety Posture}{104}{subsection.B.14}%
+\contentsline {subsection}{\numberline {B.15}Prohibited Language}{104}{subsection.B.15}%
+\contentsline {subsection}{\numberline {B.16}Termination Rule}{104}{subsection.B.16}%
+\contentsline {subsection}{\numberline {B.17}Meta-Compliance Clause}{105}{subsection.B.17}%
+\contentsline {subsection}{\numberline {B.18}FRFP knobs that prompts can touch}{106}{subsection.B.18}%
+\contentsline {subsection}{\numberline {B.19}The Incentive Prompt}{106}{subsection.B.19}%
+\contentsline {paragraph}{Mechanism in FRFP terms.}{107}{section*.110}%
+\contentsline {subsection}{\numberline {B.20}The Challenge Prompt}{107}{subsection.B.20}%
+\contentsline {paragraph}{Mechanism in FRFP terms.}{107}{section*.111}%
+\contentsline {subsection}{\numberline {B.21}The ``Deep Breath'' Prompt}{108}{subsection.B.21}%
+\contentsline {paragraph}{Mechanism in FRFP terms.}{108}{section*.112}%
+\contentsline {subsection}{\numberline {B.22}The ``Stakes'' Prompt}{108}{subsection.B.22}%
+\contentsline {paragraph}{Mechanism in FRFP terms.}{108}{section*.113}%
+\contentsline {subsection}{\numberline {B.23}The Self-Check Prompt}{109}{subsection.B.23}%
+\contentsline {paragraph}{Mechanism in FRFP terms.}{109}{section*.114}%
+\contentsline {subsection}{\numberline {B.24}Limitations and Structural Perspective}{110}{subsection.B.24}%
+\contentsline {section}{\numberline {C}FRFP for Organizations: Business and Governance Overview}{111}{section.C}%
+\contentsline {subsection}{\numberline {C.1}Executive Overview}{111}{subsection.C.1}%
+\contentsline {subsection}{\numberline {C.2}FRFP Architecture in Organizational Terms}{111}{subsection.C.2}%
+\contentsline {paragraph}{Explicit work.}{111}{section*.115}%
+\contentsline {paragraph}{Tacit work.}{112}{section*.116}%
+\contentsline {paragraph}{The boundary.}{112}{section*.117}%
+\contentsline {paragraph}{Roles and responsibilities.}{112}{section*.118}%
+\contentsline {paragraph}{Safe horizons.}{112}{section*.119}%
+\contentsline {subsection}{\numberline {C.3}Examples of FRFP-Aligned Workflows}{112}{subsection.C.3}%
+\contentsline {paragraph}{Scientific research and R\&D.}{112}{section*.120}%
+\contentsline {paragraph}{Regulated financial or clinical decisions.}{113}{section*.121}%
+\contentsline {paragraph}{Internal governance and oversight.}{113}{section*.122}%
+\contentsline {subsection}{\numberline {C.4}Implementation Roadmap}{113}{subsection.C.4}%
+\contentsline {subsection}{\numberline {C.5}Common Pitfalls and How FRFP Helps Avoid Them}{114}{subsection.C.5}%
+\contentsline {subsection}{\numberline {C.6}FRFP Design Checklist}{114}{subsection.C.6}%

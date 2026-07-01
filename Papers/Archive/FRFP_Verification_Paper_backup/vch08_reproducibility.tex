@@ -1,0 +1,201 @@
+% ===================================================================
+\section{Reproducibility}
+\label{ch:repro}
+% ===================================================================
+
+\subsection{Build Environment}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Component & Version / Requirement \\
+\midrule
+Lean & 4.29.0 (pinned in \texttt{lean-toolchain}) \\
+Mathlib & v4.29.0 (locked in \texttt{lake-manifest.json}) \\
+Lake (build tool) & ships with Lean 4.29.0 \\
+OS & Linux (Ubuntu 22.04+ recommended) or macOS 13+ \\
+RAM & 16 GB minimum; 32 GB recommended \\
+Disk & 8 GB free (Mathlib cache) \\
+Network & Required for initial \texttt{lake exe cache get} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Build Instructions}
+% -------------------------------------------------------------------
+
+\begin{lstlisting}[language=bash]
+# 1. Install elan (Lean version manager)
+curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh
+
+# 2. Install the pinned Lean version
+elan install leanprover/lean4:v4.29.0
+
+# 3. Enter the project directory
+cd FRFP_Math_Verification/
+
+# 4. Download Mathlib cache (avoid rebuilding Mathlib from source)
+lake exe cache get
+
+# 5. Build the full project
+lake build
+
+# Expected output:
+# [  3305 jobs] Build completed successfully.
+\end{lstlisting}
+
+\subsubsection*{Validation Checks}
+
+\begin{lstlisting}[language=bash]
+# Verify zero live sorry
+grep -r '\bsorry\b' Frfp/ Example/ FRFPReport.lean \
+  | grep -v '^\s*--' \
+  | grep -v '/\*.*sorry.*\*/'
+# Expected: no output
+
+# Verify all axioms have citation comments
+grep -n '^axiom ' Frfp/Core/*.lean \
+  | awk -F: '{print $1, $2}' \
+  | while read file line; do
+      context=$(sed -n "$((line-1))p" "$file")
+      echo "$file:$line -- context: $context"
+    done
+# Expected: every axiom preceded by a -- Reference: ... comment
+\end{lstlisting}
+
+% -------------------------------------------------------------------
+\subsection{Module Map}
+% -------------------------------------------------------------------
+
+\subsubsection*{Core modules (21)}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Module & File & Imports \\
+\midrule
+KernelDefinitions & \texttt{Frfp/Core/KernelDefinitions.lean} & None \\
+FloatTheory & \texttt{Frfp/Core/FloatTheory.lean} & Mathlib.Analysis.SpecialFunctions \\
+FloatMonotonicity & \texttt{Frfp/Core/FloatMonotonicity.lean} & FloatTheory \\
+CategoryStructure & \texttt{Frfp/Core/CategoryStructure.lean} & KernelDefinitions \\
+PipelineComposition & \texttt{Frfp/Core/PipelineComposition.lean} & CategoryStructure \\
+GrothConstruction & \texttt{Frfp/Core/GrothConstruction.lean} & CategoryStructure \\
+Termination & \texttt{Frfp/Core/Termination.lean} & KernelDefinitions \\
+ReductionSemantics & \texttt{Frfp/Core/ReductionSemantics.lean} & Termination \\
+ConfluenceProof & \texttt{Frfp/Core/ConfluenceProof.lean} & Termination, ReductionSemantics \\
+SemanticCorrectness & \texttt{Frfp/Core/SemanticCorrectness.lean} & ReductionSemantics, GrothConstruction \\
+TacitDependence & \texttt{Frfp/Core/TacitDependence.lean} & KernelDefinitions \\
+ExplicitArtifact & \texttt{Frfp/Core/ExplicitArtifact.lean} & ReductionSemantics \\
+RunsTrajectories & \texttt{Frfp/Core/RunsTrajectories.lean} & SemanticCorrectness \\
+CredenceFramework & \texttt{Frfp/Core/CredenceFramework.lean} & FloatMonotonicity \\
+DegradationModel & \texttt{Frfp/Core/DegradationModel.lean} & CredenceFramework \\
+StoppingTime & \texttt{Frfp/Core/StoppingTime.lean} & CredenceFramework \\
+SurvivalAnalysis & \texttt{Frfp/Core/SurvivalAnalysis.lean} & StoppingTime \\
+CollectiveLayer & \texttt{Frfp/Core/CollectiveLayer.lean} & CredenceFramework, SemanticCorrectness \\
+GovernanceProofs & \texttt{Frfp/Core/GovernanceProofs.lean} & CollectiveLayer \\
+AmbiguityProtocol & \texttt{Frfp/Core/AmbiguityProtocol.lean} & GovernanceProofs \\
+GovernanceSafeExtension & \texttt{Frfp/Core/GovernanceSafeExtension.lean} & GovernanceProofs \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection*{Minimal modules (3)}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Module & Purpose \\
+\midrule
+\texttt{Frfp/Minimal/MinimalCore.lean} & Imports only the 7 primitives; compiles independently \\
+\texttt{Frfp/Minimal/MinimalBasis.lean} & Derivability proofs for ETS, RB, AE, MD \\
+\texttt{Frfp/Minimal/MinimalReport.lean} & Summary theorem listing for the minimal basis \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection*{Example and report files}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+File & Purpose \\
+\midrule
+\texttt{Example/Sepsis.lean} & Concrete clinical pipeline case study \\
+\texttt{FRFPReport.lean} & Executable theorem inventory (all 269 theorems listed) \\
+\texttt{Frfp.lean} & Root import that re-exports all modules \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Complete Theorem Inventory}
+% -------------------------------------------------------------------
+
+A machine-generated complete theorem inventory is available via:
+
+\begin{lstlisting}[language=bash]
+# List all theorems in the build
+grep -rn '^theorem \|^lemma ' Frfp/Core/*.lean \
+  | sed 's/.*:\([0-9]*\):\(theorem\|lemma\) \([^ ]*\).*/\3/' \
+  | sort > theorem_inventory.txt
+wc -l theorem_inventory.txt
+# Expected: 269
+\end{lstlisting}
+
+% -------------------------------------------------------------------
+\subsection{Build Validation Checklist}
+% -------------------------------------------------------------------
+
+Before tagging a release:
+
+\begin{enumerate}
+  \item[$\square$] \texttt{lake build} exits 0 with exactly 3305 jobs.
+  \item[$\square$] \texttt{grep -r '\textbackslash bsorry\textbackslash b' | grep -v '\^{}\textbackslash s*--'} returns empty.
+  \item[$\square$] All axioms have \texttt{-- Reference:} citation comments.
+  \item[$\square$] Executable report (\texttt{lake exe frfpReport}) runs without error.
+  \item[$\square$] Minimal modules compile independently (\texttt{lake build Frfp.Minimal}).
+  \item[$\square$] Sepsis example produces expected output.
+  \item[$\square$] \texttt{lean-toolchain} and \texttt{lake-manifest.json} are committed.
+\end{enumerate}
+
+% -------------------------------------------------------------------
+\subsection{Publication Package Scope}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Component & Included & Notes \\
+\midrule
+All \texttt{.lean} source files & Yes & Complete Lean source \\
+\texttt{lake-manifest.json} & Yes & Exact Mathlib version lock \\
+\texttt{lean-toolchain} & Yes & Exact Lean version pin \\
+Mathlib binary cache & No & Downloaded via \texttt{lake exe cache get} \\
+Build outputs (\texttt{.olean}) & No & Reproducible from source \\
+This paper (LaTeX source) & Yes & Papers/ directory \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Known Limitations}
+% -------------------------------------------------------------------
+
+\begin{enumerate}
+  \item \textbf{Mathlib dependency}: The formalization depends on Mathlib at a
+        specific version. If Mathlib changes breaking APIs, the build may require
+        updates.
+
+  \item \textbf{Noncomputable definitions}: Several definitions involving
+        classical logic or real arithmetic are marked \texttt{noncomputable}.
+        These are logically valid but cannot be executed as programs.
+
+  \item \textbf{Float axioms are assumed}: IEEE 754 properties are axiomatized
+        rather than derived from a verified hardware model. This is standard
+        practice in proof assistants.
+
+  \item \textbf{Consensus theorem scope}: The consensus no-grounding theorem
+        applies within the formal model. Its applicability to real AI systems
+        depends on the accuracy of the formalization hypotheses.
+\end{enumerate}

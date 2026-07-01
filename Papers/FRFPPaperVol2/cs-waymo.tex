@@ -1,0 +1,365 @@
+% ============================================================
+% Appendix Z.11 — FRFP Case Study (Autonomy / Mobility):
+% Waymo Driverless Ride-Hailing
+% ============================================================
+
+\section{FRFP Case Study (Autonomy / Mobility): Waymo Driverless Ride-Hailing}
+\label{app:frfp-waymo}
+
+This appendix analyses Waymo’s driverless ride-hailing service as an FRFP
+case study in long-horizon autonomy.
+We focus on how its technology, safety processes, and deployment model map
+onto FRFP’s explicit/tacit split, boundary design, safe horizons, and
+institutional governance.
+
+\subsection{Background}
+
+Waymo, originally the Google self-driving car project (launched in 2009),
+has evolved into a commercial provider of robotaxi services.
+As of 2025, Waymo operates fully driverless ride-hailing (no human safety
+driver in the car) in multiple U.S.\ cities, including Phoenix, San
+Francisco, and parts of Los Angeles and other regions.\footnote{For an
+overview of Waymo’s deployments and miles driven, see public documentation
+and safety reports on the Waymo and Alphabet websites, as well as regulatory
+filings and independent analyses.}
+
+Key milestones (very briefly):
+
+\begin{itemize}
+  \item Early closed-course and supervised public-road testing (2010s);
+  \item Limited public pilot in Chandler, Arizona, with safety drivers;
+  \item Transition to fully driverless operations (no safety driver) in
+        parts of the Phoenix metro area, expanding to 24/7 service;
+  \item Gradual expansion to San Francisco and Los Angeles, with
+        driverless service in designated operating domains;
+  \item Public safety reports and disengagement statistics through
+        California and Arizona regulators, and Waymo’s own safety cases.
+\end{itemize}
+
+Compared to many other high-profile autonomy efforts, Waymo has:
+
+\begin{itemize}
+  \item accumulated very large numbers of driverless miles without a
+        correspondingly large number of serious crashes;
+  \item maintained a comparatively cautious, constrained operational domain;
+  \item invested heavily in explicit safety cases and institutional
+        relationships with regulators and local authorities.
+\end{itemize}
+
+From an FRFP perspective, Waymo is a prominent example of an AI-intensive,
+agentic system that has reached real-world, at-scale deployment in a domain
+with stringent safety demands.
+
+\subsection{Explicit and Tacit Spaces in Waymo’s System}
+
+\subsubsection*{Explicit space \(E_{\mathrm{Waymo}}\)}
+
+Waymo’s explicit domain consists of the artefacts processed by its
+autonomous driving stack and operations:
+
+\begin{itemize}
+  \item \textbf{Perception data and models}:
+        sensor inputs (LiDAR, radar, cameras), object detections, semantic
+        segmentations, and tracking.
+  \item \textbf{HD maps and localisation}:
+        high-definition road maps, lane-level geometry, traffic control
+        information, static infrastructure features.
+  \item \textbf{Prediction and planning}:
+        models of other agents’ behaviour; trajectory plans; control
+        commands (steering, throttle, braking).
+  \item \textbf{Operational data}:
+        \begin{itemize}
+          \item logs of each trip (telemetry, interventions, incidents);
+          \item simulation scenarios and replay environments;
+          \item safety metrics (e.g.\ collision rates, policy violations).
+        \end{itemize}
+  \item \textbf{Policies and procedures}:
+        formal documentation of safety protocols, fallback behaviours,
+        disengagement rules, and operational design domains (ODDs).
+\end{itemize}
+
+These are all explicit artefacts in \(E_{\mathrm{Waymo}}\), manipulated by
+Waymo’s software systems and interpreted by engineers and regulators.
+
+\subsubsection*{Tacit space \(T_{\mathrm{mobility}}\)}
+
+Tacit space contains the epistemic and normative states of:
+
+\begin{itemize}
+  \item safety drivers (in earlier phases) and remote operations staff:
+        their sense of when the system is behaving oddly or unsafely;
+  \item Waymo’s safety engineers and leadership:
+        judgement about acceptable risk, release readiness, and go/no-go
+        decisions for new features and cities;
+  \item regulators and city officials:
+        beliefs about safety, public acceptability, and regulatory
+        obligations;
+  \item passengers and the public:
+        evolving trust, expectations, and perceptions of risk vs.\ benefit.
+\end{itemize}
+
+Correctness in this domain is not just “did the car follow the rules of the
+road?” but “is this system, in this city, under these conditions, safe
+enough to operate driverlessly?”, which is a tacit institutional judgement.
+
+\subsection{Boundary Design:
+  From Onboard Autonomy to Human Oversight}
+
+\subsubsection*{Onboard boundary: the vehicle as an explicit agent}
+
+Within the vehicle, the autonomy stack operates as an explicit agent:
+
+\begin{itemize}
+  \item It perceives the environment, predicts others’ behaviour, and plans
+        and executes a trajectory in real-time.
+  \item In driverless service, there is no human in the loop for routine
+        control; the system is authorised to actuate steering, acceleration,
+        and braking directly.
+  \item Safety fallbacks (e.g.\ minimal-risk conditions, safe stop) are
+        encoded explicitly and triggered when the system detects
+        uncertainties or failures.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item many low-level and mid-level decisions are fully automated within
+        \(N \ltimes E_{\mathrm{Waymo}}\);
+  \item correctness for these decisions is delegated to explicit semantics
+        (control algorithms, safety monitors, redundancy mechanisms).
+\end{itemize}
+
+\subsubsection*{System-level boundary: fleet operations and governance}
+
+Above the vehicle level, there are stronger boundaries:
+
+\begin{itemize}
+  \item \textbf{Operational Design Domain (ODD)}:
+        driverless operation is restricted to predefined regions, weather
+        conditions, and scenarios where the system has been validated.
+  \item \textbf{Fleet operations centre}:
+        remote staff can monitor vehicles, respond to unusual events, and
+        provide high-level guidance or issue commands (e.g.\ instructing
+        the vehicle to pull over and stop).
+  \item \textbf{Safety release process}:
+        major expansions (e.g.\ new cities, night driving, highway segments)
+        go through internal review and, in some jurisdictions, explicit
+        regulatory approval.
+\end{itemize}
+
+These structures place the key correctness boundary at:
+
+\begin{itemize}
+  \item decisions about where and when the system may operate driverlessly;
+  \item how incidents and anomalies are handled at the fleet and governance
+        level.
+\end{itemize}
+
+This matches FRFP’s principle that high-level correctness for long-horizon,
+high-stakes systems must remain with human and institutional actors in
+\(T_{\mathrm{mobility}}\), even if many sub-decisions are fully automated.
+
+\subsection{Protocol-Level Properties in FRFP Terms}
+
+\subsubsection*{Z.11.1 Explicit Semantics and Strong Evaluation}
+
+Compared to many AI systems, autonomous driving has relatively strong,
+structured explicit semantics:
+
+\begin{itemize}
+  \item Rules of the road, traffic regulations, and physical constraints
+        define a clear set of admissible behaviours at the vehicle level.
+  \item Safety metrics (e.g.\ crashes per million miles, policy-violation
+        rates, near-miss statistics) can be defined and tracked at scale.
+  \item Simulation and replay allow systematic stress-testing of the
+        autonomy stack against rare or adversarial scenarios.
+\end{itemize}
+
+For Waymo:
+
+\begin{itemize}
+  \item large-scale data collection and years of testing have created rich
+        explicit datasets; 
+  \item incident and disengagement logs support post-hoc evaluation and
+        refinement of explicit pipelines;
+  \item safety reports and external analyses provide some transparency on
+        performance and limitations.
+\end{itemize}
+
+In FRFP language, the mapping from sensor data and maps to control actions
+has a well-defined semantics constrained by physics and law, and there is an
+ongoing, explicit evaluation apparatus to test it.
+
+\subsubsection*{Z.11.2 ODD as an Explicit Safe Horizon}
+
+Waymo’s use of Operational Design Domains (ODDs) is a concrete instance of
+FRFP’s safe-horizon concept:
+
+\begin{itemize}
+  \item The system is only allowed to operate driverlessly in regions,
+        times, and conditions where it has been validated (e.g.\ specific
+        parts of Phoenix and SF, typical weather, certain speed limits).
+  \item Expansion of the ODD is gradual and gated:
+        new neighbourhoods, nighttime operation, or more complex
+        intersections are added only after extensive testing.
+  \item When conditions fall outside the ODD (e.g.\ extreme weather,
+        severe construction changes), the system may restrict service,
+        request remote assistance, or execute safe stops.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item the ODD defines an explicit horizon in state-space:
+        outside this region, the autonomy stack is not authorised to
+        operate without additional tacit oversight;
+  \item this enforces a structural limitation on how far explicit autonomy
+        can run before requiring institutional re-grounding (via testing,
+        recalibration, and regulatory review).
+\end{itemize}
+
+\subsubsection*{Z.11.3 Incident Handling and Feedback Loops}
+
+Waymo’s operational model incorporates explicit feedback mechanisms:
+
+\begin{itemize}
+  \item Any incident or unusual behaviour (e.g.\ road blockage, confused
+        negotiation with other vehicles, passenger complaints) is logged.
+  \item Engineers can replay sensor data in simulation, examine why the
+        behaviour occurred, and adjust perception, prediction, or planning
+        modules.
+  \item Policy changes (e.g.\ more conservative behaviour at certain
+        unprotected left turns) can be rolled out fleet-wide.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item each incident creates a run segment in \(N \ltimes E_{\mathrm{Waymo}}\)
+        that is then subjected to tacit evaluation by safety teams;
+  \item this evaluation updates both explicit pipelines (software) and
+        tacit states (risk understanding, operating procedures);
+  \item correctness is thus enforced at the institutional boundary, with
+        explicit artefacts feeding into a dynamic governance loop.
+\end{itemize}
+
+\subsection{Institutional and Societal Semantics}
+
+\subsubsection*{Regulatory and city-level governance}
+
+Waymo operates within a complex regulatory landscape:
+
+\begin{itemize}
+  \item State motor-vehicle regulators and public-utilities commissions
+        grant permits for testing and driverless deployment.
+  \item City authorities influence where vehicles may pick up and drop off,
+        and how they interact with emergency services and road closures.
+  \item Incidents are scrutinised by regulators, city officials, and the
+        public, shaping tacit perceptions of safety.
+\end{itemize}
+
+FRFP views these institutions as operators on the population-level tacit
+state \(T^{\mathrm{pop}}_{\mathrm{mobility}}\):
+
+\begin{itemize}
+  \item approvals, suspensions, and rule changes update beliefs about
+        acceptable risk and control;
+  \item public hearings and media coverage feed back into Waymo’s own safety
+        posture and expansion plans;
+  \item over time, a shared tacit understanding of what “safe enough”
+        autonomy means in different cities is gradually constructed.
+\end{itemize}
+
+\subsubsection*{Public trust and behavioural adaptation}
+
+Passengers and other road users form tacit beliefs about Waymo vehicles:
+
+\begin{itemize}
+  \item riders experience the cars as cautious but competent; many report
+        high trust after a few trips, while others remain sceptical;
+  \item human drivers learn to anticipate Waymo behaviour (e.g.\ its
+        caution at narrow passes or merges);
+  \item incidents---even rare ones---can cause sharp updates in public
+        opinion, prompting calls for stricter oversight or pauses.
+\end{itemize}
+
+These dynamics matter for FRFP because they shape:
+
+\begin{itemize}
+  \item how often and where people choose to ride driverless vehicles;
+  \item how regulators balance innovation vs.\ safety;
+  \item how institutions design future autonomy policies and infrastructures.
+\end{itemize}
+
+\subsection{Counterfactual Pitfalls and FRFP Alignment}
+
+Waymo’s trajectory can be contrasted with hypothetical or real failure modes:
+
+\begin{itemize}
+  \item \textbf{Overly broad ODD}.
+        A less cautious system might claim nationwide operation in all
+        conditions, leading to frequent boundary violations and unsafe
+        behaviours.
+        Waymo’s constrained ODDs are a partial FRFP-aligned safeguard.
+  \item \textbf{Weak incident feedback}.
+        Failing to systematically log and analyse incidents would erode
+        the link between explicit artefacts and tacit safety judgements.
+        Waymo invests heavily in these loops.
+  \item \textbf{Purely metric-driven governance}.
+        Over-reliance on disengagement statistics or proprietary safety
+        metrics, without robust external scrutiny, would be an instance of
+        explicit-only governance.
+        Waymo’s external reporting and regulatory engagement, while not
+        perfect, move toward a more FRFP-consistent institutional layer.
+\end{itemize}
+
+Nonetheless, FRFP would highlight ongoing open questions:
+
+\begin{itemize}
+  \item How well do current metrics capture tail risks and rare scenarios?
+  \item Are city-level ODD boundaries and fleet behaviours transparent and
+        contestable enough for the public and regulators?
+  \item How should responsibility be allocated between Waymo, regulators,
+        and riders in edge cases and accidents?
+\end{itemize}
+
+These questions sit squarely in tacit and institutional semantics, beyond
+what explicit models can resolve.
+
+\subsection{Lessons for FRFP and Long-Horizon Autonomy}
+
+Waymo’s driverless service illustrates several key FRFP themes:
+
+\begin{enumerate}
+  \item \textbf{Explicit autonomy can work within strong structural
+        constraints.}
+        Carefully designed explicit semantics (perception, planning),
+        validated in limited ODDs, can support safe autonomous operation
+        for many trips and miles.
+
+  \item \textbf{ODDs are practical safe horizons.}
+        Geographic and situational constraints act as explicit safe horizons
+        on where the autonomy stack is authorised to operate, aligning with
+        FRFP’s call for bounded runs in high-stakes domains.
+
+  \item \textbf{Incidents must feed into tacit governance.}
+        Logging, simulation, and human safety reviews turn each anomaly
+        into an opportunity to update both models and institutional
+        understanding, rather than trusting explicit systems blindly.
+
+  \item \textbf{Institutional non-automation remains.}
+        Decisions about expansion to new cities, policies for interacting
+        with emergency services, and responses to public concern cannot be
+        automated; they require human and institutional judgement.
+
+  \item \textbf{Formal FRFP perspective helps generalise autonomy design.}
+        By seeing Waymo not just as a technical stack but as an FRFP system
+        with explicit/tacit and institutional layers, we gain a template for
+        evaluating and designing other long-horizon autonomous services
+        (delivery robots, industrial fleets, etc.).
+\end{enumerate}
+
+In this sense, Waymo is a high-profile example of explicit AI autonomy that
+has achieved non-trivial real-world deployment, while still depending
+essentially on FRFP-style boundaries, safe horizons, and institutional
+governance to remain acceptable and safe over long horizons.

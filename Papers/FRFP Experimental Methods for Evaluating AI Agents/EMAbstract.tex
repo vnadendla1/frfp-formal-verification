@@ -1,0 +1,615 @@
+
+
+
+\section{Introduction}
+
+Large language models are increasingly deployed not as isolated text generators
+but as components of larger \emph{AI agent} systems that perform structured
+analytical tasks. In such systems, a language model operates within a broader
+workflow that may include prompts, reasoning scaffolds, external tools,
+verification procedures, and decision logic. These agent architectures are
+being used for tasks such as policy analysis, incident investigation, software
+diagnostics, and financial risk assessment.
+
+Despite the rapid proliferation of AI agent architectures, methods for
+evaluating them remain underdeveloped. Existing evaluation practices typically
+fall into three categories. First, many studies rely on benchmark datasets
+designed for question answering, reasoning puzzles, or code generation.
+Although useful for measuring certain capabilities, such benchmarks do not
+capture the open-ended analytical tasks that many AI agents are intended to
+perform. Second, some work evaluates agent systems through qualitative case
+studies or demonstrations, which can provide insight but lack experimental
+control and reproducibility. Third, evaluations often compare outputs produced
+under different prompts or agent designs without controlling for information
+leakage, shared inputs, or evaluator bias.
+
+These limitations make it difficult to determine whether a proposed agent
+architecture genuinely improves analytical reasoning or whether observed
+differences arise from uncontrolled variation in prompts, inputs, or evaluation
+procedures.
+
+This paper proposes a controlled experimental framework for evaluating AI
+agents performing complex analytical tasks. The central idea is to isolate
+agent interventions while holding all other aspects of the task environment
+constant. The framework consists of several components:
+
+\begin{itemize}
+
+\item A frozen dataset of analytical tasks constructed from historical
+socio-technical incidents across multiple domains.
+
+\item Neutral task descriptions that describe system structure and task intent
+without revealing investigative conclusions.
+
+\item Controlled agent conditions in which different agent architectures are
+applied to identical task inputs.
+
+\item Independent reference materials derived from authoritative investigation
+reports that serve as external analytical anchors.
+
+\item A reproducible generation pipeline that produces structured analytical
+artifacts under fixed model configurations.
+
+\item Normalization and anonymization of outputs to remove stylistic cues and
+enable blinded evaluation.
+
+\item Pairwise human comparison of analytical outputs across multiple
+evaluation dimensions.
+
+\end{itemize}
+
+The framework is instantiated using a dataset of twenty-five historical cases
+including financial crises, aerospace accidents, technology failures, and
+institutional breakdowns. These cases were selected because they possess rich
+public documentation and independent investigation reports, enabling controlled
+construction of analytical tasks.
+
+Within this framework we compare three AI agent configurations. The first is a
+baseline LLM agent that produces analysis directly from the task description.
+The second is a protocol-guided agent that follows a structured reasoning
+workflow. The third is an evidence-augmented agent that operates with excerpts
+from independent investigation reports. Although the structured reasoning
+protocol used in this study is one particular intervention, the experimental
+framework is designed to evaluate a wide range of AI agent architectures.
+
+The primary contribution of this work is methodological rather than
+algorithmic. We present a reproducible experimental design for evaluating AI
+agents on complex analytical tasks under controlled and blinded conditions.
+This framework can be reused to evaluate prompt strategies, reasoning
+protocols, tool-augmented workflows, and other forms of AI agent architecture.
+\section{AI Agents and Interventions}
+
+\subsection{AI Agents for Analytical Tasks}
+
+In this work we use the term \emph{AI agent} to describe a structured
+computational procedure that uses a language model as a reasoning component
+within a broader analytical workflow. Rather than producing a single
+response from a prompt, an AI agent may incorporate additional structure
+such as prompts, reasoning procedures, tool interactions, or verification
+steps.
+
+Formally, an AI agent can be viewed as a mapping
+
+\[
+A : X \rightarrow Y
+\]
+
+where \(X\) represents a task input and \(Y\) represents a structured
+analytical output. The mapping is implemented through a workflow that may
+include intermediate artifacts, reasoning steps, or external information
+sources.
+
+Examples of AI agent structures include:
+
+\begin{itemize}
+
+\item Direct LLM analysis in which a language model generates an analytical
+response from a task description.
+
+\item Prompt scaffolds that guide the model through structured reasoning
+steps.
+
+\item Protocol-guided workflows that enforce ordering constraints on the
+analysis process.
+
+\item Tool-augmented agents that retrieve information or execute external
+procedures during analysis.
+
+\item Evidence-augmented agents that incorporate excerpts from external
+documents or investigative materials.
+
+\end{itemize}
+
+In practice, modern AI systems frequently combine several of these elements,
+forming a reasoning pipeline in which the language model acts as one
+component of a larger analytical procedure.
+
+\subsection{Interventions in Agent Workflows}
+
+An \emph{intervention} is defined as a modification to the analytical
+workflow of an AI agent that is intended to influence the quality,
+structure, or reliability of its outputs.
+
+Examples of interventions include:
+
+\begin{itemize}
+
+\item introducing structured reasoning prompts or protocols;
+
+\item providing external evidence or retrieved documents;
+
+\item enforcing ordering constraints on analytical steps;
+
+\item requiring explicit articulation of assumptions or uncertainties;
+
+\item adding verification or diagnostic stages to the workflow.
+
+\end{itemize}
+
+In experimental evaluation, the objective is to determine whether a given
+intervention improves the analytical usefulness of the outputs produced by
+the agent.
+
+\subsection{Experimental Isolation of Interventions}
+
+A central challenge in evaluating AI agents is isolating the effect of a
+specific intervention. Differences in prompts, task descriptions, external
+information, or evaluation procedures can easily confound experimental
+results.
+
+The framework proposed in this paper isolates interventions by holding the
+following elements constant across experimental conditions:
+
+\begin{itemize}
+
+\item the task dataset;
+\item the task input descriptions;
+\item the underlying language model and generation configuration;
+\item the evaluation procedure and scoring rubric.
+\end{itemize}
+
+Only the agent workflow itself is varied. This allows observed differences
+in analytical outputs to be attributed to the intervention under study
+rather than to unrelated experimental variation.
+
+\subsection{Agent Configurations Evaluated in This Study}
+
+To demonstrate the proposed experimental framework, we evaluate three agent
+configurations that differ in their analytical workflow:
+
+\begin{itemize}
+
+\item \textbf{Baseline agent (B)}: the language model generates analysis
+directly from the task description.
+
+\item \textbf{Protocol-guided agent (P)}: the language model follows a
+structured reasoning workflow that constrains the order and form of
+analytical steps.
+
+\item \textbf{Evidence-augmented agent (I)}: the language model performs
+analysis using excerpts derived from independent investigation reports.
+
+\end{itemize}
+
+These configurations are used as an instantiation of the experimental
+framework. The methodology itself is designed to evaluate a broad class of
+AI agent architectures, including prompt scaffolds, reasoning protocols,
+tool-augmented agents, and other structured workflows.
+\section{Experimental Framework}
+
+This section describes the experimental framework used to evaluate AI agent
+workflows under controlled conditions. The framework is designed to isolate
+the effect of agent interventions while ensuring reproducibility,
+comparability of outputs, and independence of evaluation.
+
+The experimental design consists of the following components:
+
+\begin{enumerate}
+
+\item construction of a frozen task dataset;
+
+\item creation of neutral task inputs that describe the system under
+analysis without revealing investigative conclusions;
+
+\item definition of multiple agent configurations that differ only in
+their analytical workflow;
+
+\item generation of analytical artifacts using a controlled model
+configuration;
+
+\item normalization and anonymization of outputs;
+
+\item blinded human evaluation using pairwise comparison;
+
+\item statistical analysis of comparative preferences.
+
+\end{enumerate}
+
+Together these elements provide a reproducible procedure for experimentally
+evaluating AI agents performing complex analytical tasks.
+
+\subsection{Frozen Task Dataset}
+
+The experimental task set consists of twenty-five historical cases drawn
+from multiple socio-technical domains, including aerospace accidents,
+financial failures, energy infrastructure incidents, technology failures,
+and institutional governance breakdowns.
+
+Cases were selected through an iterative discovery and screening process
+designed to produce a diverse and information-rich evaluation set. Each
+candidate case was required to satisfy the following criteria:
+
+\begin{itemize}
+
+\item the event involved a major failure or systemic breakdown;
+
+\item sufficient public documentation existed to describe the system
+structure and operational context;
+
+\item at least one credible independent investigation or assessment report
+was available;
+
+\item the case was suitable for comparative analytical reconstruction.
+
+\end{itemize}
+
+The final set of twenty-five cases was assigned stable identifiers
+(\texttt{C01}--\texttt{C25}) and frozen in the file
+\texttt{case\_list\_v1.txt}. This file serves as the root index for all
+subsequent experimental artifacts.
+
+\subsection{Neutral Task Inputs}
+
+For each case, a neutral description of the system and task context was
+constructed. These descriptions focus on system architecture, operational
+processes, and organizational structure while intentionally excluding
+investigative conclusions or causal findings.
+
+The construction procedure consisted of:
+
+\begin{enumerate}
+
+\item writing a short system description (target length $\leq$150 words);
+
+\item removing statements that reveal the outcome of the investigation;
+
+\item excluding conclusions drawn by investigative reports;
+
+\item preserving only information necessary to understand the system
+structure and task intent.
+
+\end{enumerate}
+
+The resulting descriptions were frozen in the artifact
+\texttt{neutral\_case\_descriptions\_v1.txt}. During generation, these
+descriptions are converted into individual task input files
+(\texttt{Cxx\_case\_input.txt}) corresponding to each case.
+
+\subsection{Independent Reference Materials}
+
+To provide an external analytical anchor, authoritative investigation
+sources were identified for each case. Sources were selected according to a
+credibility hierarchy that prioritizes formal investigative authority:
+
+\begin{enumerate}
+
+\item court findings or judicial determinations;
+
+\item congressional or parliamentary investigation reports;
+
+\item regulatory authority reports;
+
+\item independent investigation boards or commissions.
+
+\end{enumerate}
+
+For each case, the most authoritative available source was designated as
+\emph{Primary A}. When a second broad investigation source was available,
+an alternate source was designated as \emph{Primary B} for sensitivity
+analysis. Supplemental sources were included when they provided additional
+technical or operational detail not covered in the primary report.
+
+Relevant excerpts describing system architecture, operational processes,
+decision structures, causal mechanisms, and investigative findings were
+manually extracted from these sources and stored as frozen artifacts
+(\texttt{Cxx\_refA\_extract.txt}, \texttt{Cxx\_refB\_extract.txt}).
+
+\subsection{Agent Configurations}
+
+Three AI agent configurations are evaluated within the framework:
+
+\begin{itemize}
+
+\item \textbf{Baseline agent (B)}: the language model generates analysis
+directly from the neutral task description.
+
+\item \textbf{Protocol-guided agent (P)}: the model follows a structured
+reasoning workflow that constrains the order and form of analytical
+artifacts.
+
+\item \textbf{Evidence-augmented agent (I)}: the model performs analysis
+using excerpts from independent investigation materials.
+
+\end{itemize}
+
+All agent configurations operate on identical task inputs and use the same
+underlying model configuration. The only difference between conditions is
+the analytical workflow applied by the agent.
+
+\subsection{Reproducible Generation Pipeline}
+
+Analytical outputs are generated using a controlled execution pipeline
+implemented in a reproducible notebook environment.
+
+For each case identifier \(C_{xx}\), the pipeline constructs a task input
+file:
+
+\[
+C_{xx}\_\text{case\_input.txt}
+\]
+
+Generation is then performed for each agent configuration, producing raw
+analytical artifacts:
+
+\begin{itemize}
+
+\item \texttt{Cxx\_B\_raw.txt}
+
+\item \texttt{Cxx\_P\_raw.txt}
+
+\item \texttt{Cxx\_I\_refA\_raw.txt}
+
+\item \texttt{Cxx\_I\_refB\_raw.txt}
+
+\end{itemize}
+
+All generations are executed under a fixed model configuration specified in
+\texttt{model\_config\_v1.json}. Each generated output is stored together
+with a SHA-256 hash and a generation log entry recording the case
+identifier, generation condition, model configuration, and timestamp.
+
+\subsection{Output Normalization and Blinding}
+
+Raw outputs produced by different agents may vary in length, structure, and
+stylistic presentation. To enable fair comparison, outputs are normalized
+into a common analytical template and anonymized prior to evaluation.
+
+Each normalized document is assigned a random identifier (e.g.,
+\texttt{D0001}, \texttt{D0002}) that hides the generation condition from
+human evaluators. The mapping between document identifiers and generation
+conditions is stored in a separate key file not accessible to raters.
+
+\subsection{Blinded Human Evaluation}
+
+Human raters evaluate outputs using pairwise comparison. Rather than
+scoring individual documents in isolation, raters are presented with two
+analytical outputs describing the same case and asked to indicate which
+analysis is closer to a high-quality analytical reconstruction.
+
+Each comparison is evaluated along multiple dimensions, including:
+
+\begin{itemize}
+
+\item analytical clarity;
+
+\item structural reasoning quality;
+
+\item diagnostic usefulness;
+
+\item overall analytical usefulness.
+
+\end{itemize}
+
+Document order is randomized to prevent systematic position bias.
+
+\subsection{Statistical Analysis}
+
+Evaluation results are analyzed using pairwise preference statistics.
+Directional preferences between agent conditions are aggregated across
+cases and raters.
+
+The primary measure is the preference rate between conditions. Statistical
+significance of observed preference differences is assessed using
+non-parametric tests such as the binomial sign test.
+
+This analysis allows the experimental framework to quantify whether a given
+agent intervention leads to systematically preferred analytical outputs.
+\section{Dataset Construction}
+
+The experimental framework requires a task dataset that supports controlled
+analytical reconstruction while remaining independent of the evaluation
+procedures applied by the agents. To satisfy this requirement, a dataset of
+twenty-five historical socio-technical cases was constructed and frozen
+prior to generation and evaluation.
+
+The objective of the dataset construction process was not to create a
+statistically representative sample of failures, but rather to assemble an
+information-rich collection of cases that support structured analysis and
+independent verification.
+
+\subsection{Case Discovery}
+
+Candidate cases were identified through an iterative discovery process
+covering multiple socio-technical domains, including:
+
+\begin{itemize}
+
+\item finance and financial regulation;
+
+\item aerospace and spaceflight;
+
+\item energy infrastructure;
+
+\item transportation systems;
+
+\item technology and software systems;
+
+\item corporate governance and institutional systems.
+
+\end{itemize}
+
+The initial discovery stage prioritized breadth of coverage rather than
+immediate inclusion. Candidate events were drawn from publicly documented
+historical failures and controversies known to involve complex system
+interactions, organizational decision-making, or governance breakdowns.
+
+\subsection{Shortlisting Criteria}
+
+Candidate cases were then screened against four requirements.
+
+\begin{enumerate}
+
+\item \textbf{Major system failure or breakdown}
+
+The event must involve substantial consequences such as financial loss,
+loss of life, mission failure, systemic disruption, or significant
+governance failure.
+
+\item \textbf{Publicly describable system setup}
+
+Sufficient public documentation must exist to describe the system
+architecture, operational processes, and organizational structure without
+relying on the conclusions of investigative reports.
+
+\item \textbf{Availability of independent assessment}
+
+The case must have at least one credible external investigation or
+assessment source, such as court findings, congressional investigations,
+regulatory reports, or independent inquiry commissions.
+
+\item \textbf{Suitability for analytical reconstruction}
+
+The case must support reconstruction of system behavior and decision
+processes in a way that allows meaningful comparison between different
+analytical workflows.
+
+\end{enumerate}
+
+\subsection{Coverage of the Solution Space}
+
+During shortlisting, cases were intentionally selected to span a wide
+solution space rather than cluster around a single failure type.
+
+The final dataset includes cases characterized by:
+
+\begin{itemize}
+
+\item mechanistic engineering failures;
+
+\item socio-technical governance failures;
+
+\item financial and institutional breakdowns;
+
+\item regulatory and oversight failures;
+
+\item software and information-system failures.
+
+\end{itemize}
+
+This diversity allows the experimental framework to evaluate whether
+different AI agent workflows perform differently across classes of
+analytical problems.
+
+\subsection{Exclusion Criteria}
+
+Candidate cases were excluded if they failed to meet one or more of the
+following conditions:
+
+\begin{itemize}
+
+\item no credible independent investigation source could be identified;
+
+\item publicly available documentation of system structure was too limited;
+
+\item the case was redundant with another selected case;
+
+\item the case remained too unresolved or factually unstable to support a
+frozen analytical task.
+
+\end{itemize}
+
+\subsection{Case Identification and Freezing}
+
+After iterative screening, twenty-five cases were selected and assigned
+stable identifiers:
+
+\[
+C01, C02, \ldots, C25
+\]
+
+The finalized case list was frozen in the artifact
+
+\texttt{case\_list\_v1.txt}
+
+which serves as the root index for all experimental inputs and generated
+artifacts.
+
+Each case identifier is subsequently used to generate associated task
+inputs, reference materials, and analytical outputs throughout the
+experimental pipeline.
+
+\subsection{Neutral Case Descriptions}
+
+For each case, a neutral system description was created to serve as the
+primary task input for agent analysis.
+
+The construction procedure consisted of:
+
+\begin{enumerate}
+
+\item writing a concise description of the system and operational context
+(target length $\leq$150 words);
+
+\item focusing on system architecture, operational processes, and task
+intent;
+
+\item removing investigative conclusions and causal findings;
+
+\item excluding language that directly reveals the outcome of the event.
+
+\end{enumerate}
+
+These descriptions were frozen in the artifact
+
+\texttt{neutral\_case\_descriptions\_v1.txt}
+
+and later converted into individual case input files during generation.
+
+The purpose of this neutralization procedure is to ensure that all agent
+configurations operate from the same initial information state, preventing
+direct leakage of investigative conclusions into the analytical task.
+
+\subsection{Dataset Freezing and Reproducibility}
+
+To ensure reproducibility, all dataset artifacts were frozen prior to model
+generation and evaluation. Each artifact was recorded together with a
+cryptographic hash in a freeze manifest.
+
+The frozen artifacts include:
+
+\begin{itemize}
+
+\item \texttt{case\_list\_v1.txt}
+
+\item \texttt{neutral\_case\_descriptions\_v1.txt}
+
+\item \texttt{prompt\_baseline\_v1.txt}
+
+\item \texttt{prompt\_protocol\_v1.txt}
+
+\item \texttt{prompt\_independent\_v1.txt}
+
+\item \texttt{protocol\_specification\_v1.txt}
+
+\item \texttt{model\_config\_v1.json}
+
+\item \texttt{case\_id\_mapping\_v1.csv}
+
+\end{itemize}
+
+Hashes for these artifacts are recorded in
+
+\texttt{case\_freeze\_manifest\_v1.txt}
+
+which enables verification that the dataset and experimental configuration
+remain unchanged across experimental runs.

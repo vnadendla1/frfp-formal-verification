@@ -1,0 +1,1506 @@
+%  LaTeX support: latex@mdpi.com 
+%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+%\documentclass[journal,article,submit,pdftex,moreauthors]{Definitions/mdpi} 
+\documentclass[preprints,article,submit,pdftex,moreauthors,accept]{Definitions/mdpi} 
+% For posting an early version of this manuscript as a preprint, you may use "preprints" as the journal. Changing "submit" to "accept" before posting will remove line numbers.
+
+% Below journals will use APA reference format:
+% admsci, behavsci, businesses, econometrics, economies, education, ejihpe, games, humans, ijfs, journalmedia, jrfm, languages, psycholint, publications, tourismhosp, youth
+
+% Below journals will use Chicago reference format:
+% arts, genealogy, histories, humanities, jintelligence, laws, literature, religions, risks, socsci
+
+%--------------------
+% Class Options:
+%--------------------
+%----------
+% journal
+%----------
+% Choose between the following MDPI journals:
+% accountaudit, acoustics, actuators, addictions, adhesives, admsci, adolescents, aerobiology, aerospace, agriculture, agriengineering, agrochemicals, agronomy, ai, air, algorithms, allergies, alloys, amh, analytica, analytics, anatomia, anesthres, animals, antibiotics, antibodies, antioxidants, applbiosci, appliedchem, appliedmath, appliedphys, applmech, applmicrobiol, applnano, applsci, aquacj, architecture, arm, arthropoda, arts, asc, asi, astronomy, atmosphere, atoms, audiolres, automation, axioms, bacteria, batteries, bdcc, behavsci, beverages, biochem, bioengineering, biologics, biology, biomass, biomechanics, biomed, biomedicines, biomedinformatics, biomimetics, biomolecules, biophysica, biosensors, biosphere, biotech, birds, blockchains, bloods, blsf, brainsci, breath, buildings, businesses, cancers, carbon, cardiogenetics, catalysts, cells, ceramics, challenges, chemengineering, chemistry, chemosensors, chemproc, children, chips, cimb, civileng, cleantechnol, climate, clinbioenerg, clinpract, clockssleep, cmd, cmtr, coasts, coatings, colloids, colorants, commodities, complications, compounds, computation, computers, condensedmatter, conservation, constrmater, cosmetics, covid, crops, cryo, cryptography, crystals, csmf, ctn, curroncol, cyber, dairy, data, ddc, dentistry, dermato, dermatopathology, designs, devices, diabetology, diagnostics, dietetics, digital, disabilities, diseases, diversity, dna, drones, dynamics, earth, ebj, ecm, ecologies, econometrics, economies, education, eesp, ejihpe, electricity, electrochem, electronicmat, electronics, encyclopedia, endocrines, energies, eng, engproc, ent, entomology, entropy, environments, epidemiologia, epigenomes, esa, est, famsci, fermentation, fibers, fintech, fire, fishes, fluids, foods, forecasting, forensicsci, forests, fossstud, foundations, fractalfract, fuels, future, futureinternet, futureparasites, futurepharmacol, futurephys, futuretransp, galaxies, games, gases, gastroent, gastrointestdisord, gastronomy, gels, genealogy, genes, geographies, geohazards, geomatics, geometry, geosciences, geotechnics, geriatrics, glacies, grasses, greenhealth, gucdd, hardware, hazardousmatters, healthcare, hearts, hemato, hematolrep, heritage, higheredu, highthroughput, histories, horticulturae, hospitals, humanities, humans, hydrobiology, hydrogen, hydrology, hygiene, idr, iic, ijerph, ijfs, ijgi, ijmd, ijms, ijns, ijpb, ijt, ijtm, ijtpp, ime, immuno, informatics, information, infrastructures, inorganics, insects, instruments, inventions, iot, j, jal, jcdd, jcm, jcp, jcs, jcto, jdad, jdb, jeta, jfb, jfmk, jimaging, jintelligence, jlpea, jmahp, jmmp, jmms, jmp, jmse, jne, jnt, jof, joitmc, joma, jop, jor, journalmedia, jox, jpbi, jpm, jrfm, jsan, jtaer, jvd, jzbg, kidney, kidneydial, kinasesphosphatases, knowledge, labmed, laboratories, land, languages, laws, life, lights, limnolrev, lipidology, liquids, literature, livers, logics, logistics, lubricants, lymphatics, machines, macromol, magnetism, magnetochemistry, make, marinedrugs, materials, materproc, mathematics, mca, measurements, medicina, medicines, medsci, membranes, merits, metabolites, metals, meteorology, methane, metrics, metrology, micro, microarrays, microbiolres, microelectronics, micromachines, microorganisms, microplastics, microwave, minerals, mining, mmphys, modelling, molbank, molecules, mps, msf, mti, multimedia, muscles, nanoenergyadv, nanomanufacturing, nanomaterials, ncrna, ndt, network, neuroglia, neurolint, neurosci, nitrogen, notspecified, nursrep, nutraceuticals, nutrients, obesities, oceans, ohbm, onco, oncopathology, optics, oral, organics, organoids, osteology, oxygen, parasites, parasitologia, particles, pathogens, pathophysiology, pediatrrep, pets, pharmaceuticals, pharmaceutics, pharmacoepidemiology, pharmacy, philosophies, photochem, photonics, phycology, physchem, physics, physiologia, plants, plasma, platforms, pollutants, polymers, polysaccharides, populations, poultry, powders, preprints, proceedings, processes, prosthesis, proteomes, psf, psych, psychiatryint, psychoactives, psycholint, publications, purification, quantumrep, quaternary, qubs, radiation, reactions, realestate, receptors, recycling, regeneration, religions, remotesensing, reports, reprodmed, resources, rheumato, risks, robotics, rsee, ruminants, safety, sci, scipharm, sclerosis, seeds, sensors, separations, sexes, signals, sinusitis, siuj, skins, smartcities, sna, societies, socsci, software, soilsystems, solar, solids, spectroscj, sports, standards, stats, std, stresses, surfaces, surgeries, suschem, sustainability, symmetry, synbio, systems, tae, targets, taxonomy, technologies, telecom, test, textiles, thalassrep, therapeutics, thermo, timespace, tomography, tourismhosp, toxics, toxins, transplantology, transportation, traumacare, traumas, tropicalmed, universe, urbansci, uro, vaccines, vehicles, venereology, vetsci, vibration, virtualworlds, viruses, vision, waste, water, wem, wevj, wild, wind, women, world, youth, zoonoticdis
+
+%---------
+% article
+%---------
+% The default type of manuscript is "article", but can be replaced by: 
+% abstract, addendum, article, benchmark, book, bookreview, briefcommunication, briefreport, casereport, changes, clinicopathologicalchallenge, comment, commentary, communication, conceptpaper, conferenceproceedings, correction, conferencereport, creative, datadescriptor, discussion, entry, expressionofconcern, extendedabstract, editorial, essay, erratum, fieldguide, hypothesis, interestingimages, letter, meetingreport, monograph, newbookreceived, obituary, opinion, proceedingpaper, projectreport, reply, retraction, review, perspective, protocol, shortnote, studyprotocol, supfile, systematicreview, technicalnote, viewpoint, guidelines, registeredreport, tutorial,  giantsinurology, urologyaroundtheworld
+% supfile = supplementary materials
+
+%----------
+% submit
+%----------
+% The class option "submit" will be changed to "accept" by the Editorial Office when the paper is accepted. This will only make changes to the frontpage (e.g., the logo of the journal will get visible), the headings, and the copyright information. Also, line numbering will be removed. Journal info and pagination for accepted papers will also be assigned by the Editorial Office.
+
+%------------------
+% moreauthors
+%------------------
+% If there is only one author the class option oneauthor should be used. Otherwise use the class option moreauthors.
+
+%---------
+% pdftex
+%---------
+% The option pdftex is for use with pdfLaTeX. Remove "pdftex" for (1) compiling with LaTeX & dvi2pdf (if eps figures are used) or for (2) compiling with XeLaTeX.
+
+%=================================================================
+% MDPI internal commands - do not modify
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2025}
+\copyrightyear{2025}
+%\externaleditor{Firstname Lastname} % More than 1 editor, please add `` and '' before the last editor name
+\datereceived{ } 
+\daterevised{ } % Comment out if no revised date
+\dateaccepted{ } 
+\datepublished{ } 
+%\datecorrected{} % For corrected papers: "Corrected: XXX" date in the original paper.
+%\dateretracted{} % For retracted papers: "Retracted: XXX" date in the original paper.
+\hreflink{https://doi.org/} % If needed use \linebreak
+%\doinum{}
+%\pdfoutput=1 % Uncommented for upload to arXiv.org
+%\CorrStatement{yes}  % For updates
+%\longauthorlist{yes} % For many authors that exceed the left citation part
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit
+% cleveref: load \crefname definitions after \begin{document}
+
+% Fallback for templates/classes expecting a \hang macro in address formatting.
+\providecommand{\hang}{}
+
+%=================================================================
+% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Creative Narrative Transformation Systems (CNTS):\\
+A Layered, Orchestrated, and Human-in-the-Loop Framework for AI-Driven Multimedia Generation}
+
+%\maketitle
+
+% MDPI internal command: Title for citation in the left column
+\TitleCitation{Title}
+
+% Author Orchid ID: enter ID or remove command
+\newcommand{\orcidauthorA}{0009-0008-2862-5041} % Add \orcidA{} behind the author's name
+%\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
+
+% Authors, for the paper (add full first names)
+\Author{Vijaya K Nadendla $^{1,\dagger}$\orcidA{}}
+
+%\longauthorlist{yes}
+
+% MDPI internal command: Authors, for metadata in PDF
+\AuthorNames{Vijaya K Nadendla}
+
+% MDPI internal command: Authors, for citation in the left column, only choose below one of them according to the journal style
+% If this is a APA style journal 
+% (admsci, behavsci, businesses, econometrics, economies, education, ejihpe, games, humans, ijfs, journalmedia, jrfm, languages, psycholint, publications, tourismhosp, youth): 
+% Lastname, F., Lastname, F., \& Lastname, F.
+
+% If this is a Chicago style journal 
+% (arts, genealogy, histories, humanities, jintelligence, laws, literature, religions, risks, socsci): 
+% Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
+
+% If this is a ACS style journal (Except for the above Chicago and APA journals, all others are in the ACS format): 
+% Lastname, F.; Lastname, F.; Lastname, F.
+\isAPAStyle{%
+       \AuthorCitation{Lastname, F., Lastname, F., \& Lastname, F.}
+         }{%
+        \isChicagoStyle{%
+        \AuthorCitation{Lastname, Firstname, Firstname Lastname, and Firstname Lastname.}
+        }{
+        \AuthorCitation{Lastname, F.; Lastname, F.; Lastname, F.}
+        }
+}
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+%\address{%
+%$^{1}$ \quad Affiliation 1; e-mail@e-mail.com\\
+%$^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
+\address{$^{1}$ \quad Independent Researcher; vnadendla@gmail.com}
+
+% Contact information of the corresponding author
+\corres{Correspondence: vnadendla@gmail.com; Tel.:  +01-6095104995}
+
+% Current address and/or shared authorship
+\firstnote{Current address: 51 Linwood Dr Monroe Township NJ USA 08831.}  % Current address should not be the same as any items in the Affiliation section.
+%\secondnote{These authors contributed equally to this work.}
+% The commands \thirdnote{} till \eighthnote{} are available for further notes
+
+%\simplesumm{} % Simple summary
+
+%\conference{} % An extended version of a conference paper
+
+% Abstract (Do not insert blank lines, i.e. \\) 
+\abstract{
+Recent advances in generative AI enable direct synthesis of multimedia content from textual inputs. However, these systems lack structured mechanisms for translating narrative intent into coherent cinematic output. We introduce Creative Narrative Transformation Systems (CNTS), a framework grounded in the Foundational Reasoning and Feedback Protocol (FRFP), which separates explicit artifacts from tacit human judgment. CNTS combines structured narrative transformation, layered cinematic decomposition, and multi-primary action orchestration. Rather than producing single outputs, the system constructs structured spaces of candidate interpretations for human evaluation. This approach aligns creative generation with principles of epistemic governance, enabling controllable, interpretable, and collaborative multimedia production.
+}
+
+% Keywords
+\keyword{human–AI collaboration; explicit–tacit boundary; endorsement; bad faith; observational equivalence; governance; credence inflation; institutional capture} 
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+%\PACS{J0101}
+%\MSC{}
+%\JEL{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Diversity
+%\LSID{\url{http://}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Applied Sciences
+%\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Data
+%\dataset{DOI number or link to the deposited data set if the data set is published separately. If the data set shall be published as a supplement to this paper, this field will be filled by the journal editors. In this case, please submit the data set as a supplement.}
+%\datasetlicense{License under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Toxins
+%\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Encyclopedia
+%\encyclopediadef{For entry manuscripts only: please provide a brief overview of the entry title instead of an abstract.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Advances in Respiratory Medicine and Smart Cities
+%\addhighlights{yes}
+%\renewcommand{\addhighlights}{%
+
+%\noindent This is an obligatory section in “Advances in Respiratory Medicine'' and ``Smart Cities”, whose goal is to increase the discoverability and readability of the article via search engines and other scholars. Highlights should not be a copy of the abstract, but a simple text allowing the reader to quickly and simplified find out what the article is about and what can be cited from it. Each of these parts should be devoted up to 2~bullet points.\vspace{3pt}\\
+%\textbf{What are the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}\vspace{3pt}
+%\textbf{What are the implications of the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\nolinenumbers  %remove comment while editing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{section}{-1} %% Remove this when starting to work on the template.
+% ======================================================================
+% FRFP Vol. 2 — Full main paper text (LaTeX body) matching Appendix A
+% Paste into your preprints template.tex between \begin{document}...\end{document}
+% Keep your template’s packages/preamble/bibliography settings as-is.
+% ======================================================================
+\section{Introduction}
+
+The rapid evolution of generative artificial intelligence has fundamentally altered the landscape of media creation. Systems capable of producing images, video, and audio from textual prompts have made it possible to bypass traditional production pipelines and directly synthesize cinematic artifacts. While these advances represent a significant technological milestone, they expose a deeper conceptual limitation: current systems lack a principled method for translating narrative intent into coherent, layered cinematic expression.
+
+A director’s narrative typically encodes story elements such as characters, events, and emotional arcs. However, cinema is not merely a representation of narrative; it is an emergent form constructed through multiple interacting layers, including visual composition, color, lighting, sound design, temporal pacing, and actor interaction. These layers are rarely specified explicitly in narrative form and are instead realized through interpretive decisions made by directors, cinematographers, editors, and performers.
+
+Contemporary AI systems attempt to bridge this gap through prompt-based generation. In such systems, textual instructions implicitly encode multiple creative decisions simultaneously. This approach, while flexible, leads to two fundamental problems. First, it collapses multiple valid interpretations into a single output without exposing the underlying assumptions. Second, it lacks mechanisms for coordinating the complex, multi-layered nature of cinematic scenes, particularly those involving multiple actors and simultaneous actions.
+
+As a result, AI-generated multimedia often exhibits one or more of the following failure modes: visual incoherence, tonal inconsistency, shallow emotional impact, or unrealistic interaction between elements within a scene. These failures are not merely technical limitations but arise from a deeper absence of structured reasoning about creative ambiguity and layered representation.
+
+This paper proposes that the problem of AI-driven multimedia generation is not solely a question of improving models, but of introducing a framework for structured creative reasoning. Specifically, we argue that AI systems must transition from generating single outputs to constructing \emph{spaces of possible interpretations}, each explicitly defined, inspectable, and subject to human evaluation.
+
+To address this, we introduce the \textbf{Creative Narrative Transformation System (CNTS)}, a framework that formalizes the transformation of narrative into cinematic artifacts through three key components: (i) a structured narrative transformation protocol, (ii) a layered model of cinematic representation, and (iii) an orchestration model for multi-actor scenes. The system operates under a human-in-the-loop paradigm in which AI generates candidate interpretations and human creators retain authority over selection and refinement.
+
+The conceptual foundation of this work originates in the \textbf{Foundational Reasoning and Feedback Protocol (FRFP)}, which introduces a formal separation between explicit representations and tacit human judgment. While originally developed for analytical reasoning, its principles extend naturally to creative systems, where ambiguity and interpretation are central.
+
+\section{From FRFP to Creative Systems }
+
+The Creative Narrative Transformation System (CNTS) is grounded in the Foundational Reasoning and Feedback Protocol (FRFP), a framework originally developed to address failures in analytical reasoning systems. To understand CNTS, it is essential to first understand the core ideas of FRFP in intuitive terms.
+
+FRFP begins with a simple but powerful observation: not all forms of knowledge can be treated the same way. Some knowledge can be written down, transmitted, and processed by machines. Other forms of knowledge—such as judgment, interpretation, and understanding—exist only within human cognition.
+
+FRFP formalizes this distinction as:
+
+\begin{itemize}
+    \item \textbf{Explicit artifacts:} representations that can be written, stored, and processed (e.g., text, prompts, models, images)
+    \item \textbf{Tacit states:} internal human capacities such as understanding, judgment, and contextual awareness
+\end{itemize}
+
+For example, a movie script is an explicit artifact. However, deciding whether a scene is emotionally powerful or culturally appropriate is a tacit judgment.
+
+FRFP enforces a strict rule: \emph{machine systems must operate only on explicit artifacts, while final judgment must remain in the tacit domain}. This prevents systems from implicitly claiming correctness or authority beyond what can be justified.
+
+A key result of FRFP is that any system relying only on explicit representations will eventually fail over long reasoning chains. In analytical contexts, this appears as incorrect conclusions. In creative contexts, it appears as outputs that look plausible but feel ``wrong''—for example, a scene that is visually impressive but emotionally empty.
+
+FRFP also identifies a common failure pattern in modern AI workflows: the collapse of multiple steps into a single output. In typical prompt-based systems, generation, interpretation, and endorsement are fused into one response. This creates the illusion that the system ``knows'' what it is doing, when in reality it is producing one possible interpretation without exposing alternatives.
+
+FRFP addresses this through two principles:
+
+\begin{enumerate}
+    \item \textbf{Branching:} multiple interpretations must be generated and preserved
+    \item \textbf{Exposure:} assumptions must be made visible rather than hidden
+\end{enumerate}
+
+Applying this to creative systems leads to a fundamental shift:
+
+\begin{quote}
+Instead of asking AI to generate the best scene, we ask it to generate multiple plausible scenes, each representing a different interpretation.
+\end{quote}
+
+FRFP also defines a structured interaction loop between human and machine:
+
+\begin{itemize}
+    \item Representation Initiation (RI): structuring the input
+    \item Explicit Computation (EC): generating outputs
+    \item Representational Backflow (RB): presenting outputs
+    \item Tacit Evaluation (TE): human judgment
+    \item Human Final Decision (HFD): selection and endorsement
+\end{itemize}
+
+In CNTS, this loop directly maps to the creative process. The AI generates multiple cinematic possibilities, and the human evaluates and selects among them.
+
+Thus, CNTS is not a separate idea but a direct extension of FRFP into the domain of multimedia generation.
+
+\section{The Nature of Cinematic Representation}
+
+To understand why AI struggles with video generation, it is necessary to understand how cinema differs from narrative.
+
+Narrative describes events in a sequential and abstract way. For example, a narrative might state: ``a woman hesitates before opening a letter.'' This description specifies what happens, but not how it is experienced.
+
+Cinema, by contrast, is not just about events. It is about how those events are presented to the viewer. This presentation is constructed through multiple layers that operate simultaneously.
+
+For clarity, we can think of these layers as follows:
+
+\begin{itemize}
+    \item \textbf{Visual composition:} where things are placed in the frame
+    \item \textbf{Lighting and color:} how the scene is illuminated and what mood it conveys
+    \item \textbf{Sound:} music, silence, and ambient noise
+    \item \textbf{Timing:} how quickly or slowly events unfold
+    \item \textbf{Actor behavior:} gestures, expressions, and interactions
+\end{itemize}
+
+Consider the same narrative action—``a woman opens a letter.'' This can be rendered in many ways:
+
+\begin{itemize}
+    \item A quiet close-up with no music (intimate, reflective)
+    \item A fast cut with rising sound (tense, suspenseful)
+    \item A wide shot with dramatic lighting (theatrical, symbolic)
+\end{itemize}
+
+Each version tells the same story, but creates a different emotional experience.
+
+This leads to an important conclusion:
+
+\begin{quote}
+There is no single correct cinematic representation of a narrative.
+\end{quote}
+
+Instead, there exists a space of valid interpretations.
+
+Current AI systems struggle because they attempt to compress all these layers into a single prompt. This causes uncontrolled interactions between elements—for example, mismatched lighting and emotion, or inconsistent actor behavior.
+
+To address this, CNTS introduces the Layered Creative Collaboration Model (LCCM), which separates these layers and allows them to be controlled independently.
+
+A second challenge arises in scenes with multiple actors. In real scenes, multiple things happen at the same time. For example:
+
+\begin{itemize}
+    \item one character performs an action
+    \item another observes
+    \item a third reacts emotionally
+\end{itemize}
+
+These are not secondary details—they are essential to the scene.
+
+This motivates the Multi-Primary Orchestration Model (MPOM), which treats a scene as a system of concurrent actions rather than a single event.
+\subsection{Intuition Behind MPOM}
+
+The MPOM model may appear mathematical, but its core idea is simple.
+
+In real scenes, multiple important actions can happen at the same time. For example:
+
+\begin{itemize}
+    \item a woman lifts a lid
+    \item a man watches closely
+    \item another person reacts emotionally
+\end{itemize}
+
+Traditional systems force one of these to be ``primary.'' MPOM instead allows multiple actions to be important simultaneously.
+
+Each action is assigned:
+\begin{itemize}
+    \item a weight (how important it is)
+    \item a timing (when it happens)
+\end{itemize}
+
+The system then ensures that:
+\begin{itemize}
+    \item the scene remains understandable
+    \item attention is guided (through camera, lighting, etc.)
+\end{itemize}
+
+This makes generated scenes feel more natural and less artificial.
+Together, LCCM and MPOM allow CNTS to represent cinema as a structured system rather than a single instruction.
+\section{Creative Narrative Transformation System Architecture}
+
+Having established the epistemic foundation and representational structure, we now formalize the architecture of the Creative Narrative Transformation System (CNTS). The system is designed as a layered transformation pipeline operating entirely within the explicit artifact space, while deferring interpretation and endorsement to the human domain, in accordance with FRFP principles.
+
+\subsection{System Overview}
+
+The CNTS system can be understood as a pipeline that gradually transforms a narrative into video outputs.
+
+\begin{verbatim}
+Narrative → Structure → Layers → Actions → Prompts → Video → Selection
+\end{verbatim}
+
+Each stage performs a specific role:
+
+\begin{itemize}
+    \item \textbf{Narrative Structuring:} converts story into scenes and key moments
+    \item \textbf{Layer Decomposition:} separates visual, sound, and emotional aspects
+    \item \textbf{Action Orchestration:} models how multiple actors behave
+    \item \textbf{Prompt Composition:} translates structured data into prompts
+    \item \textbf{Generation:} produces video outputs
+    \item \textbf{Selection:} human chooses best results
+\end{itemize}
+
+Importantly, the system does not attempt to produce a final result in one step. Instead, it produces multiple candidates and relies on human judgment to select among them. To make this concrete, consider a simple example. A narrative describing a tense dinner scene is first broken into key moments (arrival, conversation, reveal). Each moment is then expanded into visual and emotional layers (lighting, sound, pacing). These layers are combined with action orchestration to produce structured prompts, which are used to generate multiple video variations. The human creator then selects and refines the best outputs.
+
+
+\subsection{Mapping to FRFP Interaction Primitives}
+
+The CNTS pipeline can be expressed as an instantiation of FRFP interaction primitives:
+
+\begin{itemize}
+    \item \textbf{Representation Initiation (RI):} Narrative input is transformed into structured elements such as scenes, characters, and relationships.
+    \item \textbf{Explicit Computation (EC):} The system generates layered representations, action graphs, and prompts.
+    \item \textbf{Representational Backflow (RB):} Candidate outputs and intermediate artifacts are presented for inspection.
+    \item \textbf{Tacit Evaluation (TE):} Human evaluates coherence, emotional impact, and cultural alignment.
+    \item \textbf{Human Final Decision (HFD):} Human selects or refines the final artifact.
+\end{itemize}
+
+This mapping ensures that CNTS adheres to the explicit–tacit separation enforced by FRFP, preventing implicit endorsement within machine-generated outputs.
+
+\subsection{Component Definitions}
+
+\paragraph{Narrative Structuring (CNTP)}
+This component extracts structured representations from narrative input, including:
+\begin{itemize}
+    \item key scenes
+    \item emotional arcs
+    \item character relationships
+    \item narrative constraints (e.g., no spoilers in trailers)
+\end{itemize}
+
+The output is a set of explicit narrative artifacts suitable for further transformation.
+
+\paragraph{Layer Decomposition (LCCM)}
+The system decomposes each scene into independent layers:
+\begin{itemize}
+    \item visual composition
+    \item color and lighting
+    \item sound and music
+    \item temporal pacing
+    \item emotional modulation
+\end{itemize}
+
+Each layer is represented explicitly, enabling controlled variation and preventing implicit coupling.
+
+\paragraph{Action Orchestration (MPOM)}
+Scenes are represented as networks of concurrent actions. Each action is modeled as a node with associated properties, enabling coordination across multiple actors.
+
+\paragraph{Prompt Composition}
+Structured prompts are generated by combining layer specifications and action graphs. Prompts remain interpretable and reproducible.
+\subsection{Why Prompt Structure Matters}
+
+In many AI systems, prompts are treated as free-form text. However, this leads to inconsistent results because multiple decisions are mixed together.
+
+CNTS treats prompts as structured representations.
+
+Instead of writing:
+\begin{quote}
+``a dramatic scene with tension''
+\end{quote}
+
+we break it into components:
+
+\begin{itemize}
+    \item what is happening (actions)
+    \item how it looks (visual style)
+    \item how it moves (camera)
+    \item how it sounds (audio)
+\end{itemize}
+
+This makes prompts:
+\begin{itemize}
+    \item easier to control
+    \item easier to modify
+    \item easier to reproduce
+\end{itemize}
+
+For example, we can change only lighting without changing actions, which is not possible with unstructured prompts.
+\paragraph{Generation and Iteration}
+The system produces multiple candidate outputs using generative models. Variations are introduced through parameter changes, prompt modifications, and seed variation.
+
+\subsection{Iteration and Selection Loop}
+
+The CNTS system operates iteratively:
+
+\begin{center}
+\begin{verbatim}
+Generate → Compare → Select → Refine → Repeat
+\end{verbatim}
+\end{center}
+
+This loop ensures that quality emerges through comparison and refinement rather than single-shot generation.
+
+\subsection{Epistemic Guarantees}
+
+By construction, CNTS satisfies the following properties:
+
+\begin{itemize}
+    \item No implicit endorsement within explicit artifacts
+    \item Preservation of ambiguity through branching
+    \item Inspectability of intermediate representations
+    \item Human authority over final decisions
+\end{itemize}
+
+These properties follow directly from FRFP constraints on explicit–tacit separation.
+\subsection{From Intuition to Formal Model}
+
+We now formalize the intuitive description of multi-actor scenes introduced earlier. The goal is not to introduce abstract mathematics, but to provide a precise representation of the same idea: that multiple actions can occur simultaneously and contribute jointly to the meaning of a scene.
+
+Each element of the formal model corresponds directly to observable components in a cinematic scene.
+\section{Multi-Primary Orchestration Model (MPOM)}
+
+We now formalize the Multi-Primary Orchestration Model (MPOM), which addresses the representation of multi-actor cinematic scenes.
+
+\subsection{Motivation}
+
+Traditional prompt-based systems implicitly assume a single dominant action per scene. While this simplifies generation, it fails to capture the complexity of real cinematic interactions, where multiple actors perform concurrent actions that contribute jointly to meaning.
+
+\subsection{Action Graph Representation}
+
+We define a scene as a directed graph:
+
+\[
+G = (V, E)
+\]
+
+where:
+\begin{itemize}
+    \item $V$ is a set of action nodes
+    \item $E$ is a set of relational edges
+\end{itemize}
+
+Each node $v \in V$ is defined as:
+
+\[
+v = (a, \alpha, w, t)
+\]
+
+where:
+\begin{itemize}
+    \item $a$ = actor
+    \item $\alpha$ = action
+    \item $w \in \mathbb{R}^+$ = intensity (weight)
+    \item $t \in \mathbb{R}$ = temporal offset
+\end{itemize}
+\subsection{Worked Example}
+
+To illustrate how the formal model corresponds to a real scene, consider a simple multi-actor interaction:
+
+\begin{itemize}
+    \item a widow lifts a lid
+    \item a host observes her closely
+    \item a daughter reacts emotionally
+\end{itemize}
+
+This scene can be represented as:
+
+\[
+v_1 = (\text{Widow}, \text{lift lid}, 0.9, 0.0)
+\]
+\[
+v_2 = (\text{Host}, \text{observe}, 0.8, 0.2)
+\]
+\[
+v_3 = (\text{Daughter}, \text{react}, 0.6, 0.5)
+\]
+
+In this configuration, multiple actions exceed the threshold $\theta$, making them jointly primary.
+
+The temporal offsets introduce natural sequencing, while the attention function distributes viewer focus across these actions. Cinematic techniques such as framing and lighting determine the specific values of $A(v)$ in practice.
+\subsection{Multi-Primary Condition}
+
+We define a subset $P \subseteq V$ as the set of primary actions:
+
+\[
+P = \{ v \in V \mid w(v) \geq \theta \}
+\]
+
+for some threshold $\theta$.
+
+Unlike hierarchical models, $|P| \geq 1$, allowing multiple primary actions.
+
+\subsection{Temporal Coordination}
+
+Temporal relationships are encoded through node offsets:
+
+\[
+t: V \rightarrow \mathbb{R}
+\]
+
+These offsets introduce micro-delays that produce naturalistic sequencing of actions.
+
+\subsection{Attention Function}
+
+To maintain interpretability, we define an attention function:
+
+\[
+A: V \rightarrow [0,1]
+\]
+
+such that:
+
+\[
+\sum_{v \in V} A(v) = 1
+\]
+
+This function represents the distribution of viewer attention across actions. Attention is influenced by cinematic parameters such as framing, lighting, and motion.
+
+\subsection{Orchestration Constraint}
+
+A valid scene must satisfy:
+
+\[
+\max_{v \in V} A(v) \geq \gamma
+\]
+
+for some $\gamma$, ensuring that at least one action remains clearly interpretable.
+
+\subsection{Emergent Meaning}
+
+The meaning of a scene is not determined by any single node but emerges from the combined configuration:
+
+\[
+M = f(G, A)
+\]
+
+where $f$ represents the viewer's interpretive process, which depends on perceptual, cultural, and emotional factors.
+
+\subsection{Integration with LCCM}
+
+Each node in the action graph is associated with layer-specific parameters:
+
+\begin{itemize}
+    \item visual emphasis (framing, focus)
+    \item lighting intensity
+    \item sound cues
+    \item timing adjustments
+\end{itemize}
+
+Thus, MPOM operates jointly with LCCM to produce coherent cinematic outputs.
+
+\subsection{Discussion}
+
+MPOM generalizes single-action models by allowing multiple concurrent focal points while maintaining interpretability through attention constraints. This aligns with real-world cinematic practice, where meaning emerges from coordinated interactions rather than isolated actions.
+
+From an FRFP perspective, MPOM ensures that multi-actor interactions remain explicit and inspectable, preventing implicit collapse of complex dynamics into a single representation.
+
+\section{Iterative Generation and Prompt Semantics}
+
+The preceding sections establish the structural and representational foundations of CNTS. We now turn to the operational layer: how structured representations are translated into generated media through prompts and iterative workflows.
+
+\subsection{Prompt Semantics as Representation Encoding}
+
+In CNTS, prompts are not treated as ad hoc instructions but as structured encodings of explicit artifacts. A prompt is a composition of multiple representational components derived from CNTP, LCCM, and MPOM.
+
+We define a prompt $P$ as:
+
+\[
+P = (S, V, L, C, M, A)
+\]
+
+where:
+\begin{itemize}
+    \item $S$ = shot type (composition)
+    \item $V$ = action set (from MPOM graph)
+    \item $L$ = layer configuration (LCCM)
+    \item $C$ = camera parameters
+    \item $M$ = motion or temporal dynamics
+    \item $A$ = audio specification
+\end{itemize}
+
+This structure ensures that prompts remain interpretable, decomposable, and reproducible.
+
+\subsection{Prompt Decomposition}
+
+Each component of $P$ corresponds to a specific layer:
+
+\begin{itemize}
+    \item $S \rightarrow$ visual composition layer
+    \item $V \rightarrow$ action orchestration layer
+    \item $L \rightarrow$ color, lighting, and style
+    \item $C \rightarrow$ camera control
+    \item $M \rightarrow$ temporal modulation
+    \item $A \rightarrow$ sound layer
+\end{itemize}
+
+This mapping prevents implicit coupling between layers and allows controlled variation.
+
+\subsection{Iteration as Core Mechanism}
+
+Unlike traditional generation systems that aim for a single output, CNTS adopts an iterative generation model.
+
+Let $\mathcal{P}_0$ be an initial prompt. The system generates a set of variations:
+
+\[
+\{ P_1, P_2, \dots, P_n \}
+\]
+
+where each $P_i$ is derived from $\mathcal{P}_0$ through controlled perturbations.
+
+Variations may include:
+\begin{itemize}
+    \item parameter adjustments
+    \item layer modifications
+    \item seed variation
+    \item action weight changes
+\end{itemize}
+
+Each prompt produces a corresponding output:
+
+\[
+O_i = G(P_i)
+\]
+
+where $G$ is the generative model.
+For example, an initial prompt describing a dinner scene may be varied by changing lighting (warm vs cold), camera movement (static vs slow push-in), or timing (faster vs slower pacing). Each variation produces a different emotional effect.
+\subsection{Selection and Refinement}
+
+Outputs are evaluated through a human-in-the-loop process:
+
+\[
+O^* = \arg\max_{O_i} E(O_i)
+\]
+
+where $E$ represents tacit evaluation by a human.
+
+The selected output $O^*$ is then used to generate a refined prompt:
+
+\[
+P' = \Phi(P^*, O^*)
+\]
+
+where $\Phi$ is a refinement operator.
+
+\subsection{Connection to FRFP}
+
+This iterative process corresponds directly to FRFP primitives:
+
+\begin{itemize}
+    \item EC: generation of candidate outputs
+    \item RB: presentation of outputs
+    \item TE: human evaluation
+    \item HFD: selection and refinement
+\end{itemize}
+
+Importantly, evaluation remains outside the explicit system, preserving the explicit–tacit boundary.
+
+\subsection{Emergent Quality Through Iteration}
+
+Quality is not assumed to be present in any single output. Instead, it emerges through:
+
+\begin{itemize}
+    \item comparison across variations
+    \item selection of high-performing candidates
+    \item iterative refinement
+\end{itemize}
+
+This aligns with practitioner observations that volume and structured variation outperform single-shot generation.
+
+\section{Evaluation, Failure Modes, and Epistemic Limits}
+
+We now examine the evaluation of CNTS outputs and the inherent limitations imposed by the explicit–tacit separation.
+
+\subsection{Evaluation Framework}
+
+Evaluation operates across multiple dimensions:
+
+\subsubsection{Structural Evaluation}
+\begin{itemize}
+    \item narrative clarity
+    \item consistency across scenes
+\end{itemize}
+
+\subsubsection{Cinematic Evaluation}
+\begin{itemize}
+    \item visual coherence
+    \item pacing and timing
+\end{itemize}
+
+\subsubsection{Emotional Evaluation}
+\begin{itemize}
+    \item engagement
+    \item tension and release
+\end{itemize}
+
+\subsubsection{Human Validation}
+\begin{itemize}
+    \item cultural authenticity
+    \item emotional correctness
+\end{itemize}
+
+The final category necessarily resides in the tacit domain and cannot be automated.
+
+\subsection{Failure Modes}
+
+We identify several common failure modes:
+
+\paragraph{Ambiguity Collapse}
+Premature selection of a single interpretation, leading to loss of creative diversity.
+
+\paragraph{Layer Coupling}
+Implicit interaction between layers causing inconsistent or conflicting outputs.
+
+\paragraph{Orchestration Failure}
+Incoherent multi-actor interactions due to lack of structured coordination.
+
+\paragraph{Emotional Flattening}
+Outputs that are visually correct but lack emotional impact, often due to missing or poorly specified audio layers.
+
+\paragraph{Overfitting to Prompts}
+Excessive reliance on prompt templates leading to generic outputs.
+
+\subsection{Mitigation Strategies}
+
+CNTS mitigates these failures through:
+
+\begin{itemize}
+    \item enforced branching
+    \item explicit layer decomposition
+    \item action graph representation
+    \item iterative generation and selection
+\end{itemize}
+
+\subsection{Epistemic Limits from FRFP}
+
+FRFP establishes that no explicit-only system can guarantee correctness across all long-horizon interactions. This result extends to creative systems.
+
+In particular:
+
+\begin{itemize}
+    \item No explicit metric can fully evaluate emotional or aesthetic quality.
+    \item No automated system can guarantee alignment with narrative intent in all cases.
+    \item Some outputs will inevitably cross the explicit–tacit boundary without sufficient grounding.
+\end{itemize}
+
+These limitations are not implementation flaws but structural properties of the system.
+
+\subsection{Implications}
+
+The implications are twofold:
+
+\begin{enumerate}
+    \item Human involvement is not optional but structurally necessary.
+    \item Evaluation must remain partially external to the system.
+\end{enumerate}
+
+\subsection{Reframing Success}
+
+Given these constraints, success in CNTS is not defined as producing a single optimal output, but as constructing a structured space of candidate outputs that:
+
+\begin{itemize}
+    \item preserve ambiguity
+    \item expose assumptions
+    \item enable human selection
+\end{itemize}
+
+\subsection{Final Statement}
+
+The CNTS framework does not eliminate uncertainty or subjectivity. Instead, it provides a structured way to manage them, ensuring that creative systems remain both expressive and accountable within the constraints of human–AI collaboration.
+
+\section{Case Study: The Last Supper Invitation}
+
+To illustrate the CNTS pipeline end-to-end, we walk through the transformation of a single narrative into a trailer sequence. This example demonstrates how abstract narrative input is progressively structured, layered, and rendered into multiple cinematic interpretations.We present a case study based on the narrative concept \emph{The Last Supper Invitation}, a psychological ensemble drama centered around a high-stakes dinner scenario.
+
+\subsection{Narrative Input}
+
+The narrative involves a wealthy patriarch inviting a group of individuals with shared history to a formal dinner. Each guest faces a decision involving hidden consequences. The narrative emphasizes tension, unresolved relationships, and moral confrontation.
+
+\subsection{CNTP Application}
+
+The narrative is transformed into structured elements:
+
+\begin{itemize}
+\item \textbf{Key scenes:} arrival, table reveal, rule explanation, widow exit, escalation
+\item \textbf{Emotional spine:} tension → uncertainty → disruption → confrontation
+\item \textbf{Constraints:} maintain mystery, avoid revealing outcomes
+\end{itemize}
+
+\subsection{LCCM Layer Decomposition}
+
+Each scene is decomposed:
+
+\begin{itemize}
+\item \textbf{Visual:} long dining table, symmetry, empty chairs
+\item \textbf{Color:} warm candlelight vs deep shadows
+\item \textbf{Sound:} silence, ambient tension, gradual score build
+\item \textbf{Temporal:} slow opening, accelerating cuts
+\item \textbf{Emotion:} unease, tension, escalation
+\end{itemize}
+
+\subsection{MPOM Action Graph}
+
+A representative scene (widow event) is modeled as:
+
+\[
+G = \{v_1, v_2, v_3\}
+\]
+
+\begin{itemize}
+\item $v_1$: widow lifts lid ($w=0.9$, $t=0.0$)
+\item $v_2$: host observes ($w=0.8$, $t=0.2$)
+\item $v_3$: daughter reacts ($w=0.6$, $t=0.5$)
+\end{itemize}
+
+This multi-primary configuration creates tension through concurrent actions.
+
+\subsection{Prompt Construction}
+
+A structured prompt derived from CNTS:
+
+\begin{verbatim}
+wide cinematic shot, an older woman lifting a silver cloche,
+a man watching intensely, a younger woman reacting emotionally,
+moody candlelight, slow push-in, silence with ambient sound
+\end{verbatim}
+
+\subsection{Iteration and Selection}
+
+Multiple variations are generated by modifying:
+\begin{itemize}
+\item lighting intensity
+\item camera motion
+\item timing offsets
+\end{itemize}
+
+Human evaluation selects outputs based on:
+\begin{itemize}
+\item clarity of tension
+\item emotional impact
+\item visual coherence
+\end{itemize}
+
+\subsection{Outcome}
+
+The resulting trailer is not a single deterministic output but a curated composition of selected candidate clips. This demonstrates CNTS as a system for structured exploration rather than direct generation.
+
+\section{Future Work and Extensions}
+
+CNTS provides a foundational framework, but several extensions remain open for exploration.
+
+\subsection{Multi-Agent Creative Systems}
+
+Future systems may distribute CNTS components across specialized agents:
+
+\begin{itemize}
+\item \textbf{Narrative agent:} structure and interpret story
+\item \textbf{Visual agent:} generate imagery
+\item \textbf{Critic agent:} evaluate outputs
+\item \textbf{Orchestrator agent:} coordinate workflow
+\end{itemize}
+
+This aligns with emerging research in multi-agent creative systems.
+
+\subsection{User Interface Design}
+
+A practical implementation requires interfaces that expose:
+
+\begin{itemize}
+\item branching interpretations
+\item layer controls
+\item action graphs
+\item variation comparisons
+\end{itemize}
+
+Such interfaces would enable intuitive human control over complex generative systems.
+
+\subsection{Tool Integration}
+
+CNTS can be integrated with existing tools:
+
+\begin{itemize}
+\item video generation systems
+\item editing software
+\item asset libraries
+\end{itemize}
+
+The framework acts as a coordination layer rather than a replacement.
+
+\subsection{Formal Extensions}
+
+Future work may include:
+
+\begin{itemize}
+\item formal proofs of MPOM properties
+\item optimization of attention functions
+\item probabilistic modeling of viewer perception
+\end{itemize}
+
+\subsection{Evaluation Research}
+
+A major open question is how to measure creative quality. Hybrid approaches combining structural metrics and human evaluation may be required.
+
+\section{Appendix}
+
+\subsection{Example Prompt Template}
+
+\begin{verbatim}
+SHOT TYPE +
+ACTION SET +
+STYLE +
+CAMERA +
+AUDIO
+\end{verbatim}
+
+\subsection{Example Action Graph}
+
+\[
+v_1 = (\text{Widow}, \text{lift lid}, 0.9, 0.0)
+\]
+\[
+v_2 = (\text{Host}, \text{observe}, 0.8, 0.2)
+\]
+\[
+v_3 = (\text{Daughter}, \text{react}, 0.6, 0.5)
+\]
+
+\subsection{System Diagram}
+
+\begin{figure}[h]
+\centering
+\fbox{
+\begin{minipage}{0.8\linewidth}
+Narrative → CNTP → LCCM → MPOM → Prompt Engine → AI Generation → Selection
+\end{minipage}
+}
+\caption{CNTS Transformation Pipeline}
+\end{figure}
+
+\subsection{Implementation Notes}
+
+\begin{itemize}
+\item prompts should encode only one dominant transformation at a time
+\item multiple variations should be generated per scene
+\item human evaluation is required for final selection
+\end{itemize}
+
+\subsection{FRFP Alignment Summary}
+
+CNTS maintains:
+
+\begin{itemize}
+\item explicit artifact generation (AI)
+\item tacit evaluation (human)
+\item separation between generation and endorsement
+\end{itemize}
+
+This ensures compatibility with FRFP constraints on human–AI collaboration.
+
+\reftitle{References}
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+
+\bibitem{frfp}
+V.~Nadendla.
+\newblock \emph{Foundational Reasoning and Feedback Protocol (FRFP): A Formal Architecture for Long-Horizon Human--AI Collaboration}.
+\newblock Preprint, 2025.
+
+\bibitem{frfp_limits}
+V.~Nadendla.
+\newblock \emph{FRFP Limits in Human--AI Collaboration: A Position Paper on Capability, Fragility, and Socioeconomic Consequences}.
+\newblock Preprint, 2025.
+
+\bibitem{frfp_white}
+V.~Nadendla.
+\newblock \emph{FRFP White Papers: Beyond Prompt Engineering and Epistemic Governance}.
+\newblock Preprint, 2025.
+
+\bibitem{polanyi}
+M.~Polanyi.
+\newblock \emph{The Tacit Dimension}.
+\newblock Routledge \& Kegan Paul, 1966.
+
+\bibitem{amershi}
+S.~Amershi, D.~Weld, M.~Vorvoreanu, A.~Fourney, B.~Nushi, P.~Collisson, J.~Suh, S.~Iqbal, P.~Bennett, K.~Inkpen, J.~Teevan, R.~Kikin-Gil, and E.~Horvitz.
+\newblock Guidelines for human--AI interaction.
+\newblock In \emph{Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems}, 2019.
+
+\bibitem{park}
+J.~Park, J.~O’Brien, C.~Cai, M.~Morris, P.~Liang, and M.~Bernstein.
+\newblock Generative agents: Interactive simulacra of human behavior.
+\newblock In \emph{Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology (UIST)}, 2023.
+
+\bibitem{crea}
+Anonymous.
+\newblock \emph{CREA: A Multi-Agent Framework for Creative Generation}.
+\newblock arXiv preprint, 2025.
+
+\bibitem{multimodal}
+Y.~Zhang et~al.
+\newblock Multimodal generative models for video synthesis: A survey.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 2024.
+
+\bibitem{hci_ai}
+B.~Shneiderman.
+\newblock Human-centered artificial intelligence: Reliable, safe and trustworthy.
+\newblock \emph{International Journal of Human--Computer Interaction}, 2020.
+
+\end{thebibliography}
+
+\end{document}
+\section{How to Use this Template}
+
+The template details the sections that can be used in a manuscript. Note that the order and names of article sections may differ from the requirements of the journal (e.g., the positioning of the Materials and Methods section). Please check the instructions on the authors' page of the journal to verify the correct order and names. For any questions, please contact the editorial office of the journal or support@mdpi.com. For LaTeX-related questions please contact latex@mdpi.com.%\endnote{This is an endnote.} % To use endnotes, please un-comment \printendnotes below (before References). Only journal Laws uses \footnote.
+
+% The order of the section titles is different for some journals. Please refer to the "Instructions for Authors” on the journal homepage.
+
+\section{Introduction}
+
+The introduction should briefly place the study in a broad context and highlight why it is important. It should define the purpose of the work and its significance. The current state of the research field should be reviewed carefully and key publications cited. Please highlight controversial and diverging hypotheses when necessary. Finally, briefly mention the main aim of the work and highlight the principal conclusions. As far as possible, please keep the introduction comprehensible to scientists outside your particular field of research. Citing a journal paper \citep{ref-journal}.  Now citing a book reference \citep{ref-book1,ref-book2} or other reference types \citep{ref-unpublish,ref-url}. Please use the command \citep{ref-proceeding,ref-thesis} for the following MDPI journals, which use author--date citation: Administrative Sciences, Arts, Behavioral Sciences, Businesses, Econometrics, Economies, Education Sciences, European Journal of Investigation in Health, Psychology and Education, Games, Genealogy, Histories, Humanities, Humans, IJFS, Journal of Intelligence, Journalism and Media, JRFM, Languages, Laws, Literature, Psychology International, Publications, Religions, Risks, Social Sciences, Tourism and Hospitality, Youth. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Materials and Methods}
+
+Materials and Methods should be described with sufficient details to allow others to replicate and build on published results. Please note that publication of your manuscript implicates that you must make all materials, data, computer code, and protocols associated with the publication available to readers. Please disclose at the submission stage any restrictions on the availability of materials or information. New methods and protocols should be described in detail while well-established methods can be briefly described and appropriately cited.
+
+Research manuscripts reporting large datasets that are deposited in a publicly avail-able database should specify where the data have been deposited and provide the relevant accession numbers. If the accession numbers have not yet been obtained at the time of submission, please state that they will be provided during review. They must be provided prior to publication.
+
+Interventionary studies involving animals or humans, and other studies require ethical approval must list the authority that provided approval and the corresponding ethical approval code.
+\begin{quote}
+This is an example of a quote.
+\end{quote}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+This section may be divided by subheadings. It should provide a concise and precise description of the experimental results, their interpretation as well as the experimental conclusions that can be drawn.
+\subsection{Subsection}
+\subsubsection{Subsubsection}
+
+Bulleted lists look like this:
+\begin{itemize}
+\item	First bullet;
+\item	Second bullet;
+\item	Third bullet.
+\end{itemize}
+
+Numbered lists can be added as follows:
+\begin{enumerate}
+\item	First item; 
+\item	Second item;
+\item	Third item.
+\end{enumerate}
+
+The text continues here.
+
+\subsection{Figures, Tables and Schemes}
+
+All figures and tables should be cited in the main text as Figure~\ref{fig1}, Table~\ref{tab1}, etc.
+
+\begin{figure}[H]
+\isPreprints{\centering}{} % Only used for preprints
+\includegraphics[width=7 cm]{Definitions/logo-mdpi}
+\caption{This is a figure. Schemes follow the same formatting.\label{fig1}}
+\end{figure}   
+\unskip
+
+\begin{table}[H] 
+%\tablesize{\small}
+\caption{This is a table caption. Tables should be placed in the main text near to the first time they are~cited.\label{tab1}}
+%\isPreprints{\centering}{} % Only used for preprints
+\begin{tabularx}{\textwidth}{CCC}
+\toprule
+\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}\\
+\midrule
+Entry 1		& Data			& Data\\
+Entry 2		& Data			& Data \textsuperscript{1}\\
+\bottomrule
+\end{tabularx}
+
+\noindent{\footnotesize{\textsuperscript{1} Tables may have a footer.}}
+\end{table}
+
+The text continues here (Figure~\ref{fig2} and Table~\ref{tab2}).
+
+% Example of a figure that spans the whole page width and with subfigures. The same concept works for tables, too.
+\begin{figure}[H]
+\centering
+\isPreprints{}{% This command is only used for ``preprints''.
+\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}
+\hfill
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}\\
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}
+\hfill
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}
+\isPreprints{}{% This command is only used for ``preprints''.
+\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\caption{This is a wide figure. Schemes follow the same formatting. If there are multiple panels, they should be listed as: (\textbf{a}) Description of what is contained in the first panel. (\textbf{b}) Description of what is contained in the second panel. (\textbf{c}) Description of what is contained in the third panel. (\textbf{d}) Description of what is contained in the fourth panel. Figures should be placed in the main text near to the first time they are cited. A caption on a single line should be centered.\label{fig2}}
+\end{figure} 
+
+\begin{table}[H]
+\caption{This is a wide table.\label{tab2}}
+\isPreprints{\centering}{% This command is only used for ``preprints''.
+	\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\isPreprints{\begin{tabularx}{\textwidth}{CCCC}}{% This command is only used for ``preprints''.
+		\begin{tabularx}{\fulllength}{CCCC}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+			\toprule
+			\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}     & \textbf{Title 4}\\
+			\midrule
+\multirow[m]{3}{*}{Entry 1 *}	& Data			& Data			& Data\\
+			  	                   & Data			& Data			& Data\\
+			             	      & Data			& Data			& Data\\
+                   \midrule
+\multirow[m]{3}{*}{Entry 2}    & Data			& Data			& Data\\
+			  	                  & Data			& Data			& Data\\
+			             	     & Data			& Data			& Data\\
+			\bottomrule
+		\end{tabularx}
+		\isPreprints{}{% This command is only used for ``preprints''.
+	\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+	\noindent{\footnotesize{* Tables may have a footer.}}
+\end{table}
+
+%\begin{listing}[H]
+%\caption{Title of the listing}
+%\rule{\columnwidth}{1pt}
+%\raggedright Text of the listing. In font size footnotesize, small, or normalsize. Preferred format: left aligned and single spaced. Preferred border format: top border line and bottom border line.
+%\rule{\columnwidth}{1pt}
+%\end{listing}
+
+Text.
+
+Text.
+
+\subsection{Formatting of Mathematical Components}
+
+This is the example 1 of equation:
+\begin{linenomath}
+\begin{equation}
+a = 1,
+\end{equation}
+\end{linenomath}
+the text following an equation need not be a new paragraph. Please punctuate equations as regular text.
+%% If the documentclass option "submit" is chosen, please insert a blank line before and after any math environment (equation and eqnarray environments). This ensures correct linenumbering. The blank line should be removed when the documentclass option is changed to "accept" because the text following an equation should not be a new paragraph.
+
+This is the example 2 of equation:
+\isPreprints{}{% This command is only used for ``preprints''.
+\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\begin{equation}
+a = b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z
+\end{equation}
+\isPreprints{}{% This command is only used for ``preprints''.
+\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+
+%% Example of a page in landscape format (with table and table footnote).
+%\startlandscape
+%\begin{table}[H] %% Table in wide page
+%%\isPreprints{\centering}{} % This command is only used for ``preprints''.
+%\caption{This is a very wide table.\label{tab3}}
+%	\begin{tabularx}{\textwidth}{CCCC}
+%		\toprule
+%		\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}	& \textbf{Title 4}\\
+%		\midrule
+%		Entry 1		& Data			& Data			& This cell has some longer content that runs over two lines.\\
+%		Entry 2		& Data			& Data			& Data\textsuperscript{1}\\
+%		\bottomrule
+%	\end{tabularx}
+%%\isPreprints{}{% This command is only used for ``preprints''.
+%	\begin{adjustwidth}{+\extralength}{0cm}
+%%} % If the paper is ``preprints'', please uncomment this parenthesis.
+%		\noindent\footnotesize{\textsuperscript{1} This is a table footnote.}
+%%\isPreprints{}{% This command is only used for ``preprints''.
+%	\end{adjustwidth}
+%%} % If the paper is ``preprints'', please uncomment this parenthesis.
+%\end{table}
+%\finishlandscape
+
+
+Please punctuate equations as regular text. Theorem-type environments (including propositions, lemmas, corollaries etc.) can be formatted as follows:
+%% Example of a theorem:
+\begin{Theorem}
+Example text of a theorem.
+\end{Theorem}
+
+The text continues here. Proofs must be formatted as follows:
+
+%% Example of a proof:
+\begin{proof}[Proof of Theorem 1]
+Text of the proof. Note that the phrase ``of Theorem 1'' is optional if it is clear which theorem is being referred to.
+\end{proof}
+The text continues here.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+Authors should discuss the results and how they can be interpreted from the perspective of previous studies and of the working hypotheses. The findings and their implications should be discussed in the broadest context possible. Future research directions may also be highlighted.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+
+This section is not mandatory, but can be added to the manuscript if the discussion is unusually long or complex.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Patents}
+
+This section is not mandatory, but may be added if there are patents resulting from the work reported in this manuscript.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{6pt} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+%\supplementary{The following supporting information can be downloaded at:  \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title.}
+
+% Only for journal Methods and Protocols:
+% If you wish to submit a video article, please do so with any other supplementary material.
+% \supplementary{The following supporting information can be downloaded at: \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title. A supporting video article is available at doi: link.}
+
+% Only used for preprtints:
+% \supplementary{The following supporting information can be downloaded at the website of this paper posted on \href{https://www.preprints.org/}{Preprints.org}.}
+
+% Only for journal Hardware:
+% If you wish to submit a video article, please do so with any other supplementary material.
+% \supplementary{The following supporting information can be downloaded at: \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title.\vspace{6pt}\\
+%\begin{tabularx}{\textwidth}{lll}
+%\toprule
+%\textbf{Name} & \textbf{Type} & \textbf{Description} \\
+%\midrule
+%S1 & Python script (.py) & Script of python source code used in XX \\
+%S2 & Text (.txt) & Script of modelling code used to make Figure X \\
+%S3 & Text (.txt) & Raw data from experiment X \\
+%S4 & Video (.mp4) & Video demonstrating the hardware in use \\
+%... & ... & ... \\
+%\bottomrule
+%\end{tabularx}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcontributions{For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used ``Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.'', please turn to the  \href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work~reported.}
+
+\funding{Please add: ``This research received no external funding'' or ``This research was funded by NAME OF FUNDER grant number XXX.'' and  and ``The APC was funded by XXX''. Check carefully that the details given are accurate and use the standard spelling of funding agency names at \url{https://search.crossref.org/funding}, any errors may affect your future funding.}
+
+\institutionalreview{In this section, you should add the Institutional Review Board Statement and approval number, if relevant to your study. You might choose to exclude this statement if the study did not require ethical approval. Please note that the Editorial Office might ask you for further information. Please add “The study was conducted in accordance with the Declaration of Helsinki, and approved by the Institutional Review Board (or Ethics Committee) of NAME OF INSTITUTE (protocol code XXX and date of approval).” for studies involving humans. OR “The animal study protocol was approved by the Institutional Review Board (or Ethics Committee) of NAME OF INSTITUTE (protocol code XXX and date of approval).” for studies involving animals. OR “Ethical review and approval were waived for this study due to REASON (please provide a detailed justification).” OR “Not applicable” for studies not involving humans or animals.}
+
+\informedconsent{Any research article describing a study involving humans should contain this statement. Please add ``Informed consent was obtained from all subjects involved in the study.'' OR ``Patient consent was waived due to REASON (please provide a detailed justification).'' OR ``Not applicable'' for studies not involving humans. You might also choose to exclude this statement if the study did not involve humans.
+
+Written informed consent for publication must be obtained from participating patients who can be identified (including by the patients themselves). Please state ``Written informed consent has been obtained from the patient(s) to publish this paper'' if applicable.}
+
+\dataavailability{We encourage all authors of articles published in MDPI journals to share their research data. In this section, please provide details regarding where data supporting reported results can be found, including links to publicly archived datasets analyzed or generated during the study. Where no new data were created, or where data is unavailable due to privacy or ethical restrictions, a statement is still required. Suggested Data Availability Statements are available in section ``MDPI Research Data Policies'' at \url{https://www.mdpi.com/ethics}.} 
+
+% Only for journal Drones
+%\durcstatement{Current research is limited to the [please insert a specific academic field, e.g., XXX], which is beneficial [share benefits and/or primary use] and does not pose a threat to public health or national security. Authors acknowledge the dual-use potential of the research involving xxx and confirm that all necessary precautions have been taken to prevent potential misuse. As an ethical responsibility, authors strictly adhere to relevant national and international laws about DURC. Authors advocate for responsible deployment, ethical considerations, regulatory compliance, and transparent reporting to mitigate misuse risks and foster beneficial outcomes.}
+
+% Only for journal Nursing Reports
+%\publicinvolvement{Please describe how the public (patients, consumers, carers) were involved in the research. Consider reporting against the GRIPP2 (Guidance for Reporting Involvement of Patients and the Public) checklist. If the public were not involved in any aspect of the research add: ``No public involvement in any aspect of this research''.}
+%
+%% Only for journal Nursing Reports
+%\guidelinesstandards{Please add a statement indicating which reporting guideline was used when drafting the report. For example, ``This manuscript was drafted against the XXX (the full name of reporting guidelines and citation) for XXX (type of research) research''. A complete list of reporting guidelines can be accessed via the equator network: \url{https://www.equator-network.org/}.}
+%
+%% Only for journal Nursing Reports
+%\useofartificialintelligence{Please describe in detail any and all uses of artificial intelligence (AI) or AI-assisted tools used in the preparation of the manuscript. This may include, but is not limited to, language translation, language editing and grammar, or generating text. Alternatively, please state that “AI or AI-assisted tools were not used in drafting any aspect of this manuscript”.}
+
+\acknowledgments{In this section you can acknowledge any support given which is not covered by the author contribution or funding sections. This may include administrative and technical support, or donations in kind (e.g., materials used for experiments).}
+
+\conflictsofinterest{Declare conflicts of interest or state ``The authors declare no conflicts of interest.'' Authors must identify and declare any personal circumstances or interest that may be perceived as inappropriately influencing the representation or interpretation of reported research results. Any role of the funders in the design of the study; in the collection, analyses or interpretation of data; in the writing of the manuscript; or in the decision to publish the results must be declared in this section. If there is no role, please state ``The funders had no role in the design of the study; in the collection, analyses, or interpretation of data; in the writing of the manuscript; or in the decision to publish the results''.} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+
+%% Only for journal Encyclopedia
+%\entrylink{The Link to this entry published on the encyclopedia platform.}
+
+\abbreviations{Abbreviations}{
+The following abbreviations are used in this manuscript:\\
+
+\noindent 
+\begin{tabular}{@{}ll}
+MDPI & Multidisciplinary Digital Publishing Institute\\
+DOAJ & Directory of open access journals\\
+TLA & Three letter acronym\\
+LD & Linear dichroism
+\end{tabular}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+\appendixtitles{no} % Leave argument "no" if all appendix headings stay EMPTY (then no dot is printed after "Appendix A"). If the appendix sections contain a heading then change the argument to "yes".
+\appendixstart
+\appendix
+\section[\appendixname~\thesection]{}
+\subsection[\appendixname~\thesubsection]{}
+The appendix is an optional section that can contain details and data supplemental to the main text---for example, explanations of experimental details that would disrupt the flow of the main text but nonetheless remain crucial to understanding and reproducing the research shown; figures of replicates for experiments of which representative data are shown in the main text can be added here if brief, or as Supplementary Data. Mathematical proofs of results not central to the paper can be added as an appendix.
+
+\begin{table}[H] 
+\caption{This is a table caption.\label{tab5}}
+%\newcolumntype{C}{>{\centering\arraybackslash}X}
+\begin{tabularx}{\textwidth}{CCC}
+\toprule
+\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}\\
+\midrule
+Entry 1		& Data			& Data\\
+Entry 2		& Data			& Data\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section[\appendixname~\thesection]{}
+All appendix sections must be cited in the main text. In the appendices, Figures, Tables, etc. should be labeled, starting with ``A''---e.g., Figure A1, Figure A2, etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\isPreprints{}{% This command is only used for ``preprints''.
+\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+%\printendnotes[custom] % Un-comment to print a list of endnotes
+
+\reftitle{References}
+
+% Please provide either the correct journal abbreviation (e.g. according to the “List of Title Word Abbreviations” http://www.issn.org/services/online-services/access-to-the-ltwa/) or the full name of the journal.
+% Citations and References in Supplementary files are permitted provided that they also appear in the reference list here. 
+
+%=====================================
+% References, variant A: external bibliography
+%=====================================
+% \bibliography{your_external_BibTeX_file}
+
+%=====================================
+% References, variant B: internal bibliography
+%=====================================
+
+% ACS format
+\isAPAandChicago{}{%
+\begin{thebibliography}{999}
+% Reference 1
+\bibitem[Author1(year)]{ref-journal}
+Author~1, T. The title of the cited article. {\em Journal Abbreviation} {\bf 2008}, {\em 10}, 142--149.
+% Reference 2
+\bibitem[Author2(year)]{ref-book1}
+Author~2, L. The title of the cited contribution. In {\em The Book Title}; Editor 1, F., Editor 2, A., Eds.; Publishing House: City, Country, 2007; pp. 32--58.
+% Reference 3
+\bibitem[Author1 and Author2 (year)]{ref-book2}
+Author 1, A.; Author 2, B. \textit{Book Title}, 3rd ed.; Publisher: Publisher Location, Country, 2008; pp. 154--196.
+% Reference 4
+\bibitem[Author4(year)]{ref-unpublish}
+Author 1, A.B.; Author 2, C. Title of Unpublished Work. \textit{Abbreviated Journal Name} year, \textit{phrase indicating stage of publication (submitted; accepted; in press)}.
+% Reference 5
+\bibitem[Author8(year)]{ref-url}
+Title of Site. Available online: URL (accessed on Day Month Year).
+% Reference 6
+\bibitem[Author6(year)]{ref-proceeding}
+Author 1, A.B.; Author 2, C.D.; Author 3, E.F. Title of presentation. In Proceedings of the Name of the Conference, Location of Conference, Country, Date of Conference (Day Month Year); Abstract Number (optional), Pagination (optional).
+% Reference 7
+\bibitem[Author7(year)]{ref-thesis}
+Author 1, A.B. Title of Thesis. Level of Thesis, Degree-Granting University, Location of University, Date of Completion.
+\end{thebibliography}
+}
+
+% Chicago format (Used for journal: arts, genealogy, histories, humanities, jintelligence, laws, literature, religions, risks, socsci)
+\isChicagoStyle{%
+\begin{thebibliography}{999}
+% Reference 1
+\bibitem[Aranceta-Bartrina(1999a)]{ref-journal}
+Aranceta-Bartrina, Javier. 1999a. Title of the cited article. \textit{Journal Title} 6: 100--10.
+% Reference 2
+\bibitem[Aranceta-Bartrina(1999b)]{ref-book1}
+Aranceta-Bartrina, Javier. 1999b. Title of the chapter. In \textit{Book Title}, 2nd ed. Edited by Editor 1 and Editor 2. Publication place: Publisher, vol. 3, pp. 54–96.
+% Reference 3
+\bibitem[Baranwal and Munteanu {[1921]}(1955)]{ref-book2}
+Baranwal, Ajay K., and Costea Munteanu. 1955. \textit{Book Title}. Publication place: Publisher, pp. 154--96. First published 1921 (op-tional).
+% Reference 4
+\bibitem[Berry and Smith(1999)]{ref-thesis}
+Berry, Evan, and Amy M. Smith. 1999. Title of Thesis. Level of Thesis, Degree-Granting University, City, Country. Identifi-cation information (if available).
+% Reference 5
+\bibitem[Cojocaru et al.(1999)]{ref-unpublish}
+Cojocaru, Ludmila, Dragos Constatin Sanda, and Eun Kyeong Yun. 1999. Title of Unpublished Work. \textit{Journal Title}, phrase indicating stage of publication.
+% Reference 6
+\bibitem[Driver et al.(2000)]{ref-proceeding}
+Driver, John P., Steffen Rohrs, and Sean Meighoo. 2000. Title of Presentation. In \textit{Title of the Collected Work} (if available). Paper presented at Name of the Conference, Location of Conference, Date of Conference.
+% Reference 7
+\bibitem[Harwood(2008)]{ref-url}
+Harwood, John. 2008. Title of the cited article. Available online: URL (accessed on Day Month Year).
+\end{thebibliography}
+}{}
+
+% APA format (Used for journal: admsci, behavsci, businesses, econometrics, economies, education, ejihpe, games, humans, ijfs, journalmedia, jrfm, languages, psycholint, publications, tourismhosp, youth)
+\isAPAStyle{%
+\begin{thebibliography}{999}
+% Reference 1
+\bibitem[\protect\citeauthoryear{Azikiwe \BBA\ Bello}{{2020a}}]{ref-journal}
+Azikiwe, H., \& Bello, A. (2020a). Title of the cited article. \textit{Journal Title}, \textit{Volume}(Issue), 
+Firstpage--Lastpage/Article Number.
+% Reference 2
+\bibitem[\protect\citeauthoryear{Azikiwe \BBA\ Bello}{{2020b}}]{ref-book1}
+Azikiwe, H., \& Bello, A. (2020b). \textit{Book title}. Publisher Name.
+% Reference 3
+\bibitem[Davison(1623/2019)]{ref-book2}
+Davison, T. E. (2019). Title of the book chapter. In A. A. Editor (Ed.), \textit{Title of the book: Subtitle} 
+(pp. Firstpage--Lastpage). Publisher Name. (Original work published 1623) (Optional).
+% Reference 4
+\bibitem[Fistek et al.(2017)]{ref-proceeding}
+Fistek, A., Jester, E., \& Sonnenberg, K. (2017, Month Day). Title of contribution [Type of contribution]. Conference Name, Conference City, Conference Country.
+% Reference 5
+\bibitem[Hutcheson(2012)]{ref-thesis}
+Hutcheson, V. H. (2012). \textit{Title of the thesis} [XX Thesis, Name of Institution Awarding the Degree].
+% Reference 6
+\bibitem[Lippincott \& Poindexter(2019)]{ref-unpublish}
+Lippincott, T., \& Poindexter, E. K. (2019). \textit{Title of the unpublished manuscript} [Unpublished manuscript/Manuscript in prepara-tion/Manuscript submitted for publication]. Department Name, Institution Name.
+% Reference 7
+\bibitem[Harwood(2008)]{ref-url}
+Harwood, J. (2008). \textit{Title of the cited article}. Available online: URL (accessed on Day Month Year).
+\end{thebibliography}
+}{}
+
+% If authors have biography, please use the format below
+%\section*{Short Biography of Authors}
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author1.pdf}}}
+%{\textbf{Firstname Lastname} Biography of first author}
+%
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author2.jpg}}}
+%{\textbf{Firstname Lastname} Biography of second author}
+
+% For the MDPI journals use author-date citation, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PublishersNote{}
+\isPreprints{}{% This command is only used for ``preprints''.
+\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\end{document}
+

@@ -1,0 +1,334 @@
+% ============================================================
+% Appendix Z.9 — FRFP Case Study (Science / Discovery):
+% AlphaFold and the Protein Structure Revolution
+% ============================================================
+
+\section{FRFP Case Study (Science / Discovery): AlphaFold}
+\label{app:frfp-alphafold}
+
+This appendix analyses DeepMind’s AlphaFold as an FRFP case study in
+long-horizon scientific discovery.
+We focus on how AlphaFold’s design and deployment interact with the FRFP
+architecture: explicit/tacit separation, boundary design, safe horizons, and
+institutional semantics in the life sciences.
+
+\subsection{Background}
+
+Predicting a protein’s three-dimensional structure from its amino-acid
+sequence was a central open problem in structural biology for roughly
+50~years.
+Experimental techniques such as X-ray crystallography, NMR, and cryo-EM are
+precise but slow, expensive, and unevenly distributed across labs.
+
+In 2020, at the CASP14 (Critical Assessment of protein Structure Prediction)
+competition, DeepMind’s AlphaFold2 demonstrated unprecedented accuracy:
+for many targets it predicted backbone atom positions with median error
+$\lesssim 1$~\AA, substantially outperforming all other methods and reaching
+a level CASP’s organisers described as effectively ``solving'' the protein
+folding problem for many single-chain proteins.
+
+Subsequently:
+
+\begin{itemize}
+  \item DeepMind and EMBL–EBI released the AlphaFold Protein Structure
+        Database (AF-DB), which by 2024 covered over 214~million protein
+        sequences across most known organisms, a $\sim$500-fold expansion
+        relative to the initial 2021 release.
+  \item AF-DB increased structural coverage of the human proteome from
+        roughly 48\% to about 76\% of residues, dramatically shrinking the
+        set of proteins with no structural information.
+  \item AlphaFold and related tools have been used in thousands of research
+        projects, including studies of nuclear pore complexes, malaria and
+        neglected disease targets, and antibiotic resistance, and are now
+        integrated into mainstream structural biology workflows.
+  \item AlphaFold~3, released in 2024, extends predictions to protein
+        complexes and interactions with ligands, nucleic acids, and
+        antibodies, targeting drug design more directly.
+\end{itemize}
+
+This makes AlphaFold an outstanding example of AI success that is tightly
+coupled to human scientific practice and data ecosystems, rather than a
+standalone agent.
+
+\subsection{Explicit and Tacit Spaces in Structural Biology}
+
+\subsubsection*{Explicit space \(E_{\mathrm{AF}}\)}
+
+For AlphaFold and AF-DB, explicit space comprises:
+
+\begin{itemize}
+  \item amino-acid sequences from UniProt / UniRef and other databases;
+  \item multiple sequence alignments (MSAs) and evolutionary couplings;
+  \item experimentally determined structures in the Protein Data Bank (PDB);
+  \item AlphaFold’s network parameters and prediction code;
+  \item predicted 3D structures, per-residue confidence scores (pLDDT),
+        and predicted aligned error (PAE) matrices;
+  \item AF-DB, which serves predictions and metadata via web, APIs, and bulk
+        download.
+\end{itemize}
+
+These are all artefacts in \(E_{\mathrm{AF}}\):
+bits and tensors that can be processed by machines, versioned, and shared.
+
+\subsubsection*{Tacit space \(T_{\mathrm{bio}}\)}
+
+Tacit space is the community’s scientific understanding:
+
+\begin{itemize}
+  \item structural biologists’ intuition about protein domains, flexibility,
+        disorder, and function;
+  \item medicinal chemists’ sense of ligandability, binding-site quality,
+        and risk of false positives in virtual screening;
+  \item experimentalists’ judgement about which predictions are good enough
+        to guide experiments, and where empirical validation is essential;
+  \item institutions’ and funders’ beliefs about the value and limitations
+        of in~silico structure prediction in drug discovery pipelines.
+\end{itemize}
+
+Correctness in science is ultimately judged in this tacit space:
+by whether findings replicate, support plausible mechanistic narratives, and
+fit into broader theoretical and empirical structures.
+
+\subsection{Boundary Design: Predictions vs.\ Scientific Claims}
+
+\subsubsection*{Formal interface: predictions with uncertainty}
+
+AlphaFold’s design and release strategy incorporate explicit boundary
+elements between its outputs and scientific conclusions:
+
+\begin{itemize}
+  \item Each structure prediction comes with per-residue confidence scores
+        (pLDDT) and PAE maps, making uncertainty explicit and machine- and
+        human-readable.
+  \item AF-DB documentation clearly states that predictions are not a
+        substitute for experiments, especially for low-confidence regions,
+        disordered proteins, and conformationally dynamic systems.
+  \item The system is framed as providing structural hypotheses and
+        starting points for further work, not definitive answers about
+        function or druggability.
+\end{itemize}
+
+In FRFP terms, the boundary functor \(J{-}K\) maps explicit predictions in
+\(E_{\mathrm{AF}}\) into tacit states \(T_{\mathrm{bio}}\) via:
+
+\begin{itemize}
+  \item scientists’ interpretation of pLDDT/PAE as reliability signals;
+  \item domain-specific heuristics about when to trust or discount
+        AlphaFold models;
+  \item peer-review and replication processes that convert structural
+        hypotheses into accepted knowledge.
+\end{itemize}
+
+\subsubsection*{De facto use: high trust, but still mediated}
+
+Empirically, the community has come to treat AlphaFold structures as:
+
+\begin{itemize}
+  \item near-experimental quality for many well-behaved, single-chain,
+        globular proteins with high-confidence scores;
+  \item less reliable for intrinsically disordered regions, flexible loops,
+        large complexes, and ligand-bound conformations;
+  \item excellent starting models for phasing crystallographic data or
+        building cryo-EM models, substantially accelerating standard
+        experimental pipelines.
+\end{itemize}
+
+From an FRFP standpoint:
+
+\begin{itemize}
+  \item the boundary remains with human scientists and experimentalists;
+  \item AlphaFold outputs strongly inform tacit reasoning but are not, in
+        general, treated as final claims about mechanism or drug efficacy;
+  \item this arrangement---highly capable explicit system plus robust tacit
+        interpretation---is relatively close to an FRFP-aligned design.
+\end{itemize}
+
+\subsection{Protocol-Level Properties in FRFP Terms}
+
+\subsubsection*{Z.9.1 Explicit-Space Strength:
+  A Mature, Well-Specified Semantics}
+
+AlphaFold’s explicit semantics are unusually strong for an AI system:
+
+\begin{itemize}
+  \item The task is well-defined:
+        map a sequence to a static 3D structure under standard physical
+        conventions, up to known caveats (flexibility, alternate states).
+  \item Ground truth exists:
+        experimentally-determined structures provide a rich, high-quality,
+        globally shared reference database (PDB).
+  \item Evaluation protocols (CASP) offer strict, blind metrics for accuracy,
+        with community acceptance of what counts as ``good enough''.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item the mapping
+        \(
+          f_{\mathrm{AF}} : \text{sequence, MSAs} \to \text{structure}
+        \)
+        has a clear semantics and strong external validation;
+  \item $E_{\mathrm{AF}}$ is unusually close to a self-contained domain of
+        explicit artefacts whose correctness can be assessed without
+        extensive recourse to tacit local context;
+  \item this is precisely the kind of problem where FRFP expects explicit AI
+        to be able to ``go far'' safely before requiring tacit correction.
+\end{itemize}
+
+\subsubsection*{Z.9.2 Explicit Transparency: Confidence and Coverage}
+
+Key design choices that support FRFP-style use:
+
+\begin{itemize}
+  \item Per-residue pLDDT scores and PAE maps provide structured, explicit
+        uncertainty, allowing downstream users to modulate trust.
+  \item AF-DB exposes coverage and confidence statistics across proteomes,
+        clarifying where the system is strong vs.\ weak.
+  \item Documentation emphasises limitations: dynamics, complexes, and ligand
+        binding are only partially captured, especially for AlphaFold2-era
+        models.
+\end{itemize}
+
+This explicit communication of uncertainty and domain of competence is an
+instance of FRFP’s recommendation that explicit pipelines carry their own
+self-descriptions and limits, making boundary decisions in \(T_{\mathrm{bio}}\)
+better informed.
+
+\subsubsection*{Z.9.3 Safe Horizons in Scientific Use}
+
+Although AlphaFold is powerful, its safe usage horizons are still bounded:
+
+\begin{itemize}
+  \item For many basic structural biology tasks (e.g.\ annotating domain
+        architectures, suggesting mutational impacts on stability),
+        predictions can be used relatively directly, within the guardrails of
+        pLDDT/PAE.
+  \item For mechanistic inferences and drug discovery (binding energetics,
+        allosteric regulation, conformational ensembles), AlphaFold outputs
+        are starting points that must be combined with other modelling and
+        experimental data.
+  \item Structural biology remains an iterative loop:
+        predictions suggest experiments; experiments confirm, refine, or
+        refute predictions; tacit understanding evolves accordingly.
+\end{itemize}
+
+FRFP’s safe-horizon lens thus suggests:
+
+\begin{itemize}
+  \item AlphaFold enables very long runs in explicit structure space, but
+        tacit scientific correctness is safeguarded by experimental
+        validation and peer review;
+  \item attempts to push AlphaFold beyond these horizons---e.g.\ to fully
+        automate target validation and drug design without adequate data---are
+        precisely where current AI drug discovery efforts have struggled.
+\end{itemize}
+
+\subsection{Institutional and Ecosystem-Level Semantics}
+
+\subsubsection*{Open Data and Shared Infrastructure}
+
+AlphaFold’s impact is amplified by institutional choices:
+
+\begin{itemize}
+  \item AF-DB is freely accessible and integrated with UniProt, InterPro,
+        and other resources, functioning as a public infrastructure layer for
+        structural biology.
+  \item This enables a large population of scientists to build tacit
+        understanding of when and how to use predictions, via thousands of
+        papers and lab practices.
+  \item OpenFold and related community projects extend and reimplement
+        AlphaFold-like models, allowing independent scrutiny and adaptation.
+\end{itemize}
+
+In FRFP terms, these institutions act as operators on the global tacit state
+of the structural biology community, spreading knowledge of AlphaFold’s
+capabilities and limits and helping to stabilise the explicit/tacit interface.
+
+\subsubsection*{Drug Discovery and Commercial Ecosystem}
+
+AlphaFold has also shaped commercial AI-for-drug-discovery:
+
+\begin{itemize}
+  \item companies like Isomorphic Labs and startups such as Latent Labs build
+        on AlphaFold-style models to design drugs and synthetic proteins;
+  \item large pharma consortia are now pooling structure data (e.g.\
+        OpenFold3 collaborations) to train next-generation structural models,
+        explicitly citing AlphaFold as a foundation.
+  \item industry analysts highlight AlphaFold as a key bright spot in an
+        otherwise slower-than-hyped AI drug discovery landscape.
+\end{itemize}
+
+Here, FRFP’s institutional semantics emphasise:
+
+\begin{itemize}
+  \item firms are treating AlphaFold outputs as high-quality explicit
+        artefacts that feed into broader, still-challenging tacit tasks
+        (biology, chemistry, clinical development);
+  \item where companies attempt to over-automate tacit scientific judgment
+        (e.g.\ fully AI-driven target selection with limited wet-lab work),
+        failures and delays mirror the non-automation claims in the main text.
+\end{itemize}
+
+\subsection{Counterfactual: FRFP Pitfalls AlphaFold Mostly Avoided}
+
+It is instructive to note which FRFP failure modes AlphaFold largely
+\emph{avoided}, compared to some failures in other case studies:
+
+\begin{itemize}
+  \item \textbf{Misplaced boundaries.}
+        AlphaFold was framed, and is mostly used, as a prediction tool feeding
+        into human-led science, not as an autonomous decision-maker about
+        patient care or investment. The boundary stays with scientists.
+  \item \textbf{Opaque or uncalibrated output.}
+        Confidence measures and evaluation benchmarks are built into the
+        explicit interface, reducing the risk of uncalibrated over-trust.
+  \item \textbf{Weak explicit semantics.}
+        The problem definition (static structure prediction) and evaluation
+        are unusually clean, unlike in domains such as legal reasoning or
+        clinical decision-making, where semantics are more entangled with tacit
+        norms.
+  \item \textbf{Closed, proprietary governance.}
+        By partnering with EMBL–EBI and releasing AF-DB openly, DeepMind
+        effectively created a shared institutional operator that diffuses
+        control and supports community governance and critique.
+\end{itemize}
+
+These design and deployment choices align AlphaFold more closely with FRFP’s
+principles than many other high-profile AI systems.
+
+\subsection{Lessons for FRFP and Scientific AI}
+
+AlphaFold provides a constructive counterpart to failure case studies:
+
+\begin{enumerate}
+  \item \textbf{Explicit problems with strong ground truth are fertile ground.}
+        FRFP predicts that domains with clear explicit semantics and robust
+        evaluation (like structure prediction) are particularly suitable for
+        powerful explicit AI systems.
+
+  \item \textbf{Uncertainty-aware interfaces support healthy boundaries.}
+        By surfacing confidence and error explicitly, AlphaFold helps
+        scientists keep correctness in tacit space, rather than blindly
+        trusting predictions.
+
+  \item \textbf{Open infrastructure shapes population-level tacit states.}
+        AF-DB and community reimplementations act as institutional operators
+        that propagate good usage norms and collective understanding of
+        limitations.
+
+  \item \textbf{Non-automation still applies downstream.}
+        Even with AlphaFold’s success, drug discovery and mechanistic biology
+        remain only partially automatable; tacit scientific judgment and
+        experimentation remain structurally indispensable.
+
+  \item \textbf{Formal FRFP analysis helps generalise from success.}
+        By analysing why AlphaFold works as a socio-technical system---not just
+        as a model---FRFP provides guidance for designing future scientific AI
+        tools that integrate explicit strength with tacit, institutional
+        oversight.
+\end{enumerate}
+
+In this sense, AlphaFold is both a triumph of explicit AI in a well-chosen
+domain and a demonstration of how FRFP-compatible infrastructure can amplify
+an AI breakthrough into a durable, community-wide scientific advance.

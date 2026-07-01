@@ -1,0 +1,66 @@
+\section{Human Validation Under FRFP}
+\label{sec:human_validation}
+
+Lean provides a correctness oracle for formal derivations. FRFP therefore does
+\emph{not} assign humans the task of re-checking proof steps that the Lean
+kernel has already validated. Instead, FRFP assigns humans a different role:
+governing claim intent, premise legitimacy, and publication scope.
+
+This project treats machine-checked proof and human governance as complementary,
+not interchangeable.
+
+\subsection{Why Human Validation Is Still Required}
+
+A kernel-accepted proof guarantees internal logical correctness relative to
+stated axioms and definitions. It does not guarantee that:
+\begin{enumerate}
+  \item the formal statement matches the intended policy or scientific claim,
+  \item the retained premises are normatively acceptable,
+  \item the selected abstraction boundary is appropriate for deployment.
+\end{enumerate}
+
+Under FRFP, these are tacit-space judgments and remain human responsibilities.
+
+\subsection{FRFP-Compliant Validation Protocol}
+
+Human validation follows the same FRFP separation principles used in the rest of
+this paper:
+\begin{enumerate}
+  \item \textbf{Statement validation}: confirm each theorem statement is semantically
+    aligned with the corresponding theory claim before publication claims
+    are finalized.
+  \item \textbf{Axiom legitimacy review}: verify each retained axiom is either an
+        explicit FRFP premise or source-grounded in published references.
+  \item \textbf{Normative residue review}: for each primitive assumption, record what
+        is mathematical skeleton and what is normative residue.
+  \item \textbf{Boundary authorization}: approve publication-level claims only after
+        human review of theorem mappings, caveats, and scope limits.
+\end{enumerate}
+
+\subsection{Validation Artifacts}
+
+To make human validation auditable, we maintain four artifact classes:
+\begin{enumerate}
+  \item Theory-to-Lean correspondence tables (Appendix~A and Appendix~F).
+  \item Axiom inventory and status audit (Appendix~A).
+  \item Architecture/dependency traceability (Appendix~B).
+  \item Proposal log for theory refinements surfaced by formalization (Appendix~C).
+\end{enumerate}
+
+\subsection{Operational Rule}
+
+In this FRFP formalization, \textbf{kernel acceptance is necessary but not
+sufficient} for publication claims. A claim is publication-valid only when both
+conditions hold:
+\begin{enumerate}
+  \item Lean accepts the formal proof (proof correctness criterion).
+  \item Human governance accepts semantic alignment, premise legitimacy, and
+        normative scope (publication criterion).
+\end{enumerate}
+
+This dual criterion preserves FRFP's human-grounded governance commitments while
+retaining the rigor of machine-checked proof.
+
+\subsection{Compact Principle}
+
+\textbf{Lean verifies proofs; humans validate commitments.}

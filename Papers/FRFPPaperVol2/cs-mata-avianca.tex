@@ -1,0 +1,363 @@
+% ============================================================
+% Appendix Z.6 — FRFP Case Study (Law / Professional Practice):
+% Mata v. Avianca and the Hallucinated Citations
+% ============================================================
+
+\section{FRFP Case Study (Law / Professional Practice): Mata v.\ Avianca and the Hallucinated Citations}
+\label{app:frfp-mata-avianca}
+
+This appendix examines \emph{Mata v.\ Avianca, Inc.} and the resulting
+sanctions for AI-generated fake case citations as a case study in FRFP terms.
+We treat the episode not as an isolated lawyer error, but as an instance of
+explicit/tacit confusion, boundary failure, and absent safe horizons in
+professional use of AI tools.
+
+\subsection{Background}
+
+In \emph{Mata v.\ Avianca, Inc.}, a personal injury suit in the Southern
+District of New York, plaintiff’s counsel used ChatGPT to generate portions
+of a brief opposing a motion to dismiss.
+The brief contained citations to multiple cases that did not exist, complete
+with plausible but fabricated quotations and docket numbers.
+
+When Avianca’s lawyers and the court were unable to locate several cited
+cases, Judge P.\ Kevin Castel ordered plaintiff’s counsel to provide copies.
+Counsel again turned to ChatGPT, which falsely asserted that the cases were
+real and available in standard databases.
+The lawyers then filed AI-generated ``opinions'' as if they were genuine.
+
+After an evidentiary hearing, Judge Castel sanctioned the two attorneys and
+their firm under Rule~11 and the court’s inherent authority, imposing a
+\$5{,}000 fine and requiring notification of the misconduct to affected
+parties.
+His opinion emphasised that:
+
+\begin{itemize}
+  \item the attorneys filed non-existent cases without adequate verification;
+  \item they persisted after warning signs (defence counsel and the court
+        could not locate the cases);
+  \item they misrepresented the status of their research to the court.
+\end{itemize}
+
+The case quickly became a touchstone for AI use in legal practice.
+Subsequent commentary and ethics opinions now routinely cite \emph{Mata v.\
+Avianca} as a landmark on lawyers’ duties when using generative AI.
+
+\subsection{Explicit and Tacit Spaces in Legal Practice}
+
+\subsubsection*{Explicit space \(E_{\mathrm{law}}\)}
+
+In FRFP terms, the explicit domain includes:
+
+\begin{itemize}
+  \item legal texts: statutes, regulations, case law, treatises, and
+        secondary sources;
+  \item legal documents: complaints, motions, briefs, affidavits, and
+        exhibits;
+  \item citations, quotation blocks, and argument structures in filings;
+  \item AI outputs: draft arguments, case lists, summaries, and suggested
+        citations.
+\end{itemize}
+
+All of this is manipulable by AI systems.
+Given prompts, a model can generate briefs, summaries, and case references
+that appear syntactically and stylistically plausible.
+
+\subsubsection*{Tacit space \(T_{\mathrm{law}}\)}
+
+Tacit space contains:
+
+\begin{itemize}
+  \item lawyers’ understanding of doctrinal structure, relevance, and
+        persuasive strategy;
+  \item professional judgment about what is arguable, what is frivolous,
+        and what is ethical;
+  \item local knowledge of court norms, opposing counsel, and practical
+        litigation constraints;
+  \item ethical commitments and fear of sanctions or reputational harm.
+\end{itemize}
+
+Correctness in law is not just about textual fit:
+it involves tacit assessments of authority, applicability, and integrity.
+
+\subsection{Boundary Design: Filing as a Tacit Endorsement}
+
+\subsubsection*{Formal boundary in litigation practice}
+
+Under FRFP, each filing is a boundary artefact:
+
+\begin{itemize}
+  \item a lawyer’s signature (physical or electronic) on a brief or motion is
+        a boundary event in \(T_{\mathrm{law}}\);
+  \item by signing, counsel tacitly endorses that:
+        \begin{itemize}
+          \item factual content has evidentiary support;
+          \item legal arguments are grounded in existing law or plausible
+                non-frivolous extensions;
+          \item citations correspond to real, relevant authorities.
+        \end{itemize}
+\end{itemize}
+
+Rule~11 and analogous ethical rules explicitly codify this boundary:
+they assign to lawyers the responsibility to verify the explicit artefacts
+they submit, regardless of who or what drafted them.
+
+\subsubsection*{Boundary confusion in Mata}
+
+In \emph{Mata v.\ Avianca}, the boundary between AI output and lawyer
+endorsement was blurred:
+
+\begin{itemize}
+  \item counsel treated ChatGPT’s outputs as if they were akin to traditional
+        research tool results, assuming it would not fabricate cases;
+  \item they did not independently verify the case citations in conventional
+        databases before filing;
+  \item even after opposing counsel and the court raised concerns, they
+        returned to ChatGPT to ``confirm'' the existence of the cases rather
+        than re-grounding in authoritative sources.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item the filing of the brief was treated as a mostly explicit operation
+        (exporting and submitting AI text), rather than a tacit endorsement
+        requiring intensive human evaluation;
+  \item correctness authority was informally ceded to the tool, contrary to
+        the formal boundary encoded in professional rules.
+\end{itemize}
+
+\subsection{Protocol-Level Failures in FRFP Terms}
+
+\subsubsection*{Z.6.1 Explicit-Space Hallucination and Semantic Fragility}
+
+\paragraph{Problem.}
+Generative models are known to \emph{hallucinate}:
+they produce fluent but fabricated content, including nonexistent cases and
+fake citations.
+In \emph{Mata}, ChatGPT:
+
+\begin{itemize}
+  \item generated case names, docket numbers, and quotes that mimicked real
+        federal decisions;
+  \item insisted, when queried, that the cases ``indeed exist'' and could be
+        found in Lexis or Westlaw;
+  \item produced PDFs with plausible formatting that further deceived counsel.
+\end{itemize}
+
+In FRFP language, the explicit semantics of the AI system for the task
+``produce supporting cases'' is structurally unsafe:
+
+\begin{itemize}
+  \item the mapping from prompts to outputs does not preserve a key invariant
+        (truthfulness or referential validity of citations);
+  \item the system has no internal notion of ``being grounded in the corpus
+        of real cases''; it only optimises for textual plausibility.
+\end{itemize}
+
+\paragraph{Consequence.}
+Even without any negligence at the boundary, such a system \emph{cannot} be
+treated as an oracle of case law.
+It is, at best, a suggestion engine.
+Treating its outputs as ready-to-file legal authority is an explicit-space
+misinterpretation.
+
+\subsubsection*{Z.6.2 Boundary Failure: From Tool to Surrogate Researcher}
+
+\paragraph{Problem.}
+The lawyers in \emph{Mata} effectively used ChatGPT as a surrogate legal
+researcher:
+
+\begin{itemize}
+  \item they asked it for cases supporting their proposition;
+  \item they accepted its answers without verifying them in standard research
+        tools;
+  \item they relied on its reassurances even after doubts were raised.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item the boundary between explicit AI generation and tacit legal
+        endorsement collapsed: the AI’s text crossed almost directly into
+        the filed brief;
+  \item the human role reduced to light editing and formatting, not
+        substantive verification;
+  \item the signature, a boundary marker, became decoupled from actual
+        tacit evaluation.
+\end{itemize}
+
+\paragraph{Consequence.}
+This is a textbook instance of \emph{boundary capture}:
+what should have been a human correctness function at filing time was, in
+effect, automated by an explicit system whose semantics do not support that
+role.
+
+\subsubsection*{Z.6.3 Missing Safe Horizons and Re-Grounding}
+
+\paragraph{Problem.}
+Use of AI tools for legal drafting and research is inherently long-horizon:
+
+\begin{itemize}
+  \item lawyers may come to rely on such tools daily or hourly across cases;
+  \item tacit skills in manual research and critical reading can degrade;
+  \item oversight can become perfunctory as trust in the tool grows.
+\end{itemize}
+
+In \emph{Mata}, the episode occurred relatively early in the legal
+profession’s encounter with generative AI, but the pattern is instructive:
+
+\begin{itemize}
+  \item counsel used AI extensively in one brief without clear constraints;
+  \item there was no firm-level safe-horizon policy (e.g.\ limits on unvetted
+        AI usage, mandatory verification steps);
+  \item when the tool’s reliability was questioned, they did not reset to
+        a ``manual'' mode, but deepened reliance on the same explicit system.
+\end{itemize}
+
+\paragraph{Consequence.}
+FRFP would say that the run---the sequence of research and drafting steps
+for that brief---had an unsafe horizon:
+the depth of AI reliance exceeded the robustness of explicit semantics and
+the available tacit oversight.
+A well-designed FRFP implementation in law would enforce shorter horizons
+and mandatory re-grounding in primary sources.
+
+\subsection{Beyond Mata: A Pattern of Legal AI Failures}
+
+\emph{Mata v.\ Avianca} was the first widely publicised sanction for AI
+hallucinations in legal practice, but subsequent cases show it is not an
+isolated event:
+
+\begin{itemize}
+  \item A Utah appeals court sanctioned an attorney in 2025 for filing a brief
+        with fabricated citations generated by ChatGPT, including a nonexistent
+        case, and ordered restitution and charitable donations.
+  \item California’s Court of Appeal fined a lawyer \$10{,}000 after
+        discovering that 21 of 23 quoted case passages in a brief were AI
+        fabrications, noting the growing need for AI-use regulation.
+  \item Multiple federal and state judges have now sanctioned or reprimanded
+        lawyers and experts for unverified AI-generated citations, with
+        surveys and bar commentary describing an ``epidemic'' of such
+        errors.
+\end{itemize}
+
+These events illustrate a population-level FRFP concern:
+
+\begin{itemize}
+  \item as more practitioners incorporate AI into workflows,
+        tacit professional norms about verification can degrade;
+  \item explicit-only governance (tool warnings, EULA disclaimers) is
+        insufficient to prevent structural misuse;
+  \item courts are being forced, case by case, to reassert the boundary:
+        correctness and responsibility remain with human lawyers.
+\end{itemize}
+
+\subsection{Counterfactual: An FRFP-Aligned Legal Research Workflow}
+
+We sketch how FRFP might structure AI use in legal practice.
+
+\subsubsection*{Z.6* Explicit/Tacit Role Separation}
+
+\begin{itemize}
+  \item AI tools are designated as \emph{drafting and ideation assistants}:
+        they may propose arguments, case lists, and language.
+  \item Human lawyers remain solely responsible for:
+        \begin{itemize}
+          \item selecting authorities to cite;
+          \item verifying that citations correspond to real, relevant cases;
+          \item assessing the doctrinal and strategic soundness of arguments.
+        \end{itemize}
+\end{itemize}
+
+\subsubsection*{Z.6* Boundary Design at Filing}
+
+\begin{itemize}
+  \item Filing a document is treated as a formal boundary event:
+        \begin{itemize}
+          \item the lawyer must attest (internally, and where required by
+                rule) that all citations have been verified using trusted
+                sources (official reporters, recognised databases);
+          \item firms implement checklists or tooling to mark each citation
+                as ``verified'' before filing.
+        \end{itemize}
+  \item AI-generated content is visible in internal logs (e.g.\ authorship
+        annotations in the draft) but not privileged in correctness:
+        the final filing is a human artefact.
+\end{itemize}
+
+\subsubsection*{Z.6* Safe Horizons and Firm-Level Policy}
+
+\begin{itemize}
+  \item Firms and courts define safe-horizon policies for AI use:
+        \begin{itemize}
+          \item no filing may rely solely on AI-driven research; at least one
+                human must independently run conventional research;
+          \item heavy AI use in earlier drafts must be balanced by more
+                intensive human verification at later stages;
+          \item repeated use of AI tools triggers periodic audits of workflows
+                and error rates.
+        \end{itemize}
+  \item Training and onboarding emphasise the limitations of generative
+        models, explicitly correcting the misconception that they cannot
+        ``fabricate'' content.
+\end{itemize}
+
+\subsubsection*{Z.6* Institutional Governance}
+
+\begin{itemize}
+  \item Bar associations and courts issue FRFP-style guidance:
+        \begin{itemize}
+          \item clarifying that AI assistance does not change the locus of
+                professional responsibility;
+          \item recommending or requiring disclosure of AI use in certain
+                contexts;
+          \item defining sanctions and remedial steps for AI-related
+                misconduct.
+        \end{itemize}
+  \item Firms create internal AI oversight committees to:
+        \begin{itemize}
+          \item approve tools and acceptable use cases;
+          \item monitor incidents and near-misses;
+          \item update safe-horizon and verification procedures.
+        \end{itemize}
+\end{itemize}
+
+\subsection{Lessons for FRFP and Professional Domains}
+
+The \emph{Mata} case and its successors support several FRFP themes:
+
+\begin{enumerate}
+  \item \textbf{Generative AI is structurally hallucination-prone.}
+        Its explicit semantics optimise for plausibility, not truth.
+        Without structural constraints, it will produce fabricated but
+        authoritative-looking artefacts.
+
+  \item \textbf{Signatures are boundaries, not formalities.}
+        In law and other professions, signing a document is a boundary event
+        at which tacit endorsement is supposed to be applied.
+        Automating the path up to that boundary does not diminish the
+        responsibility that attaches at it.
+
+  \item \textbf{Safe horizons are essential in professional workflows.}
+        Long-horizon, high-frequency reliance on AI without explicit
+        verification protocols invites degradation of tacit skills and norms.
+
+  \item \textbf{Explicit-only governance is insufficient.}
+        Tool warnings, footnotes, and vendor caveats cannot substitute for
+        institutional operators (courts, bars, firms) that enforce FRFP-style
+        boundaries and safe horizons.
+
+  \item \textbf{Formal architectures clarify ``AI mishaps'' as structural.}
+        \emph{Mata} is often narrated as a cautionary tale about a few careless
+        lawyers.
+        FRFP reframes it as a prototypical failure mode whenever explicit
+        AI systems are allowed to leak across professional boundaries without
+        preserving tacit correctness authority.
+\end{enumerate}
+
+As generative AI becomes embedded across professions, the lesson of
+\emph{Mata v.\ Avianca} is that AI assistance can coexist with professional
+responsibility only under architectures that explicitly maintain the
+explicit/tacit split, design robust boundaries at endorsement points, and
+enforce finite safe horizons with institutional oversight.

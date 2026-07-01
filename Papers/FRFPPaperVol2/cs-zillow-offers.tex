@@ -1,0 +1,403 @@
+% ============================================================
+% Appendix Z.5 — FRFP Case Study (Real Estate / Finance):
+% Zillow Offers and Algorithmic Home-Flipping
+% ============================================================
+
+\section{FRFP Case Study (Real Estate / Finance): Zillow Offers}
+\label{app:frfp-zillow-offers}
+
+This appendix analyses the rise and collapse of Zillow’s iBuying business,
+\emph{Zillow Offers}, as a case study for FRFP in a commercial, quasi-financial
+setting.
+Rather than treating it as a one-off business mishap, we examine how its
+structure interacted with FRFP’s explicit/tacit split, boundary design, safe
+horizons, and institutional semantics.
+
+\subsection{Background}
+
+Zillow is best known as an online real estate marketplace and for its
+``Zestimate'' home-value estimates.
+In 2018 it launched Zillow Offers, an ``iBuying'' programme in which Zillow
+itself would:
+
+\begin{itemize}
+  \item make instant cash offers to homeowners using algorithmic valuations;
+  \item purchase homes directly, perform light renovations, and resell them;
+  \item profit from the spread between purchase price, renovation costs,
+        and resale price.
+\end{itemize}
+
+Zillow framed its machine-learning models as a competitive advantage:
+they claimed to be able to price homes with high accuracy and to do so at
+scale, turning their Zestimate and related models into an internal
+trading engine.
+
+By 2021, Zillow Offers was purchasing thousands of homes per quarter.
+In Q3 2021 alone, Zillow bought roughly 9,700 homes, many at prices that
+subsequently proved to be too high.
+When market conditions shifted and Zillow attempted to resell, the company
+faced large losses.
+In November 2021, Zillow announced it would shut down Zillow Offers, record
+more than \$500M in write-downs, and lay off about 25\% of its workforce.
+
+Analyses highlight several proximate causes:
+
+\begin{itemize}
+  \item valuation models that systematically overpaid in certain markets,
+        especially during volatile conditions;
+  \item feedback and selection effects: homeowners with overvalued or
+        problematic properties were more likely to accept Zillow’s offers;
+  \item operational and scaling challenges in renovating and reselling homes
+        at volume;
+  \item leadership and governance decisions that concentrated risk
+        based on confidence in the models.
+\end{itemize}
+
+In FRFP terms, Zillow Offers is a clean example of AI-driven decision-making
+where explicit models and pipelines are tightly coupled to financial and
+operational commitments, with human and institutional actors shaping and
+interpreting them.
+
+\subsection{Explicit and Tacit Spaces in Zillow Offers}
+
+\subsubsection*{Explicit space \(E_{\mathrm{zillow}}\)}
+
+The explicit domain for Zillow Offers includes:
+
+\begin{itemize}
+  \item structured property features:
+        location, square footage, bed/bath counts, photos, time-on-market,
+        local comparable sales, etc.;
+  \item the valuation models:
+        updated Zestimate architectures (eventually based on neural networks)
+        and internal purchase-price models tuned for flipping;
+  \item decision rules that map model outputs to offers:
+        e.g.\ target discount or premium vs.\ predicted resale price, margin
+        buffers for renovation and transaction costs;
+  \item operational artefacts:
+        purchase offers, contracts, renovation plans, and listing prices;
+  \item dashboards and risk metrics tracking inventory, margins,
+        and exposure by market.
+\end{itemize}
+
+All of these are explicit artefacts in \(E_{\mathrm{zillow}}\): they can be
+stored, versioned, and manipulated by automated systems.
+
+\subsubsection*{Tacit space \(T_{\mathrm{zillow}}\)}
+
+Tacit space comprises the epistemic states of:
+
+\begin{itemize}
+  \item data scientists and engineers:
+        their informal sense of where models work or fail; their understanding
+        of model assumptions and the limits of generalisation;
+  \item local real estate experts:
+        tacit knowledge of neighbourhood idiosyncrasies, construction quality,
+        market sentiment, and micro-location effects;
+  \item executives and product leaders:
+        their beliefs about strategic risk appetite, market dynamics, and how
+        much to trust the models;
+  \item investors and board members:
+        their high-level view of risk, growth, and business viability.
+\end{itemize}
+
+These tacit states guide how explicit model outputs are interpreted, when
+they are trusted, and how aggressively they are used to commit capital.
+
+\subsection{Boundary Design: Algorithmic Prices vs.\ Human Oversight}
+
+\subsubsection*{Intended boundary}
+
+Conceptually, Zillow positioned its models as sophisticated tools in a
+human-led business:
+
+\begin{itemize}
+  \item algorithms generate valuations and offers;
+  \item humans set strategy and oversee operations;
+  \item market discipline (ability to resell at a profit) validates the
+        whole pipeline.
+\end{itemize}
+
+In FRFP terms, the intended boundary is:
+
+\begin{itemize}
+  \item AI systems in \(E_{\mathrm{zillow}}\) produce valuations and
+        suggested offers;
+  \item human managers in \(T_{\mathrm{zillow}}\) endorse or adjust these
+        offers before they become binding commitments.
+\end{itemize}
+
+\subsubsection*{De facto boundary: models as capital allocation engines}
+
+In practice, several reports suggest that Zillow Offers operated closer to a
+semi-automated capital allocation engine:
+
+\begin{itemize}
+  \item offers were often based on model outputs plus relatively simple
+        rules, with limited deal-by-deal human adjustment;
+  \item scale pressures meant many offers were generated and accepted with
+        minimal local expert intervention, especially in hot markets;
+  \item internal confidence in the models (and public messaging about
+        algorithmic advantage) encouraged leadership to ramp up volume and
+        risk exposure.
+\end{itemize}
+
+Thus, the effective boundary shifted toward:
+
+\begin{itemize}
+  \item model-driven offer generation and acceptance as de facto capital
+        commitments, subject to only thin human review;
+  \item human oversight focused more on macro metrics and scaling decisions
+        than on granular corrections of model outputs.
+\end{itemize}
+
+From an FRFP perspective, this is a form of \emph{boundary capture}:
+correctness about price and risk migrates from tacit human judgment into
+explicit pipelines.
+
+\subsection{Protocol-Level Failures in FRFP Terms}
+
+\subsubsection*{Z.5.1 Explicit-Space Model Limitations}
+
+\paragraph{Problem.}
+Multiple analyses, including academic case studies and industry writeups,
+highlight limitations in Zillow’s explicit valuation models:
+
+\begin{itemize}
+  \item Models were trained to estimate market values based on historical
+        sales, but the iBuying use case required predicting \emph{future}
+        sale prices in volatile markets for specific holding periods.
+  \item The algorithm appears to have systematically overpaid in certain
+        rapidly rising or changing markets, leading to negative expected
+        margins when conditions shifted.
+  \item Public commentary suggests selection effects:
+        homeowners with hidden defects or less desirable homes were more
+        likely to accept Zillow’s offers, while owners of highly desirable
+        homes had better alternatives.
+\end{itemize}
+
+In FRFP language, the explicit mapping
+\[
+  f_{\mathrm{offer}} : \text{property features, market state} \to
+  \text{offer price}
+\]
+embeds structural mismatches:
+
+\begin{itemize}
+  \item it does not fully capture tacit factors known to local agents
+        (e.g.\ construction quality, micro-location quirks, noisy seller
+        motives);
+  \item it assumes stability in relations between features and prices that
+        fails under regime shifts and high volatility.
+\end{itemize}
+
+\paragraph{Consequence.}
+Even with perfect boundary discipline, reliance on such a model at large
+scale would produce mispriced portfolios.
+The FRFP kernel identifies this as a defective explicit semantics feeding
+into the decision boundary.
+
+\subsubsection*{Z.5.2 Boundary Design: From Tool to Trader}
+
+\paragraph{Problem.}
+Zillow Offers effectively elevated its models from \emph{advisory tools}
+to \emph{traders}:
+
+\begin{itemize}
+  \item offers went out at scale, often automatically, with human review
+        focused on exceptions or special cases;
+  \item once an offer was accepted by a seller, Zillow incurred substantial
+        capital commitments and operational obligations;
+  \item governance practices appear to have focused on aggregate exposure,
+        not on continuous FRFP-style evaluation of boundary behaviour.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item the boundary between explicit offers and tacit acceptance was
+        located at the algorithmic offer stage, not at a human review stage;
+  \item human endorsement happened upstream, at the level of approving the
+        \emph{use of the model} and the operating policy, rather than on
+        individual decisions;
+  \item this boundary placement effectively automated much of the correctness
+        function for pricing.
+\end{itemize}
+
+\paragraph{Consequence.}
+When models were wrong, they were wrong systematically and at scale.
+Safe horizons were defined more by capital constraints and external shocks
+than by deliberate FRFP-style limits on how many model-driven acquisitions
+could proceed before re-grounding.
+
+\subsubsection*{Z.5.3 Absent Safe Horizons and Re-Grounding}
+
+\paragraph{Problem.}
+Zillow Offers operated as an ongoing, high-volume programme:
+
+\begin{itemize}
+  \item thousands of homes purchased and sold across markets;
+  \item models and policies updated, but within a continuous, expanding
+        pipeline;
+  \item no clear public evidence of hard limits on how many homes could be
+        acquired under a given model configuration before thorough review.
+\end{itemize}
+
+FRFP’s dynamics suggest that:
+
+\begin{itemize}
+  \item long-horizon reliance on explicit models without structured
+        re-grounding invites degradation of tacit risk awareness;
+  \item decision-makers may come to over-trust dashboards and backtests;
+  \item model failure under new conditions (e.g.\ sudden housing-market
+        inflection) is almost inevitable.
+\end{itemize}
+
+\paragraph{Consequence.}
+When the U.S.\ housing market began to shift in 2021, Zillow’s model-driven
+acquisitions left it holding inventory bought at prices that proved too high,
+leading to more than \$500M in write-downs and the shuttering of the unit.
+From an FRFP viewpoint, this is a classic safe-horizon violation:
+the depth of model-driven commitments exceeded the robustness of explicit
+semantics and tacit oversight.
+
+\subsubsection*{Z.5.4 Institutional Operator Choices}
+
+\paragraph{Problem.}
+Leadership decisions played a central role:
+
+\begin{itemize}
+  \item CEO Rich Barton publicly stated that the failure was due, in part, to
+        the AI’s inability to predict prices accurately enough.
+  \item Other analyses emphasise that leadership chose to scale rapidly,
+        accept thin margins, and concentrate risk based on confidence in the
+        modelling approach, rather than on cautious, incremental pilots.
+\end{itemize}
+
+In FRFP terms, the institutional operator \(G_{\mathrm{zillow}}\)---the
+mapping from tacit states of executives, risk managers, and boards to new
+tacit states and policies---aligned strongly with algorithmic optimism:
+
+\begin{itemize}
+  \item explicit model performance metrics were treated as decisive evidence
+        of readiness;
+  \item tacit local expertise (real estate agents, local partners) appears to
+        have had limited structural authority in gating model-driven offers;
+  \item there was no robust institutional mechanism to throttle or reverse
+        scaling in response to early signs of mispricing until large losses
+        materialised.
+\end{itemize}
+
+\paragraph{Consequence.}
+FRFP would classify this as an instance of explicit-only governance:
+institutional decisions are driven by metrics and dashboards produced by
+explicit pipelines, without a sufficiently strong, structurally distinct
+tacit governance layer capable of enforcing conservative boundaries and
+finite safe horizons.
+
+\subsection{Counterfactual: An FRFP-Aligned iBuying Architecture}
+
+What might an FRFP-conforming iBuying programme have looked like?
+
+\subsubsection*{Z.5* Explicit/Tacit Role Separation}
+
+\begin{itemize}
+  \item Models are designated as \emph{valuation assistants}:
+        they propose price bands and risk indicators, but do not generate
+        binding offers autonomously.
+  \item Local human experts and central risk committees retain explicit
+        authority to set offers and decide volume limits per market.
+\end{itemize}
+
+\subsubsection*{Z.5* Boundary Design for Offers}
+
+\begin{itemize}
+  \item Each offer above a certain dollar or risk threshold is treated as a
+        boundary artefact:
+        \begin{itemize}
+          \item it must be explicitly endorsed by a human operator (local
+                specialist or central desk) who sees both model outputs and
+                key raw features (photos, inspections, comps);
+          \item the endorsement and rationale are logged in a decision ledger.
+        \end{itemize}
+  \item Automated offers may be permitted only within a tightly constrained
+        low-risk band (e.g.\ low-priced homes with strong liquidity and
+        conservative discounts).
+\end{itemize}
+
+\subsubsection*{Z.5* Safe Horizons and Pilot Design}
+
+\begin{itemize}
+  \item The programme is structured around finite-horizon pilots:
+        \begin{itemize}
+          \item a limited number of homes per market and per model version;
+          \item explicit triggers (e.g.\ loss thresholds, variance thresholds)
+                that force a pause and review;
+          \item mandatory re-grounding in tacit local expertise after each
+                pilot episode.
+        \end{itemize}
+  \item Safe horizons are shorter in volatile markets and extended only after
+        successful, audited performance.
+\end{itemize}
+
+\subsubsection*{Z.5* Institutional Governance}
+
+\begin{itemize}
+  \item A cross-functional governance body (data science, risk, operations,
+        local real estate, finance) operates as an FRFP institutional operator:
+        \begin{itemize}
+          \item it defines admissible model uses and boundary rules;
+          \item it sets and adjusts safe horizons by market and product;
+          \item it monitors performance, selection effects, and
+                model-environment mismatch.
+        \end{itemize}
+  \item Major scaling decisions (e.g.\ moving from pilot to thousands of
+        homes per quarter) require explicit sign-off with documented
+        reasoning about model limitations and macro risk.
+\end{itemize}
+
+Under such an architecture, Zillow might still have faced model error and
+market risk, but those errors would have been bounded by explicit FRFP
+constraints:
+fewer homes mispriced at a time, more opportunities for human re-grounding,
+and clearer responsibility for boundary decisions.
+
+\subsection{Lessons for FRFP and Commercial AI}
+
+The Zillow Offers collapse reinforces several FRFP themes in a commercial,
+non-regulated domain:
+
+\begin{enumerate}
+  \item \textbf{Predictive accuracy is not the same as decision correctness.}
+        Models can be reasonably accurate on historical data yet still fail
+        when used to drive large-scale, capital-intensive decisions in
+        changing environments.
+
+  \item \textbf{Boundary placement is a strategic risk decision.}
+        Treating model outputs as final offers effectively moves the boundary
+        into explicit space.
+        FRFP recommends keeping correctness at human boundaries with clear,
+        logged endorsements.
+
+  \item \textbf{Safe horizons are crucial for AI-driven trading and pricing.}
+        Committing to thousands of model-driven purchases without hard caps,
+        episodic pilots, and re-grounding is structurally risky.
+
+  \item \textbf{Institutional operators shape technical risk.}
+        Governance choices about scaling, margin targets, and reliance on
+        models are as important as model architecture.
+        FRFP provides a way to describe those choices as operations on tacit
+        states, subject to non-automation constraints.
+
+  \item \textbf{Formal architectures clarify postmortems.}
+        Rather than attributing Zillow’s failure solely to ``bad AI'' or
+        ``unlucky market timing'', FRFP highlights a pattern:
+        imperfect explicit models, boundary capture, absent safe horizons,
+        and explicit-only governance combined to create a structurally
+        fragile system.
+\end{enumerate}
+
+In this light, Zillow Offers is not just an AI business gone wrong, but a
+textbook example of why FRFP-style architectures and governance are needed
+whenever explicit AI models are coupled tightly to large-scale financial and
+operational commitments.

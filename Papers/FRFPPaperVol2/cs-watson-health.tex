@@ -1,0 +1,423 @@
+% ============================================================
+% Case Study FRFP Case Study (Health Systems / Industry):
+% IBM Watson Health — Rise and Fall of a Healthcare AI Platform
+% ============================================================
+
+\section{FRFP Case Study (Health Systems / Industry): IBM Watson Health}
+\label{sec:frfp-watson-health}
+
+This chapter looks beyond Watson for Oncology and analyses the broader arc of
+\emph{IBM Watson Health} as an FRFP case study at platform scale. We treat Watson
+Health as a large organisational attempt to embed AI products across healthcare,
+and use its trajectory to illustrate FRFP concerns around explicit/tacit
+separation, boundary design, safe horizons, and institutional governance.
+
+\subsection{Background: From Jeopardy! to Healthcare Platform}
+
+After Watson’s 2011 Jeopardy! success, IBM announced ambitious plans to apply
+Watson to healthcare, pitching it as a system that could ingest large volumes of
+medical literature and help clinicians make better decisions. By 2015, IBM had
+created the Watson Health business unit, acquired multiple health data companies
+(e.g.\ Truven Health Analytics, Phytel, Explorys), and pursued high-profile
+partnerships with institutions such as MD Anderson Cancer Center, Memorial Sloan
+Kettering, Mayo Clinic, and others.
+
+Watson Health’s portfolio included:
+
+\begin{itemize}
+  \item Watson for Oncology and similar decision-support tools in oncology;
+  \item Watson for Genomics and clinical trial matching systems;
+  \item population health / analytics platforms based on acquired datasets;
+  \item imaging and radiology decision support initiatives.
+\end{itemize}
+
+However, performance in real-world deployments lagged far behind marketing:
+
+\begin{itemize}
+  \item The MD Anderson Oncology Expert Advisor (OEA) project, using Watson
+technology, reportedly consumed on the order of \$62M and was halted
+        after internal review and integration difficulties, including challenges
+        interfacing with EMR systems.
+  \item Watson for Oncology was criticised for recommending unsafe or
+        incorrect treatments in internal tests and for failing to match
+        local practice patterns in partner hospitals.
+  \item Clinicians often found Watson’s recommendations either obvious or
+        impractical, and user engagement remained low.
+  \item By 2018–2019, IBM laid off significant staff in Watson Health amid
+        market disillusionment.
+\end{itemize}
+
+In January 2022, IBM agreed to sell Watson Health’s data and analytics assets
+to private equity firm Francisco Partners; these assets were later relaunched
+under the brand \emph{Merative}. Watson Health, as originally envisioned, then
+effectively ceased to exist.
+
+FRFP reads this arc not merely as a business failure, but as a large-scale probe
+of what happens when explicit AI systems are embedded inside complex healthcare
+institutions with stringent tacit norms.
+
+\subsection{Explicit and Tacit Spaces at the Platform Level}
+
+\subsubsection*{Explicit artefacts at the platform level}
+
+Across Watson Health products, the explicit artefacts included:
+
+\begin{itemize}
+  \item large corpora of medical literature, guidelines, and clinical trial
+        registries;
+  \item structured claims and administrative data from acquisitions
+        (Truven, Explorys, etc.);
+  \item prototype knowledge bases and rules encoded with clinical partners;
+  \item ML/NLP models and pipelines for ingestion, entity extraction,
+        matching, and recommendation;
+  \item dashboards and UIs for clinicians and administrators.
+\end{itemize}
+
+These artefacts were transformed by Watson’s ingestion, extraction, matching,
+and ranking components to produce:
+
+\begin{itemize}
+  \item ranked treatment options and genomic interpretations;
+  \item patient-trial matches;
+  \item population risk scores and cost-prediction dashboards;
+  \item imaging decision support outputs.
+\end{itemize}
+
+\subsubsection*{Tacit judgement and responsibility}
+
+The tacit side spanned multiple actors:
+
+\begin{itemize}
+  \item frontline clinicians’ expertise and pattern recognition;
+  \item hospital administrators’ understanding of workflows, incentives,
+        and regulatory constraints;
+  \item IBM engineers’ and product leaders’ intuitions about AI capability
+        and product-market fit;
+  \item payers’ and regulators’ tacit standards for evidence and safety;
+  \item patients’ expectations and trust.
+\end{itemize}
+
+FRFP emphasises that no amount of explicit data and models substitutes for the
+tacit clinical and institutional judgment that ultimately governs safe adoption.
+
+
+\subsection{Boundary Design: From Demos to Clinical Reality}
+
+\subsubsection*{Demos and pilot narratives}
+
+Watson Health’s early narrative leaned heavily on demos:
+
+\begin{itemize}
+  \item stylised cases where Watson quickly identified relevant literature or
+        treatment options;
+  \item inspirational stories of AI helping oncologists keep up with
+        exploding literature;
+  \item marketing claims about ``fighting cancer'' and transforming care
+        through cognitive computing.
+\end{itemize}
+
+In FRFP terms, these demos are curated explicit artefacts: carefully chosen
+inputs and outputs with limited exposure to the messy realities of clinical
+work, local constraints, and safety-critical edge cases.
+
+
+\subsubsection*{Real-world boundary behaviour}
+
+In deployment, the boundary between Watson outputs and clinical decisions
+varied:
+
+\begin{itemize}
+  \item Some institutions treated Watson outputs as optional second opinions
+        that clinicians could consult or ignore; in these settings, usage
+        dwindled when clinicians found little added value.
+  \item In others, there was implicit pressure to incorporate Watson into
+        workflows due to the cost of the partnership and executive
+        expectations, even though clinicians remained formally responsible.
+  \item Many deployments never reached stable routine use because system
+        integration (EMR, data quality) and clinical trust barriers proved
+        too high.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item the intended boundary (AI as support, clinician as decider) was
+        not robustly operationalised across sites;
+  \item in some contexts, Watson outputs risked boundary capture
+        (becoming quasi-authoritative recommendations);
+  \item in others, clinicians kept the boundary firmly in tacit space
+        by simply not using the tool.
+\end{itemize}
+
+\subsection{Protocol-Level Issues in FRFP Terms}
+
+\subsubsection*{Explicit-Space Misalignment: Data, Knowledge, and Tasks}
+
+\paragraph{Heterogeneous, messy data.}
+Watson Health attempted to operate on top of highly heterogeneous clinical
+data:
+
+\begin{itemize}
+  \item EMRs with inconsistent formats, missing data, and noisy free text;
+  \item claims datasets optimised for billing rather than clinical meaning;
+  \item fragmented, siloed systems that resisted clean integration.
+\end{itemize}
+
+In FRFP terms, this means the platform’s “explicit record” of healthcare reality was weaker and noisier than the real clinical situation clinicians were responding to:
+
+\begin{itemize}
+\item the platform’s explicit artefacts were not a clean, reliable knowledge base; they were
+        a patchwork of partial, inconsistent, and error-prone views;
+  \item the mapping from raw EMR data to the structured inputs Watson uses
+        is itself a fragile, error-prone transformation step;
+  \item many tacit clinical nuances (why a lab was ordered, how a symptom is
+        interpreted) never enter the platform’s explicit artefacts at all.
+\end{itemize}
+
+\paragraph{Overgeneralised task framing.}
+Watson’s Jeopardy! success encouraged a narrative in which:
+
+\begin{quote}
+  ingesting lots of text + sophisticated NLP
+  leads to good performance in any text-heavy domain, including oncology.
+\end{quote}
+
+Critics argue that IBM underestimated how different the tasks are:
+Jeopardy! is about pattern-matching and recall; oncology is about causal
+and clinical reasoning under uncertainty, with strong safety, workflow, and
+ethical constraints.
+
+In FRFP terms:
+
+\begin{itemize}
+  \item the explicit transformations Watson applied were suitable for
+        question-answering and retrieval in constrained domains, but not for
+        approximating tacit oncologist reasoning under uncertainty;
+  \item the semantics of clinical decision-making were never properly
+represented in $E_{\mathrm{WH}}$; in practice, crucial intermediate
+        structure (clinical context, contraindication logic, local pathways,
+        and safety-critical nuances) often remained tacit or weakly encoded.
+\end{itemize}
+
+\subsubsection*{Boundary and Workflow Design Failures}
+
+\paragraph{Workflow disruption.}
+Clinicians in partner hospitals reported that:
+
+\begin{itemize}
+  \item Watson’s interface and case-entry workflows were cumbersome and
+        disconnected from their usual EMR flows;
+  \item using Watson often meant duplicate data entry and extra steps,
+        making it unattractive in time-pressured environments;
+  \item when Watson outputs duplicated obvious guideline recommendations,
+        the extra friction was not justified.
+\end{itemize}
+
+From an FRFP angle:
+
+\begin{itemize}
+\item the platform’s explicit workflows (data entry, ingestion, recommendation screens, reporting)
+        were not aligned with existing clinical and operational workflows and judgment;
+  \item boundary events (e.g.\ choosing a treatment plan) were surrounded by
+        extra explicit steps that added little tacit value;
+  \item the result was low utilisation and erosion of the intended
+        explicit/tacit coupling.
+\end{itemize}
+
+\paragraph{Lack of prospective evaluation.}
+As STAT and others reported, IBM did not initially subject Watson for
+Oncology or related tools to rigorous, independent clinical trials before
+deploying them commercially.
+Instead, validation was often limited, retrospective, or internal.
+
+For FRFP, this is primarily a boundary and endorsement problem:
+
+\begin{itemize}
+  \item moving from demo/pilot to real clinical use is a major boundary
+        transition requiring strong tacit endorsement from the clinical
+        community;
+  \item without prospective evidence, the tacit side never fully endorses
+        the explicit semantics, leading to persistent distrust and poor
+        integration.
+\end{itemize}
+
+\subsubsection*{Safe Horizons and Programme-Scale Risk}
+
+Watson Health was not one tool but a portfolio, scaled aggressively:
+
+\begin{itemize}
+  \item multiple product lines launched in parallel, across oncology,
+        genomics, imaging, and population health;
+  \item large, multi-year contracts and acquisitions committed IBM to a
+        long horizon before clear evidence of clinical value emerged;
+  \item layoffs and write-downs began only after years of limited traction
+        and critical reporting.
+\end{itemize}
+
+In FRFP’s long-horizon view:
+
+\begin{itemize}
+\item Watson Health as a whole is best understood as a long-running, multi-branch programme:
+        many product lines, deployments, integrations, and revisions unfolding over years;
+  \item safe horizons would require:
+        \begin{itemize}
+          \item staged pilots with clear success criteria;
+          \item caps on deployment scale before independent validation;
+          \item explicit re-grounding after each phase (revisiting tacit
+                clinical judgments about utility and safety).
+        \end{itemize}
+  \item Instead, the programme expanded rapidly, with safe-horizon controls
+        largely implicit, financial, or reputational (e.g.\ pullback after
+        negative press and partner exits).
+\end{itemize}
+
+The eventual sale of Watson Health assets can be read as a late, coarse boundary
+event: a corporate-level tacit judgment that the explicit portfolio was not
+delivering the expected value under real institutional constraints.
+
+\subsubsection*{Institutional Governance and Narrative}
+
+Watson Health lived at the intersection of several institutional operators:
+
+\begin{itemize}
+  \item IBM’s corporate governance and investor expectations;
+  \item partner hospitals’ internal politics and incentives;
+  \item media narratives about AI revolutions;
+  \item regulators’ relatively hands-off stance for decision-support tools.
+\end{itemize}
+
+FRFP treats these as institutional forces that shape what gets funded, what gets deployed, and what is treated as acceptable evidence for expansion or continued use:
+
+\begin{itemize}
+\item IBM’s corporate incentives pushed toward framing Watson Health as a flagship proof of AI leadership,
+        encouraging aggressive scaling and optimistic messaging;
+  \item partner hospitals faced mixed incentives: prestige and executive sponsorship on one side,
+        clinician burden and scepticism on the other;
+  \item media narratives amplified both early hype and later disillusionment, shaping public and investor expectations.
+
+\end{itemize}
+
+These operators did not implement an FRFP-style governance layer explicitly:
+
+\begin{itemize}
+  \item there was no cross-institutional body formally charged with defining
+        admissible uses, boundaries, and safe horizons for Watson Health
+        deployments;
+  \item governance was emergent, reactive, and often driven by financial or
+        reputational shocks (audits, critical articles, contract
+        cancellations).
+\end{itemize}
+
+\subsection{Counterfactual: An FRFP-Aligned Healthcare AI Platform}
+
+What might an FRFP-compliant analogue of Watson Health have looked like?
+
+\subsubsection*{Narrow, Evidence-Gated Product Strategy}
+
+\begin{itemize}
+  \item Start with a small number of carefully scoped tasks:
+        e.g.\ information retrieval, literature summarisation, or trial
+        matching in well-defined cancer subtypes;
+\item treat each as a distinct workflow with its own artefacts, boundary design, safe-horizon limits,
+        and evidence gates before expansion;
+  \item require prospective or quasi-prospective trials to demonstrate value
+        and safety before scaling beyond pilot sites.
+\end{itemize}
+
+\subsubsection*{Strong Explicit/Tacit Interface with Clinicians}
+
+\begin{itemize}
+  \item Design interfaces that foreground primary sources (guidelines,
+        trial reports) and make Watson’s role clearly that of a
+        \emph{search-and-structure engine}, not a quasi-physician;
+  \item make boundary events explicit:
+        treatment decisions, trial enrolment, and care-pathway selection
+        always require human endorsement, logged with context;
+  \item allow clinicians to easily see when and why Watson’s suggestions
+        diverge from local practice or guidelines, and to feed those
+        divergences back into the system as explicit signals.
+\end{itemize}
+
+\subsubsection*{Safe Horizons for Deployment and Scaling}
+
+\begin{itemize}
+  \item Limit initial deployments to small, well-monitored cohorts with
+        explicit sunset or review points;
+  \item define quantitative and qualitative criteria for expansion
+        (e.g.\ concordance rates with expert panels, impact on outcomes,
+        usability metrics);
+  \item periodically re-ground the system’s tacit model of clinical utility
+        via workshops and audits, adjusting or decommissioning pipelines that
+        fail to demonstrate value.
+\end{itemize}
+
+\subsubsection*{Institutional Governance Across Stakeholders}
+
+\begin{itemize}
+  \item Establish joint FRFP-style governance boards with representatives
+        from:
+        \begin{itemize}
+          \item clinicians and nurses;
+          \item IT and data governance;
+          \item ethics and patient advocacy;
+          \item vendor (IBM-style) technical leads.
+        \end{itemize}
+  \item Charge these boards with:
+        \begin{itemize}
+          \item setting boundaries (what the AI may and may not do);
+          \item defining safe horizons (scale, duration, and scope limits);
+          \item deciding when to pause, pivot, or shut down specific
+                deployments based on evidence.
+        \end{itemize}
+  \item Make external communication (marketing, press releases) consistent
+        with the governance body’s actual assessment of capabilities and
+        validation status.
+\end{itemize}
+
+\subsection{Lessons for FRFP and Platform-Scale Healthcare AI}
+
+Beyond the detailed oncology case in Appendix~\ref{app:frfp-watson-oncology},
+the broader Watson Health trajectory highlights several FRFP-relevant points:
+
+\begin{enumerate}
+  \item \textbf{Platform dreams outpaced explicit semantics.}
+        Watson Health attempted to be a general healthcare AI platform
+        before the explicit representations of clinical data and tasks were
+        mature enough to support that ambition.
+
+  \item \textbf{Demos are not deployments.}
+        High-profile proofs-of-concept in curated settings are runs in a
+        very narrow slice of real-world conditions.
+        FRFP requires attention to how workflows behave at scale, under
+        messy, adversarial, and heterogeneous conditions.
+
+  \item \textbf{Safe horizons must be engineered, not assumed.}
+        Large, multi-year, multi-product programmes need explicit phase
+        boundaries and go/no-go gates, rather than relying on market
+        disappointment as the only stopping condition.
+
+  \item \textbf{Institutional operators can amplify both hype and crash.}
+        Corporate, clinical, and media institutions updated tacit beliefs
+        in ways that first amplified unrealistic expectations, then swung
+        to disillusionment.
+        FRFP aims to provide structures where those updates are more
+        evidence-driven and incremental.
+
+  \item \textbf{Formal architectures help distinguish structural from
+        contingent failure.}
+        Watson Health’s problems are often framed as ``bad execution'' or
+        ``overhype''.
+        FRFP shows a deeper pattern:
+        incomplete explicit semantics, weak boundary and workflow design,
+        absent safe horizons, and diffuse governance---a pattern likely to
+        recur in future healthcare AI platforms unless addressed at the
+        architectural level.
+\end{enumerate}
+
+Under this reading, IBM Watson Health is not merely a failed product line,
+but an early, large-scale probe of what happens when a powerful explicit
+AI stack is embedded in one of the most complex tacit domains humanity has:
+healthcare delivery.
+Its rise and fall provide empirical support for FRFP’s insistence on
+careful boundary design, safe horizons, and institutional non-automation
+in future platform-scale AI deployments.

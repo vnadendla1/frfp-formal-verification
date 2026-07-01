@@ -1,0 +1,44 @@
+\section{Theory-to-Lean Correspondence}
+
+Traceability is reported at theorem granularity, mapping named theory claims to
+Lean theorem identifiers.
+
+\subsection{Status Semantics}
+\label{sec:status-semantics}
+
+We use the following labels in correspondence tables:
+\begin{itemize}
+  \item \textbf{Proved}: theorem stated in theory text and proved in Lean.
+  \item \textbf{Demoted}: originally an axiom, now proved in Lean.
+  \item \textbf{Novel}: theorem emerged during formalization and was not explicitly stated in the original theory text.
+  \item \textbf{Lean-only}: proved in Lean but not stated in the Theory Paper (auxiliary lemmas, witnesses, or obligations surfaced during proof construction).
+\end{itemize}
+
+\subsection{Coverage and Mapping Strategy}
+
+Mappings prioritize exact theorem names and principal Lean counterparts.
+Multi-lemma realizations are represented by a principal theorem name plus
+supporting theorem names where required for faithful traceability.
+
+\subsection{Chapter-Wise Mapping Policy}
+
+\begin{enumerate}
+  \item Claims presented as theorems in theory chapters are labeled \textbf{Proved}.
+  \item Former theory axioms shown derivable in Lean are labeled \textbf{Demoted}.
+  \item New theorems surfaced from Lean proof obligations are labeled \textbf{Novel}.
+\end{enumerate}
+
+This policy avoids conflating routine theorem verification with axiom demotion,
+and preserves a clear audit trail from informal theory statements to formal proof
+artifacts.
+
+\subsection{Full Correspondence Tables}
+
+Detailed chapter-wise mappings are provided in Appendix~F. A compact summary mapping is included in Appendix~A for audit continuity.
+
+\subsection{Coverage Summary}
+
+The correspondence tables are designed so that each named theory claim has at
+least one Lean anchor theorem, and each novel theorem carries an explicit
+annotation indicating that it was not a verbatim carry-over from the original
+theory manuscript.

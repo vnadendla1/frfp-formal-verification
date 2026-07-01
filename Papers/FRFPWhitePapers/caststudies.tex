@@ -1,0 +1,249 @@
+%\section{Case Studies}
+\subsection{Case Study: ICU Sepsis Prediction Literature Review}
+\label{sec:case-sepsis}
+
+We consider a literature review on \emph{machine-learning methods for early sepsis prediction in intensive care units (ICUs)}. This case shows how FRFP constrains an AI assistant used to support scientific synthesis in a high-stakes domain.
+
+\paragraph{Context.}
+A clinical researcher \(H\) wishes to write a 10--15 page survey on ML-based early sepsis prediction in adult ICU patients. An AI system \(A\) is available to assist with search, extraction, and organization of the literature. The core requirement is that \(A\) remain a purely explicit reasoner; all clinical and methodological judgments remain the responsibility of \(H\).
+
+\paragraph{Phase 0 (Interaction discipline).}
+The session begins by locking an explicit task type
+\[
+  \tau_{\mathrm{LR}} := \texttt{lit\_review}(\texttt{topic} = \texttt{sepsis\_prediction\_ICU}),
+\]
+together with an explicit declaration of allowed and forbidden operations:
+\begin{itemize}
+  \item Allowed (explicit): retrieval of references; extraction of study design and model details; construction of structured study records and comparison tables; proposal of section outlines.
+  \item Forbidden (tacit): clinical safety judgments; treatment or deployment recommendations; statements that a method is ``standard of care'' or ``clinically sufficient''.
+\end{itemize}
+Ambiguities (e.g. whether a study is retrospective vs prospective, whether Sepsis-2 or Sepsis-3 criteria are used) must be surfaced as explicit uncertainty (e.g. \verb|design = unknown|, \verb|label_def = ambiguous|) rather than silently resolved. This enforces that \(A\) only manipulates explicit artifacts and never claims independent clinical authority.
+
+\paragraph{Phase 1 (Epistemic ontology).}
+Let \(E\) denote the explicit space and \(T\) the tacit space.
+
+\emph{Explicit space \(E\).}
+Typical elements of \(E\) in this case include:
+\begin{itemize}
+  \item bibliographic records \(b \in E\) (title, authors, venue, year);
+  \item structured study records \(s \in E\) with fields such as: cohort (adult ICU vs other), data source, sepsis definition (Sepsis-2/3/custom), prediction horizon, model family, input features, evaluation metrics, and validation design;
+  \item comparison structures \(c \in E\) (tables of studies, clusters of methods, outlines of sections);
+  \item explicit annotations \(a \in E\), such as ``high leakage risk'', ``no external validation'', or coarse evidence-quality labels.
+\end{itemize}
+System primitives act on \(E\):
+\begin{align*}
+  e_0 &:= \mathrm{RI}(\tau_{\mathrm{DL}}), \\
+  \tau_{\mathrm{DL}} &:= \text{``compare deep-learning models for early sepsis prediction in adult ICUs''},
+\end{align*}
+instantiates a deep-learning subtask. An \(\mathrm{ED}\) step decomposes
+\[
+  \tau_{\mathrm{DL}} \leadsto (\tau_1,\tau_2,\tau_3,\tau_4),
+\]
+for example:
+\begin{itemize}
+  \item \(\tau_1\): identify candidate deep-learning sepsis prediction papers;
+  \item \(\tau_2\): extract model and dataset characteristics;
+  \item \(\tau_3\): extract evaluation metrics and validation designs;
+  \item \(\tau_4\): construct a comparison table and narrative summary.
+\end{itemize}
+Each \(\mathrm{EC}\) step then populates explicit artifacts (study records, tables, draft text) within this decomposition.
+
+\emph{Tacit space \(T\).}
+The tacit space \(T\) contains \(H\)'s clinical and methodological intuitions:
+\begin{itemize}
+  \item calibration of which study designs are trustworthy;
+  \item domain-specific interpretation of AUROC/AUPRC in imbalanced settings;
+  \item skepticism about small or single-center studies; views on generalizability and deployment readiness.
+\end{itemize}
+No morphisms \(T \to E\) are modeled; internal deliberation remains tacit and is only observed via explicit outputs.
+
+\emph{Explicit--tacit boundary.}
+A boundary map \(\mathrm{RB}: E \to T\) captures how explicit artifacts affect the tacit state. Operationally:
+\begin{enumerate}
+  \item \(A\) produces an explicit record \(e \in E\) (e.g. a structured summary of a study with sample size, sepsis definition, horizon, metrics, and validation type).
+  \item \(H\) inspects \(e\), performing tacit evaluation in \(T\) (e.g. ``likely leakage'', ``weak external validity'').
+  \item \(H\) returns new explicit annotations \(e' \in E\), such as
+  \begin{quote}
+    \emph{``flag leakage risk: high; evidence quality: low (single-center retrospective).''}
+  \end{quote}
+\end{enumerate}
+These annotations re-enter \(E\) and constrain subsequent \(\mathrm{ED}\) and \(\mathrm{EC}\) steps.
+
+\emph{Human feedback diffusion.}
+Tacit evaluation (\(\mathrm{TE}\)) plus explicit feedback is represented by
+\[
+  \mathrm{HFD}: E \times T \to E,
+\]
+which may, for example, introduce new fields and selection rules:
+\begin{itemize}
+  \item add a field \verb|leakage_risk| and populate it when post-onset data are used improperly;
+  \item constrain inclusion to adult ICU cohorts; tag pediatric or ED-only studies as out-of-scope;
+  \item require explicit distinction between true external validation and internal splits.
+\end{itemize}
+
+\paragraph{Phase 2 (Explicit pipeline and navigation).}
+A typical trajectory in the navigation groupoid \(N \ltimes E\) for \(\tau_{\mathrm{DL}}\) proceeds as follows:
+\begin{enumerate}
+  \item \textbf{Candidate identification (\(\tau_1\)).}
+  An \(\mathrm{EC}\) step yields a candidate set \(L \subseteq E\) of papers with coarse tags (adult vs pediatric; ICU vs ED; DL vs non-DL). After \(\mathrm{RB}+\mathrm{TE}\), \(\mathrm{HFD}\) encodes selection rules (e.g. ``restrict to adult ICUs; separate ED-based studies''). A refined list \(L' \subseteq L\) is then constructed explicitly.
+  \item \textbf{Structured extraction (\(\tau_2,\tau_3\)).}
+  For each \(p \in L'\), \(\mathrm{EC}\) produces a record \(s_p \in E\) with fields for cohort, data source, sepsis definition, horizon, model family, features, missing-data strategy, metrics, and validation design. Tacit review of a subset of \(\{s_p\}\) via \(\mathrm{RB}+\mathrm{TE}\) leads to \(\mathrm{HFD}\) introducing additional explicit fields (e.g. \verb|leakage_risk|, fine-grained validation types) and constraints; the remaining records are recomputed accordingly.
+  \item \textbf{Comparison and summary (\(\tau_4\)).}
+  Using \(\{s_p\}_{p \in L'}\), \(\mathrm{EC}\) constructs:
+  \begin{itemize}
+    \item a comparison table \(c_{\mathrm{tab}} \in E\) (rows = studies, columns = model, horizon, AUROC, AUPRC, external validation indicator, leakage risk, evidence quality);
+    \item a narrative summary \(c_{\mathrm{txt}} \in E\) describing empirical trends.
+  \end{itemize}
+  Tacit review may reveal that \(c_{\mathrm{txt}}\) overstates performance by ignoring evidence quality. \(\mathrm{HFD}\) then imposes explicit constraints (e.g. ``no unqualified `very high performance' for high-leakage studies; performance statements must be conditioned on evidence quality and validation type''), and \(\mathrm{EC}\) yields a revised \(c_{\mathrm{txt}}'\).
+  \item \textbf{Navigation and canonicalization.}
+  Navigation in \(N\) moves focus between individual records \(s_p\), the table \(c_{\mathrm{tab}}\), and the subtask \(\tau_{\mathrm{DL}}\). Under suitable confluence conditions, the overall trajectory normalizes to a canonical artifact consisting of a cleaned table \(c_{\mathrm{tab}}^\ast\) and a constrained narrative \(c_{\mathrm{txt}}^\ast\), with each high-level claim traceable to explicit source records.
+\end{enumerate}
+
+\paragraph{Phase 3 (Hallucination dynamics, informal).}
+Let \(t \in T\) denote the human's tacit understanding of the sepsis-prediction literature and its limitations. Let
+\[
+  \mathrm{Req}(e,c)
+\]
+denote the tacit requirement for safely endorsing an explicit claim \(e \in E\) in context \(c\) (e.g. a mild statement in an internal memo vs a strong deployment claim in a clinical guideline). A degradation operator
+\[
+  \delta: T \to T
+\]
+models erosion of vigilance over long, complex review sessions (fatigue, overload, exposure to publication bias).
+
+Strong claims such as ``deep learning models are ready for routine ICU deployment'' are assigned high \(\mathrm{Req}(e,c)\). Under repeated interaction, if \(\delta\) gradually pushes \(t\) downward while \(\mathrm{EC}\), guided by prior approvals, proposes increasingly confident summaries, it is structurally possible that
+\[
+  t \prec \mathrm{Req}(e,c)
+\]
+at the moment a strong claim \(e\) is accepted. FRFP thus characterizes overconfident, under-supported survey conclusions as \emph{structural hallucination events}: explicit artifacts outstripping the actual tacit grounding available. This, in turn, motivates design constraints that raise \(\mathrm{Req}(e,c)\) for clinically loaded statements and tie their generation to explicit evidential checks.
+
+\medskip
+
+\noindent In this case, the FRFP formalism provides (i) a clean separation between explicit modeling and tacit clinical judgment, (ii) a compositional, auditable representation of the review pipeline as a path in \(N \ltimes E\), and (iii) a structural account of how ``fake consensus'' narratives can arise and how to constrain them.
+
+
+%------------------------------------------------------------
+
+\subsection{Case Study: Financial Scenario Analysis and Stress Testing}
+\label{sec:case-finance}
+
+We next consider a scenario-analysis workflow for a financial institution performing multi-scenario capital and P\&L impact assessment under macroeconomic stress. This case illustrates FRFP in a risk-governance setting.
+
+\paragraph{Context.}
+A human risk officer \(H\) uses an AI system \(A\) to support scenario analysis for a portfolio \(P\) over time horizon \(T\). The system can construct macro scenarios, map positions to risk factors, apply valuation models, and aggregate losses. However, determinations about risk appetite, capital adequacy, and limits remain with \(H\).
+
+\paragraph{Phase 0 (Interaction discipline).}
+The session begins by locking an explicit task
+\[
+  \tau_{\mathrm{SCEN}} := \texttt{scenario\_analysis}(\texttt{portfolio} = P, \texttt{horizon} = T),
+\]
+along with explicit constraints:
+\begin{itemize}
+  \item Allowed (explicit): construction of scenarios and shock vectors; transformation and mapping of input data; application of valuation models; calculation of capital and liquidity metrics; generation of tables and charts.
+  \item Forbidden (tacit): decisions on risk appetite, capital adequacy, or hedging; trading or allocation recommendations; textual assurances such as ``capital is sufficient'' or ``no material vulnerabilities''.
+\end{itemize}
+Data gaps (missing positions, unclear model coverage, incomplete calibration) must be surfaced as explicit uncertainty (e.g. \verb|exposure = unknown|, \verb|model_coverage = partial|), forbidding silent imputation. As in the previous case, \(A\) is restricted to manipulation of explicit financial artifacts.
+
+\paragraph{Phase 1 (Epistemic ontology).}
+Again let \(E\) denote explicit space and \(T\) tacit space.
+
+\emph{Explicit space \(E\).}
+Representative elements include:
+\begin{itemize}
+  \item position records \(p \in E\): notional, instrument type, currency, maturity, counterparty;
+  \item risk-factor structures \(r \in E\): yield curves, FX rates, credit spreads, equity indices, volatility surfaces;
+  \item scenario definitions \(s \in E\): macro narratives and corresponding shock vectors (baseline, adverse, severe, tail);
+  \item valuation outputs \(v \in E\): per-position and aggregated P\&L, capital ratios, liquidity metrics under each scenario;
+  \item annotations \(a \in E\): model-coverage indicators, data-quality flags, conservative add-ons, desk-level overrides.
+\end{itemize}
+The systemic operations on \(E\) include:
+\begin{align*}
+  e_0 &:= \mathrm{RI}(\tau_{\mathrm{SCEN}}), \\
+  e_1 &:= \mathrm{ED}(e_0) \leadsto (\tau_1,\tau_2,\tau_3,\tau_4),
+\end{align*}
+where a typical decomposition is:
+\begin{itemize}
+  \item \(\tau_1\): define macro and market scenarios;
+  \item \(\tau_2\): map positions to risk factors and sensitivities;
+  \item \(\tau_3\): revalue positions under scenarios;
+  \item \(\tau_4\): aggregate and report risk measures.
+\end{itemize}
+Each \(\mathrm{EC}\) step constructs or updates explicit artifacts (scenario sets, mappings, valuations, reports) consistent with the current constraints.
+
+\emph{Tacit space \(T\).}
+Tacit state \(T\) contains \(H\)'s risk and business judgment:
+\begin{itemize}
+  \item assessment of scenario plausibility and severity;
+  \item understanding of model risk, data limitations, and structural breaks;
+  \item knowledge of regulatory context, internal risk appetite, and known portfolio vulnerabilities.
+\end{itemize}
+As before, no morphisms \(T \to E\) are modeled; tacit reasoning is opaque to the system, except via explicit feedback.
+
+\emph{Explicit--tacit boundary and feedback.}
+The boundary \(\mathrm{RB}: E \to T\) describes how explicit artifacts influence tacit risk perception. For instance:
+\begin{enumerate}
+  \item \(A\) produces an explicit report \(e \in E\) containing scenario definitions, loss distributions, and capital ratios.
+  \item \(H\) inspects \(e\), updating tacit beliefs about vulnerabilities (e.g. ``severe scenario too mild in sector \(k\)'', ``underestimation of spread widening'', ``concentration risk inadequately captured'').
+  \item \(H\) emits modified explicit artifacts \(e' \in E\), such as:
+  \begin{quote}
+    \emph{``add tail scenario with $\geq 99$th- 99th percentile spread shock in sector \(k\); flag valuations relying on proxy curves as high model risk; require separate line items for top-\(n\) counterparties.''}
+  \end{quote}
+\end{enumerate}
+These outputs are captured by a human-feedback diffusion map
+\[
+  \mathrm{HFD}: E \times T \to E
+\]
+which updates scenario definitions, model-risk flags, and aggregation rules.
+
+\paragraph{Phase 2 (Explicit pipeline and navigation).}
+A typical trajectory in \(N \ltimes E\) for \(\tau_{\mathrm{SCEN}}\) is:
+
+\begin{enumerate}
+  \item \textbf{Scenario construction (\(\tau_1\)).}
+  \(\mathrm{EC}\) constructs an initial scenario set \(S = \{s_{\mathrm{base}}, s_{\mathrm{adv}}, s_{\mathrm{sev}}\}\) with shock vectors over risk factors. After \(\mathrm{RB}+\mathrm{TE}\), \(H\) may deem \(s_{\mathrm{sev}}\) inadequate for certain illiquid exposures. Via \(\mathrm{HFD}\), this yields explicit constraints (e.g. minimum spread shocks relative to historical extremes, addition of a tail scenario \(s_{\mathrm{tail}}\)), and a revised set \(S' \supseteq S\).
+  \item \textbf{Exposure mapping (\(\tau_2\)).}
+  \(\mathrm{EC}\) constructs explicit mappings \(m \in E\) from positions to risk-factor buckets and term structures, marking incomplete or proxy-based mappings with data-quality flags. Tacit review identifies concentration and mapping issues; \(\mathrm{HFD}\) introduces rules such as ``flag scenario outputs where more than \(x\%\) of exposure is valued using proxies''.
+  \item \textbf{Valuation under scenarios (\(\tau_3\)).}
+  For each \(s \in S'\), \(\mathrm{EC}\) applies pricing models to obtain per-position P\&L and aggregated summaries \(v_s \in E\). Tacit concerns about model risk (e.g. oversimplified models for exotics) feed back through \(\mathrm{HFD}\) as explicit model-risk flags and conservative add-ons, giving adjusted valuations \(v_s'\).
+  \item \textbf{Aggregation and reporting (\(\tau_4\)).}
+  Using adjusted valuations, \(\mathrm{EC}\) constructs an explicit report \(r \in E\) with tables and charts (loss by sector, rating, counterparty; capital ratios; liquidity metrics) and textual summaries. Tacit review may detect that \(r\) understates uncertainty or uses overly reassuring language. \(\mathrm{HFD}\) then constrains report generation, e.g. requiring:
+  \begin{itemize}
+    \item explicit separation of robust vs model-dependent components;
+    \item inclusion of ranges or confidence intervals where model risk is high;
+    \item prohibition of unqualified adequacy statements, restricting text to numerical ratios vs regulatory minima.
+  \end{itemize}
+  A revised report \(r' \in E\) satisfying these constraints is then produced.
+  \item \textbf{Navigation and canonicalization.}
+  Navigation in \(N\) allows movement between individual scenarios, subsets of positions, and aggregation levels. Under confluence assumptions, the trajectory normalizes to a canonical artifact comprising a scenario set \(S^\ast\), consistent valuations \(\{v_s^\ast\}\), and a report \(r^\ast\) whose assertions are traceable to explicit quantitative inputs.
+\end{enumerate}
+
+\paragraph{Phase 3 (Hallucination dynamics, informal).}
+Let \(t \in T\) denote the human's tacit risk state (understanding of portfolio vulnerabilities, model limitations, and macro uncertainty). Let
+\[
+  \mathrm{Req}(e,c)
+\]
+denote the tacit requirement to safely endorse an explicit claim \(e \in E\) in context \(c\) (e.g. internal exploratory analysis vs regulatory submission). A degradation operator
+\[
+  \delta: T \to T
+\]
+models erosion of vigilance due to time pressure, complexity, or anchoring to previous ``business-as-usual'' scenarios.
+
+High-stakes claims such as
+\[
+  e_{\mathrm{ok}} := \text{``under our severe scenario set, group capital remains adequate and no material vulnerabilities arise in sector \(k\)''}
+\]
+are assigned large \(\mathrm{Req}(e_{\mathrm{ok}},c)\). Under extended interaction, if \(\delta\) repeatedly lowers \(t\) while \(\mathrm{EC}\), guided by earlier approvals, proposes increasingly reassuring summaries, it may occur that
+\[
+  t \prec \mathrm{Req}(e_{\mathrm{ok}},c)
+\]
+at the moment \(e_{\mathrm{ok}}\) is accepted. FRFP thus treats such overconfident adequacy statements as structural hallucination events: explicit assurances whose warrantedness exceeds the current tacit grounding.
+
+Designing the scenario engine within FRFP then naturally leads to requirements such as:
+\begin{itemize}
+  \item elevated \(\mathrm{Req}(e,c)\) for capital-adequacy and risk-appetite statements;
+  \item explicit severity and model-risk checks as preconditions for generating such statements;
+  \item interaction-aware throttling of strong claims when usage patterns suggest tacit degradation (e.g. rapid approvals, minimal drill-down).
+\end{itemize}
+
+\medskip
+
+\noindent In this case, FRFP yields (i) a sharp separation between explicit scenario modeling and tacit risk judgment, (ii) compositional and auditable scenario pipelines across desks as paths in \(N \ltimes E\), and (iii) a structural explanation of how overly comforting risk narratives can emerge and how to constrain them at the architectural level.

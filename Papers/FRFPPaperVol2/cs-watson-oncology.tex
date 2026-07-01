@@ -1,0 +1,437 @@
+% ============================================================
+%  FRFP Case Study (Clinical):
+% IBM Watson for Oncology
+% ============================================================
+
+\section{FRFP Case Study (Clinical): IBM Watson for Oncology}
+\label{app:frfp-watson-oncology}
+
+This case study analyses IBM Watson for Oncology (WFO) through the FRFP lens: explicit semantics
+in \(E\), tacit clinical endorsement in \(T\), run-level dynamics, boundary design, safe-horizon
+constraints, and institutional operators. The aim is not to adjudicate clinical correctness
+case-by-case, but to diagnose protocol structure: where tacit endorsement was asked to carry more
+load than the boundary and governance mechanisms could support.
+
+\subsection{Background}
+
+After Watson’s \emph{Jeopardy!} success in 2011, IBM pursued healthcare as a major application
+area and partnered with Memorial Sloan Kettering Cancer Center (MSKCC) to develop Watson for
+Oncology (WFO) as a decision-support product: given a structured patient description, WFO would
+return ranked treatment options with rationales, drawing on guideline representations, literature
+abstractions, and MSK-derived training inputs.
+
+Two clarifications matter for protocol analysis. First, multiple “Watson + oncology” efforts existed;
+MD Anderson’s \emph{Oncology Expert Advisor} (OEA) was a separate Watson-based initiative that
+reportedly consumed roughly \$62M and was terminated before use on real patients. Second, public
+reporting (2017--2018) described cases in which WFO produced recommendations characterized by
+internal reviewers and customers as unsafe or inconsistent with established standards; we treat
+those reports as evidence of boundary and governance stress, not as the only basis for the FRFP
+diagnosis.
+
+IBM marketed WFO to hospitals globally, often positioning it as a way to deliver MSK-like expertise
+in settings with fewer oncology specialists. In parallel, MD Anderson pursued OEA. Reported outcomes
+of that effort (cost, delays, termination) are a useful institutional analogue because they reveal how
+large budgets, vendor relationships, and audit triggers can substitute for (or displace) protocol-level
+governance.
+
+In 2017--2018, investigative reporting based on internal IBM documents and interviews described
+multiple examples where outputs were flagged as unsafe or incorrect by reviewers and customers.
+One commonly cited illustration involved a recommendation that conflicted with major safety warnings
+for the relevant drug class in the stated clinical context. Hospitals also reported low local concordance
+and “workflow mismatch,” and some partnerships were discontinued or scaled back.
+
+FRFP use of these facts is narrow: they show (i) explicit semantics not robust to real-world coverage
+gaps and heterogeneity; and (ii) boundary conditions under which endorsement could drift toward
+deference (especially in low-specialist environments), making run-level harm plausible even if
+per-episode failure were “rare.”
+
+This trajectory makes WFO a natural FRFP case: there is a crisp split between explicit artefacts
+(structured cases, guideline representations, ranked options, rationales) and tacit clinical expertise;
+persistent boundary ambiguity between “advice” and endorsement; long-horizon reliance risks; and
+institutional operators (vendor marketing, procurement, audit, committee oversight) that shaped
+which runs were admissible.
+
+\subsection{Explicit and Tacit Spaces in Watson for Oncology}
+
+\subsubsection*{Explicit space \(E_{\mathrm{clinical}}\)}
+
+In FRFP terms, Watson for Oncology’s explicit domain comprises:
+
+\begin{itemize}
+  \item structured patient representations (stage, biomarkers, comorbidities);
+  \item codified guidelines (e.g.\ NCCN recommendations) and literature
+        abstractions as ingested into Watson;
+  \item curated training cases and MSK-derived examples, including substantial use of “synthetic”
+        cases in public descriptions of the training approach (a key coverage and external-validity
+        risk for \(E\));
+   \item ranked treatment options with rationales and evidence links (where provided);
+   \item any product-layer constraints (templates, allowed regimens, score thresholds) that shape outputs.
+ \end{itemize}
+\paragraph{Run object and update loops.}
+For this case study the relevant object is not a single recommendation, but a family of runs:
+repeated case entry \(\to\) ranked outputs \(\to\) clinician interaction \(\to\) institutional uptake, policy
+updates, and eventual scale or rollback. Model and knowledge-base updates, guideline revisions, and
+site-specific configuration changes are part of the run dynamics, not “outside the system.”
+
+All of these are explicit artefacts manipulable by the AI system:
+given a patient input, WFO transforms explicit encodings into explicit
+recommendations via model internals and expert rules.
+
+\subsubsection*{Tacit space \(T_{\mathrm{clinical}}\)}
+
+Tacit space in this setting consists of:
+
+\begin{itemize}
+  \item individual oncologists' clinical expertise, including pattern
+        recognition for atypical cases and nuanced trade-offs
+        (toxicity vs.\ benefit, patient preferences, comorbidities);
+  \item knowledge of local formularies, resource constraints, and institutional
+        norms;
+  \item shared, evolving community sense of what constitutes acceptable
+        interpretation of evidence in specific cancer subtypes;
+  \item ethical and legal sense of responsibility for patient outcomes.
+\end{itemize}
+
+Oncologists do not simply read guidelines; they interpret them.
+They adjudicate between trials, reconcile contradictory evidence, and adapt
+decisions to specific patient contexts in ways not fully codified in
+explicit rules.
+
+\subsection{Intended Boundary Design vs.\ De Facto Boundary}
+
+\subsubsection*{Stated design: AI as decision support}
+
+Publicly, IBM framed WFO as a clinical decision support tool:
+
+\begin{itemize}
+  \item the oncologist remains the decision-maker;
+  \item WFO proposes options; the human reviews and chooses;
+  \item the system encodes MSK expertise and guidelines but does not replace
+        human judgement.
+\end{itemize}
+
+In FRFP terms, this corresponds to:
+AI confined to explicit space \(E_{\mathrm{clinical}}\),
+with a boundary at the \emph{clinician’s acceptance} (or rejection) of
+a recommendation, mediated by their tacit state in \(T_{\mathrm{clinical}}\).
+
+\subsubsection*{Marketing and perception: boundary drift}
+
+However, several features of deployment and marketing blurred that boundary:
+
+\begin{itemize}
+  \item IBM and some partners promoted WFO as offering ``best possible
+        treatment'' based on leading cancer centres, which implicitly
+        encourages clinicians and administrators to treat its outputs as
+        authoritative rather than tentative.
+  \item At some hospitals (e.g.\ Jupiter Medical Center), executives appear
+        to have acquired WFO partly for marketing value, positioning it as a
+        differentiating capability, while clinicians later reported that the
+        product was largely unusable.
+  \item Early MD Anderson efforts focused more on ambitious promises and
+        integration challenges than on rigorous, prospective validation
+        in real patients; the system never reached routine clinical use
+        before being shelved.
+\end{itemize}
+
+From an FRFP perspective, these patterns erode the explicit/tacit boundary:
+
+\begin{itemize}
+  \item explicit artefacts (ranked options) are framed as near-final answers;
+  \item tacit endorsement risks becoming a rubber stamp on system outputs;
+  \item institutional incentives push toward de facto automation, even where
+        formal documentation still describes WFO as ``advisory''.
+\end{itemize}
+
+\subsection{Protocol-Level Failures in FRFP Terms}
+
+We now describe the main failure modes of Watson for Oncology as failures of
+FRFP protocol design, rather than isolated model bugs.
+
+\subsubsection*{Z.1 Boundary Confusion and Over-Automation Pressure}
+
+\paragraph{Problem.}
+WFO blurred who was really ``deciding'':
+
+\begin{itemize}
+  \item The UI presented a small, ranked list of options with categorical
+        labels, rather than a broad landscape of possibilities.
+  \item Marketing emphasised Watson’s ``expertise'' and partnership with elite
+        centres, encouraging deference.
+  \item Internal documents show that some customers perceived it as
+        insufficiently useful or safe, but this was discovered only after
+        deployment and real-world testing.
+\end{itemize}
+
+In FRFP language:
+
+\begin{itemize}
+  \item the \emph{boundary} between explicit suggestion and tacit endorsement
+        was not structurally protected;
+  \item nothing in the protocol enforced that clinicians treat WFO outputs
+        as provisional hypotheses requiring independent re-grounding;
+  \item institutional messaging encouraged treating WFO’s explicit artefacts
+        as if correctness lived in the system rather than in human tacit
+        states.
+\end{itemize}
+
+\paragraph{Consequence.}
+This boundary confusion made it plausible, in principle, that clinicians
+under time pressure could over-rely on WFO for guidance, especially in less
+specialised settings.
+Even where clinicians ultimately rejected WFO in practice (as at several
+sites), the FRFP design left no robust guardrail to prevent over-automation.
+
+\subsubsection*{Z.2 Explicit-Space Pathologies: Training and Coverage}
+
+\paragraph{Problem.}
+Subsequent reporting and IBM internal documents revealed that:
+
+\begin{itemize}
+  \item WFO’s training relied heavily on small sets of synthetic or
+        hypothetical cases labelled by one or a few MSK physicians, rather
+        than large, diverse, real-patient cohorts;
+  \item the case library lacked statistical design, undermining coverage and
+        generalisability;
+  \item recommendations sometimes deviated from widely adopted national
+        guidelines (e.g.\ NCCN) or reflected ``unconventional'' interpretations
+        of evidence;
+  \item some recommendations were directly unsafe, e.g.\ suggesting a drug
+        explicitly contraindicated for patients with active bleeding.
+\end{itemize}
+
+In FRFP terms, these are failures in explicit space \(E_{\mathrm{clinical}}\):
+
+\begin{itemize}
+  \item the mapping from patient encodings to recommended options was
+        underspecified and poorly validated;
+  \item the training set did not define a reliable basis for a semantics
+        that clinicians could safely treat as approximating guideline-based
+        reasoning;
+  \item explicit representations (case abstractions and labelled options)
+        did not faithfully capture the tacit standards of the oncology
+        community.
+\end{itemize}
+
+\paragraph{Consequence.}
+Even if boundaries had been perfectly designed and strictly respected, the
+explicit artefacts were structurally fragile:
+a human relying on them as ``MSK in a box'' would be misled about their coverage and limits. Within FRFP, this is an explicit-semantics failure: the system’s
+machine-side representation does not reliably track the clinical distinctions it purports to encode,
+so the artefacts handed to clinicians are not a dependable basis for endorsement. The downstream
+risk is not only a wrong recommendation, but a workflow that can translate brittle artefacts into
+real commitments i.e explicit layer fragility matters even with good boundary discipline.
+
+\subsubsection*{Z.3 Safe-Horizon Violations and Degradation Risk}
+
+\paragraph{Problem.}
+Watson for Oncology was intended for repeated use across many patients and
+cases:
+
+\begin{itemize}
+  \item clinicians would query WFO case after case, day after day;
+  \item institutional partners hoped to build standardised WFO-informed
+        workflows and even marketing narratives around it.
+\end{itemize}
+
+FRFP predicts that in such long-horizon workflows:
+
+\begin{itemize}
+  \item tacit grounding can degrade: clinicians may start to read fewer
+        guidelines directly, rely more on WFO’s summaries, and accept its
+        pattern of options as normal;
+  \item hallucinations (unsafe or unsupported endorsements) become almost
+        inevitable along sufficiently long runs if boundaries and re-grounding
+        are not carefully designed.
+\end{itemize}
+
+Yet WFO’s design and deployments did not incorporate explicit safe-horizon
+constraints:
+
+\begin{itemize}
+  \item there were no protocol-level limits on how many WFO-guided decisions
+        could be made without deeper human re-grounding in primary evidence;
+  \item there was no requirement for periodic re-validation of WFO’s
+        recommendations against up-to-date guidelines for each cancer type;
+  \item no explicit mechanisms enforced independent re-derivation of
+        rationale by clinicians after a certain depth of WFO usage.
+\end{itemize}
+
+\paragraph{Consequence.}
+In organisations that might have fully embraced WFO, FRFP would predict a
+drift toward overreliance:
+clinicians would likely start accepting WFO’s pattern of options as
+``the way we treat here'', reducing their sensitivity to edge cases and
+guideline changes.
+In practice, the opposite happened at many sites: clinicians quickly lost
+trust and utilisation collapsed.
+From an FRFP perspective, this is almost a \emph{fortunate} failure mode:
+trust broke before dangerous long-horizon degradation could fully set in.
+
+\subsubsection*{Z.4 Institutional Operator Failures}
+
+\paragraph{Problem.}
+At the institutional level, WFO’s story involves:
+
+\begin{itemize}
+  \item high-level partnerships (MSK, MD Anderson, others) with ambitious
+        goals and significant budgets;
+  \item weak prospective clinical validation prior to marketing;
+  \item internal IBM and hospital audits revealing cost overruns, lack of
+        integration, and poor clinical utility;
+  \item eventual sell-off of Watson Health assets, effectively ending the
+        original oncology vision.
+\end{itemize}
+
+In FRFP’s institutional semantics, we can think of:
+
+\begin{itemize}
+  \item a population of tacit states \(T^{\mathrm{pop}}\) including clinicians,
+        administrators, IBM staff, regulators, and patients;
+  \item institutional operators \(G\) (e.g.\ hospital governance, vendor
+        decision processes, regulatory expectations) that update these states
+        in response to explicit artefacts (pilots, metrics, sales pitches,
+        incident reports).
+\end{itemize}
+
+WFO’s failure suggests that:
+
+\begin{itemize}
+  \item institutional operators overweighted vendor demos and marketing
+        narratives relative to rigorous FRFP-style admissibility checks
+        (safe horizons, boundary clarity, explicit semantics);
+  \item governance mechanisms were not designed to detect FRFP-structural
+        problems (e.g.\ training on hypothetical cases, unsafe recommendations)
+        early and decisively;
+  \item in at least one major site (MD Anderson), an internal financial audit
+        rather than an epistemic governance body drove termination.
+\end{itemize}
+
+\paragraph{Consequence.}
+From an FRFP standpoint, this is an example of attempted \emph{explicit-only
+governance}:
+institutions relied on marketing materials, limited tests, and internal
+dashboards rather than systematically designing boundaries, safe horizons,
+and explicit/tacit roles.
+The non-automation theorems in the main text suggest that such governance
+cannot in general recover tacit correctness.
+
+\subsection{Counterfactual: An FRFP-Aligned Watson for Oncology}
+
+It is instructive to sketch what WFO might have looked like under a strong
+FRFP design discipline.
+
+\subsubsection*{Z.1* Explicit/Tacit Separation and UI}
+
+\begin{itemize}
+  \item WFO would be explicitly framed as an \emph{artefact generator}:
+        it surfaces guideline passages, trial summaries, and similar cases,
+        but does not present canonical ranked treatment lists as ``Watson’s
+        recommendation''.
+  \item The UI would highlight:
+        \begin{itemize}
+          \item multiple guideline-consistent options side by side;
+          \item conflicting evidence or lack of coverage for the current case;
+          \item explicit uncertainty markers (e.g.\ ``no close match in
+                training set; exercise heightened caution'').
+        \end{itemize}
+  \item The system would avoid language suggesting that it ``knows'' the best
+        treatment; instead, it would present itself as a \emph{search and
+        summarisation engine} for explicit artefacts.
+\end{itemize}
+
+\subsubsection*{Z.2* Boundary Design and Documentation}
+
+\begin{itemize}
+  \item Boundary events would be clearly identified:
+        signing a treatment plan, entering orders, or officially adopting a
+        WFO-supported plan in the EHR.
+  \item At each such boundary, the clinical interface would:
+        \begin{itemize}
+          \item show which WFO artefacts were consulted;
+          \item show any divergences between WFO suggestions and base
+                guidelines;
+          \item require a short human justification for accepting any
+                option that relies materially on WFO output.
+        \end{itemize}
+  \item Logs would treat boundary decisions as first-class events, enabling
+        later audit of where WFO influenced care.
+\end{itemize}
+
+\subsubsection*{Z.3* Safe Horizons and Re-Grounding}
+
+\begin{itemize}
+  \item For each cancer type, safe horizons would cap how many WFO-assisted
+        decisions could be made before:
+        \begin{itemize}
+          \item an independent human review of recent cases against up-to-date
+                guidelines is required;
+          \item WFO’s training and rules are re-validated on real cases from
+                that institution.
+        \end{itemize}
+  \item For each clinician, usage statistics would highlight:
+        \begin{itemize}
+          \item how often WFO suggestions are accepted vs.\ overridden;
+          \item whether there is a drift toward uncritical acceptance.
+        \end{itemize}
+  \item At an institutional level, committees would periodically review
+        WFO’s impact on care patterns and outcomes, with authority to adjust
+        horizons, restrict indications, or suspend use.
+\end{itemize}
+
+\subsubsection*{Z.4* Training and Explicit Semantics}
+
+\begin{itemize}
+  \item Training would rely on large, audited collections of real cases with
+        diverse practice patterns and explicit probabilistic uncertainty,
+        rather than small synthetic case sets.
+  \item The system would maintain explicit versioned representations of
+        guidelines and evidence, allowing clinicians to see exactly which
+        sources underpin each suggestion.
+  \item Changes in guidelines or evidence would create explicit version
+        transitions in WFO’s internal knowledge, visible at the boundary.
+\end{itemize}
+
+\subsubsection*{Z.5* Institutional Governance}
+
+\begin{itemize}
+  \item A formal FRFP-style governance body (e.g.\ an AI clinical oversight
+        committee) would:
+        \begin{itemize}
+          \item review WFO’s design before deployment;
+          \item approve specific indications, safe horizons, and audit plans;
+          \item require regular reporting on errors, overrides, and usage.
+        \end{itemize}
+  \item Marketing claims and external messaging would be constrained to
+        match what the governance body has actually evaluated.
+\end{itemize}
+
+Such a counterfactual design cannot guarantee success, but it would align
+WFO with FRFP’s structural constraints:
+AI as explicit-only, correctness at human boundaries, finite safe horizons,
+and explicit institutional accountability.
+
+\subsection{Lessons for FRFP and Clinical AI}
+
+The Watson for Oncology case supports five protocol-level claims (each already developed in the
+opening Vol2 chapters and the Concept Lookup):
+\begin{enumerate}
+  \item \textbf{Explicit success does not imply tacit safety.} Demos and limited pilots do not certify
+        coverage, external validity, or boundary robustness under real clinical heterogeneity.
+  \item \textbf{Boundary rhetoric is not boundary design.} Labeling a tool “decision support” does not
+        ensure that endorsement remains meaningfully tacit; boundary events must be engineered with
+        required artefacts, logging, and authority.
+  \item \textbf{Safe horizons are required for repeated clinical use.} Long-horizon deployment changes
+        reliance patterns; horizons must cap ungrounded repetition and force periodic re-grounding.
+  \item \textbf{Institutional non-automation is a safety condition.} Vendor metrics, dashboards, and
+        marketing cannot substitute for governance operators empowered to constrain admissible runs.
+  \item \textbf{Protocol vocabulary sharpens “overhype” diagnoses.} FRFP localizes failure in explicit
+        semantics, boundary structure, horizon policy, and institutional operators, rather than in
+        a generic narrative of execution quality.
+\end{enumerate}
+
+In this light, Watson for Oncology is not just an anecdote of an overhyped
+AI.
+It is an early, large-scale illustration of why a formal architecture like
+FRFP is needed to reason about clinical AI systems whose capabilities and
+institutional footprints will only grow.

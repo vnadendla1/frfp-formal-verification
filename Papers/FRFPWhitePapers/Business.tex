@@ -1,0 +1,205 @@
+\section{FRFP for Organizations: Business and Governance Overview}
+\label{app:business-frfp}
+
+This appendix presents a practitioner-oriented version of the Foundational Reasoning and Feedback Protocol (FRFP).
+The main body of the paper develops FRFP as a formal architecture for long-horizon human--AI scientific workflows, with explicit/tacit categories, a boundary morphism, and dynamic and institutional semantics.
+Here, we restate the core ideas in non-technical terms and sketch how they can guide concrete organizational practice.
+
+The intended audience for this appendix includes:
+senior technical leaders (e.g.\ Chief Scientist, Head of AI),
+risk and governance teams,
+and product owners in domains where AI systems support high-stakes or long-horizon workflows.
+
+\subsection{Executive Overview}
+
+Organizations increasingly rely on AI systems---especially large language models and tool-using assistants---for scientific research, product development, financial analysis, and clinical or regulatory decision support.
+These systems can greatly accelerate work, but they also create subtle new failure modes:
+over long workflows, humans may become over-reliant on AI outputs, tacit grounding can degrade, and institutions can lose clear lines of responsibility.
+
+FRFP offers three core ideas for structuring such workflows:
+
+\begin{enumerate}
+  \item \textbf{Explicit vs.\ tacit.}
+  We distinguish between \emph{explicit} artifacts (documents, code, data, prompts, model outputs) and \emph{tacit} human understanding (expertise, contextual judgment, the sense that something is ``off'').
+  AI systems operate only on explicit artifacts; correctness lives in tacit human states.
+
+  \item \textbf{A single actionable boundary.}
+  The key architectural feature is a controlled boundary between explicit and tacit spaces.
+  Crossing this boundary corresponds to a human \emph{accepting} an explicit artifact as ``good enough to act on'' in some context (signing a report, approving a decision, submitting a paper).
+  FRFP insists that AI systems do not cross this boundary: they may propose and transform explicit artifacts, but they do not have correctness authority.
+
+  \item \textbf{Safe horizons instead of zero hallucination.}
+  Over long horizons, humans who lean heavily on AI tend to check less, remember less, and rely more on the system.
+  FRFP models this as degradation of tacit grounding and shows that, under realistic conditions, hallucinations (accepting ungrounded outputs) are inevitable along sufficiently long runs.
+  The goal is therefore not ``no hallucinations ever'', but carefully designed \emph{safe horizons}: limits on how far a workflow can run before deeper human review, re-grounding, or escalation is required.
+\end{enumerate}
+
+From an organizational perspective, FRFP yields:
+(i) architectural clarity about who may do what,
+(ii) governance constraints and impossibility results that explain which roles cannot be fully automated,
+and (iii) concrete patterns and checklists for designing AI-supported workflows that remain auditable and governable as capabilities scale.
+
+\subsection{FRFP Architecture in Organizational Terms}
+
+\paragraph{Explicit work.}
+Explicit work consists of everything that can be written down, stored, and processed by machines:
+prompts, model outputs, code, data tables, dashboards, reports, and so on.
+This is where AI systems operate most naturally: generating, transforming, and organizing explicit artifacts.
+
+\paragraph{Tacit work.}
+Tacit work consists of human understanding and judgment:
+domain expertise, sense of context, knowledge of institutional constraints, and the intuitive ability to say ``this looks wrong''.
+Correctness---in the sense relevant for scientific, financial, or clinical responsibility---is treated as a property of tacit states, not of explicit artifacts alone.
+
+\paragraph{The boundary.}
+The FRFP boundary is the moment when a human accepts or acts on explicit material influenced by AI:
+signing a clinical note, approving a risk position, submitting an AI-assisted manuscript, or green-lighting a model deployment.
+At these boundary points, FRFP requires that:
+(i) the responsible human role is clearly identified,
+(ii) the information available to that role is specified,
+and (iii) correctness is understood as their responsibility, not the system's.
+
+AI tools may contribute to everything that happens \emph{before} the boundary (e.g.\ summaries, scenarios, drafts, analyses), but do not themselves perform the boundary crossing.
+
+\paragraph{Roles and responsibilities.}
+In an FRFP-aligned organization, it is helpful to distinguish four functional roles:
+
+\begin{itemize}
+  \item \emph{Producers of explicit artifacts:}
+  teams using AI tools to generate and transform documents, models, analyses, or proposals.
+
+  \item \emph{Tacit owners / decision-makers:}
+  individuals who formally accept or reject explicit artifacts at boundary points, and who own correctness for those decisions.
+
+  \item \emph{Institutional aggregators:}
+  committees, review boards, and governance bodies that combine explicit artifacts and tacit judgments across many individuals (e.g.\ model risk committees, clinical guideline committees, internal research review boards).
+
+  \item \emph{AI and tooling stewards:}
+  platform teams responsible for AI integration, logging, and ensuring that tools respect explicit/tacit boundaries and support auditability.
+\end{itemize}
+
+\paragraph{Safe horizons.}
+Every AI-assisted workflow has a safe operating horizon: a limit on how far, or how long, the workflow can run before tacit grounding and error-detection degrade unacceptably.
+In practice, organizations should specify, for high-stakes processes:
+
+\begin{itemize}
+  \item how many AI-assisted steps may occur before a deeper human review is mandatory;
+  \item how often humans must re-ground themselves in primary data or source documents;
+  \item what kinds of anomalies or thresholds trigger escalation.
+\end{itemize}
+
+FRFP shows that, under broad qualitative assumptions, infinite safe horizons are not achievable; instead, horizon management becomes a core design responsibility.
+
+\subsection{Examples of FRFP-Aligned Workflows}
+
+\paragraph{Scientific research and R\&D.}
+In a research workflow, AI systems may assist with literature search, clustering, summarization, hypothesis generation, and drafting.
+The explicit layer includes retrieved papers, AI-generated topic maps and summaries, and draft text.
+Tacit work includes: judging whether the literature coverage is adequate, assessing plausibility of hypotheses, choosing experiments, and interpreting results.
+
+FRFP suggests:
+(i) defining boundary points such as pre-registration of hypotheses and final manuscript approval, where tacit owners (e.g.\ PIs) explicitly accept responsibility;
+(ii) instituting checkpoints where researchers must directly consult primary sources rather than relying solely on AI summaries;
+and (iii) logging key AI-assisted reasoning steps so that the intellectual provenance of conclusions can be reconstructed.
+
+\paragraph{Regulated financial or clinical decisions.}
+In finance, AI might generate stress-test scenarios, synthesize risk reports, or help draft credit memos.
+In healthcare, it might summarize charts, suggest diagnoses, or propose treatment options.
+In both cases, FRFP confines AI to the generation and transformation of explicit artifacts, while reserving acceptance of credit decisions, trading positions, or clinical orders to identified human roles.
+
+Safe horizons may be expressed as limits on:
+the number of successive AI-assisted reports before independent human re-baselining,
+the extent to which AI-drafted text can be reused without full review,
+or the duration for which an AI-supported monitoring process may run without human reassessment of assumptions.
+
+\paragraph{Internal governance and oversight.}
+Model governance, ethics boards, and risk committees increasingly use AI to summarize documentation and surface issues.
+FRFP treats governance itself as a pipeline over explicit artifacts (model cards, evaluations, incident logs, AI-generated summaries) and tacit judgments (legal, ethical, and strategic interpretation by committee members).
+Key governance actions---model approval, acceptance of residual risk, adoption of policies---are boundary crossings that must remain human-exclusive.
+
+FRFP's institutional layer implies that fully automated governance (e.g.\ ``deploy if scores exceed threshold and no alerts fire'') cannot generally provide the same correctness guarantees as human governance, even with sophisticated monitoring.
+AI may and should support governance, but not replace it.
+
+\subsection{Implementation Roadmap}
+
+From an implementation perspective, organizations can adopt FRFP in stages:
+
+\begin{enumerate}
+  \item \textbf{Assess and map.}
+  Inventory where AI is currently used; identify existing (possibly implicit) boundary points and areas with no clear boundary.
+
+  \item \textbf{Redesign key workflows.}
+  For a small number of high-impact workflows, explicitly map explicit vs.\ tacit steps, define boundary roles and information requirements, and choose safe horizons and checkpoints.
+  Decide what should be logged to reconstruct AI-assisted reasoning.
+
+  \item \textbf{Pilot and refine.}
+  Run FRFP-aligned versions of these workflows with motivated teams.
+  Monitor incidents, overrides, and user experience; adjust boundaries, horizons, and logging based on what works in practice.
+
+  \item \textbf{Standardize and scale.}
+  Convert successful pilots into reusable FRFP templates (for research, risk decisions, clinical documentation, model governance, etc.).
+  Integrate FRFP design into product lifecycles, model approval processes, and change management.
+
+  \item \textbf{Embed in governance and training.}
+  Update AI use policies, model governance frameworks, and risk documents to reflect explicit/tacit boundaries, human-exclusive correctness, and limits on automation.
+  Train practitioners and leaders in FRFP concepts and their responsibilities at boundary points.
+\end{enumerate}
+
+\subsection{Common Pitfalls and How FRFP Helps Avoid Them}
+
+In applying FRFP, several recurring pitfalls are worth highlighting:
+
+\begin{itemize}
+  \item \textbf{Over-automation disguised as decision support.}
+  Tools described as ``assistants'' or ``copilots'' effectively become decision-makers when humans never override them.
+  FRFP reacts by treating behavior, not labels, as the signal: if a system is de facto making decisions, boundaries must be redesigned.
+
+  \item \textbf{Boundary erosion over time.}
+  Initial review steps can become rubber-stamping under time pressure.
+  FRFP recommends making boundary decisions observable (e.g.\ by logging changes and overrides) and periodically auditing samples to detect erosion.
+
+  \item \textbf{Metric overconfidence.}
+  Organizations may over-trust dashboards, scores, or evaluation metrics.
+  Under FRFP, such metrics are inputs to tacit judgment, not substitutes; governance documents should explicitly state what metrics do \emph{not} capture.
+
+  \item \textbf{Checklist theatre.}
+  Long, low-value checklists can create a false sense of safety.
+  FRFP encourages short, targeted prompts that trigger real reflection (e.g.\ ``What primary sources did you personally review?''), and regular pruning of items that do not change behavior.
+
+  \item \textbf{Treating FRFP as pure compliance.}
+  If FRFP is seen only as an external requirement, teams will optimize for appearance.
+  Embedding FRFP in product and research strategy---not just policy---helps keep the focus on actual correctness and robustness.
+\end{itemize}
+
+\subsection{FRFP Design Checklist}
+
+For ease of adoption, we collect here a short checklist that teams can use when designing or reviewing AI-supported workflows.
+
+\begin{itemize}
+  \item \textbf{Workflow mapping:}
+    have we charted the main steps and labeled each as explicit or tacit?
+
+  \item \textbf{Boundaries:}
+    where exactly are the decision points where correctness matters,
+    who is responsible at each, and what information must they see?
+
+  \item \textbf{AI's role:}
+    are AI systems confined to explicit work (generation, transformation, organization),
+    or are they implicitly making decisions that should be human-held?
+
+  \item \textbf{Safe horizons:}
+    for this workflow, how far can AI-assisted reasoning proceed before requiring deeper human review, re-grounding, or escalation?
+    what are the triggers for resets?
+
+  \item \textbf{Logging and traceability:}
+    are prompts, key AI outputs, and boundary decisions logged in a way that lets us reconstruct how a conclusion was reached?
+
+  \item \textbf{Governance:}
+    which committee or body oversees this workflow?
+    do they understand the explicit/tacit boundaries and have the authority to adjust them?
+
+  \item \textbf{Training and culture:}
+    have the people using the workflow been trained in their responsibilities at boundary points and encouraged to challenge AI outputs when needed?
+\end{itemize}
+
+Used consistently, this checklist can help ensure that FRFP is not just a theoretical architecture but a practical guide to designing AI-supported work that is safer, more auditable, and more robust against long-horizon drift.

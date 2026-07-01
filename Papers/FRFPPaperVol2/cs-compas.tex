@@ -1,0 +1,395 @@
+% ============================================================
+% Appendix Z.3 — FRFP Case Study (Justice / Governance):
+% COMPAS Recidivism Risk Assessment
+% ============================================================
+
+\section{FRFP Case Study (Justice / Governance): COMPAS Recidivism Risk Assessment}
+\label{app:frfp-compas}
+
+This appendix analyses the COMPAS recidivism risk assessment tool as an
+FRFP case study.
+Rather than re-litigating the full fairness debate, we focus on how COMPAS
+illustrates FRFP’s explicit/tacit split, boundary design, safe horizons,
+and institutional non-automation in a high-stakes governance setting.
+
+\subsection{Background}
+
+COMPAS (Correctional Offender Management Profiling for Alternative
+Sanctions) is a commercial risk assessment instrument originally developed
+by Northpointe (now equivant) and used in parts of the U.S.\ criminal justice
+system to assess the risk that a defendant will reoffend.
+Jurisdictions have used COMPAS scores at various decision points, including
+pre-trial release, sentencing, and parole.
+
+In 2016, ProPublica published ``Machine Bias'', an investigation of COMPAS
+scores and outcomes for over 7{,}000 defendants in Broward County, Florida.
+They reported that:
+
+\begin{itemize}
+  \item overall accuracy (high vs.\ low risk vs.\ actual reoffending) was
+        similar for Black and white defendants; but
+  \item false positive rates were substantially higher for Black defendants
+        (they were more often labeled high risk but did not reoffend), while
+        false negative rates were higher for white defendants (more white
+        defendants labeled low risk who did reoffend).
+\end{itemize}
+
+This sparked an extensive debate:
+
+\begin{itemize}
+  \item Northpointe and allied researchers responded that, under some
+        standard statistical definitions (e.g.\ calibration conditional on
+        risk score), COMPAS did not exhibit bias.
+  \item Others argued that equal calibration and equal error rates across
+        groups are mathematically incompatible in the presence of base-rate
+        differences.
+  \item Empirical studies showed that simple, transparent models or even
+        human predictions based on a few factors can match COMPAS’s overall
+        accuracy.
+\end{itemize}
+
+For FRFP, COMPAS is interesting not because of any single metric outcome,
+but because it exemplifies:
+
+\begin{itemize}
+  \item explicit algorithms embedded within tacit judicial and institutional
+        practices;
+  \item ambiguous boundaries between ``advice'' and de facto decision;
+  \item population-level effects over long horizons;
+  \item attempts to automate governance via scores and dashboards.
+\end{itemize}
+
+\subsection{Explicit and Tacit Spaces in COMPAS Use}
+
+\subsubsection*{Explicit space \(E_{\mathrm{justice}}\)}
+
+COMPAS’s explicit domain includes:
+
+\begin{itemize}
+  \item input variables: answers to a questionnaire (137 items in some
+        versions) on criminal history, demographics, and other factors;
+  \item a proprietary scoring algorithm that maps inputs to risk scores and
+        categories (e.g.\ low / medium / high risk);
+  \item risk reports presented to judges or parole boards: numerical deciles,
+        verbal risk levels, and explanatory text;
+  \item policy documents and bench books describing how scores may be used.
+\end{itemize}
+
+All of this lives in explicit space: the algorithm is an explicit mapping;
+scores are explicit artefacts; policy documents are explicit guidance.
+
+\subsubsection*{Tacit space \(T_{\mathrm{justice}}\)}
+
+Tacit space comprises:
+
+\begin{itemize}
+  \item judges’ and parole officers’ understanding of crime, risk, and
+        rehabilitation;
+  \item legal norms and intuitions about proportionality, due process, and
+        equality;
+  \item practical knowledge of local conditions (policing intensity,
+        community context, available programmes);
+  \item institutional culture around sentencing and pre-trial decisions.
+\end{itemize}
+
+These tacit states shape how explicit artefacts (COMPAS scores, case files,
+arguments) are interpreted and integrated into decisions about liberty and
+punishment.
+
+\subsection{Boundary Design: Scores as Inputs vs.\ De Facto Decisions}
+
+\subsubsection*{Formal role: advisory inputs}
+
+Officially, risk assessment tools like COMPAS are often framed as providing
+\emph{advisory} information:
+
+\begin{itemize}
+  \item judges retain legal authority and responsibility for sentencing or
+        release decisions;
+  \item COMPAS scores are one factor among many in a pre-sentence report;
+  \item guidelines and court decisions (e.g.\ \emph{State v.\ Loomis} in
+        Wisconsin) emphasise that COMPAS cannot be the sole basis for a
+        decision and that its limitations must be acknowledged.
+\end{itemize}
+
+In FRFP terms, the intended boundary is:
+
+\begin{itemize}
+  \item AI / algorithm outputs (scores) remain in explicit space;
+  \item human decision-makers in tacit space endorse or reject specific
+        sentencing or release decisions, having weighed scores alongside other
+        evidence.
+\end{itemize}
+
+\subsubsection*{Practical drift: the ``siren song of objectivity''}
+
+In practice, several factors push toward a different boundary:
+
+\begin{itemize}
+  \item scores are presented as quantitative, objective indicators;
+  \item judges face time pressure and may have limited statistical training;
+  \item there is social and institutional pressure to appear ``data-driven''
+        and to follow recommended tools;
+  \item defendants and lawyers often have limited ability to challenge or
+        interpret scores, given COMPAS’s proprietary nature.
+\end{itemize}
+
+The result is a drift toward treating COMPAS scores as:
+
+\begin{itemize}
+  \item strong \emph{priors} on risk that tacit judgment rarely overrides;
+  \item anchors that bias subsequent interpretive processes.
+\end{itemize}
+
+From an FRFP perspective, this is boundary erosion:
+explicit artefacts (scores) become de facto bearers of correctness, even
+though legal doctrine maintains that humans remain responsible.
+
+\subsection{Protocol-Level Issues in FRFP Terms}
+
+\subsubsection*{Z.3.1 Explicit-Space Fairness and Its Limits}
+
+ProPublica’s analysis and subsequent work exposed that COMPAS’s explicit
+mapping from features to risk scores embodies trade-offs between accuracy
+and fairness:
+
+\begin{itemize}
+  \item the tool can be approximately calibrated across groups (similar risk
+        scores correspond to similar empirical recidivism rates);
+  \item or it can equalise false positive and false negative rates across
+        groups;
+  \item but it cannot achieve both simultaneously when base recidivism rates
+        differ between groups, as they do in the Broward dataset.
+\end{itemize}
+
+This is now a standard result in algorithmic fairness:
+calibration, equal false positive rates, and equal false negative rates
+cannot, in general, be satisfied together.
+
+In FRFP language:
+
+\begin{itemize}
+  \item many fairness properties of interest are properties of explicit
+        mappings in \(E_{\mathrm{justice}}\) and their empirical performance;
+  \item explicit semantics are constrained by statistical structure in the
+        environment (base rates), leading to impossibility trade-offs;
+  \item no choice of metric can fully capture tacit normative judgments about
+        what counts as just or unjust treatment across groups.
+\end{itemize}
+
+Thus, COMPAS illustrates that explicit-only fairness optimisation has
+built-in limits: the algorithm can be tuned for one metric, but cannot
+resolve deeper normative conflicts.
+
+\subsubsection*{Z.3.2 Boundary Confusion and Responsibility}
+
+The \emph{Loomis} decision in Wisconsin, which upheld the use of COMPAS
+scores but warned about their limitations, is an example of FRFP-relevant
+boundary tension.
+
+From an FRFP viewpoint:
+
+\begin{itemize}
+  \item courts attempt to keep correctness in tacit space
+        (judicial judgment, due process, constitutional norms);
+  \item yet they allow opaque explicit artefacts (scores from proprietary
+        algorithms) to enter the decision pipeline;
+  \item defendants cannot meaningfully contest or interpret the explicit
+        mapping, undermining the transparency usually required for legal
+        correctness.
+\end{itemize}
+
+This creates a misalignment:
+
+\begin{itemize}
+  \item tacit responsibility is formally with judges;
+  \item but some of the effective decision-making power has migrated into
+        explicit systems that are not fully intelligible to any actor in
+        \(T_{\mathrm{justice}}\).
+\end{itemize}
+
+FRFP would flag this as a violation of clear boundary design: humans are
+supposed to be endorsers of explicit artefacts, but here the artefact is
+partly inscrutable.
+
+\subsubsection*{Z.3.3 Safe Horizons and Population Effects}
+
+COMPAS is used repeatedly across thousands of cases over many years:
+
+\begin{itemize}
+  \item each use updates tacit beliefs of judges, lawyers, and communities
+        about who is ``high risk'';
+  \item scores may shape plea negotiations, sentencing norms, and incarceration
+        patterns, feeding back into future data.
+\end{itemize}
+
+FRFP emphasises that in such long-horizon, population-level settings:
+
+\begin{itemize}
+  \item tacit grounding (e.g.\ nuanced understanding of defendants and local
+        conditions) can erode as actors defer to the tool;
+  \item safe horizons for tool usage should be explicitly defined and
+        periodically reset via audits and moratoria;
+  \item otherwise, structural biases can become entrenched.
+\end{itemize}
+
+COMPAS deployments generally did not incorporate such safe-horizon designs:
+
+\begin{itemize}
+  \item there were no built-in limits on how many cases could be decided with
+        COMPAS involvement before formal reassessment of its effects;
+  \item debates about bias and fairness arose only after sustained external
+        pressure (e.g.\ ProPublica’s investigation, academic critiques).
+\end{itemize}
+
+From an FRFP perspective, this is a predictable pattern for explicit tools
+that operate without structural safe horizons in governance contexts.
+
+\subsubsection*{Z.3.4 Institutional Operators and Explicit-Only Governance}
+
+At the institutional level, risk assessment is often framed as:
+
+\begin{itemize}
+  \item a means to improve consistency and transparency of decisions;
+  \item a way to manage caseloads and resources more ``objectively'';
+\end{itemize}
+
+However, FRFP’s institutional semantics would ask:
+
+\begin{itemize}
+  \item which operators map the population’s tacit states (judges, lawyers,
+        policymakers, communities) into new states as COMPAS is adopted?
+  \item are there explicit governance bodies that:
+        \begin{itemize}
+          \item monitor fairness trade-offs over time;
+          \item adjust boundaries and horizons;
+          \item decide when to suspend or restrict the tool?
+        \end{itemize}
+\end{itemize}
+
+The COMPAS story suggests that much governance has been:
+
+\begin{itemize}
+  \item reactive (responding to criticism and litigation);
+  \item fragmented across jurisdictions;
+  \item heavily reliant on explicit metrics and vendor documentation, rather
+        than on a coherent FRFP-style tacit governance layer.
+\end{itemize}
+
+This fits FRFP’s warning about explicit-only governance in complex
+institutional systems.
+
+\subsection{Counterfactual: An FRFP-Aligned Risk Assessment Regime}
+
+Rather than advocating for or against algorithmic risk assessment in
+principle, FRFP emphasises structural conditions for any such system.
+
+\subsubsection*{Z.3* Explicit/Tacit Role Clarification}
+
+\begin{itemize}
+  \item Explicit tools (including COMPAS-like models) are treated as providers
+        of \emph{signals} and structured summaries, not as direct inputs into
+        sentencing ranges or binary decisions.
+  \item Tacit legal and ethical judgment (judges, parole boards, oversight
+        bodies) retains responsibility for interpreting these signals in
+        context.
+\end{itemize}
+
+\subsubsection*{Z.3* Boundary Design and Transparency}
+
+\begin{itemize}
+  \item Boundary events are clearly defined: each sentencing or release
+        decision is an endorsement in \(T_{\mathrm{justice}}\), not in
+        \(E_{\mathrm{justice}}\).
+  \item For any decision in which an algorithmic score materially influenced
+        the outcome, the record includes:
+        \begin{itemize}
+          \item the score and category;
+          \item a human-readable explanation of its role;
+          \item space for judicial justification, including reasons for
+                overriding or discounting the score.
+        \end{itemize}
+  \item Defendants have structured avenues to challenge both the use of the
+        tool and its score in their case.
+\end{itemize}
+
+\subsubsection*{Z.3* Safe Horizons and Audits}
+
+\begin{itemize}
+  \item Use of risk scores is subject to explicit safe horizons:
+        \begin{itemize}
+          \item after a certain number of decisions or time period, a full
+                audit of outcomes and fairness metrics is mandatory;
+          \item algorithm use can be paused or restricted pending audit.
+        \end{itemize}
+  \item Audits examine:
+        \begin{itemize}
+          \item group-wise error rates and calibration;
+          \item downstream impacts on incarceration, bail, and recidivism;
+          \item interaction with policing and charging patterns.
+        \end{itemize}
+  \item Trade-offs between fairness metrics are surfaced for public and
+        legislative deliberation, not buried in model design.
+\end{itemize}
+
+\subsubsection*{Z.3* Institutional Governance}
+
+\begin{itemize}
+  \item A dedicated risk-assessment governance body (judges, defenders,
+        prosecutors, community representatives, statisticians) oversees
+        selection, deployment, and revision of tools.
+  \item This body operates as an FRFP institutional operator:
+        \begin{itemize}
+          \item it defines admissible pipelines and boundary rules;
+          \item it sets safe horizons and audit protocols;
+          \item it retains the authority to withdraw tools that fail to satisfy
+                structural or normative conditions.
+        \end{itemize}
+\end{itemize}
+
+Under such a regime, COMPAS-like tools remain in explicit space; correctness
+over citizens’ liberty remains a tacit, human and institutional function.
+
+\subsection{Lessons for FRFP and Algorithmic Governance}
+
+The COMPAS case reinforces several of FRFP’s core claims:
+
+\begin{enumerate}
+  \item \textbf{Fairness trade-offs are explicit and structural.}
+        COMPAS shows that explicit mappings from features to scores are
+        constrained by base rates and cannot satisfy all fairness desiderata
+        simultaneously.
+        This is not a bug of one model but a structural fact.
+
+  \item \textbf{Boundaries must be designed, not assumed.}
+        Declaring a tool ``advisory'' does not prevent its scores from
+        shaping decisions as if they were authoritative.
+        FRFP requires explicit, auditable boundary mechanisms.
+
+  \item \textbf{Safe horizons are essential for population-level use.}
+        Long-term deployment of risk tools without periodic re-grounding in
+        tacit legal and ethical judgment risks entrenching bias and eroding
+        human responsibility.
+
+  \item \textbf{Explicit-only governance is inadequate.}
+        Oversight based solely on vendor documentation and retrospective
+        metrics cannot, in general, recover tacit notions of justice and due
+        process; institutional FRFP operators are needed.
+
+  \item \textbf{Formal architectures clarify debates.}
+        The COMPAS controversy is often framed as ``is the tool racist or
+        not?''.
+        FRFP reframes it as:
+        \begin{itemize}
+          \item what explicit semantics does the tool implement?
+          \item where are the boundaries between scores and decisions?
+          \item how are safe horizons and audits structured?
+          \item which institutional operators are responsible for aligning
+                explicit tools with tacit norms of justice?
+        \end{itemize}
+\end{enumerate}
+
+In this sense, COMPAS is less an anomaly than a paradigm case: it exhibits
+the characteristic tensions that FRFP is designed to surface and constrain
+whenever explicit AI systems are embedded in high-stakes governance
+processes.

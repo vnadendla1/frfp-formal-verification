@@ -1,0 +1,70 @@
+\contentsline {section}{\numberline {1}Introduction}{5}{section.1}%
+\contentsline {section}{\numberline {2}The Kernel Category}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Overview}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Objects}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Primitive Morphisms}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Subcategories}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Core Typing Theorems}{8}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Pipelines}{8}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Primitive Phase Partition}{9}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}The No-Return Principle}{9}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}Immutability of the Kernel}{9}{subsection.2.9}%
+\contentsline {section}{\numberline {3}The Reduced Axiom Basis}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}From 11 Premises to 7}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Derivable Theorems (No Longer Axioms)}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Core Irreducible Premises}{11}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Interaction Irreducible Premises}{11}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Source Anchoring of External Assumptions}{12}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Decomposition: Skeleton vs Policy Residue}{12}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Reduction and Confluence}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Overview}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Task Decomposition Grammar}{13}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Reduction Relations}{13}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Normal Forms}{13}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Termination}{13}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Local Confluence}{14}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Global Confluence (Church--Rosser)}{14}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Normal Form Uniqueness (Corrected)}{14}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Semantic Correctness}{14}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Protocol Normal Form Theorem}{15}{subsection.4.10}%
+\contentsline {section}{\numberline {5}Denotational and Operational Semantics}{16}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Overview}{16}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}The Grothendieck Construction}{16}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Lean Correction: Reduction Acts on Objects}{16}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Semantic Functions}{17}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Runs and Trajectories}{17}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}The $\mathrm {runTo}\omega $ Bijection}{17}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Denotational Semantics of Pipelines}{18}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.8}Navigation Layer}{18}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}Immutability of Pipelines}{18}{subsection.5.9}%
+\contentsline {section}{\numberline {6}Dynamic and Probabilistic Layer}{19}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Overview}{19}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Epistemic State}{19}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Degradation}{19}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Entropy Drift}{20}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Stopping Times}{20}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Five Proven Probability Theorems}{20}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Safe Horizon}{21}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}Tacit Irreversibility}{21}{subsection.6.8}%
+\contentsline {section}{\numberline {7}Collective and Governance Layer}{22}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Overview}{22}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Epistemic Algebra}{22}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Institutional Layer}{22}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Consensus Impossibility}{23}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Governance Framework}{23}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Step Compatibility}{23}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}Governance Safe Extension Theorem}{23}{subsection.7.7}%
+\contentsline {subsection}{\numberline {7.8}Entropy Drift in Collective Settings}{24}{subsection.7.8}%
+\contentsline {subsection}{\numberline {7.9}Policy Residue in the Collective Layer}{24}{subsection.7.9}%
+\contentsline {section}{\numberline {8}Novel Results from Formalization}{25}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Overview}{25}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Novel Theorem 1: First Unresolved Witness}{25}{subsection.8.2}%
+\contentsline {paragraph}{\numberline {8.2.0.1}Why novel.}{25}{paragraph.8.2.0.1}%
+\contentsline {subsection}{\numberline {8.3}Novel Theorem 2: Governance Safe Extension}{25}{subsection.8.3}%
+\contentsline {paragraph}{\numberline {8.3.0.1}Why novel.}{26}{paragraph.8.3.0.1}%
+\contentsline {subsection}{\numberline {8.4}Novel Theorem 3: Protocol Normal Form}{26}{subsection.8.4}%
+\contentsline {paragraph}{\numberline {8.4.0.1}Why novel.}{26}{paragraph.8.4.0.1}%
+\contentsline {paragraph}{\numberline {8.4.0.2}Implication for protocol design.}{26}{paragraph.8.4.0.2}%
+\contentsline {subsection}{\numberline {8.5}Direct Consequences of the Reduced Basis}{26}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}Novelty Classification}{27}{subsection.8.6}%
+\contentsline {subsection}{\numberline {8.7}Open Questions}{27}{subsection.8.7}%

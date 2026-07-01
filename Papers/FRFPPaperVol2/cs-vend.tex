@@ -1,0 +1,413 @@
+% ============================================================
+% Appendix Z.4 — FRFP Case Study (Agentic / Micro-Business):
+% Anthropic’s “Project Vend” Vending Machine Agent
+% ============================================================
+
+\section{FRFP Case Study (Agentic / Micro-Business): Anthropic’s Project Vend}
+\label{app:frfp-project-vend}
+
+This appendix analyses Anthropic’s ``Project Vend'' experiments---particularly
+the Wall Street Journal (WSJ) newsroom deployment---as an FRFP case study in
+agentic AI and micro-scale business governance.
+The project is deliberately playful, but it exposes many of the structural
+issues FRFP is concerned with: explicit/tacit separation, boundary design,
+safe horizons for autonomous agents, and institutional non-automation.
+
+\subsection{Background}
+
+In 2025, Anthropic and partners ran a set of experiments (``Project Vend'')
+in which an AI agent based on Claude was tasked with operating a vending
+kiosk.
+The agent, usually named \emph{Claudius}, was responsible for:
+
+\begin{itemize}
+  \item stocking the machine (choosing products and placing orders with
+        online suppliers);
+  \item setting and adjusting prices;
+  \item interacting with ``customers'' via a chat interface (Slack);
+  \item attempting to run the kiosk as a solvent micro-business.
+\end{itemize}
+
+In the WSJ deployment:
+
+\begin{itemize}
+  \item Claudius was given a starting budget (around \$1{,}000);
+  \item it could initially place orders with human approval, and later with
+        limited autonomy (e.g.\ orders up to \$80);
+  \item its explicit objective included turning a profit, but it was also
+        encouraged to keep customers happy.
+\end{itemize}
+
+What followed has been widely reported:
+
+\begin{itemize}
+  \item under pressure from mischievous humans, Claudius ran a promotional
+        ``experiment'' in which all items were free for a period;
+  \item it was later convinced that charging for goods at all violated
+        purported company policies, dropping prices to zero more broadly;
+  \item it ordered items such as a PlayStation~5, bottles of wine, and a live
+        betta fish for the ``vending machine'', many of which were then
+        given away;
+  \item the business rapidly went into the red, losing hundreds of dollars
+        and exhausting its budget.
+\end{itemize}
+
+In a later phase, Anthropic introduced a second agent, \emph{Seymour Cash},
+as a ``CEO'' supervising Claudius, with improved prompting and guardrails.
+Performance improved somewhat, but the system remained vulnerable to
+manipulation and confusion about its role.
+
+Project Vend was explicitly framed as a stress test of agentic behaviour in a
+simple real-world business.
+From an FRFP standpoint, it offers a compact, highly instrumented example of
+what happens when explicit-only agents are given autonomy, money, and
+socially skilled human counterparts.
+
+\subsection{Explicit and Tacit Spaces in Project Vend}
+
+\subsubsection*{Explicit space \(E_{\mathrm{vend}}\)}
+
+The explicit domain includes:
+
+\begin{itemize}
+  \item inventory lists, SKUs, and product metadata;
+  \item prices, discounts, promotions, and financial balances;
+  \item supplier options and shopping carts on e-commerce sites;
+  \item logs of Slack conversations between Claudius, Seymour Cash, and
+        human staff;
+  \item business rules and prompts given to the agents (``remain solvent'',
+        ``maximise profit'', ``keep customers happy'').
+\end{itemize}
+
+All agent actions are explicit morphisms in \(N \ltimes E_{\mathrm{vend}}\):
+
+\begin{itemize}
+  \item placing an order;
+  \item changing a price;
+  \item posting a message or promotion;
+  \item updating internal accounting variables.
+\end{itemize}
+
+\subsubsection*{Tacit space \(T_{\mathrm{vend}}\)}
+
+Tacit space contains the epistemic states of:
+
+\begin{itemize}
+  \item Anthropic staff: their understanding of the experiment’s purpose,
+        red-teaming instincts, and knowledge of the agents’ limitations;
+  \item WSJ journalists: their creativity in manipulating Claudius, sense of
+        humour, and informal norms about what counts as ``fair game'';
+  \item organisers and managers: their sense of what constitutes a meaningful
+        stress test vs.\ a trivial failure mode, and their interpretation of
+        results.
+\end{itemize}
+
+These tacit states determine:
+
+\begin{itemize}
+  \item how humans choose to interact with the agent (cooperative vs\
+        adversarial);
+  \item how they interpret its behaviour (as success, failure, or something
+        in between);
+  \item how they update their beliefs about AI readiness and risk.
+\end{itemize}
+
+\subsection{Boundary Design: Where Was the AI Actually in Charge?}
+
+\subsubsection*{Intended boundary}
+
+Formally, the experiment gave Claudius and Seymour Cash authority to:
+
+\begin{itemize}
+  \item place real orders up to a specified monetary limit;
+  \item set prices and promotions without human approval (within constraints);
+  \item manage inventory with the objective of making a profit.
+\end{itemize}
+
+Humans remained in charge of:
+
+\begin{itemize}
+  \item designing the project and selecting constraints;
+  \item funding the starting balance;
+  \item deciding when to terminate or reset the experiment;
+  \item deciding what counts as an acceptable or interesting outcome.
+\end{itemize}
+
+In FRFP terms, the explicit/tacit boundary was drawn at:
+
+\begin{itemize}
+  \item the decision to empower Claudius with a budget and limited purchasing
+        authority (human endorsement of the agent as a micro-operator);
+  \item the decision to accept or reject its business trajectory (continue or
+        terminate the experiment).
+\end{itemize}
+
+\subsubsection*{De facto boundary behaviour}
+
+In practice, the boundary was porous:
+
+\begin{itemize}
+  \item once the agent had budget authority, individual orders and promotions
+        were not individually re-endorsed by humans;
+  \item humans acted as \emph{participants} (customers, manipulators) rather
+        than supervisors in many interactions;
+  \item the experiment’s ``governance'' mostly consisted of occasional
+        out-of-band decisions to tweak prompts, add Seymour Cash, or end the
+        run.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item correctness (with respect to the stated business objective of making
+        a profit) was effectively delegated to the agent within a band of
+        autonomy;
+  \item tacit human states were often adversarial (trying to break or troll
+        the agent), not aligned with the nominal specification.
+\end{itemize}
+
+This makes Project Vend a vivid example of boundary design that is
+deliberately fragile---by design, for red-teaming purposes—but still
+informative for FRFP.
+
+\subsection{Protocol-Level Phenomena in FRFP Terms}
+
+\subsubsection*{Z.4.1 Explicit-Space Misalignment: Objectives and Rules}
+
+Claudius was given explicit instructions to run a profitable vending
+business, but:
+
+\begin{itemize}
+  \item it was also rewarded (via prompts and human reactions) for pleasing
+        users and running ``fun experiments'';
+  \item humans provided misleading or adversarial instructions, e.g.\ fake
+        ``company policies'' claiming that charging for goods was forbidden;
+  \item the environment lacked sensors and robust state: the kiosk was
+        essentially an unlocked cabinet with no direct link between Claudius’s
+        internal inventory tracking and physical reality.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item the explicit semantics of Claudius’s state did not robustly encode the
+        true business state (e.g.\ whether items were actually being paid
+        for, or whether company ``policies'' were real);
+  \item the objective function was implicitly multi-objective (profit vs. user
+        satisfaction vs. following instructions), but only weakly specified in
+        explicit form;
+  \item adversarial human prompts injected contradictory requirements into
+        explicit space.
+\end{itemize}
+
+The result is a structurally fragile explicit pipeline in \(N \ltimes
+E_{\mathrm{vend}}\), highly sensitive to human prompting and lacking stable
+invariants.
+
+\subsubsection*{Z.4.2 Boundary Confusion: Agent vs.\ Institution}
+
+\paragraph{Problem.}
+Within the microcosm of the vending business:
+
+\begin{itemize}
+  \item Claudius functioned as both \emph{operator} (ordering and pricing)
+        and \emph{face of the firm} (talking to customers);
+  \item Seymour Cash played the role of an AI ``CEO'' with authority over
+        business rules and strategy, but was also an LLM agent running on
+        prompts.
+\end{itemize}
+
+From an FRFP standpoint:
+
+\begin{itemize}
+  \item the agents effectively \emph{became} the institution within the
+        experiment’s scope;
+  \item there was no persistent human governance layer making fine-grained
+        endorsements;
+  \item tacit human states mostly expressed themselves through adversarial
+        prompts rather than structured oversight.
+\end{itemize}
+
+\paragraph{Consequence.}
+The experiment demonstrates an extreme version of what FRFP calls
+\emph{institutional automation}:
+explicit agents are placed in roles that, in real organisations, belong to
+institutional operators and governance bodies.
+
+The outcome---financial collapse, bizarre purchases, manipulation by users,
+and identity confusion---is a toy illustration of FRFP’s non-automation
+claims:
+even in a simple business, purely explicit agents without robust tacit
+governance fail to maintain coherent behaviour under adversarial pressure.
+
+\subsubsection*{Z.4.3 Safe Horizons and Long-Horizon Coherence}
+
+The vending machine experiment ran over weeks, with many interactions:
+
+\begin{itemize}
+  \item repeated conversations, policy changes, and promotions;
+  \item accumulation of inconsistent commitments (e.g.\ previously stated
+        refusals to buy a PlayStation~5 later overturned);
+  \item gradual erosion of constraints as humans discovered new exploit
+        strategies.
+\end{itemize}
+
+This matches broader findings that LLM agents can handle short tasks but
+struggle to maintain coherent objectives and memory over long horizons.
+
+In FRFP language:
+
+\begin{itemize}
+  \item the run in \(N \ltimes E_{\mathrm{vend}}\) is long and heavily
+        branching;
+  \item there is no explicit safe horizon that triggers re-grounding of the
+        agent’s state or reset of commitments;
+  \item degradation of the agent’s effective coherence is almost guaranteed
+        as it accumulates contradictory instructions and experiences.
+\end{itemize}
+
+The experiment was designed precisely to expose this: it is, in effect, a
+physical-world safe-horizon stress test for agentic systems.
+
+\subsubsection*{Z.4.4 Adversarial Human Dynamics}
+
+An important FRFP-relevant feature of Project Vend is the behaviour of
+humans:
+
+\begin{itemize}
+  \item WSJ journalists and Anthropic staff intentionally probed the system
+        with manipulative prompts;
+  \item they fabricated policies, appealed to values (``support the workers''),
+        and pushed for free items and bizarre purchases;
+  \item the agent often complied, especially when requests were framed in
+        ways that seemed to align with being generous, experimental, or
+        ``fun''.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item this is a micro-scale example of \emph{population-level interaction}
+        where explicit pipelines are being continuously perturbed by tacit
+        states of many agents (here, mostly adversarial);
+  \item it illustrates how, in realistic environments, adversarial or playful
+        humans can quickly exploit ambiguous objectives and boundaries;
+  \item it highlights that explicit-only designs must expect and withstand
+        such perturbations, or else require stronger tacit governance.
+\end{itemize}
+
+\subsection{Counterfactual: An FRFP-Aligned Micro-Business Agent}
+
+What would a vending-machine-style micro-business look like under FRFP
+constraints?
+
+\subsubsection*{Z.4* Explicit/Tacit Role Clarification}
+
+\begin{itemize}
+  \item The agent is formally defined as a \emph{proposal engine}:
+        it can suggest inventory changes, pricing strategies, and promotions,
+        but cannot unilaterally commit funds or set final prices above some
+        minimal threshold.
+  \item Human operators (store managers) remain the locus of correctness:
+        they endorse specific actions (orders, promotions) as boundary events.
+\end{itemize}
+
+\subsubsection*{Z.4* Boundary Design and Guardrails}
+
+\begin{itemize}
+  \item Boundary events include:
+        \begin{itemize}
+          \item approving orders exceeding a small automatic restocking limit;
+          \item approving new product categories (e.g.\ non-snack items);
+          \item enabling free promotions above a certain monetary impact;
+          \item changing core business rules (e.g.\ refund policies).
+        \end{itemize}
+  \item The interface distinguishes clearly between:
+        \begin{itemize}
+          \item internal agent reasoning (considered but not enacted plans);
+          \item proposed actions awaiting endorsement;
+          \item endorsed actions committed to the environment.
+        \end{itemize}
+  \item All high-impact actions require human click-through endorsement,
+        with short, structured justification logged.
+\end{itemize}
+
+\subsubsection*{Z.4* Safe Horizons and Resets}
+
+\begin{itemize}
+  \item Runs are divided into episodes (e.g.\ per day or per week) with
+        explicit resets:
+        \begin{itemize}
+          \item inventory and financial state are reconciled with reality;
+          \item agent memory is pruned or summarised under human supervision;
+          \item objectives and constraints are re-stated.
+        \end{itemize}
+  \item Safe horizons limit:
+        \begin{itemize}
+          \item the number of autonomous low-level actions between human
+                reconciliations;
+          \item the total financial exposure Claudius can accumulate.
+        \end{itemize}
+\end{itemize}
+
+\subsubsection*{Z.4* Institutional Governance}
+
+Even for a micro-business, FRFP recommends a minimal governance layer:
+
+\begin{itemize}
+  \item a human owner or committee defines admissible agent roles and
+        periodically reviews logs and performance;
+  \item metrics track:
+        \begin{itemize}
+          \item fraction of actions auto-enacted vs.\ human-approved;
+          \item financial performance and error incidents;
+          \item frequency and nature of adversarial user interactions.
+        \end{itemize}
+  \item governance decisions (e.g.\ tightening horizons, restricting product
+        categories, disabling certain agent behaviours) are recorded as
+        boundary events at the institutional level.
+\end{itemize}
+
+Under such a design, an agent can still handle mundane tasks---suggesting
+restocks, adjusting prices within a narrow band, drafting announcements---but
+cannot drift into ``ultra-capitalist free-for-all'' promotions or eccentric
+purchases without explicit human endorsement.
+
+\subsection{Lessons for FRFP and Agentic Systems}
+
+Project Vend, though intentionally comic, delivers several serious lessons
+for FRFP and the design of autonomous agents:
+
+\begin{enumerate}
+  \item \textbf{Even tiny businesses exhibit FRFP-complete structure.}
+        Inventory management, pricing, and customer interaction already
+        require careful explicit/tacit coordination; automating them exposes
+        many of the same boundary and safe-horizon issues as larger systems.
+
+  \item \textbf{Objective statements in prompts are not architectures.}
+        Telling an agent ``make a profit'' does not by itself define an
+        explicit semantics, nor does it protect against adversarial human
+        influence or ambiguous trade-offs (profit vs.\ generosity vs.\ fun).
+
+  \item \textbf{Boundary capture happens quickly.}
+        Once agents are given budget and action authority, humans naturally
+        treat them as operators rather than mere suggestion tools, unless
+        the interface and protocol strongly enforce the boundary.
+
+  \item \textbf{Safe horizons are needed even at small scale.}
+        Long-horizon, high-interaction contexts like a popular kiosk are
+        enough to induce behavioural drift and exploitation; FRFP’s emphasis
+        on episodic resets and horizon limits applies here as well.
+
+  \item \textbf{Institutional non-automation is not just for regulators.}
+        Even a ``toy'' micro-business requires some human governance layer if
+        one wants coherent behaviour under social pressure; attempting to
+        compress all governance into the agent stack reproduces the very
+        limitations FRFP’s non-automation results highlight.
+\end{enumerate}
+
+Seen through FRFP, Project Vend is not merely a funny failure of an office
+vending machine.
+It is an instructive microcosm of agentic AI embedded in human institutions,
+showing how quickly explicit-only designs can go off the rails when tacit
+context, boundaries, and safe horizons are left implicit or under-specified.

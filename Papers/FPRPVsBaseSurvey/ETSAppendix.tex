@@ -1,0 +1,99 @@
+%\section{Explicit and Tacit Knowledge, Human Oversight, and AI Decision Support}
+%\label{app:explicit-tacit-survey}
+
+This appendix sketches background on (i) the explicit/tacit distinction in epistemology and organisational theory, and (ii) human oversight and decision support in AI systems. It is intended as context, not as a comprehensive review.
+
+\subsection{Explicit and Tacit Knowledge in Epistemology}
+
+Polanyi's work is the standard reference point for the explicit/tacit distinction. In \emph{The Tacit Dimension} \cite{Polanyi1966}, he argues that ``we can know more than we can tell'': an agent's ability to recognise patterns, exercise judgment, or perform skilled actions often depends on knowledge that is not fully articulable as explicit rules or propositions. Tacit knowledge, in this sense, is embodied and context-sensitive. It is typically acquired through practice and is expressed in the ability to do or recognise, rather than in the ability to state a complete algorithm.
+
+Examples Polanyi and subsequent commentators point to include perceptual discrimination (recognising a face, a pathology, or a forged signature), motor skills (riding a bicycle, playing an instrument), and scientific or clinical judgment (weighing heterogeneous evidence and experience to arrive at a diagnosis or assessment). In such cases, attempts to write down all the relevant ``rules'' usually fall short of what experienced practitioners can actually do.
+
+Explicit knowledge, by contrast, comprises formalised statements, procedures, and representations that can be recorded, transmitted, and stored independently of the knower: theories, theorems, proofs, algorithms, protocols, manuals. Polanyi emphasises that explicit and tacit are not two disjoint kinds of knowledge. Explicit formulations presuppose tacit competences for their correct use and interpretation; tacit background skills and commitments are involved in reading, applying, and critiquing explicit statements. Later epistemological work refines these ideas, but broadly retains the view that there is a meaningful distinction between codified, symbol-manipulable representations and the background know-how on which their use depends.
+
+\subsection{Explicit and Tacit Knowledge in Organisations}
+
+Organisational and management literatures have adopted the explicit/tacit split to analyse how knowledge is created, stored, and shared in firms. Nonaka's dynamic theory of organisational knowledge creation \cite{Nonaka1994} treats explicit vs.\ tacit as an ``epistemological dimension'' along which knowledge can be transformed. The SECI model (Socialisation, Externalisation, Combination, Internalisation) distinguishes four modes:
+
+\begin{itemize}
+  \item \emph{Socialisation} (tacit-to-tacit): transfer of know-how through shared experience and observation, for example apprenticeship and on-the-job training.
+  \item \emph{Externalisation} (tacit-to-explicit): articulation of aspects of tacit knowledge into concepts, models, or documents.
+  \item \emph{Combination} (explicit-to-explicit): recombination and systematisation of existing documents, data, and theories.
+  \item \emph{Internalisation} (explicit-to-tacit): incorporation of explicit materials into skills and routines through practice and learning.
+\end{itemize}
+
+In \cite{NonakaTakeuchi1995}, Nonaka and Takeuchi develop this into an account of the ``knowledge-creating company''. They describe how organisations can be structured to support SECI cycles: designing roles, artefacts, and processes that make it easier to externalise local know-how, combine codified knowledge, and internalise explicit materials into tacit competencies. In this literature, explicit knowledge appears in manuals, specifications, databases, and standard operating procedures. Tacit knowledge appears in craft skills, situational judgment, shared mental models, and organisational culture. Both are treated as important; neither is assumed to be reducible to the other in general.
+
+Subsequent empirical work has tried to measure or proxy these processes (for example, via surveys of knowledge-sharing practices, analyses of documentation and training regimes, or case studies of innovation projects). These studies typically converge on a picture in which:
+
+\begin{itemize}
+  \item explicit knowledge is codified, relatively easy to transmit and recombine, and amenable to storage and search; and
+  \item tacit knowledge is embodied, context-dependent, and often only partially articulable, with important components carried in practice, habits, and social structures.
+\end{itemize}
+
+The explicit/tacit distinction is used to explain phenomena such as the difficulty of transferring expertise purely through documents, the role of informal communities of practice, and the limits of purely document-centric knowledge management.
+
+\subsection{Measuring and Externalising Tacit Knowledge}
+
+Because tacit knowledge is, by definition, not fully articulated, there is a line of work on how far it can be measured or externalised. Approaches include structured interviews, concept mapping, elicitation of decision rationales, and analysis of patterns in performance. A common pattern is that such methods can capture \emph{some} aspects of tacit knowledge---for example, typical failure modes, heuristics, or rules of thumb—while leaving other aspects implicit. In organisational contexts, this motivates hybrid strategies in which organisations both invest in documentation and formal processes, and recognise the need for shadowing, mentoring, and informal knowledge transfer.
+
+There are also critical discussions of the explicit/tacit dichotomy. Some authors suggest that knowledge lies on a spectrum of articulability rather than splitting neatly into two modes; others note that labelling something as ``tacit'' can obscure social and institutional factors, such as how expertise is recognised and who is allowed to act as a source of authoritative judgment. Despite these critiques, explicit vs.\ tacit remains a widely used distinction in empirical and conceptual work on knowledge, expertise, and organisational learning.
+\subsection{Tacit Space in Explicit-Correctness Regimes}
+
+A natural question is whether there are domains where tacit correctness can be dispensed with entirely and
+FRFP’s explicit/tacit split is an artefact of modelling.
+Interactive theorem provers, formally verified software components, and benchmark suites with sound and complete
+test oracles are tempting examples: once a calculus, specification, or test harness has been fixed, correctness for
+the inner task (“Does this proof term check?”, “Does this program satisfy the contract?”, “Does this output match
+the reference?”) can be decided by a purely explicit procedure.
+
+In FRFP terms, these are cases where correctness is \emph{tacit-insensitive} for a particular inner layer.
+Conditional on prior tacit choices—selecting the logic, designing the specification or tests, deciding that conformance
+to them is an adequate notion of success—the induced correctness map
+\(\gamma_{\mathrm{inner}} : E \to J\) behaves like an explicit oracle.
+For that inner layer it is mathematically convenient to collapse T and work entirely in explicit space.
+
+However, the surrounding tacit space does not disappear.
+Tacit judgment is still required to:
+\begin{itemize}
+  \item decide which calculus or modelling framework is appropriate for the domain;
+  \item construct and revise the specifications, contracts, or benchmark suites;
+  \item assess whether “passes all tests” or “has a formal proof” is an adequate guarantee for the real-world purpose;
+  \item arbitrate between competing formalizations when they disagree about what is acceptable.
+\end{itemize}
+
+From the FRFP point of view, the explicit/tacit split therefore has two levels:
+(i) inner explicit-correctness regimes, where correctness is decidable given a fixed tacit backdrop,
+and (ii) outer scientific, regulatory, or governance workflows, where that backdrop itself evolves under
+tacit evaluation and institutional feedback.
+The impossibility and inevitability results in the main text are explicitly about this outer level:
+they assume a non-trivial, dynamically involved tacit space T and show that, under those assumptions,
+no explicit-only detector, consensus mechanism, or governance operator can eliminate hallucination or fully automate
+correctness across arbitrary long-horizon workflows.
+
+\subsection{Human Oversight in AI Law and Policy}
+
+In the governance of AI systems, human oversight has become a central requirement in high-stakes domains. The EU Artificial Intelligence Act classifies certain systems (for example, those used in critical infrastructure, employment, credit, or law enforcement) as ``high-risk'' and requires that they be designed so that they can be effectively overseen by natural persons (Article~14) \cite{EUAIAct2024}. Oversight measures must enable human operators to understand the system's capabilities and limitations, monitor its operation, and intervene to override or stop it when necessary to prevent or minimise risks to health, safety, or fundamental rights.
+
+Analyses of these provisions typically emphasise that, even when AI systems provide sophisticated predictions or recommendations, accountability and ultimate responsibility are intended to rest with human and institutional actors, not with the systems themselves. Human overseers are expected to interpret AI outputs in context, apply legal and ethical standards, and take corrective action when outputs are inappropriate. At the same time, commentators highlight practical challenges: the risk that humans simply ``rubber-stamp'' AI decisions; the cognitive load of continuous monitoring; and the need for interfaces and organisational arrangements that make oversight feasible rather than nominal.
+
+Similar themes appear in sector-specific guidelines for automated decision-making in areas such as credit, hiring, and healthcare. These typically call for human review of important decisions, mechanisms for contesting and correcting automated outputs, and clear assignment of responsibility when AI-assisted decisions lead to harm.
+
+\subsection{Human--AI Interaction and Decision Support}
+
+Human--computer interaction and human--AI interaction work often treats AI systems as decision-support tools rather than self-standing decision-makers. Amershi et al.\ \cite{Amershi2019}, for example, propose a set of guidelines for human--AI interaction based on a survey of deployed systems and empirical studies. Their guidelines emphasise, among other points, that systems should:
+
+\begin{itemize}
+  \item make it possible for users to understand what the system can and cannot do;
+  \item expose, where appropriate, information about confidence and uncertainty;
+  \item support efficient correction of errors; and
+  \item enable users to take or regain control at key moments, rather than forcing them to accept or reject entire bundles of automated behaviour.
+\end{itemize}
+
+A separate empirical literature studies trust and reliance in AI-assisted decision-making. Typical experimental setups involve a human decision-maker receiving recommendations, predictions, or rationales from an AI system, and measuring when the human follows or overrides the advice. These studies document both under-reliance (ignoring useful advice) and over-reliance (accepting poor advice), and identify factors such as expertise, presentation of uncertainty, and prior experience with the system as important moderators. The notion of ``appropriate reliance''—using AI outputs when they are informative, overriding them when they are not—is a common target.
+
+Across these discussions, AI systems are typically described as producing explicit artefacts: predictions, scores, labels, suggested actions, explanations, or visualisations. Human decision-makers are expected to integrate these artefacts with other information (legal constraints, domain knowledge, local context) and to bear responsibility for final decisions. Much of the design guidance is concerned with making this human role feasible, whether by improving calibration of trust, reducing cognitive load, or structuring workflows so that human review occurs at appropriate points.
+
+\subsection{Summary}
+
+Across these literatures, two distinctions recur. First, the explicit/tacit split is used to analyse how knowledge is represented, transmitted, and used: explicit knowledge is codified, symbolically manipulable, and transmissible; tacit knowledge is embodied, context-dependent, and often only partially articulable, with explicit and tacit modes interacting in practice \cite{Polanyi1966,Nonaka1994,NonakaTakeuchi1995}. Second, in AI law, policy, and interaction design, a separation is maintained between automated outputs and human oversight: AI systems are typically cast as producers of explicit artefacts (predictions, rankings, recommendations, explanations), while humans are expected to interpret those artefacts in context and retain ultimate responsibility for decisions \cite{EUAIAct2024,Amershi2019}. This appendix does not take a position on how far these distinctions should be pushed, but records that they are both conceptually and institutionally well established.

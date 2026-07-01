@@ -1,0 +1,1260 @@
+% ============================================
+% Implementing FRFP in Scientific Research
+% ============================================
+\chapter{Case Studies: Implementing FRFP in Real Systems}
+\label{ch:frfp-implementations}
+This chapter translates the FRFP core into concrete implementation patterns across four domains:
+scientific research, engineering workflows, financial decision-making, and clinical practice. The aim
+is practical rather than theoretical: given a real workflow, identify the explicit artefacts the AI
+can touch, locate the boundary events where those artefacts become endorsed commitments, and design
+safe horizons and governance so that long-horizon use does not quietly convert convenience into
+unaccountable automation. The sections that follow are not exhaustive “best practices” lists. They
+are domain-specific instantiations of the same derivation logic: make commitment points explicit,
+make the evidence bundle at each boundary visible and loggable, impose finite limits that force
+periodic re-grounding, and specify who has authority to tighten horizons, halt modes, and revise the
+protocol after incidents.
+\section{How to Derive FRFP Implementation Guidelines in Any Domain}
+\label{sec:frfp-derive-guidelines}
+
+This section is not a checklist of best practices. It is a method for turning the FRFP core objects
+into domain-specific operational controls. The derivation procedure is the same in every domain:
+start from the explicit/tacit split, treat the real system as runs that accumulate over time, and
+design boundaries, safe horizons, and governance so that endorsement remains meaningfully human and
+auditable.
+
+\subsection{Derivation Procedure}
+
+To produce an FRFP implementation for a new domain, follow these steps.
+
+\begin{itemize}
+  \item \textbf{D1: Fix the unit of commitment.}
+        Identify the domain’s real commitment points: the moments where an explicit artefact becomes a
+        binding action, claim, or allocation of resources. Typical examples include: placing an order,
+        signing a report, filing a document, approving a release, committing capital, or publishing a
+        scientific claim. These are your boundary candidates.
+
+  \item \textbf{D2: Enumerate the explicit artefact types.}
+        Define what counts as an explicit artefact in the domain: inputs, intermediate objects, model
+        outputs, dashboards, reports, drafts, logs, and any structured representations used for decision.
+        Separate artefacts that are \emph{descriptive} (summaries, extractions) from artefacts that are
+        \emph{decision-shaping} (rankings, risk scores, recommended actions), since the latter require
+        stricter boundary controls.
+
+  \item \textbf{D3: Name the tacit evaluators and their standards.}
+        Specify who bears correctness and responsibility at each commitment point and what tacit
+        standards they use (professional norms, legal duties, safety criteria, epistemic standards).
+        Include authority, time budget, and incentive conflicts. If meaningful evaluation is infeasible
+        in the real workflow, the protocol is misdesigned regardless of model quality.
+
+  \item \textbf{D4: Trace runs, not snapshots.}
+        Draw representative run families: normal operation, degraded operation (missing data, drift,
+        outages), adversarial operation (gaming, manipulation), and growth runs (scaling volume, new
+        populations, new settings). Mark where history matters: feedback loops, accumulation of exposure,
+        habituation, and institutional adaptation.
+
+  \item \textbf{D5: Engineer boundaries as explicit events.}
+        For each commitment point, specify the boundary event as an explicit protocol step with:
+        (i) required artefacts shown to the endorser, (ii) required provenance (what generated what),
+        (iii) required checks (consistency, contraindications, guardrails), (iv) a logged decision record
+        (accept/reject/modify + rationale category), and (v) escalation and override rules. A boundary is
+        not ``a human is in the loop''; it is a designed event that produces reconstructible evidence.
+
+  \item \textbf{D6: Define safe horizons as enforceable constraints.}
+        Convert long-horizon risk into enforceable limits: caps on consecutive uses, caps on binding
+        actions per configuration, periodic re-validation requirements, and drift triggers that force
+        downgrade to advisory-only mode. State who can trigger resets, what evidence is required, and
+        what changes (halt, rollback, audit, re-training, re-approval). Horizons should be tighter for
+        high-stakes or hard-to-detect failure modes.
+
+  \item \textbf{D7: Specify governance operators and change-control.}
+        Name the bodies that can change the system: who can modify thresholds, prompts, UI affordances,
+        model versions, and workflow rules; who can tighten horizons; who can suspend operation; and how
+        incidents force protocol revision. Require at least one independent channel of evaluation
+        (audit, expert review, external assessment, or regulator access) that is not reducible to the
+        system’s own dashboards.
+
+  \item \textbf{D8: Pre-register failure playbooks.}
+        For each major risk indicator, pre-commit the response: what triggers a freeze, downgrade,
+        mandatory audit, rollback, or halt; who has authority; and what must be documented. This prevents
+        improvisation under pressure and makes safe horizons enforceable.
+
+  \item \textbf{D9: Produce the domain implementation outputs.}
+        Every FRFP implementation should yield concrete outputs:
+        (i) a typed artefact inventory (what the AI may produce and what it may not),
+        (ii) a boundary specification (events, evidence bundles, logs),
+        (iii) safe-horizon policies (caps, triggers, resets),
+        (iv) a run-aware monitoring profile (signals of drift and boundary hollowing-out),
+        and (v) governance and change-control rules (who can do what, when, and with what evidence).
+\end{itemize}
+
+\subsection{How to Use This Section}
+
+A reader from a new domain can apply the procedure above in two passes. First, produce a minimal
+implementation by identifying one run family and the top two commitment boundaries, then define the
+logs and horizon triggers required to keep endorsement meaningful. Second, expand coverage to degraded,
+adversarial, and growth runs, tightening horizons and governance where the domain’s stakes and failure
+modes demand it. The implementation patterns in the rest of this chapter are concrete instantiations
+of this derivation method in science, engineering, finance, and clinical practice.
+
+\section{Implementing FRFP in Scientific Research Workflows}
+\label{sec:frfp-science-implementation}
+
+This section develops a concrete implementation of the Foundational Reasoning and Feedback Protocol
+(FRFP) for scientific research. The core idea is simple: AI systems can generate and transform explicit
+research artefacts, but correctness and endorsement remain human responsibilities. FRFP therefore treats
+scientific work as long-horizon collaboration where the critical design objects are (i) the explicit
+workspace of artefacts and pipelines, (ii) the tacit judgments that determine what counts as accepted
+knowledge, and (iii) the boundary events where outputs become endorsed claims, results, or decisions.
+We specialise these ideas to day-to-day research and describe practical instrumentation for runs that
+unfold over weeks or months.
+
+\subsection{Scope and Objectives}
+
+We focus on research settings where:
+
+\begin{itemize}
+  \item large language models and tool-using systems assist with literature
+        review, ideation, proof sketches, modelling, simulation, and drafting;
+  \item correctness still ultimately matters in a strong sense:
+        scientific claims, theorems, and experimental conclusions are expected
+        to withstand scrutiny and serve as a basis for further work;
+  \item collaboration is long-horizon: projects extend over weeks or months,
+        with many intermediate artefacts and partial results.
+\end{itemize}
+
+An FRFP-aligned implementation for scientific research should:
+
+\begin{enumerate}
+\item respect the explicit/tacit separation:
+        AI systems operate only on explicit artefacts; correctness authority resides in human judgment
+        at clear endorsement points;
+  \item make long-horizon pipelines auditable (what was produced, what was checked, what was endorsed);
+  \item manage degradation of tacit grounding through safe horizons and required re-grounding;
+  \item provide instruments (logs, ledgers, metrics) that researchers and committees can actually use.
+
+\end{enumerate}
+
+\subsection{Core Design Principles for Scientific Workflows}
+
+We state core design principles as implementation constraints on FRFP runs
+specific to scientific research.
+
+\subsubsection*{P1: Explicit Research Workspace}
+
+All research artefacts that can, in principle, be made explicit are treated as
+elements of explicit space $E$:
+
+\begin{itemize}
+  \item literature summaries, citation graphs, and topic maps;
+  \item conjectures, proof sketches, formal definitions, models, and code;
+  \item experiment designs, data processing pipelines, and results;
+  \item manuscripts, referee reports, and internal notes.
+\end{itemize}
+
+AI systems are allowed to read, generate, transform, and organise these
+artefacts.
+Their actions are explicit transformations over the workspace: drafting, summarising, refactoring,
+reformatting, and proposing candidate structures.
+
+\subsubsection*{P2: Tacit Scientific Understanding and Endorsement}
+
+Tacit space $T$ contains the epistemic states of human researchers:
+
+\begin{itemize}
+  \item their background knowledge, intuitions, and sense of plausibility;
+  \item their understanding of methods, limitations, and domain-specific norms;
+  \item their individual and collective judgments about whether a result
+        is acceptable as a basis for further work.
+\end{itemize}
+
+FRFP enforces that correctness of scientific claims is attached only after
+human evaluation:
+accepting a theorem, a result, or a modelling choice is always a human act of
+endorsement at a boundary.
+
+\subsubsection*{P3: Explicit Boundary Events in Research}
+
+For a scientific project, boundary events include:
+
+\begin{itemize}
+  \item accepting a conjecture as sufficiently precise to pursue seriously;
+  \item signing off on a proof sketch as provisionally correct;
+  \item freezing a model or experiment design as the basis for data collection;
+  \item submitting a manuscript or internal report;
+  \item endorsing a result as part of a review, panel, or committee decision.
+\end{itemize}
+
+An FRFP implementation:
+
+\begin{itemize}
+  \item designates specific points in the research pipeline as boundary events;
+  \item identifies the responsible role(s) (e.g.\ lead author, PI, committee);
+  \item records the explicit artefacts and context available at each boundary (inputs, outputs,
+        provenance pointers, and any checks performed);
+  \item treats these events as the points where correctness in $T$ is attached.
+\end{itemize}
+
+\subsubsection*{P4: Safe Horizons and Re-Grounding}
+
+Scientific research is iterative and extended.
+Within FRFP, each project is associated with \emph{safe horizons}:
+
+\begin{itemize}
+  \item limits on how many AI-assisted transformations can occur without
+        returning to primary material (original papers, raw data, base axioms);
+  \item limits on how many endorsement steps can be chained without independent
+        peer review or re-derivation;
+  \item constraints on how far formal manipulations can drift from motivating
+        questions without an explicit re-alignment step.
+\end{itemize}
+
+Implementation must specify:
+
+\begin{itemize}
+  \item when researchers must read primary sources rather than summaries;
+  \item when proofs or derivations must be reconstructed without AI assistance;
+  \item when external or independent review is required.
+\end{itemize}
+
+These safe-horizon constraints are treated as part of the admissibility
+conditions on runs.
+
+\subsection{FRFP Research Methodology as Pipelines}
+\label{sec:frfp-methodology-research}
+
+We now describe a concrete research methodology as patterns of explicit
+pipelines and boundary events.
+
+\subsubsection*{M1: Context Management in Research Pipelines}
+
+For a given project, treat the evolving work as a run: a sequence of research actions that create,
+transform, and promote explicit artefacts over time. The point is not the notation; it is the discipline
+that the project has a traceable history of what depended on what, and where endorsement occurred.
+
+
+Each non-trivial action should carry a context annotation:
+
+\begin{itemize}
+  \item identifiers of upstream artefacts on which it depends
+        (e.g.\ which papers, lemmas, or datasets);
+  \item the version of key definitions and notation in force at that point;
+  \item the project intent and phase (e.g.\ exploratory, formalisation,
+        validation).
+\end{itemize}
+
+\paragraph{Implementation guidelines.}
+
+\begin{itemize}
+\item Maintain a versioned project graph in which nodes are artefacts and edges are transformations;
+        ensure each non-trivial step records its parent artefacts and context.
+  \item At boundary events, present human evaluators not only with the target
+        artefact but with the relevant slice of this graph, so that tacit
+        judgment can take context into account.
+  \item Provide tools to ``slice'' the run by section, claim, or experiment,
+        so that localized audits of correctness and provenance are feasible.
+\end{itemize}
+
+\subsubsection*{M2: Iterative Co-Formalization of Scientific Questions}
+
+Scientific projects often begin from loosely specified questions and gradually
+move toward formal statements.
+Within FRFP, this is a navigation pattern across levels of formality:
+
+\begin{itemize}
+\item moves between viewpoints and granularity (informal description, proto-formal statement,
+        full formalisation);
+  \item explicit edits refine definitions, introduce notation, and connect informal claims to checkable
+        objects (proof obligations, data checks, derivations, or cited evidence).
+\end{itemize}
+
+\paragraph{Phase labels.}
+It is useful to tag each segment of the project run with a \emph{formality phase}:
+
+\begin{itemize}
+  \item F0: informal exploration (questions, intuitions, examples);
+  \item F1: proto-formal (candidate definitions, rough conjectures);
+  \item F2: formal development (definitions, lemmas, proofs, models);
+  \item F3: consolidation (cleaned-up proofs, canonical statements,
+        publication-ready artefacts).
+\end{itemize}
+
+\paragraph{Implementation guidelines.}
+
+\begin{itemize}
+\item Require an explicit recorded transition for phase changes
+      (e.g.\ ``promote this informal claim to a conjecture with this statement'').
+  \item At higher phases (F2/F3), restrict admissible AI operations:
+        for example, proof steps may be suggested but require local checking,
+        and model refactorings must preserve stated invariants.
+  \item Ensure that there are navigation links back from each formal artefact
+        to its informal motivation, supporting tacit understanding at the
+        boundary.
+\end{itemize}
+
+\subsubsection*{M3: Reproducible Human--AI Research Sessions}
+
+Extended co-reasoning with AI systems---for example, over many days of proof
+search or model refinement---should be treated as structured runs, not as
+ephemeral chats.
+
+\paragraph{Session structure.}
+We partition a project into \emph{sessions} $(S_1, S_2, \dots)$.
+Each session $S_k$ corresponds to a run segment: a bounded interval of work with its own intent,
+artefacts, and endorsement points.
+
+\begin{itemize}
+  \item an explicit session intent (e.g.\ ``clarify definitions in Section~2'',
+        ``search for counterexamples to Lemma~3.4'');
+  \item a bounded safe horizon (e.g.\ number of AI-assisted steps or time);
+  \item one or more boundary events (e.g.\ acceptance of a refined statement,
+        rejection of a proposed lemma, escalation of an open problem).
+\end{itemize}
+
+\paragraph{Implementation guidelines.}
+
+\begin{itemize}
+  \item Log each session as a coherent run segment with:
+        prompts, visible AI outputs, human edits, navigation actions,
+        and boundary decisions.
+  \item At the end of a session, write a short human-authored summary that
+        interprets the explicit progress in tacit terms:
+        what was learned, what remains uncertain, what changed in the
+        researcher's understanding.
+  \item Support replay at two levels:
+        raw interaction (for debugging and training) and
+        structural pipeline view (for scientific auditing and reuse).
+\end{itemize}
+
+\subsection{Instruments for FRFP-Aligned Scientific Practice}
+\label{sec:frfp-instruments-science}
+
+We now introduce a small set of instruments specialised to research settings.
+
+\subsubsection*{I1: Research Integrity Ledger}
+
+The \emph{research integrity ledger} is a structured record of a project's
+status relative to FRFP constraints.
+
+For each significant pipeline segment (e.g.\ a section, a cluster of lemmas,
+an experiment series), the ledger stores:
+
+\begin{itemize}
+  \item phase labels (F0--F3) and project intent;
+  \item an integrity triple $(V, C, P)$:
+        \begin{itemize}
+          \item $V$: structural validity of the pipeline (protocol compliance,
+                type discipline, absence of gross methodological violations);
+          \item $C$: tacit correctness status as judged by responsible
+                experts at boundary points (e.g.\ ``provisionally accepted'',
+                ``rejected'', ``open'');
+          \item $P$: provenance adequacy (traceable sources, clear use of
+                AI assistance, accessible upstream artefacts).
+        \end{itemize}
+  \item links to boundary events (who endorsed what, when, under which
+        conditions).
+\end{itemize}
+
+\paragraph{Implementation.}
+
+\begin{itemize}
+  \item Index ledger entries by project, section, and artefact ID.
+  \item Provide views that answer questions such as:
+        \begin{itemize}
+          \item ``Which results in this paper are structurally valid but still
+                open in $C$?''
+          \item ``Which parts of the proof relied heavily on AI suggestions?''
+          \item ``Where is provenance currently weak or incomplete?''
+        \end{itemize}
+  \item Treat ledger updates as first-class events: updating $C$ or $P$
+        in response to new evidence is itself a logged action.
+\end{itemize}
+
+\subsubsection*{I2: Hybrid Authorship Log}
+
+The \emph{hybrid authorship log} records, at a fine-grained level, how AI and
+human contributions are interleaved in research artefacts.
+
+For each document, proof, or model, the log stores:
+
+\begin{itemize}
+  \item a sequence of edits (diffs) with author type labels
+        (human, AI, tool-assisted, mixed);
+  \item pointers from each region of the artefact (e.g.\ a paragraph, lemma,
+        or code block) to the chain of edits that produced it;
+  \item links from edits back to the corresponding steps in the FRFP run.
+\end{itemize}
+
+\paragraph{Implementation.}
+
+\begin{itemize}
+  \item Integrate authorship logging into the tools through which AI assistance
+        is provided (e.g.\ IDEs, notebooks, document editors).
+  \item Expose summarised authorship information at boundary events:
+        when a researcher endorses a theorem or draft, they can see which parts
+        are predominantly AI-authored and adjust their scrutiny accordingly.
+  \item Support post-hoc analysis of projects: for example, computing statistics
+        on where AI contributions cluster (definitions vs.\ proofs vs.\ exposition).
+\end{itemize}
+
+\subsubsection*{I3: Peer and Committee Evaluation Logs}
+
+Scientific correctness is often mediated by peer review and committee decisions.
+Within FRFP, these are institutional boundary events combining many tacit
+evaluations.
+
+For each review or committee decision, an evaluation log records:
+
+\begin{itemize}
+  \item the explicit artefacts considered (manuscript versions, proof logs,
+        datasets, models);
+  \item individual judgments (accept / reject / request changes; confidence);
+  \item the institutional rule used to combine these judgments (simple majority,
+        weighted vote, veto, chair decision);
+  \item the resulting collective stance and any changes to $(V, C, P)$ in the
+        research integrity ledger.
+\end{itemize}
+
+\paragraph{Implementation.}
+
+\begin{itemize}
+  \item Integrate FRFP-aware evaluation forms into journal, conference,
+        or internal review systems;
+  \item encourage reviewers to explicitly comment on:
+        \begin{itemize}
+          \item the explicit/tacit structure of the work
+                (what is well formalised vs.\ what relies on tacit expertise);
+          \item any suspected safe-horizon violations
+                (e.g.\ over-reliance on AI proofs or simulations);
+          \item provenance and authorship (clarity about AI assistance).
+        \end{itemize}
+  \item Use these logs to refine safe-horizon and admissibility parameters
+        for future projects.
+\end{itemize}
+
+\subsection{Metrics and Monitoring for Scientific FRFP}
+
+To monitor long-horizon runs, an implementation can define simple, domain-tailored
+metrics, understood as observables on runs and boundary events.
+
+\subsubsection*{Example Metric Families}
+
+\paragraph{Re-grounding frequency.}
+For each project, measure:
+
+\begin{itemize}
+  \item how often primary sources (original papers, raw data) are re-read;
+  \item how often core definitions are revisited and potentially refined;
+  \item how often proofs are re-derived without AI assistance.
+\end{itemize}
+
+\paragraph{Boundary density.}
+Measure, per unit length of the run (or per session):
+
+\begin{itemize}
+  \item number of boundary events;
+  \item distribution of their $(V, C, P)$ statuses;
+  \item rate of later revisions to earlier boundary decisions.
+\end{itemize}
+
+\paragraph{AI reliance profile.}
+For a given artefact or project:
+
+\begin{itemize}
+  \item fraction of edits labeled as AI-authored in the hybrid authorship log;
+  \item concentration of AI involvement by artefact type
+        (statements vs.\ proofs vs.\ exposition);
+  \item correlation between AI involvement and later revisions or corrections.
+\end{itemize}
+
+None of these metrics define correctness on their own.
+They serve as \emph{signals} about degradation, safe-horizon stress, and
+possible protocol failures that merit human attention.
+
+\subsection{Illustrative Pattern: AI-Assisted Theory Development}
+
+To make the above more concrete, consider a stylised pattern for FRFP-aligned
+theoretical work.
+
+\subsubsection*{Phase F0/F1: Exploration and Proto-Formalization}
+
+\begin{itemize}
+  \item Researchers use AI systems to survey literature, generate examples,
+        propose conjectures, and suggest potential proof strategies.
+  \item The run is tagged as exploratory (phases F0/F1), with relatively
+        loose safe horizons and frequent AI involvement.
+  \item There are few boundary events; results are treated as speculative.
+\end{itemize}
+
+\subsubsection*{Phase F2: Formal Development}
+
+\begin{itemize}
+  \item Selected conjectures are promoted to formal objects in $E$ and given
+        stable labels.
+  \item AI systems may still propose steps, but each non-trivial step in a
+        proof must be locally checked by a human or an independent proof
+        assistant; unchecked AI-generated steps are not admissible for boundary
+        endorsement.
+  \item Boundary events occur when the team accepts a lemma or theorem as
+        provisionally correct.
+        These events are logged with:
+        the proof sketch, authorship information, and reviewer identity.
+  \item Safe horizons constrain how many AI-suggested steps can be accepted
+        without a fresh, human-driven re-derivation.
+\end{itemize}
+
+\subsubsection*{Phase F3: Consolidation and Dissemination}
+
+\begin{itemize}
+  \item Proofs are refactored into canonical forms, with minimised dependence
+        on AI-generated scaffolding.
+  \item Manuscripts are drafted with clear provenance for AI assistance.
+  \item External peer review provides institutional boundary events, updating
+        the research integrity ledger and potentially modifying $(V, C, P)$.
+\end{itemize}
+
+At every stage, FRFP's explicit/tacit split and boundary semantics guide tool
+design (what AI is allowed to do), protocol design (where and how humans must
+endorse), and governance (how committees and journals record and justify their
+decisions).
+
+\subsection{Summary}
+
+This section has described an FRFP implementation tailored to scientific
+research:
+
+\begin{itemize}
+\item explicit pipelines and artefact histories capture long-horizon research activity, including AI-assisted steps;
+  \item tacit space $T$ and boundary events capture human scientific judgment
+        and correctness;
+  \item safe horizons and re-grounding practices control degradation and
+        long-run hallucination risk;
+  \item instruments (integrity ledgers, authorship logs, evaluation logs)
+        and metrics make the structure of inquiry visible to researchers,
+        reviewers, and institutions.
+\end{itemize}
+
+This implementation is intended as one concrete instantiation of FRFP in a
+single domain (scientific inquiry).
+Other domains---such as engineering, finance, or clinical practice---may
+require different instruments and metrics, but can follow the same pattern:
+start from the FRFP kernel, then design domain-specific pipelines, boundaries,
+and governance on top.
+% =========================================================
+% Appendix: Implementing FRFP in Engineering Workflows
+% =========================================================
+
+\section{Implementing FRFP in Engineering Workflows}
+\label{sec:frfp-engineering}
+
+This section sketches a concrete implementation of the Foundational Reasoning
+and Feedback Protocol (FRFP) for engineering domains, such as software,
+infrastructure, and systems engineering.
+We assume the FRFP core from the main text: an explicit/tacit split, long-horizon use with accumulating
+effects, and a one-way handoff from explicit artefacts to human evaluation and endorsement. The goal here
+is to make engineering runs auditable: what the system produced, what humans reviewed, and what was approved for action.
+
+\subsection{Scope and Objectives}
+
+We consider settings where:
+
+\begin{itemize}
+  \item AI systems assist in design, analysis, coding, verification,
+        documentation, and incident analysis;
+  \item correctness is grounded in specifications, physical constraints,
+        safety standards, and organisational requirements;
+  \item work is iterative and multi-stage: architecture, implementation,
+        testing, deployment, and operations.
+\end{itemize}
+
+An FRFP-aligned engineering implementation should:
+
+\begin{enumerate}
+  \item keep AI confined to explicit artefacts (requirements drafts, designs,
+        code, tests, logs);
+  \item attach correctness only at human boundary events
+        (approvals, sign-offs, risk acceptances);
+  \item design safe horizons for automated transformations and refactors;
+  \item surface provenance and authorship for later audit and incident review.
+\end{enumerate}
+
+\subsection{Core Principles for Engineering Pipelines}
+
+\subsubsection*{E1: Explicit Engineering Artefacts}
+
+Explicit space $E$ contains:
+
+\begin{itemize}
+  \item requirements documents, design specs, interface definitions;
+  \item code, configuration files, infrastructure-as-code, models, and schemas;
+  \item test cases, proofs, static-analysis and verification artefacts;
+  \item logs, metrics, incident reports, and runbooks.
+\end{itemize}
+
+AI systems may:
+
+\begin{itemize}
+  \item generate and refactor code;
+  \item propose designs and architectures;
+  \item suggest test cases and checks;
+  \item summarize logs and incident timelines.
+\end{itemize}
+
+All such contributions are explicit artefact transformations: drafts, diffs, refactors, test suggestions,
+and summaries. They can be reviewed, checked, logged, and compared.
+
+\subsubsection*{E2: Tacit Engineering Judgment and Boundary Events}
+
+Tacit space $T$ contains:
+
+\begin{itemize}
+  \item engineers' understanding of the system, failure modes, and domain;
+  \item awareness of regulatory, safety, and organisational constraints;
+  \item practical sense of acceptable risk and robustness.
+\end{itemize}
+
+Boundary events in engineering include:
+
+\begin{itemize}
+  \item approval of system requirements or architecture;
+  \item code review approvals and merge decisions;
+  \item sign-off on test coverage and verification status;
+  \item deployment approvals, change management sign-offs;
+  \item acceptance of incident postmortems and remediation plans.
+\end{itemize}
+
+At each boundary, responsible humans in $T$ evaluate explicit artefacts in
+$E$ and attach correctness for action.
+
+\subsubsection*{E3: Safe Horizons in Automation and Refactoring}
+
+Safe horizons for engineering pipelines limit:
+
+\begin{itemize}
+  \item how many automated refactors or transformations may be chained without
+        human review;
+  \item how far AI-assisted design exploration can go before re-grounding in
+        core constraints and requirements;
+  \item how long monitoring and remediation workflows can run under automated
+        control before escalation.
+\end{itemize}
+
+An implementation must parameterise these horizons per system criticality
+(e.g.\ safety-critical vs.\ internal tooling) and make the triggers explicit:
+what forces escalation, rollback, or freeze of further automated changes.
+
+\subsection{Engineering Methodology as FRFP Pipelines}
+
+\subsubsection*{EM1: Requirements and Architecture}
+
+\paragraph{Pipeline structure.}
+A project begins with a run segment in which:
+
+\begin{itemize}
+  \item stakeholders articulate goals and constraints (explicit artefacts);
+  \item AI systems may propose requirement drafts, refine wording, and check
+        consistency with existing documents;
+\item the workflow moves between stakeholder views and abstraction levels
+        (user needs, non-functional requirements, threat model, interfaces).
+\end{itemize}
+
+\paragraph{Boundary events.}
+Boundary events at this phase include:
+
+\begin{itemize}
+  \item formal approval of a requirements baseline;
+  \item acceptance of an architecture document as the basis for implementation.
+\end{itemize}
+
+At these boundaries, humans must see:
+
+\begin{itemize}
+  \item the proposed document(s);
+  \item provenance information indicating where AI contributed;
+  \item trace links to standards, prior decisions, and risk assessments.
+\end{itemize}
+
+\paragraph{Implementation requirement.}
+\begin{itemize}
+  \item Treat requirements/architecture approval as an endorsement boundary that emits a durable record:
+        approved version ID, approver role, known assumptions, and explicit “out of scope” exclusions.
+\end{itemize}
+\subsubsection*{EM2: Implementation and Verification}
+
+\paragraph{Pipeline structure.}
+The implementation phase is represented by a run segment
+comprising:
+
+\begin{itemize}
+  \item explicit code changes (possibly AI-generated);
+  \item test design and updates;
+  \item static analysis, verification runs, and simulation artefacts.
+\end{itemize}
+
+\paragraph{Safe horizons.}
+Safe horizons constrain:
+
+\begin{itemize}
+  \item length of AI-driven code modification chains between human reviews;
+  \item number of test case generations before a human must inspect for
+        coverage gaps and specification mismatch;
+  \item amount of automatic config or IaC changes before manual audit.
+\end{itemize}
+
+\paragraph{Boundary events.}
+Typical boundaries:
+
+\begin{itemize}
+  \item code review and merge approvals;
+  \item verification and test sign-offs;
+  \item internal releases and promotions between environments.
+\end{itemize}
+
+Each boundary is logged with:
+
+\begin{itemize}
+  \item the diff and tests considered;
+  \item responsible reviewers and their judgments;
+  \item any explicit delegation to downstream checks.
+\end{itemize}
+
+\subsubsection*{EM3: Deployment, Monitoring, and Incidents}
+
+\paragraph{Pipeline structure.}
+Deployment and operations produce runs over:
+
+\begin{itemize}
+  \item deployment artefacts and configuration states;
+  \item monitoring dashboards, alerts, and traces;
+  \item incident tickets, runbooks, and remediation changes.
+\end{itemize}
+
+AI may:
+
+\begin{itemize}
+  \item suggest rollouts and rollbacks;
+  \item summarise incidents;
+  \item propose remediation steps;
+  \item cluster and interpret logs.
+\end{itemize}
+
+\paragraph{Boundary events.}
+Boundary events include:
+
+\begin{itemize}
+  \item authorisation of production deployments and rollbacks;
+  \item acceptance of remediation steps in incidents;
+  \item closure of incidents and sign-off on postmortems.
+\end{itemize}
+
+These events must remain human decisions, potentially informed by AI
+summaries but not replaced by them.
+
+\subsection{Instruments and Metrics for Engineering FRFP}
+
+\subsubsection*{EI1: Change and Review Ledger}
+
+A change and review ledger records:
+
+\begin{itemize}
+  \item each change set (code/config/design) as an explicit transformation step;
+  \item the associated tests and verification artefacts;
+  \item review decisions and reviewers' identities;
+  \item provenance of AI assistance in each change.
+\end{itemize}
+
+It enables queries such as:
+
+\begin{itemize}
+  \item ``Which production incidents involved changes with high AI authorship
+        and minimal human review?''
+  \item ``Where did we accept AI-suggested changes at shallow safe horizons?''
+\end{itemize}
+
+\subsubsection*{EI2: AI-Aided Change Profile}
+
+Metrics include:
+
+\begin{itemize}
+  \item fraction of changes initiated by AI suggestions;
+  \item distribution of AI involvement by subsystem or component;
+  \item correlation between AI-involved changes and later defects or incidents.
+\end{itemize}
+
+These are not correctness guarantees, but signals for FRFP-aligned governance
+to adjust safe horizons and review policies.
+
+\subsection{Summary}
+
+In engineering, FRFP yields an implementation in which:
+
+\begin{itemize}
+  \item AI operates on explicit artefacts (requirements, code, tests, logs);
+  \item correctness is conferred only at human boundary events;
+  \item safe horizons control automated change sequences and incident response;
+  \item ledgers and logs make explicit pipelines and endorsements auditable.
+\end{itemize}
+
+% =========================================================
+% Appendix: Implementing FRFP in Financial Decision-Making
+% =========================================================
+
+\section{Implementing FRFP in Financial Decision-Making}
+\label{sec:frfp-finance}
+
+This section outlines an implementation of FRFP for financial domains:
+banking, trading, risk management, and related activities in which AI
+systems provide analysis and recommendations while human agents and
+institutions retain ultimate responsibility.
+
+\subsection{Scope and Objectives}
+
+We consider workflows where:
+
+\begin{itemize}
+  \item AI systems generate or transform credit analyses, risk reports,
+        stress scenarios, trading ideas, and portfolio diagnostics;
+  \item decisions have regulatory, fiduciary, or systemic implications;
+  \item workflows are long-horizon (ongoing monitoring, repeated committee
+        reviews, annual models and stress programmes).
+\end{itemize}
+
+An FRFP-compliant implementation should:
+
+\begin{enumerate}
+  \item confine AI to explicit artefacts (analyses, scenarios, reports,
+        dashboards);
+  \item reserve risk-taking and approvals as human boundary events;
+  \item define safe horizons for AI-supported monitoring and strategy
+        revisions;
+  \item enable rigorous audit and regulatory scrutiny over explicit pipelines
+        and decisions.
+\end{enumerate}
+
+\subsection{Core Principles for Financial Pipelines}
+
+\subsubsection*{F1: Explicit Financial Artefacts}
+
+Explicit space $E$ includes:
+
+\begin{itemize}
+  \item counterparty data, financial statements, market data, scenario sets;
+  \item risk models, pricing models, stress-test engines, and their outputs;
+  \item AI-generated narratives (credit memos, stress explanations, dashboards);
+  \item policies, limits, risk appetite statements, and committee minutes.
+\end{itemize}
+
+AI may:
+
+\begin{itemize}
+  \item summarise exposures and drivers;
+  \item construct scenario narratives and structured stress sets;
+  \item generate draft memos and recommendation templates;
+  \item flag anomalies and pattern shifts in monitoring data.
+\end{itemize}
+
+\subsubsection*{F2: Tacit Financial Judgment and Boundary Events}
+
+Tacit space $T$ contains:
+
+\begin{itemize}
+  \item portfolio managers' and risk officers' understanding of markets,
+        counterparties, products, and regulatory context;
+  \item knowledge of past crises, liquidity dynamics, and behavioural effects;
+  \item shared institutional norms about acceptable risk.
+\end{itemize}
+
+Boundary events include:
+
+\begin{itemize}
+  \item trade approvals and investment decisions;
+  \item credit committee approvals and limit settings;
+  \item model and scenario approvals by risk committees;
+  \item acceptance of capital plans and regulatory submissions.
+\end{itemize}
+
+At each boundary, human decision-makers evaluate explicit artefacts and
+attach correctness in light of $T$.
+
+\subsubsection*{F3: Safe Horizons in Monitoring and Strategy}
+
+Safe horizons specify:
+
+\begin{itemize}
+  \item how many AI-generated monitoring reports can be accepted without
+        a full human re-baselining of assumptions and models;
+  \item how often AI-suggested scenario updates require committee-level
+        review rather than desk-level acceptance;
+  \item what thresholds in metrics trigger escalated boundary events.
+\end{itemize}
+
+An implementation sets shorter horizons for high-risk or illiquid positions,
+and longer ones for routine exposures.
+\paragraph{Model governance alignment.}
+\begin{itemize}
+  \item Treat any AI system that affects risk-taking, limits, or regulatory outputs as a “model” for
+        governance purposes: require documentation of intended use, limitations, validation evidence,
+        ongoing monitoring, and escalation paths.
+\end{itemize}
+\subsection{Financial Methodology as FRFP Pipelines}
+
+\subsubsection*{FM1: Credit and Investment Decisions}
+
+\paragraph{Pipeline structure.}
+For a credit or investment case, a run segment includes:
+
+\begin{itemize}
+  \item data gathering and validation;
+  \item model runs (PD, LGD, PFE, etc.) and stress simulations;
+  \item AI-generated summaries and draft memos;
+  \item human edits, analysis, and commentary.
+\end{itemize}
+
+\paragraph{Boundary events.}
+Boundary events include:
+
+\begin{itemize}
+  \item desk-level recommendation (accept/decline/hold);
+  \item credit committee decision;
+  \item limit-setting decisions for the counterparty or product.
+\end{itemize}
+
+Each event is logged with:
+
+\begin{itemize}
+  \item the artefacts considered (models, scenarios, memos);
+  \item voting patterns or individual approvals;
+  \item provenance of AI assistance in the written record.
+\end{itemize}
+
+\paragraph{Implementation requirement.}
+\begin{itemize}
+  \item Require an “assumption and sensitivity” block at endorsement boundaries (committee or desk lead):
+        what drivers the decision depends on, what would change the decision, and which signals trigger
+        re-review within the safe horizon.
+\end{itemize}
+\subsubsection*{FM2: Stress Testing and Capital Planning}
+
+\paragraph{Pipeline structure.}
+A stress-testing programme yields a run segment involving:
+
+\begin{itemize}
+  \item generation and refinement of macro and idiosyncratic scenarios;
+  \item application of models and aggregations;
+  \item AI-generated scenario narratives and impact summaries;
+  \item human adjustments and overlays.
+\end{itemize}
+
+\paragraph{Safe horizons.}
+Safe horizons limit:
+
+\begin{itemize}
+  \item the number of purely AI-generated scenario modifications accepted
+        without independent macro or risk review;
+  \item the depth of automated overrides of model outputs before escalation.
+\end{itemize}
+
+Boundary events occur when:
+
+\begin{itemize}
+  \item scenarios and methodologies are approved for use;
+  \item final stress results are accepted for internal or regulatory use.
+\end{itemize}
+
+\subsubsection*{FM3: Ongoing Monitoring}
+
+\paragraph{Pipeline structure.}
+Monitoring yields repeated runs over:
+
+\begin{itemize}
+  \item time series of exposures and risk indicators;
+  \item AI-generated anomaly flags, trend analyses, and alerts;
+  \item human investigations and follow-ups.
+\end{itemize}
+
+\paragraph{Boundary events.}
+Boundary events include:
+
+\begin{itemize}
+  \item escalation of a monitoring signal to a case or committee;
+  \item changes in limits or hedging strategies;
+  \item decisions to ignore or downgrade an AI-generated concern.
+\end{itemize}
+\paragraph{Escalation discipline.}
+\begin{itemize}
+  \item Make “ignore/downgrade” a logged boundary decision with rationale category (data quality issue,
+        known model limitation, non-material exposure, false positive). This supports later audit and avoids
+        silent normalization of alerts.
+\end{itemize}
+\subsection{Instruments and Metrics for Financial FRFP}
+
+\subsubsection*{FI1: Decision and Scenario Ledger}
+
+A decision ledger records:
+
+\begin{itemize}
+  \item the explicit pipeline leading to each credit or investment decision;
+  \item the scenario and model set in force at that time;
+  \item individual votes and reasoning;
+  \item indicators of AI involvement in summaries and drafts.
+\end{itemize}
+
+\subsubsection*{FI2: Monitoring Profile}
+
+Monitoring metrics include:
+
+\begin{itemize}
+  \item number and type of AI-generated alerts per period;
+  \item fraction escalated to human review;
+  \item fraction overridden by humans;
+  \item time between repeated re-baselining of monitoring assumptions.
+\end{itemize}
+
+These metrics inform adjustments to safe horizons and escalation rules.
+
+\subsection{Summary}
+
+In finance, FRFP yields an implementation in which:
+
+\begin{itemize}
+  \item AI systems generate and process explicit artefacts, but do not
+        autonomously take risk or approve positions;
+  \item human decision-makers attach correctness at clearly defined boundaries;
+  \item safe horizons govern monitoring, scenario use, and AI reliance;
+  \item ledgers and logs make decisions and their AI involvement reconstructible
+        for internal governance and external regulators.
+\end{itemize}
+
+% =========================================================
+% Appendix: Implementing FRFP in Clinical Practice
+% =========================================================
+
+\section{Implementing FRFP in Clinical Practice}
+\label{sec:frfp-clinical}
+
+This section presents an implementation of FRFP in clinical workflows,
+such as hospital care, outpatient medicine, and clinical decision support.
+We again assume the FRFP core from the main text.
+
+\subsection{Scope and Objectives}
+
+We consider settings where:
+
+\begin{itemize}
+  \item AI systems summarise patient histories, suggest differential
+        diagnoses, propose treatment plans, and assist with documentation;
+  \item clinical decisions have direct impacts on patient health and legal
+        liability;
+  \item workflows involve multiple hand-offs and teams (nurses, physicians,
+        specialists, pharmacists, administrators).
+\end{itemize}
+
+An FRFP-compliant clinical implementation should:
+
+\begin{enumerate}
+  \item confine AI to explicit artefacts (notes, summaries, suggestions);
+  \item leave diagnosis and treatment decisions as human boundary acts;
+  \item manage safe horizons in repeated, AI-assisted documentation and
+        decision support;
+  \item ensure that provenance and responsibility are clear in the record.
+\end{enumerate}
+
+\subsection{Core Principles for Clinical Pipelines}
+
+\subsubsection*{C1: Explicit Clinical Artefacts}
+
+Explicit space $E$ contains:
+
+\begin{itemize}
+  \item structured patient data (vitals, labs, imaging results, medications);
+  \item free-text notes (H\&P, progress notes, discharge summaries);
+  \item guidelines, order sets, protocols, and clinical pathways;
+  \item AI-generated summaries, differentials, risk scores, and recommendations.
+\end{itemize}
+
+AI systems may:
+
+\begin{itemize}
+  \item draft notes from structured data and prior text;
+  \item summarise long chart histories;
+  \item suggest diagnoses or management options;
+  \item rank guideline or order-set options given the current context.
+\end{itemize}
+
+\subsubsection*{C2: Tacit Clinical Expertise and Boundary Acts}
+
+Tacit space $T$ contains:
+
+\begin{itemize}
+  \item clinician expertise, pattern recognition, and sense of atypicality;
+  \item knowledge of local practice norms and patient-specific context;
+  \item ethical judgment and responsibility for patient outcomes.
+\end{itemize}
+
+Boundary events include:
+
+\begin{itemize}
+  \item signing of notes and orders (diagnostic and therapeutic);
+  \item finalising discharge summaries and hand-off documents;
+  \item multidisciplinary conference decisions (tumour boards, complex case
+        conferences);
+  \item acceptance of AI-supported predictions into standard workflows.
+\end{itemize}
+
+At each boundary, a clinician (or a team) must evaluate AI contributions in
+light of $T$ and attach correctness for action.
+\paragraph{Transparency at the boundary.}
+\begin{itemize}
+  \item At endorsement points, the clinician must be able to see the basis of AI suggestions in a form that is
+        clinically reviewable (source data referenced, guideline link, or stated rationale), and must be able to
+        override. This keeps “decision support” from becoming de facto automation and aligns with common CDS governance
+        expectations.
+\end{itemize}
+\subsubsection*{C3: Safe Horizons in Documentation and Decision Support}
+
+Safe horizons control:
+
+\begin{itemize}
+  \item how many consecutive notes may be heavily AI-assisted without
+        independent re-reading of primary data;
+  \item how often AI-supported diagnostic suggestions must be audited against
+        full guideline review or manual literature review;
+  \item how long a patient can be managed with AI-summarised charts before
+        a clinician must reconstruct key elements from raw data.
+\end{itemize}
+
+Horizon parameters depend on patient acuity, setting (ICU vs.\ outpatient),
+and risk tolerance.
+
+\subsection{Clinical Methodology as FRFP Pipelines}
+
+\subsubsection*{CM1: Intake and Initial Assessment}
+
+\paragraph{Pipeline structure.}
+For a new admission, a run segment may include:
+
+\begin{itemize}
+  \item ingestion of prior records and structured data;
+  \item AI-generated summary of history and active problems;
+  \item clinician review, correction, and augmentation of the summary.
+\end{itemize}
+
+\paragraph{Boundary event.}
+Boundary occurrence:
+
+\begin{itemize}
+  \item clinician signs the initial note and places initial orders.
+\end{itemize}
+
+At this point, correctness is conferred on:
+
+\begin{itemize}
+  \item the problem list and working diagnoses;
+  \item key decisions (admission level, initial tests, immediate treatment).
+\end{itemize}
+
+\subsubsection*{CM2: Ongoing Management}
+
+\paragraph{Pipeline structure.}
+Over the course of care, a run segment includes:
+
+\begin{itemize}
+  \item repeated AI-assisted progress notes;
+  \item AI-generated trend summaries (vitals, labs, risk scores);
+  \item human interpretation, updates to diagnoses, and treatment adjustments.
+\end{itemize}
+
+\paragraph{Safe horizons.}
+Safe horizons might enforce:
+
+\begin{itemize}
+  \item a limit on how many successive notes can be accepted with minimal
+        editing of AI output;
+  \item periodic requirements to review raw labs, images, and data streams
+        directly;
+  \item checks before relying on AI-generated risk scores for escalation
+        decisions.
+\end{itemize}
+
+\paragraph{Boundary events.}
+Boundary points include:
+
+\begin{itemize}
+  \item daily sign-off on progress notes and orders;
+  \item decisions to escalate care or transfer units;
+  \item significant changes in diagnosis or treatment plan.
+\end{itemize}
+
+\subsubsection*{CM3: Discharge and Handoffs}
+
+\paragraph{Pipeline structure.}
+At discharge or hand-off, a run segment contains:
+
+\begin{itemize}
+  \item AI-assisted draft of discharge summary or hand-off note;
+  \item clinician edits to ensure accuracy, emphasising key risks and follow-up;
+  \item generation of patient-facing summaries and instructions.
+\end{itemize}
+
+\paragraph{Boundary event.}
+The final discharge or hand-off note is a boundary artefact:
+
+\begin{itemize}
+  \item its signing marks the clinician’s endorsement of its content;
+  \item errors at this point can propagate to downstream providers and
+        future care decisions.
+\end{itemize}
+
+FRFP requires that AI contributions are visible and that clinicians have
+sufficient time and support to re-ground their tacit understanding before
+signing.
+\paragraph{Implementation requirement.}
+\begin{itemize}
+  \item Treat discharge and handoff sign-off as a protected boundary: the system must surface discrepancies (med lists,
+        pending labs, contraindications, follow-up gaps) and must record whether clinician confirmation occurred.
+\end{itemize}
+\subsection{Instruments and Metrics for Clinical FRFP}
+
+\subsubsection*{CI1: Clinical Documentation Ledger}
+
+A documentation ledger records, for each patient:
+
+\begin{itemize}
+  \item all signed notes and orders as boundary artefacts;
+  \item AI involvement in each note (e.g.\ percentage of AI-generated text,
+        suggestions taken vs.\ rejected);
+  \item episodes where clinicians explicitly overrode AI suggestions;
+  \item links to underlying data and guidelines referenced.
+\end{itemize}
+
+This enables later review of:
+
+\begin{itemize}
+  \item how AI assistance correlates with documentation errors;
+  \item patterns of overreliance or under-use across clinicians or units.
+\end{itemize}
+
+\subsubsection*{CI2: Decision-Support Profile}
+
+For AI-supported decision aids (e.g.\ risk scores, triage suggestions),
+metrics include:
+
+\begin{itemize}
+  \item rate of use and override by clinicians;
+  \item cases where AI disagreed with clinician judgment and outcome data;
+  \item time since last full audit of model performance and assumptions.
+\end{itemize}
+
+These metrics help calibrate safe horizons for decision support.
+
+\subsection{Summary}
+
+In clinical practice, FRFP yields an implementation in which:
+
+\begin{itemize}
+  \item AI systems operate on explicit artefacts (notes, summaries, scores);
+  \item clinicians retain responsibility for diagnosis and treatment at
+        boundary events;
+  \item safe horizons limit extended, ungrounded reliance on AI outputs;
+  \item documentation and evaluation logs make AI involvement and human
+        judgment reconstructible for quality improvement and oversight.
+\end{itemize}

@@ -1,0 +1,26 @@
+
+\section{Introduction}
+\label{sec:intro}
+
+LLMs can rapidly generate coherent analyses of incidents spanning safety-critical engineering, financial markets, regulatory oversight, and institutional governance. This capability is increasingly attractive for incident response, postmortems, compliance reviews, and policy analysis. Yet in many real-world failures, what matters is not only the physical or technical mechanism but also the decision process by which organizations interpret evidence, update beliefs, and choose actions under uncertainty. Independent assessor reports (e.g., accident investigation boards, commissions, regulators) often reconstruct failures as breakdowns in \emph{process}: missed validation checkpoints, weak escalation mechanisms, mis-specified risk metrics, normalization of deviance, and inadequate observability or diagnostic capability.
+
+A recurring challenge is that explanations can be \emph{endorsement-effective} without being well grounded: an analysis may appear complete and persuasive while omitting key decision nodes or governance mechanisms that determined outcomes. This motivates the hypothesis that adding explicit reasoning structure---in the form of a domain-agnostic protocol that forces articulation of task definitions, control surfaces, validation gates, escalation paths, and observability constraints---can improve the fidelity of LLM-generated analyses in complex socio-technical settings.
+
+In this paper, we empirically evaluate that hypothesis using the Foundational Reasoning and Feedback Protocol (FRFP)~\cite{frfp_vol1} as a representative structured reasoning protocol. We compare three document conditions for each case: (i) a baseline LLM analysis produced without protocol framing, (ii) a protocol-structured LLM analysis constrained by FRFP-style primitives, and (iii) an independent assessor summary constrained to publicly available investigation findings. To prevent superficial formatting differences from dominating judgments, we normalize all outputs into a fixed one-page shell with identical section headings and word budgets. Expert raters evaluate each case under blinded labels (Type X/Y/Z) and select the closest pair among the three documents, assigning a cumulative similarity level (R1--R4).
+
+\paragraph{Why conditional improvement matters.}
+The study is not framed as ``protocols always outperform baseline LLM reasoning.'' Instead, we posit a conditional effect: protocol structuring should matter most in \emph{underdetermined} cases where the assessor narrative hinges on multi-stage governance and decision-making (e.g., safety governance, risk management, institutional escalation). In mechanically crisp single-chain failures, baseline analyses may already capture the primary mechanism with high fidelity, leaving limited room for improvement. This distinction is important both scientifically (falsifiable boundary conditions) and operationally (where structured protocols are likely to pay off).
+
+\paragraph{Universal-default motivation.}
+Even if mean alignment gains are concentrated in certain strata, universal use of structured protocols may still be operationally attractive. Selective deployment requires a meta-decision mechanism that reliably detects when protocol structure is necessary---a decision that is itself most fragile under ambiguity. A universal default can provide standardization, auditability, and potential variance reduction (fewer unsupported or overconfident claims) at low cost in simpler domains, while capturing large gains when governance complexity dominates.
+
+\paragraph{Contributions.}
+This paper makes four contributions:
+\begin{enumerate}
+    \item \textbf{A blinded evaluation design} for comparing structured vs unstructured LLM analyses using independent assessor reports as references, across 25 historical major failures and 10 expert raters.
+    \item \textbf{A cumulative structural similarity rubric (R1--R4)} that distinguishes control-surface alignment (R1--R2) from decision-node and institutional mechanism alignment (R3--R4).
+    \item \textbf{A hardened generation and normalization protocol} that separates (a) isolated condition generation from (b) presentation normalization, reducing framework leakage and formatting bias.
+    \item \textbf{A results framework} that reports both mean alignment effects and variance/tail-risk metrics (dispersion and unsupported-claim flags), enabling evaluation of protocol structure as both a performance and robustness property of the agent configuration.
+\end{enumerate}
+
+The remainder of the paper describes the study design, case selection and stratification, generation and normalization procedures, and the evaluation rubric, followed by aggregate and stratum-level results, robustness checks, and implications for deploying structured reasoning protocols in high-stakes socio-technical analysis.while still providing standardization and auditability benefits. The question of universal default adoption is discussed separately as an operational consideration rather than an empirical conclusion.

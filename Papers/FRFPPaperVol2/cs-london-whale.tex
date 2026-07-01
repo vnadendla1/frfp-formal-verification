@@ -1,0 +1,712 @@
+% ============================================================
+% Appendix Z.8 — FRFP Case Study (Finance / Risk Management):
+% JPMorgan CIO “London Whale” Trading Loss
+% ============================================================
+
+\section{FRFP Case Study (Finance / Risk Management):
+  JPMorgan CIO “London Whale” Trading Loss}
+\label{app:frfp-london-whale}
+
+This appendix analyses the 2012 JPMorgan Chief Investment Office (CIO)
+trading losses---commonly known as the ``London Whale'' incident---through
+the lens of FRFP.
+We focus on explicit/tacit structure, boundary design, safe horizons, and
+institutional governance in a large, complex financial institution.
+
+\subsection{Background}
+
+In early 2012, JPMorgan’s CIO, operating out of London, accumulated very
+large positions in credit default swap (CDS) indices and tranches as part of
+its Synthetic Credit Portfolio (SCP).
+The trading was led by Bruno Iksil, a trader soon dubbed the ``London
+Whale'' because his positions were so large they moved prices in the
+CDX index markets.
+
+The SCP was described internally as a hedge for the bank’s overall credit
+exposure, but in practice it became a large, complex, and partially
+directional portfolio of credit derivatives.
+By April–May 2012, press reports and hedge funds on the other side of the
+trade highlighted mounting losses.
+JPMorgan initially disclosed an estimated \$2~billion loss in May 2012; this
+was later revised to about \$6.2~billion as positions were unwound.
+
+Subsequent investigations by JPMorgan’s internal task force, the U.S.
+Senate’s Permanent Subcommittee on Investigations, the Federal Reserve, and
+other regulators found:
+
+\begin{itemize}
+  \item poor judgment, weak risk management, and inadequate escalation in the
+        CIO;
+  \item risk limits that were too coarse and sometimes ignored;
+  \item a new Value-at-Risk (VaR) model that halved reported risk but was
+        flawed in design and implementation, including spreadsheet errors;
+  \item mis-marking of positions and misleading information provided to
+        senior management and regulators.
+\end{itemize}
+
+JPMorgan ultimately paid over \$900~million in fines to U.S.\ and U.K.\
+regulators and significantly revised its risk governance.
+The incident became a canonical example of derivatives risk, model failure,
+and control breakdown in a major bank.
+
+\subsection{Explicit and Tacit Spaces in the CIO}
+
+\subsubsection*{Explicit space \(E_{\mathrm{CIO}}\)}
+
+In FRFP terms, the explicit domain includes:
+
+\begin{itemize}
+  \item the portfolio of CDS indices and tranches
+        (e.g.\ CDX IG~9, high-yield indices, bespoke tranches);
+  \item trade tickets, positions, and P\&L records for the SCP;
+  \item risk models and metrics:
+        \begin{itemize}
+          \item VaR models (old and new) and their inputs;
+          \item stress scenarios, sensitivities, and limit reports;
+        \end{itemize}
+  \item formal risk limits and escalation thresholds for the CIO;
+  \item internal reports and presentations to senior management and the
+        board;
+  \item regulatory filings and disclosures regarding the bank’s risk profile.
+\end{itemize}
+
+The explicit pipelines in \(N \ltimes E_{\mathrm{CIO}}\) consist of:
+
+\begin{itemize}
+  \item trading decisions that change the SCP positions;
+  \item daily risk computation runs (VaR, stress, P\&L);
+  \item aggregation and reporting of risk and performance up the hierarchy;
+  \item communications with regulators.
+\end{itemize}
+
+\subsubsection*{Tacit space \(T_{\mathrm{CIO}}\)}
+
+Tacit space comprises:
+
+\begin{itemize}
+  \item traders’ and managers’ market intuition:
+        views on credit spreads, correlation, and systemic risk;
+  \item risk managers’ understanding of model limitations and data quality;
+  \item senior executives’ beliefs about the CIO’s role
+        (hedging vs.\ profit centre, ``fortress balance sheet'');
+  \item board and regulator expectations about JPMorgan’s risk appetite and
+        control culture.
+\end{itemize}
+
+These tacit states determine:
+
+\begin{itemize}
+  \item how seriously risk signals are taken;
+  \item whether VaR and other metrics are treated as approximate guides or
+        as quasi-authoritative measures of correctness;
+  \item how rapidly concerns are escalated and constraints imposed.
+\end{itemize}
+
+\subsection{Boundary Design: Risk Metrics vs.\ Capital Commitments}
+
+\subsubsection*{Intended boundary}
+
+In a well-functioning FRFP-style risk architecture:
+
+\begin{itemize}
+  \item explicit models (VaR, stress tests, P\&L) provide signals in
+        \(E_{\mathrm{CIO}}\);
+  \item human decision-makers in \(T_{\mathrm{CIO}}\)
+        (traders, risk committees, senior management, board)
+        interpret these signals and make capital allocation decisions;
+  \item boundary events include:
+        \begin{itemize}
+          \item approval of trading mandates and limits;
+          \item responses to limit breaches;
+          \item sign-off on model changes and risk reports;
+          \item major strategic decisions (e.g.\ growth of the SCP).
+        \end{itemize}
+\end{itemize}
+
+Correctness about risk---whether the portfolio is within appetite,
+appropriately hedged, and resilient---is supposed to live at these human
+boundaries.
+
+\subsubsection*{De facto boundary: models and limits as surrogates}
+
+In the London Whale incident, several factors shifted the effective boundary
+toward the explicit layer:
+
+\begin{itemize}
+  \item the CIO was granted broad discretion and large notional limits,
+        framed under a ``macro hedging'' mandate, with limited granular
+        scrutiny;
+  \item a new VaR model, implemented in January~2012, immediately cut
+        reported VaR for the SCP roughly in half, reducing apparent risk and
+        helping the portfolio stay within limits, despite flawed methodology
+        and manual data-handling errors;
+  \item limit breaches and growing losses were not promptly escalated or
+        were rationalised using the new model and other explicit metrics;
+  \item senior management initially characterised concerns as a ``tempest in
+        a teapot,'' signalling confidence in the explicit risk apparatus.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item VaR and related explicit metrics became de facto bearers of
+        correctness;
+  \item tacit skepticism and local concerns were overridden or not adequately
+        propagated;
+  \item the boundary between signal and decision blurred:
+        if VaR was within limits on paper, positions were allowed to grow.
+\end{itemize}
+
+\subsection{Protocol-Level Failures in FRFP Terms}
+
+\subsubsection*{Z.8.1 Explicit-Space Mis-Specification:
+  VaR Model and Limit Structure}
+
+\paragraph{VaR model flaws.}
+The Senate report and internal JPMorgan task-force report highlight
+significant problems with the new SCP VaR model:
+
+\begin{itemize}
+  \item complex, manual data handling and aggregation, including spreadsheet
+        processes prone to error;
+  \item inappropriate scaling and parameter choices that understated
+        volatility and correlation risk;
+  \item limited independent validation and rushed implementation, motivated
+        in part by the desire to reduce reported VaR.
+\end{itemize}
+
+In FRFP language:
+
+\begin{itemize}
+  \item the explicit mapping
+        \(
+          f_{\mathrm{VaR}} : \text{positions, data} \to \text{risk metric}
+        \)
+        had defective semantics;
+  \item it failed to preserve crucial invariants (e.g.\ higher concentration
+        and complexity should not show lower risk);
+  \item the explicit artefact (VaR number) ceased to be a reliable signal for
+        tacit risk assessment.
+\end{itemize}
+
+\paragraph{Risk limit granularity.}
+Reports also note that risk limits for the SCP and CIO were not sufficiently
+granular:
+
+\begin{itemize}
+  \item limits were set at aggregated levels that allowed large, offsetting
+        positions to mask concentrations;
+  \item concentration limits by index/tenor or scenario were weak or absent;
+  \item breaches were frequent but often waived or reinterpreted.
+\end{itemize}
+
+Within FRFP, this means that the explicit constraints on runs in
+\(N \ltimes E_{\mathrm{CIO}}\) were too coarse: the admissible set of runs
+included structurally dangerous configurations that should have been
+excluded by design.
+
+\subsubsection*{Z.8.2 Boundary Failure: From Hedge to Prop Book}
+
+\paragraph{Mandate drift.}
+The SCP was intended as a hedge for JPMorgan’s broader credit exposure, but
+investigations concluded that:
+
+\begin{itemize}
+  \item the portfolio grew far beyond what was needed for plausible hedging
+        of underlying exposures;
+  \item positions were often directional bets on credit indices and tranches;
+  \item internal descriptions of the SCP as a ``hedge'' were, at best,
+        partially accurate.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item the explicit label ``hedge'' attached to the SCP no longer matched
+        its tacit economic function;
+  \item this misalignment distorted boundary decisions:
+        risk-taking that should have been treated as proprietary trading was
+        instead viewed as risk-reducing or neutral.
+\end{itemize}
+
+\paragraph{Escalation and endorsement.}
+Limit breaches, growing P\&L volatility, and market commentary about the
+``London Whale'' should have triggered strong boundary events:
+
+\begin{itemize}
+  \item reconsideration of the SCP mandate;
+  \item immediate review and possible suspension of trading;
+  \item board-level and regulatory engagement.
+\end{itemize}
+
+Instead, escalation was delayed and partial:
+
+\begin{itemize}
+  \item some internal concerns were downplayed;
+  \item senior management initial public statements sought to reassure
+        markets rather than acknowledge structural issues;
+  \item decisive actions (e.g.\ ``phones down'' order, unwinding trades)
+        only came after large losses had already materialised.
+\end{itemize}
+
+FRFP reads this as boundary failure:
+tacit authorities did not reassert control when explicit signals and external
+information clearly indicated that admissibility conditions were being
+violated.
+
+\subsubsection*{Z.8.3 Safe Horizon Violations:
+  Size, Complexity, and Time}
+
+\paragraph{Long-horizon build-up.}
+The SCP positions grew over many months:
+
+\begin{itemize}
+  \item notional exposures reached hundreds of billions of dollars;
+  \item complexity increased as traders added offsetting positions, basis
+        trades, and curve trades;
+  \item risk metrics struggled to capture tail risks and liquidity effects.
+\end{itemize}
+
+FRFP would require:
+
+\begin{itemize}
+  \item safe horizons on notional size, complexity, and model reliance;
+  \item episodic re-grounding of the portfolio’s purpose and risk profile;
+  \item periodic human re-evaluation of worst-case scenarios, independent of
+        model output.
+\end{itemize}
+
+\paragraph{Collapse.}
+Because such safe horizons were not structurally enforced:
+
+\begin{itemize}
+  \item mispricing and model error accumulated;
+  \item counterparties and hedge funds identified the CIO’s large positions
+        and took the other side;
+  \item when markets moved, the unwinding of positions generated realised
+        losses far exceeding early estimates.
+\end{itemize}
+
+The London Whale incident is thus a prototypical safe-horizon violation in
+FRFP terms: a long run in \(N \ltimes E_{\mathrm{CIO}}\) where explicit
+constraints and tacit oversight failed to cap risk accumulation.
+
+\subsubsection*{Z.8.4 Institutional Governance and Regulator Interaction}
+
+\paragraph{Internal governance.}
+Internal reports and external commentary raise questions about JPMorgan’s
+governance:
+
+\begin{itemize}
+  \item the CIO reported directly to the CEO, yet its evolving activities and
+        risk profile were not matched by strengthened controls;
+  \item the firm lacked a treasurer for a period, and risk leadership in the
+        CIO was relatively inexperienced;
+  \item model approval and risk-limit processes did not prevent the flawed
+        VaR model from being adopted or used to justify risk-taking.
+\end{itemize}
+
+\paragraph{Regulatory oversight.}
+Senate and Fed reports note that regulators received incomplete or
+misleading information about the size and risk of the SCP, and that
+regulatory frameworks (including the Volcker Rule debates) did not fully
+anticipate such complex hedging/prop hybrids.
+
+In FRFP’s institutional semantics:
+
+\begin{itemize}
+  \item internal governance and regulators together constitute institutional
+        operators \(G\) acting on the tacit state of the firm and the
+        financial system;
+  \item these operators relied heavily on explicit artefacts (VaR numbers,
+        risk dashboards, high-level descriptions of the SCP) without robust
+        mechanisms to interrogate their semantics;
+  \item non-automation of governance is violated if one imagines that such
+        explicit metrics can replace tacit supervisory judgment.
+\end{itemize}
+
+The London Whale case illustrates the limits of explicit-only governance in
+complex financial institutions.
+
+\subsection{Counterfactual: An FRFP-Aligned CIO Architecture}
+
+What might a CIO risk architecture look like if designed under FRFP?
+
+\subsubsection*{Z.8* Clear Explicit/Tacit Role Separation}
+
+\begin{itemize}
+  \item Explicit systems:
+        \begin{itemize}
+          \item compute risk metrics (VaR, stress, greeks);
+          \item maintain detailed position and P\&L records;
+          \item generate scenario analyses and what-if projections.
+        \end{itemize}
+  \item Tacit decision-makers (traders, risk executives, board, regulators)
+        retain responsibility for:
+        \begin{itemize}
+          \item defining the economic purpose of each portfolio (hedge vs.\
+                prop vs.\ liquidity management);
+          \item accepting or rejecting risk levels indicated by metrics;
+          \item interpreting model limitations and external market signals.
+        \end{itemize}
+\end{itemize}
+
+\subsubsection*{Z.8* Boundary Design for Models and Limits}
+
+\begin{itemize}
+  \item Model changes (e.g.\ new VaR models) are treated as major boundary
+        events:
+        \begin{itemize}
+          \item require independent model validation;
+          \item require parallel runs and backtesting;
+          \item require board-level awareness for portfolios of systemic
+                importance.
+        \end{itemize}
+  \item Risk limits are decomposed and granular:
+        \begin{itemize}
+          \item limits by index, tenor, scenario, and concentration;
+          \item clear escalation steps for any breach, with documented
+                justifications for temporary overrides.
+        \end{itemize}
+  \item Limit waivers and policy changes are logged as explicit boundary
+        events with responsible signatories.
+\end{itemize}
+
+\subsubsection*{Z.8* Safe Horizons for Portfolio Growth}
+
+\begin{itemize}
+  \item Notional and risk exposures for complex portfolios grow only within
+        explicitly defined safe horizons:
+        \begin{itemize}
+          \item caps on exposure under a given model configuration;
+          \item episodic reviews after each incremental growth phase;
+          \item scenario-based drills of worst-case losses and liquidity.
+        \end{itemize}
+  \item External signals (e.g.\ concentrated positioning visible to
+        counterparties, press reports about unusual trades) trigger automatic
+        re-grounding reviews and potential position caps.
+\end{itemize}
+
+\subsubsection*{Z.8* Institutional Governance with FRFP Operators}
+
+\begin{itemize}
+  \item A board-level risk committee acts as an FRFP institutional operator:
+        \begin{itemize}
+          \item defines which risk decisions can be automated or delegated;
+          \item sets admissibility criteria for strategies like the SCP;
+          \item reviews and approves safe-horizon frameworks.
+        \end{itemize}
+  \item Regulators adopt FRFP-aware expectations:
+        \begin{itemize}
+          \item stress testing and model validation that explicitly consider
+                boundary design and governance, not just quantitative metrics;
+          \item requirements for banks to document explicit/tacit roles,
+                model limits, and escalation procedures for major portfolios.
+        \end{itemize}
+\end{itemize}
+
+Under such an architecture, the SCP might still suffer trading losses, but:
+
+\begin{itemize}
+  \item mis-specified models would be more likely caught in validation;
+  \item portfolio growth would be bounded by safe horizons;
+  \item early signals (limit breaches, external market reactions) would have
+        triggered corrective boundary events sooner.
+\end{itemize}
+
+\subsection{Lessons for FRFP and Financial Risk Management}
+
+The London Whale case reinforces several themes in FRFP’s treatment of
+finance:
+
+\begin{enumerate}
+  \item \textbf{Model numbers are not correctness.}
+        VaR and similar metrics are explicit artefacts whose semantics depend
+        on modelling choices and data quality; treating them as definitive
+        measures of risk leads to boundary capture.
+
+  \item \textbf{Labels (``hedge'') are not guarantees.}
+        Calling a portfolio a hedge does not make it one.
+        FRFP emphasises alignment between explicit descriptions and tacit
+        economic reality.
+
+  \item \textbf{Safe horizons matter as much as limits.}
+        Traditional limits are static constraints; FRFP highlights the need
+        for dynamic safe horizons that govern how fast and how far complex
+        positions can evolve before mandatory re-grounding.
+
+  \item \textbf{Institutional non-automation holds in finance.}
+        Governance based largely on explicit risk metrics and dashboards,
+        without strong tacit oversight and FRFP-style boundary design, cannot
+        reliably prevent large, complex failures.
+
+  \item \textbf{Formal architectures clarify systemic patterns.}
+        The London Whale is often framed as a story of a rogue trader, a bad
+        model, or a management oversight.
+        FRFP reveals a structural pattern: mis-specified explicit semantics,
+        weak boundaries, absent safe horizons, and explicit-only governance
+        together made the CIO’s trading run inadmissible at scale.
+\end{enumerate}
+
+Accordingly, the London Whale episode serves as a detailed, well-documented
+example of how FRFP-style reasoning can illuminate the interplay between
+models, human judgment, and institutional structures in large financial
+institutions.
+% ============================================================
+% Retrospective FRFP Case Study (Finance / Risk Governance):
+% JPMorgan CIO “London Whale” Trading Losses (2012)
+% Two-level audit discipline: (i) FRFP kernel fit, (ii) non-FRFP escape assumptions
+% Sources used as exemplars:
+%  - U.S. Senate PSI “Chase Whale Trades” investigation materials (2013) [public record]
+%  - JPMorgan Chase & Co. Management Task Force Report on 2012 CIO Losses (Jan 16, 2013) [company-authored]
+%  - SEC administrative order / release (Sept 19, 2013, Exchange Act Rel. 34-70458) [enforcement record]
+%  - JPMorgan SEC filings / investor communications around the loss (2012) [issuer disclosures]
+% ============================================================
+
+\section{Case Study: JPMorgan CIO “London Whale” Losses (2012) under Two-Level Audit Discipline}
+\label{sec:case-london-whale-two-level}
+
+\subsection{How to read this case study (two-level audit discipline)}
+This retrospective study is written to support two distinct audits:
+
+\begin{enumerate}
+\item \textbf{FRFP-kernel audit (protocol fit).} We reconstruct the real workflow in plain-language FRFP terms: what artefacts existed, where endorsement happened, how repetition accumulated risk, and how governance changed the run.
+\item \textbf{Escape-assumption audit (holes beyond FRFP).} We then ask whether the workflow implicitly relied on non-FRFP assumptions that would \emph{break} FRFP’s one-to-one correspondence (initiality). These assumptions are not “extra details”; they are structural commitments that create characteristic blind spots.
+\end{enumerate}
+
+\paragraph{Primary record set.}
+We use (i) a regulator/legislative investigation record (U.S. Senate PSI, 2013), (ii) a company-authored internal investigation (JPMorgan Management Task Force Report, Jan 16, 2013), (iii) enforcement findings (SEC Exchange Act Release No.\ 34-70458, Sept 19, 2013), and (iv) issuer disclosures (JPMorgan SEC filings, 2012) as mutually-checking sources.\footnote{U.S.\ Senate PSI (2013), ``Chase Whale Trades: A Case History of Derivatives Risks and Abuses.'' JPMorgan (Jan 16, 2013), ``Report of JPMorgan Chase \& Co.\ Management Task Force Regarding 2012 CIO Losses.'' SEC (Sept 19, 2013), Exchange Act Release No.\ 34-70458. JPMorgan SEC filings (2012) related to CIO losses and subsequent restatement/disclosures.}
+
+% ------------------------------------------------------------
+\subsection{M0: Case unit declaration (what system are we studying?)}
+\label{subsec:lw-m0}
+
+\paragraph{Case unit.}
+We study \textbf{the CIO Synthetic Credit Portfolio (SCP) risk-taking and control process} inside JPMorgan Chase in 2011--2012, including:
+\begin{itemize}
+\item the trading strategy and position lifecycle (build, hedge, unwind),
+\item the risk measurement and limit-setting apparatus,
+\item the valuation and reporting/disclosure controls,
+\item the managerial and committee escalation/approval chain.
+\end{itemize}
+
+\paragraph{Population boundary.}
+The “system” is not one trader. It is an institutional workflow spanning desks, risk management, valuation control, senior management, and internal committees. The relevant population includes at least: CIO traders (including the London-based desk), CIO management, firm-wide risk, model governance, finance/valuation control, senior management, and (externally) regulators and investors.
+
+% ------------------------------------------------------------
+\subsection{M1: Explicit Artefact Ledger (what exists, what moves, what changes?)}
+\label{subsec:lw-m1}
+
+\paragraph{Explicit artefacts (ledger).}
+In this case, the machine-side/explicit layer is not “an AI model”; it is a \emph{risk-and-reporting production line} whose outputs became decision triggers. Key artefacts include:
+
+\begin{itemize}
+\item \textbf{Position and exposure artefacts:} trade tickets, position inventories, net/gross exposures, concentration measures, liquidity/exit assumptions.
+\item \textbf{Risk metrics:} Value-at-Risk (VaR), stress loss estimates, limit utilizations, risk appetite dashboards, breach reports.
+\item \textbf{Valuation and P\&L artefacts:} daily marks, price sources, model-based valuations, valuation adjustments, P\&L explain, dispute logs.
+\item \textbf{Governance artefacts:} risk limits, limit exceptions, committee minutes, approvals, remediation plans.
+\item \textbf{External artefacts:} investor disclosures, earnings scripts, SEC filings, restatement/disclosure-control narratives.
+\end{itemize}
+
+\paragraph{Where artefacts came from and how they flowed.}
+Artefacts flowed from trading systems to risk dashboards, from valuation functions to P\&L, from risk reports to committees, and from management narratives into public disclosures. The Senate PSI record and SEC order emphasize that internal artefacts (risk and valuation outputs) were directly tied to control decisions and disclosure obligations.\footnote{See PSI (2013) for chronology and internal control breakdown narrative; see SEC Release No.\ 34-70458 (2013) for disclosure-control and valuation-related findings.}
+
+\paragraph{What changed over time.}
+Crucially, the artefact-generating pipeline itself changed: risk models, thresholds/limits, and valuation practices were adjusted during the run. Those “pipeline changes” are not mere implementation details; they change what the institution treats as evidence.\footnote{Both PSI (2013) and JPMorgan’s Management Task Force Report (2013) discuss risk model/limit changes and governance responses during the loss period.}
+
+% ------------------------------------------------------------
+\subsection{M2: Pipeline Shape + Navigation Map (workflow topology and steering moves)}
+\label{subsec:lw-m2}
+
+\paragraph{Pipeline topology (shape).}
+The operational shape is best described as a \textbf{looping control cycle}:
+\begin{quote}
+trade/position changes $\rightarrow$ risk/valuation outputs $\rightarrow$ management review $\rightarrow$ limits/strategy updates $\rightarrow$ more trading.
+\end{quote}
+It is not a one-shot chain. It is a repeated loop with feedback and adaptation.
+
+\paragraph{Navigation/steering moves.}
+Key steering moves included:
+\begin{itemize}
+\item \textbf{Re-parameterize risk measurement:} changing VaR model or inputs, changing limit calibration, redefining what counts as “breach.”
+\item \textbf{Escalate vs.\ contain:} deciding whether to elevate a breach/valuation issue to higher committees or treat it as local/temporary.
+\item \textbf{Unwind strategy shifts:} slowing or accelerating unwind, changing hedges, changing execution strategy.
+\item \textbf{Reframe externally:} revising the public narrative as losses evolved (disclosure choices).
+\end{itemize}
+
+\paragraph{Why topology matters.}
+In a looped system, small per-cycle distortions (optimistic marks, softened limits, delayed escalation) compound. This is exactly the kind of long-horizon effect a snapshot view misses.
+
+% ------------------------------------------------------------
+\subsection{M3: Tacit Authority Map (who owns judgment, under what standard?)}
+\label{subsec:lw-m3}
+
+\paragraph{Tacit judgments that mattered.}
+Several tacit judgments governed outcomes:
+\begin{itemize}
+\item \textbf{Risk acceptability:} what level and type of exposure was acceptable for CIO’s mandate.
+\item \textbf{Valuation integrity:} what constitutes a defensible mark under stress and illiquidity.
+\item \textbf{Escalation thresholds:} when an issue is serious enough to trigger independent review or halt.
+\item \textbf{Disclosure sufficiency:} what must be said publicly, when, and with what confidence.
+\end{itemize}
+
+\paragraph{Authority distribution.}
+Authority was distributed across desks, CIO management, firm-wide risk, valuation control, senior management, and committees. The PSI report and Task Force report both indicate that this distribution created gaps: responsibility diffused, and key challenges (risk model adequacy, valuation disputes, limit breaches) were not consistently resolved at a single, empowered boundary.\footnote{PSI (2013) and JPMorgan Management Task Force Report (2013).}
+
+% ------------------------------------------------------------
+\subsection{M4: Boundary Register (where endorsement becomes real)}
+\label{subsec:lw-m4}
+
+\paragraph{Boundary events (endorsement moments).}
+We register at least four boundary classes:
+
+\begin{enumerate}
+\item \textbf{Risk-limit approvals and exceptions.} When limits were set, altered, or breached-and-excused, explicit metrics became permission to continue.
+\item \textbf{Model changes and acceptance.} When VaR methodology or parameters were changed and accepted for monitoring, the institution endorsed a new evidence standard.
+\item \textbf{Valuation marks and dispute resolutions.} When marks were set/accepted, they became the firm’s operational truth for P\&L and reporting.
+\item \textbf{Public disclosures.} When management approved language in filings/earnings communications, internal uncertainty was converted into external commitment.
+\end{enumerate}
+
+\paragraph{Boundary bundles (what should have been visible).}
+A robust boundary bundle would include: positions/exposures, independent price challenges, stress scenarios, liquidity assumptions, model-change rationale, and a clear statement of uncertainty plus downside tails. A recurring theme in the public record is that what was \emph{formally present} at boundaries did not reliably preserve the real uncertainty and contestability of the underlying situation.\footnote{SEC Release No.\ 34-70458 (2013) for disclosure-control framing; PSI (2013) for internal disputes and escalation issues.}
+
+% ------------------------------------------------------------
+\subsection{M5: Admissibility \& Leak Report (rules vs.\ lived reality)}
+\label{subsec:lw-m5}
+
+\paragraph{Stated constraints (intended admissibility).}
+In a bank context, admissibility constraints typically include: risk limits, independent risk oversight, model governance, valuation control, escalation requirements, and disclosure controls.
+
+\paragraph{Boundary leaks (how the protocol was effectively bypassed).}
+The record supports several leak patterns:
+\begin{itemize}
+\item \textbf{Metric substitution:} dashboards/metrics became de facto endorsements even when the underlying model/inputs were contested or changing.
+\item \textbf{Model-change as control evasion risk:} changing the measurement pipeline during stress can reduce apparent breaches without reducing exposure.
+\item \textbf{Valuation contestation without hard stop:} disputes over marks and liquidity were not always converted into a mandatory escalation boundary.
+\item \textbf{Narrative smoothing:} public communications can lag internal understanding, creating a boundary where uncertainty is under-encoded.
+\end{itemize}
+These are “protocol leaks” in the sense that governance constraints existed, but the run found pathways around their intended effect.\footnote{PSI (2013); JPMorgan Management Task Force Report (2013); SEC Release No.\ 34-70458 (2013).}
+
+% ------------------------------------------------------------
+\subsection{M6: Run Family Catalogue + Replication Set (not one story, a family of stories)}
+\label{subsec:lw-m6}
+
+\paragraph{Run families.}
+We distinguish:
+\begin{itemize}
+\item \textbf{Normal runs:} CIO positions managed within limits; routine risk reporting; stable valuation environment.
+\item \textbf{Stressed runs:} widening spreads, illiquidity, crowding, and increased sensitivity to model and mark assumptions.
+\item \textbf{Drift runs:} gradual normalization of exceptions (breach tolerance), habituation to metrics, and incremental limit/model adjustments.
+\item \textbf{Adversarial-ish runs:} not “external attackers,” but strategic behavior under pressure (e.g., incentives to reduce measured risk or defend marks).
+\item \textbf{Growth runs:} position growth/concentration leading to market impact and difficulty unwinding.
+\end{itemize}
+
+\paragraph{Replication concept (what repeats).}
+The “replication set” here is not multiple banks; it is repeated governance cycles inside the same institution: daily marks, periodic risk committee reviews, repeated limit-breach handling. The case record suggests repeatable patterns: delayed escalation, contested valuations, and control adaptation under stress.\footnote{PSI (2013) provides repeated-episode chronology; Task Force Report (2013) describes control failures as patterns; SEC order (2013) links issues to disclosure/control consequences.}
+
+% ------------------------------------------------------------
+\subsection{M7: Collective Failure Criterion (what counts as a serious population-scale failure?)}
+\label{subsec:lw-m7}
+
+\paragraph{Collective failure definition (for this case).}
+A serious collective failure occurred if \emph{the institution continued to authorize growing or persistent exposure while its own control artefacts (risk metrics, valuations, escalation triggers) were no longer reliably representing downside risk}, culminating in large losses and compromised reporting/disclosure integrity.
+
+This is broader than “a bad trade.” It is a failure of the \emph{evidence-to-commitment} chain at institution scale.
+
+% ------------------------------------------------------------
+\subsection{M8: Horizon \& Degradation Profile (how repetition worsened oversight)}
+\label{subsec:lw-m8}
+
+\paragraph{Where repetition degraded control.}
+Several degradation mechanisms are consistent with the public record:
+\begin{itemize}
+\item \textbf{Habituation to dashboards:} repeated review cycles can reduce scrutiny when metrics appear “within bounds,” especially if the metric definition is shifting.
+\item \textbf{Exception normalization:} recurring exceptions/breaches can become routine, lowering the effective requirement floor for escalation.
+\item \textbf{Time-pressure and market impact:} as unwind becomes harder, the institution faces incentives to accept optimistic marks or softened constraints.
+\end{itemize}
+
+\paragraph{Implicit horizons (what caps existed, and did they bind?).}
+In principle, risk limits and escalation rules are horizons. The case suggests those horizons did not reliably force re-grounding (independent re-evaluation of model/marks/exposure) early enough.\footnote{PSI (2013) and Task Force Report (2013) repeatedly emphasize delayed/insufficient escalation and control failures; SEC (2013) frames disclosure/control shortcomings.}
+
+% ------------------------------------------------------------
+\subsection{M9: Institutional Mechanism Sheet (how local judgments became firm outcomes)}
+\label{subsec:lw-m9}
+
+\paragraph{Aggregation mechanism (how decisions were combined).}
+At minimum, aggregation occurred through:
+\begin{itemize}
+\item committee structures for risk/limits,
+\item valuation control practices and dispute resolution channels,
+\item senior management sign-off for disclosures,
+\item remediation planning after losses were recognized.
+\end{itemize}
+
+\paragraph{Stability vs.\ oscillation.}
+A key question is whether the institution converged on a stable “true state” assessment as evidence accumulated, or whether it oscillated between reassurance and alarm. The record supports the view that governance lag and internal disagreement delayed convergence, while operational and reputational pressures shaped what could be admitted and when.\footnote{PSI (2013) for internal communications/chronology; Task Force Report (2013) for governance narrative; SEC (2013) for disclosure-control framing.}
+
+% ------------------------------------------------------------
+\subsection{M10: Auditability \& Replay Test (could an outsider reconstruct what was endorsed and why?)}
+\label{subsec:lw-m10}
+
+\paragraph{Replay question.}
+Could an independent reviewer, given the logged artefacts and decision records, reconstruct:
+\begin{itemize}
+\item what exposures existed at key decision points,
+\item which risk metrics and model definitions were in force,
+\item what valuation disputes existed and how they were resolved,
+\item why escalation did or did not occur,
+\item what management knew (and when) relative to public disclosures?
+\end{itemize}
+
+\paragraph{Verdict (bounded, but imperfect).}
+Because this case triggered investigations, much reconstruction is possible via PSI materials and enforcement records. However, the need for external reconstruction itself is diagnostic: when a system is healthy, internal governance should already make the endorsement chain legible without requiring a crisis-driven excavation.\footnote{PSI (2013); SEC Release No.\ 34-70458 (2013); JPMorgan Management Task Force Report (2013).}
+
+% ------------------------------------------------------------
+\subsection{M11: No-Go Pressure Note (what could not be guaranteed under the lived protocol)}
+\label{subsec:lw-m11}
+
+\paragraph{Impossibility pressure (plain language).}
+Under a workflow where (i) risk metrics can substitute for judgment, (ii) model definitions can change under stress, and (iii) escalation is not a hard boundary with mandatory re-grounding, the institution \emph{cannot guarantee} that long-horizon repetition will remain within safe exposure—especially when incentives favor deferring bad news. In such conditions, “add more dashboards” is not a structural fix; dashboards are part of the failure surface.
+
+% ------------------------------------------------------------
+\subsection{M12: Dynamic Refinement Counterfactual (protocol changes that reduce long-run risk)}
+\label{subsec:lw-m12}
+
+We state counterfactuals as enforceable constraints and triggers, not aspirations.
+
+\paragraph{Counterfactual 1: Freeze-the-measurement rule under stress.}
+When stress indicators cross a threshold (liquidity, concentration, widening spreads), \textbf{freeze} the risk-measurement definition (VaR methodology, inputs, thresholds) unless an independent model-governance boundary approves the change with a documented rationale and backtest under stressed assumptions.
+
+\paragraph{Counterfactual 2: Hard escalation boundary for contested valuation.}
+If valuation disputes exceed a tolerance (frequency, magnitude, or dispersion across price sources), trigger a \textbf{protected boundary} that requires: independent price verification, documented uncertainty range, senior sign-off, and automatic position-reduction or trading halt until resolved.
+
+\paragraph{Counterfactual 3: Exposure caps tied to unwindability.}
+Define a \textbf{safe horizon in exposure} rather than time: cap position growth/concentration by a formal unwindability measure (market depth/impact), and require re-approval to increase exposure once unwindability deteriorates.
+
+\paragraph{Counterfactual 4: Disclosure boundary that encodes uncertainty.}
+If internal controls flag material uncertainty in valuation/risk assessment, require disclosures to explicitly encode the uncertainty class and ongoing investigation status, rather than smoothing language until “final numbers” are available.\footnote{The SEC order (2013) is directly relevant to how disclosure-control failures are characterized in this episode.}
+
+\paragraph{Why these are dynamic refinements.}
+Each counterfactual tightens a boundary, reduces leak paths, forces re-grounding, and prevents long-horizon drift where repeated cycles convert convenience (metric comfort) into unaccountable automation (implicit permission to continue).
+
+% ------------------------------------------------------------
+\subsection{Escape-Assumption Audit: what non-FRFP assumptions were effectively in play?}
+\label{subsec:lw-escape-assumptions}
+
+This section applies the “escape FRFP initiality” lens: identify workflow elements that \emph{implicitly} rely on assumptions that would break strict FRFP correspondence.
+
+\paragraph{A1: Machine-Endorsable Correctness (implicit).}
+Risk dashboards and model outputs functioned as if they could \emph{endorse} safety on their own: if VaR is within limit, the position is “acceptable,” even when model adequacy is contested.
+
+\paragraph{A2: Explicit-Only Governance Sufficiency (implicit).}
+Governance pathways acted as though aggregating explicit artefacts (metrics, committee decks) is sufficient for correctness, even when tacit judgment (experienced skepticism under stress) should have dominated.
+
+\paragraph{A3: Boundary Substitutability (implicit).}
+Soft approvals, exception handling, or routine committee cycles substituted for hard endorsement boundaries that require specific evidence bundles and enforce stop conditions.
+
+\paragraph{A4: Stability-by-Iteration (implicit).}
+The workflow behaved as if repeated review cycles automatically improve correctness (``we’ll monitor and adjust''), rather than recognizing that repetition can degrade scrutiny and normalize exceptions.
+
+\paragraph{Use in retrospective work.}
+These escape-assumption signatures help identify “holes” in non-FRFP methodology: if you see these assumptions tacitly introduced, you should expect boundary capture, horizon violations, and post-hoc reconstructability failures to become more likely.
+

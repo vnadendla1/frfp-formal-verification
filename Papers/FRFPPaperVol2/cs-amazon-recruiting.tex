@@ -1,0 +1,411 @@
+% ============================================================
+% Appendix Z.2 — FRFP Case Study (Governance / HR):
+% Amazon’s Experimental Recruiting Engine
+% ============================================================
+
+\section{FRFP Case Study (Governance / HR): Amazon’s Experimental Recruiting Engine}
+\label{app:frfp-amazon-recruiting}
+
+This appendix analyses Amazon’s experimental AI-based recruiting engine
+(2014--2017) as an FRFP case study.
+The project sought to automate résumé screening and candidate ranking, but
+was ultimately abandoned when it was found to systematically disadvantage
+female applicants for technical roles.
+We examine how the failure can be understood in terms of FRFP’s
+explicit/tacit split, boundary design, safe horizons, and institutional
+semantics.
+
+\subsection{Background}
+
+Around 2014, Amazon engineers were tasked with building a machine-learning
+system to streamline hiring for technical positions.
+The idea was that an algorithm would:
+
+\begin{itemize}
+  \item ingest résumés from past applicants;
+  \item learn patterns associated with candidates who were hired or
+        performed well;
+  \item score new résumés on a 1--5 star scale and help recruiters prioritise
+        candidates.
+\end{itemize}
+
+To do this, the team trained models on roughly a decade of historical hiring
+data---résumés submitted to Amazon, overwhelmingly from men, reflecting the
+male-dominated tech workforce.
+Over time, they discovered that the system:
+
+\begin{itemize}
+  \item systematically downgraded résumés that included the word ``women’s''
+        (e.g.\ ``women’s chess club captain'');
+  \item penalised graduates of certain all-women’s colleges;
+  \item implicitly treated patterns correlated with male candidates as
+        positive signals.
+\end{itemize}
+
+Engineers tried to patch obvious markers of gender (e.g.\ manually excluding
+features containing ``women’’), but the system continued to find proxy
+signals, and confidence in its fairness eroded.
+By 2017, Amazon reportedly stopped using the tool for live candidate
+screening and eventually shut the project down.
+
+\subsection{Explicit and Tacit Spaces in the Recruiting Engine}
+
+\subsubsection*{Explicit space \(E_{\mathrm{HR}}\)}
+
+In FRFP terms, the engine operated entirely in explicit space:
+
+\begin{itemize}
+  \item input artefacts: résumés encoded as text and features; job
+        descriptions; historical hiring decisions;
+  \item learned model parameters and feature weights;
+  \item output artefacts: numeric scores (1--5 stars) for each candidate,
+        possibly accompanied by internal diagnostics;
+  \item dashboards or interfaces used by recruiters to view rankings.
+\end{itemize}
+
+All of this lives in \(E_{\mathrm{HR}}\): artefacts that can be stored,
+copied, and processed by machines.
+
+\subsubsection*{Tacit space \(T_{\mathrm{HR}}\)}
+
+Tacit space comprises the epistemic states of:
+
+\begin{itemize}
+  \item recruiters and hiring managers:
+        their sense of role fit, career trajectories, culture, and potential;
+  \item HR leadership and legal/compliance teams:
+        their understanding of anti-discrimination law, fairness norms,
+        and reputational risk;
+  \item organisational leadership:
+        their preferences over growth, diversity, and risk trade-offs.
+\end{itemize}
+
+These tacit states shape how people interpret explicit signals (résumés,
+scores, interviews) and ultimately decide whom to hire.
+
+\subsection{Intended Boundary vs.\ Actual Boundary}
+
+\subsubsection*{Stated intention: AI as pre-screening support}
+
+Public accounts suggest that the recruiting engine was intended to act as:
+
+\begin{itemize}
+  \item an internal tool that \emph{ranks} candidates;
+  \item a way to speed up high-volume screening;
+  \item a decision-support system, not an official replacement for human
+        hiring decisions.
+\end{itemize}
+
+In FRFP language, the intended boundary was:
+
+\begin{itemize}
+  \item AI produces scored candidate lists in explicit space;
+  \item humans (recruiters, hiring managers) retain tacit authority to
+        select candidates, review résumés, and decide offers.
+\end{itemize}
+
+\subsubsection*{De facto boundary: algorithm as gatekeeper}
+
+However, in any scaled recruiting workflow, there is a strong pressure to
+treat ranked outputs as a gate:
+
+\begin{itemize}
+  \item Recruiters focus on top-ranked candidates first; low-scoring
+        candidates may never be reviewed.
+  \item The star score becomes the primary triage mechanism for who gets
+        interviews.
+  \item Over time, recruiters may internalise the model’s patterns and
+        align their tacit judgments to it, especially if performance metrics
+        reward throughput.
+\end{itemize}
+
+Thus, the \emph{effective} boundary tended toward:
+
+\begin{itemize}
+  \item \emph{model scores as de facto accept/reject filter},
+  \item with tacit human oversight reduced to rare overrides.
+\end{itemize}
+
+From an FRFP perspective, this is a classic case of boundary erosion:
+a system nominally described as ``support'' functions as a gatekeeper,
+pulling correctness authority into the model stack.
+
+\subsection{Protocol-Level Failures in FRFP Terms}
+
+\subsubsection*{Z.2.1 Explicit-Space Bias from Historical Data}
+
+\paragraph{Problem.}
+The engine was trained on historical Amazon hiring data:
+
+\begin{itemize}
+  \item Most past résumés and hires for technical roles were male.
+  \item The model learned that patterns associated with male candidates
+        were predictive of positive outcomes.
+  \item It penalised explicitly gendered tokens (``women’s chess club'')
+        and graduates of certain women’s colleges, even after developers
+        tried to remove gender markers.
+\end{itemize}
+
+In FRFP terms, the explicit mapping
+\[
+  f_{\mathrm{recruit}} : \text{résumé features} \to \text{score}
+\]
+embeds a biased semantics: it effectively treats ``being similar to past,
+mostly male hires'' as a proxy for fitness.
+
+\paragraph{Consequence.}
+Even if humans at the boundary were perfectly vigilant, the explicit artefacts
+(scores) already compress candidates into a shape that bakes in historical
+bias.
+The FRFP kernel would classify this as a defect in explicit semantics:
+the pipeline in \(N \ltimes E_{\mathrm{HR}}\) does not implement a
+normatively acceptable mapping from résumés to evaluative signals.
+
+\subsubsection*{Z.2.2 Boundary Design and Over-Delegation}
+
+\paragraph{Problem.}
+The project’s ambition was to automate as much screening as possible.
+In practice, this implies:
+
+\begin{itemize}
+  \item using the model to filter or prioritise thousands of résumés;
+  \item trusting that top-ranked candidates are ``good enough'' to proceed;
+  \item allowing low-ranked candidates to be silently dropped.
+\end{itemize}
+
+Under FRFP, this is a high-risk boundary design:
+
+\begin{itemize}
+  \item the boundary between explicit scores and tacit acceptance is
+        effectively moved upstream into the model;
+  \item human recruiters are placed in a role where they mostly confirm
+        model suggestions, not critically re-evaluate them;
+  \item there is no explicit requirement that humans systematically examine
+        candidates the model dislikes to detect systemic bias.
+\end{itemize}
+
+\paragraph{Consequence.}
+Humans are nominally in the loop, but their tacit authority is weakened.
+The model’s preferences dominate which résumés get attention at all,
+and thus which tacit evaluations can even occur.
+FRFP would characterise this as \emph{boundary capture} by the explicit
+pipeline.
+
+\subsubsection*{Z.2.3 Absence of Safe Horizons and Re-Grounding}
+
+\paragraph{Problem.}
+Recruiting is inherently long-horizon:
+
+\begin{itemize}
+  \item thousands of decisions per year;
+  \item gradual evolution of candidate pools, job markets, and company needs;
+  \item long-term effects on workforce composition and culture.
+\end{itemize}
+
+The engine was conceived as a permanent, automated component of the hiring
+pipeline:
+once deployed, it would continuously rank incoming résumés with no explicit
+protocol for:
+
+\begin{itemize}
+  \item periodic re-grounding in normative standards
+        (e.g.\ fairness, diversity goals, legal constraints);
+  \item systematic audit of its treatment of protected groups;
+  \item resetting or recalibrating tacit recruiter expectations relative to
+        human baselines.
+\end{itemize}
+
+No explicit safe-horizon design appears in public accounts.
+
+\paragraph{Consequence.}
+According to FRFP’s dynamics, such a system is structurally prone to:
+
+\begin{itemize}
+  \item tacit drift: recruiters gradually internalise the model’s biased
+        notion of ``strong candidates'';
+  \item institutional entrenchment: over time, it becomes harder to imagine
+        hiring without the tool, because everything from SLAs to headcount
+        is tuned assuming its throughput;
+  \item invisibility of error: individual biased decisions are hard to detect,
+        but their cumulative effect on workforce composition is large.
+\end{itemize}
+
+In practice, the project was terminated once engineers identified the bias
+and concluded it could not easily be fixed.
+From an FRFP viewpoint, this termination is an implicit acknowledgement that
+safe horizons had already been violated at the design level.
+
+\subsubsection*{Z.2.4 Institutional Governance as Explicit-Only}
+
+\paragraph{Problem.}
+The project was an internal experiment.
+There is no public evidence of:
+
+\begin{itemize}
+  \item a formal, FRFP-style governance body for AI in hiring that defined
+        admissible uses, boundary conditions, or safe horizons;
+  \item prospective fairness and bias evaluation protocols that had to be
+        passed before deployment;
+  \item ongoing institutional operators that combined tacit HR/legal judgment
+        with model metrics to decide on continued use.
+\end{itemize}
+
+Instead, governance appears to have been:
+
+\begin{itemize}
+  \item largely internal to the engineering group;
+  \item driven by technical performance and ad hoc bias checks;
+  \item ultimately resolved by a management decision to scrap the tool
+        once bias was recognised.
+\end{itemize}
+
+\paragraph{Consequence.}
+This matches FRFP’s picture of \emph{explicit-only governance}:
+decisions are based on model metrics and internal analyses, without a
+structurally distinct tacit governance layer with clear authority and
+constraints.
+Such governance is precisely what FRFP’s institutional non-automation results
+warn about.
+
+\subsection{Relation to FRFP’s Population-Level Concerns}
+
+\subsubsection*{Bias Propagation in Populations}
+
+Subsequent work on AI-assisted hiring suggests that:
+
+\begin{itemize}
+  \item humans tend to follow biased model recommendations at high rates
+        (e.g.\ $\sim 90\%$ acceptance of biased suggestions in controlled
+        experiments);
+  \item bias can thus propagate through populations of decision-makers when
+        AI systems are used at scale;
+  \item humans alone, without structural constraints, are poor correctors of
+        embedded algorithmic bias.
+\end{itemize}
+
+These findings resonate with FRFP’s population-level semantics:
+
+\begin{itemize}
+  \item tacit states of many agents are updated by interacting with biased
+        explicit pipelines;
+  \item institutional operators that rely on human ``oversight'' without
+        explicit boundary and safe-horizon design are insufficient;
+  \item biased explicit artefacts can reshape what counts as normal,
+        even for agents who initially recognise the bias.
+\end{itemize}
+
+\subsubsection*{Non-Automation of Fair Governance}
+
+The Amazon case illustrates a broader claim:
+
+\begin{quote}
+  There is no purely explicit procedure---no amount of historical data or
+  scoring metrics---that can, by itself, guarantee fair and normatively
+  acceptable recruitment decisions over long horizons.
+\end{quote}
+
+FRFP frames this as a non-automation result:
+
+\begin{itemize}
+  \item fairness, diversity, and legal compliance are normative properties
+        of decisions as they interact with broader social structures;
+  \item these properties cannot be fully read off from historical hiring data
+        or model outputs;
+  \item institutional tacit judgment (HR, legal, leadership) must remain
+        essential, and must be structurally embedded at the boundary.
+\end{itemize}
+
+In the Amazon case, the lack of such an institutional FRFP layer meant that
+bias was discovered late and addressed bluntly (by scrapping the tool),
+rather than being continuously managed.
+
+\subsection{Counterfactual: An FRFP-Aligned Recruiting Engine}
+
+We now sketch what a recruiting engine might look like under FRFP constraints.
+
+\subsubsection*{Z.2* Explicit/Tacit Roles}
+
+\begin{itemize}
+  \item The engine is explicitly defined as a \emph{signal generator}:
+        it extracts features, clusters candidates, and proposes structured
+        summaries of experience, but does not emit a single canonical
+        ``fitness score''.
+  \item Tacit evaluation of candidate suitability remains with recruiters and
+        hiring managers; their judgments are treated as boundary events and
+        logged.
+\end{itemize}
+
+\subsubsection*{Z.2* Boundary Design}
+
+\begin{itemize}
+  \item No candidate is rejected \emph{solely} on the basis of an AI score;
+        low-ranked candidates are either:
+        \begin{itemize}
+          \item sampled for human review; or
+          \item subjected to explicit fairness audits.
+        \end{itemize}
+  \item UI surfaces AI judgments as \emph{one feature among many}, alongside
+        raw résumé content and structured summaries.
+  \item At decision time (shortlist, reject, offer), humans must explicitly
+        confirm or override AI-influenced decisions, with a brief rationale.
+\end{itemize}
+
+\subsubsection*{Z.2* Safe Horizons and Audits}
+
+\begin{itemize}
+  \item Safe horizons cap how many decisions can be made under a fixed model
+        and dataset before mandatory fairness audits and re-training.
+  \item Regular cohort-based audits check disparities across gender and other
+        protected attributes in both model scores and final hiring outcomes.
+  \item Persistent disparities trigger protocol changes, not just model tweaks:
+        e.g.\ additional features, diverse training data, changes in boundary
+        rules for low-ranked candidates.
+\end{itemize}
+
+\subsubsection*{Z.2* Institutional Governance}
+
+\begin{itemize}
+  \item An AI-in-HR governance group defines admissible uses, documents
+        explicit/tacit roles, and sets fairness and transparency requirements.
+  \item HR, legal, and diversity stakeholders participate in boundary
+        design and safe-horizon tuning.
+  \item Deployments and updates require governance sign-off, with logs
+        and metrics available for internal and external scrutiny.
+\end{itemize}
+
+\subsection{Lessons for FRFP and HR / Governance}
+
+The Amazon recruiting engine case supports several FRFP themes:
+
+\begin{enumerate}
+  \item \textbf{Historical explicit artefacts encode tacit injustice.}
+        Training on past hiring decisions without structural correction
+        imports institutional bias into explicit semantics.
+
+  \item \textbf{Without clear boundaries, support tools become gatekeepers.}
+        In high-volume contexts like recruiting, ranking and scoring almost
+        inevitably take on decision-making roles unless carefully bounded.
+
+  \item \textbf{Safe horizons and fairness audits are structural, not optional.}
+        Long-horizon use of biased models can change who gets considered at
+        all, reshaping the workforce; FRFP insists on finite horizons and
+        periodic tacit re-grounding.
+
+  \item \textbf{Governance cannot be left to the model builders alone.}
+        Institutional operators must combine tacit expertise in law, ethics,
+        and HR with explicit metrics; otherwise explicit-only governance is
+        likely to miss structurally unfair designs.
+
+  \item \textbf{Formal architectures clarify what went wrong.}
+        Instead of treating the episode as a one-off ``sexist AI'', FRFP
+        reveals a deeper pattern:
+        biased explicit training data, boundary capture, absence of safe
+        horizons, and weak institutional semantics together made the project
+        epistemically and ethically unsound.
+\end{enumerate}
+
+As AI-based hiring tools continue to proliferate in industry and on hiring
+platforms, this case study illustrates why FRFP-style architectures---with
+explicit/tacit separation, clear boundaries, safe horizons, and institutional
+oversight---are necessary to avoid repeating the same structural mistakes
+at greater scale.

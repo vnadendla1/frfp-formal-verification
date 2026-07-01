@@ -1,0 +1,473 @@
+
+\section{Purpose}
+
+FRFP defines a structured reasoning protocol for LLM-assisted analytical tasks involving complex socio-technical systems. The protocol aims to address three common failure modes in unconstrained language model generation:
+
+\begin{enumerate}
+\item implicit endorsement of unverified claims,
+\item collapse of analytical stages into a single narrative,
+\item lack of structural traceability in reasoning outputs.
+\end{enumerate}
+
+FRFP introduces a controlled reasoning workflow that enforces separation between generation of analytical artifacts and endorsement of conclusions.
+%----------------------------------------------------------
+% Kernel Compliance Mapping (FRFP-Compatible Template Note)
+%----------------------------------------------------------
+% --- Insert immediately after the Purpose section text (end of Section 1) ---
+
+\subsection*{Kernel compliance mapping (how to read this specification)}
+In this document, the \emph{FRFP kernel} means the minimal, non-negotiable set of boundary conditions that
+define FRFP-compatibility: what the system is allowed to do, what it must never do, and where responsibility
+for endorsement and acceptance must reside.This technical specification is an \emph{implementable projection} of the FRFP kernel: it operationalizes the
+kernel by prescribing concrete stages, constraints, and protocol templates that keep model activity on the
+\emph{explicit side} (inspectable artifacts) while reserving endorsement and acceptance to humans on the
+\emph{tacit side}. Accordingly, the workflow below should be read as \emph{one} FRFP-compatible template among
+many: alternative stage structures, templates, or tooling are equally FRFP-compatible provided they preserve
+the same kernel boundary conditions.
+
+\paragraph{Kernel boundary conditions (normative).}
+Let $E$ denote the \emph{explicit space} (inspectable representations, artifacts, logs, assumptions, and checks),
+and let $T$ denote the \emph{tacit space} (human-only endorsement, judgment, acceptance, and accountability).
+FRFP requires a one-way boundary $E \rightarrow T$: the system may generate and refine artifacts in $E$ and may
+\emph{submit} those artifacts for human evaluation, but it must not simulate, assert, or imply endorsement that
+properly belongs to $T$.
+The elements of this specification satisfy the boundary conditions as follows:
+\begin{itemize}
+  \item \textbf{Stage outputs and protocol templates} are artifacts in $E$ (proposals/records), not endorsements.
+  \item \textbf{Assumption labeling, uncertainty signaling, and verification hooks} enforce explicit diagnostics in $E$
+        (what is assumed, what is known/unknown, and what would confirm or falsify is made inspectable).
+  \item \textbf{Branch exploration, branch isolation, and navigation integrity} enforce disciplined exploration in $E$
+        (alternatives are enumerated; context changes are explicit; no silent cross-branch propagation).
+  \item \textbf{No Self-Endorsement and non-binding language requirements} enforce the one-way boundary $E \rightarrow T$
+        (the system cannot perform or imply tacit endorsement).
+  \item \textbf{Review / handoff checkpoints} define the explicit submission mechanism $E \rightarrow T$
+        (humans evaluate and accept/reject; acceptance occurs only in $T$).
+\end{itemize}
+
+\paragraph{Compatibility criterion.}
+A workflow, template set, or implementation is FRFP-compatible \emph{regardless of surface form} iff it
+(i) keeps all machine-produced content as auditable artifacts in $E$, (ii) preserves assumption/uncertainty/branch
+discipline within $E$, and (iii) maintains the one-way boundary $E \rightarrow T$ by reserving endorsement and
+acceptance to humans in $T$.
+\section{System Architecture}
+
+FRFP decomposes analytical reasoning into several structural layers that mirror typical socio-technical systems as shown in Figure 1.
+
+\subsection{System Objective Layer}
+
+Defines the operational objective of the system under analysis. This includes:
+
+\begin{itemize}
+\item mission or task intent,
+\item success criteria,
+\item relevant operational constraints.
+\end{itemize}
+
+This layer establishes the baseline context for all subsequent analysis.
+
+\subsection{Representation Layer}
+
+Identifies how system state is represented internally. Examples include:
+
+\begin{itemize}
+\item financial risk models,
+\item engineering telemetry,
+\item accounting systems,
+\item safety metrics.
+\end{itemize}
+
+Representation layers determine how system behavior becomes observable to decision makers.
+
+\subsection{Measurement Layer}
+
+Defines mechanisms used to measure and monitor system state. Examples include:
+
+\begin{itemize}
+\item sensors and telemetry systems,
+\item risk measurement models,
+\item monitoring dashboards,
+\item reporting pipelines.
+\end{itemize}
+
+This layer captures the interface between underlying system behavior and decision processes.
+
+\subsection{Control Layer}
+
+Identifies mechanisms used to influence or constrain system behavior. These include:
+
+\begin{itemize}
+\item operational limits,
+\item safety interlocks,
+\item regulatory requirements,
+\item risk controls.
+\end{itemize}
+
+Control mechanisms provide the operational levers through which system behavior is regulated.
+
+\subsection{Decision Layer}
+
+Defines the institutional or operational decision nodes where system state is evaluated and actions are authorized. Examples include:
+
+\begin{itemize}
+\item management approval processes,
+\item launch readiness reviews,
+\item regulatory sign-offs,
+\item governance committee decisions.
+\end{itemize}
+
+\subsection{Governance Layer}
+
+Defines oversight structures responsible for monitoring system integrity. These may include:
+
+\begin{itemize}
+\item regulatory bodies,
+\item internal risk committees,
+\item independent auditors,
+\item safety review boards.
+\end{itemize}
+
+\section{Reasoning Protocol}
+
+FRFP constrains LLM reasoning through a staged analysis process.
+
+\subsection{Stage 1: System Reconstruction}
+
+The model reconstructs the structural configuration of the system using the layers defined in Section 2.
+
+\subsection{Stage 2: Mechanism Identification}
+
+The model identifies mechanisms linking representation, measurement, control, and governance layers.
+
+\subsection{Stage 3: Failure Pathway Analysis}
+
+The model evaluates potential mechanisms through which system failure could occur. Particular attention is given to:
+
+\begin{itemize}
+\item divergence between representations and underlying reality,
+\item measurement failures,
+\item ineffective control mechanisms,
+\item governance breakdowns.
+\end{itemize}
+
+\subsection{Stage 4: Branch Exploration}
+
+Multiple explanatory hypotheses may be explored through explicit analytical branches. Each branch must state its assumptions and maintain internal consistency.
+
+\subsection{Stage 5: Structural Intervention Analysis}
+
+The model proposes structural interventions designed to mitigate the identified failure mechanisms. Interventions may involve:
+
+\begin{itemize}
+\item improved measurement systems,
+\item revised control mechanisms,
+\item stronger verification procedures,
+\item enhanced governance oversight.
+\end{itemize}
+
+\section{Operational Constraints}
+
+The protocol imposes several operational constraints on LLM behavior. Operational constraints enforce the kernel boundary; see Kernel Compliance Mapping.
+
+\subsection{No Self-Endorsement}
+
+The model may generate analytical artifacts but must not present conclusions as authoritative judgments.
+
+\subsection{Explicit Assumption Labeling}
+
+Assumptions introduced during reasoning must be explicitly labeled.
+
+\subsection{Branch Isolation}
+
+Alternative analytical pathways must remain explicitly separated.
+
+\subsection{Uncertainty Signaling}
+
+If available information is insufficient to support a claim, the model must explicitly acknowledge the limitation.
+
+\section{Implementation Guidelines}
+
+FRFP can be implemented through structured prompting in LLM-based systems.
+
+Typical implementation involves:
+
+\begin{enumerate}
+\item defining the analysis template,
+\item constraining reasoning stages through prompts,
+\item separating generation from evaluation,
+\item logging intermediate artifacts for auditability.
+\end{enumerate}
+
+The protocol can also be integrated into automated analysis pipelines in which LLM outputs are evaluated by downstream validation systems or human reviewers.
+
+\section{Applications}
+
+FRFP is designed for analysis tasks involving complex interactions between technical systems and institutional governance structures. Potential applications include:
+
+\begin{itemize}
+\item engineering failure analysis,
+\item financial system risk assessment,
+\item regulatory oversight analysis,
+\item infrastructure safety evaluation,
+\item institutional decision process audits.
+\end{itemize}
+
+\section{Discussion}
+
+FRFP does not attempt to ensure correctness of model-generated analysis. Instead, it enforces structural transparency in reasoning outputs. This approach allows human reviewers to evaluate analytical claims more effectively.
+
+Structured reasoning protocols such as FRFP may therefore complement advances in language model capability by providing procedural safeguards against persuasive but weakly grounded analysis.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+node distance=1.8cm,
+box/.style={rectangle, draw, rounded corners, align=center, minimum width=3.8cm, minimum height=0.9cm},
+layer/.style={rectangle, draw, align=center, minimum width=4.5cm, minimum height=0.9cm},
+arrow/.style={->, thick}
+]
+
+% Input
+\node[box] (input) {System Description \\ Case Data};
+
+% Layers
+\node[layer, below of=input] (rep) {Representation Layer \\ (Models, Metrics, Accounting)};
+\node[layer, below of=rep] (meas) {Measurement Layer \\ (Sensors, Monitoring, Reports)};
+\node[layer, below of=meas] (control) {Control Mechanisms \\ (Limits, Safety Controls)};
+\node[layer, below of=control] (decision) {Decision Interfaces \\ (Committees, Approvals)};
+\node[layer, below of=decision] (gov) {Governance Structures \\ (Regulators, Oversight)};
+
+% Analysis
+\node[box, right=4.8cm of control] (analysis) {Structured Analysis \\ (Failure Pathways \\ Branch Exploration)};
+
+% Output
+\node[box, below of=gov, yshift=-0.3cm] (output) {Analytical Artifacts \\ (Hypotheses, Diagnostics, \\ Candidate Interventions)};
+
+% Human boundary
+\node[box, right=4.8cm of output] (human) {Human Evaluation \\ Endorsement / Decision};
+
+% Arrows
+\draw[arrow] (input) -- (rep);
+\draw[arrow] (rep) -- (meas);
+\draw[arrow] (meas) -- (control);
+\draw[arrow] (control) -- (decision);
+\draw[arrow] (decision) -- (gov);
+\draw[arrow] (gov) -- (output);
+
+\draw[arrow] (control) -- (analysis);
+\draw[arrow] (analysis) -- (output);
+
+\draw[arrow] (output) -- (human);
+
+% Label
+\node[above=0.2cm of rep] {\small FRFP Structural Decomposition};
+
+\end{tikzpicture}
+
+\caption{
+FRFP architecture for LLM-assisted analysis. The protocol reconstructs socio-technical systems across representation, measurement, control, decision, and governance layers. The language model generates analytical artifacts (hypotheses, diagnostics, candidate interventions) but does not endorse conclusions. Final evaluation and endorsement occur through human judgment outside the model boundary.
+}
+
+\end{figure}
+\appendix
+
+\section{Structured Reasoning Protocol}
+\renewcommand{\appendixname}{}
+This appendix summarizes a structured reasoning protocol designed for
+LLM-assisted analysis of complex socio-technical systems. The protocol
+defines procedural constraints intended to improve transparency,
+auditability, and interpretability of analytical outputs.
+
+The protocol emphasizes the production of inspectable reasoning artifacts
+while maintaining a strict separation between the generation of analytical
+hypotheses and the endorsement of conclusions. Final evaluation and
+acceptance of analytical claims are always external to the model.
+
+\subsection{Entry Conditions}
+
+\paragraph{Intent definition.}
+The analysis begins by explicitly stating the operational objective of the
+system under examination based on the provided description. This statement
+defines the scope of the analysis.
+
+\paragraph{Ambiguity identification.}
+If the description admits multiple plausible interpretations (e.g.,
+system boundaries, objectives, or evaluation criteria), these ambiguities
+should be explicitly listed rather than silently resolved.
+
+\subsection{Artifact Discipline}
+
+The protocol requires outputs to be structured and auditable.
+
+\begin{itemize}
+\item Outputs should follow a predefined analytical structure.
+\item Analytical statements should be expressed in clearly identifiable
+categories such as factual observations, assumptions, mechanisms,
+control processes, or risk factors.
+\item Claims should be formulated so that they could be inspected or
+evaluated by an external reviewer.
+\end{itemize}
+
+This discipline reduces narrative drift and maintains traceability of
+analytical claims.
+
+\subsection{Separation of Generation and Endorsement}
+
+The model may generate candidate explanations or hypotheses but must not
+present them as authoritative conclusions.
+
+\begin{itemize}
+\item Analytical claims should be framed as candidate interpretations.
+\item Expressions of confidence should be accompanied by explicit
+limitations or uncertainties.
+\end{itemize}
+
+Final endorsement of conclusions is always performed by human evaluators
+or downstream decision processes.
+
+\subsection{Canonical Ordering of Analysis}
+
+Analytical outputs should follow a consistent sequence:
+
+\begin{enumerate}
+\item \textbf{Structural analysis:} reconstruction of the system and its
+relevant operational components.
+\item \textbf{Diagnostics:} identification of uncertainties, missing
+information, and alternative explanatory hypotheses.
+\item \textbf{Handoff:} description of the information or verification
+steps required for further evaluation.
+\end{enumerate}
+
+Maintaining this ordering helps prevent premature conclusions.
+
+\subsection{Navigation Integrity}
+
+Complex system analysis may require exploration of multiple explanatory
+paths. The protocol therefore requires explicit branch management.
+
+\begin{itemize}
+\item Alternative explanations should be presented as separate analytical
+branches.
+\item Assumptions introduced within one branch should not be silently
+propagated into other branches.
+\item Changes to system scope or evaluation criteria should be explicitly
+identified.
+\end{itemize}
+
+\subsection{Assumption Management}
+
+Assumptions introduced during reasoning that are not present in the
+original system description should be explicitly labeled.
+
+Such assumptions may guide exploratory analysis but should not be treated
+as established facts without supporting evidence.
+
+\subsection{Non-Binding Language Constraint}
+
+Analytical outputs should avoid language implying authoritative or
+binding decisions.
+
+\begin{itemize}
+\item Proposed interventions should be phrased conditionally.
+\item When interventions are discussed, required validation steps should
+be clearly identified.
+\end{itemize}
+
+\subsection{Independent Verification Paths}
+
+Where possible, analytical reasoning should identify potential validation
+paths.
+
+\begin{itemize}
+\item Analytical claims should be accompanied by potential verification
+checks.
+\item The analysis may describe how independent reviewers or auditors
+could examine the proposed mechanisms.
+\end{itemize}
+
+\subsection{Competence-Aware Completion}
+
+If available information is insufficient to support a claim, the analysis
+should explicitly acknowledge the limitation.
+
+In such cases the analysis should indicate what additional information
+would be required to resolve the uncertainty.
+
+\subsection{Avoidance of Authority by Style}
+
+Persuasive language or authoritative tone should not be treated as
+evidence of correctness. Analytical claims should instead rely on
+explicit mechanisms and reasoning that can be independently examined.
+
+The objective of the protocol is to reduce pathways through which
+unverified claims might be accepted as authoritative conclusions.
+
+\section{Glossary of Terms}
+The following glossary summarizes key terms used throughout this
+specification so that the document can be read independently of the
+FRFP theory paper.
+\textbf{FRFP Kernel}  
+The minimal set of boundary conditions defining FRFP-compatible systems.
+The kernel specifies what operations are allowed within the analytical system
+and where responsibility for endorsement and acceptance must reside.
+
+\textbf{Explicit Space ($E$)}  
+The domain of inspectable artifacts produced during analysis, including
+representations, intermediate reasoning outputs, assumptions, and diagnostic
+records. Content in $E$ must be auditable and available for external review.
+
+\textbf{Tacit Space ($T$)}  
+The domain of human judgment, endorsement, and accountability.
+Final acceptance or rejection of analytical claims occurs in $T$.
+
+\textbf{Explicit–Tacit Boundary ($E \rightarrow T$)}  
+The one-way interface through which analytical artifacts produced in $E$
+are submitted for human evaluation in $T$. Systems implementing FRFP may
+generate artifacts in $E$ but must not simulate or imply endorsement that
+belongs to $T$.
+
+\textbf{Analytical Artifact}  
+Any inspectable element produced during analysis, such as system
+descriptions, assumptions, hypotheses, diagnostics, or candidate
+interventions. Artifacts are records rather than authoritative conclusions.
+
+\textbf{Representation Layer}  
+The system components responsible for internally representing system state
+(e.g., models, accounting systems, telemetry representations).
+
+\textbf{Measurement Layer}  
+Mechanisms used to observe or quantify system state, including sensors,
+monitoring systems, reporting pipelines, and risk metrics.
+
+\textbf{Control Layer}  
+Operational mechanisms used to influence or constrain system behavior,
+such as safety interlocks, risk limits, or regulatory constraints.
+
+\textbf{Decision Layer}  
+Institutional or operational nodes where system information is evaluated
+and actions are authorized.
+
+\textbf{Governance Layer}  
+Oversight structures responsible for monitoring system integrity,
+including regulatory bodies, risk committees, auditors, and safety boards.
+
+\textbf{Branch Exploration}  
+A reasoning practice in which alternative explanatory hypotheses are
+developed as explicitly separated analytical branches.
+
+\textbf{Branch Isolation}  
+A constraint requiring assumptions introduced in one analytical branch
+not to propagate implicitly into other branches.
+
+\textbf{Artifact Discipline}  
+The requirement that analytical outputs maintain traceable categories
+such as facts, assumptions, mechanisms, control processes, or risk factors.
+
+\textbf{Self-Endorsement}  
+The presentation of model-generated statements as authoritative conclusions.
+FRFP prohibits self-endorsement by requiring that analytical outputs remain
+non-binding artifacts subject to human evaluation.
+
+\textbf{Verification Path}  
+A proposed method through which an analytical claim or hypothesis could
+be independently evaluated by reviewers or auditors.
+\end{document}

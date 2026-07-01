@@ -1,0 +1,244 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Packages ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{stmaryrd}   % \llbracket, \rrbracket
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage{etoolbox}
+\usepackage{adjustbox}
+
+\geometry{margin=1in}
+\setlength{\emergencystretch}{3em}  % allow extra stretch to prevent overfull hboxes
+\AtBeginEnvironment{tabular}{\small}
+\BeforeBeginEnvironment{tabular}{\begin{adjustbox}{max width=\textwidth,center}}
+\AfterEndEnvironment{tabular}{\end{adjustbox}}
+
+% --- Theorem environments ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom_env}[theorem]{Axiom}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+
+% --- Lean reference box ---
+\newcommand{\leanref}[1]{\textbf{[Lean:} \nolinkurl{#1}\textbf{]}}
+\newcommand{\leanbox}[1]{%
+  \begin{mdframed}[backgroundcolor=gray!10, linewidth=0.5pt]
+    \small\textbf{Lean:} \texttt{\detokenize{#1}}
+  \end{mdframed}}
+
+% --- Math shorthands ---
+\newcommand{\Czero}{\mathbf{C}_0}
+\newcommand{\Ecat}{\mathbf{E}_{\mathrm{cat}}}
+\newcommand{\Tcat}{\mathbf{T}_{\mathrm{cat}}}
+\newcommand{\Eobj}{E_0}
+\newcommand{\Tobj}{T_0}
+\newcommand{\runToOmega}{\mathrm{runTo}\omega}
+\newcommand{\omegaToRun}{\omega\mathrm{ToRun}}
+\newcommand{\navequiv}{\equiv_\nabla}
+\newcommand{\RI}{\mathrm{RI}}
+\newcommand{\EC}{\mathrm{EC}}
+\newcommand{\ED}{\mathrm{ED}}
+\newcommand{\RB}{\mathrm{RB}}
+\newcommand{\TE}{\mathrm{TE}}
+\newcommand{\HFD}{\mathrm{HFD}}
+\newcommand{\obs}{\mathrm{obs}}
+\newcommand{\Sem}{\mathrm{Sem}}
+
+% --- Lean listings style ---
+\lstdefinelanguage{Lean4}{
+  keywords={def,theorem,lemma,axiom,structure,inductive,where,match,with,
+            fun,let,in,have,show,by,intro,apply,exact,simp,rfl,cases,induction,
+            forall,exists,if,then,else,namespace,end,import,open,section,
+            class,instance,variable,noncomputable,opaque},
+  keywordstyle=\color{blue!70!black}\bfseries,
+  comment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  commentstyle=\color{green!50!black}\itshape,
+  stringstyle=\color{red!70!black},
+  sensitive=true,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  backgroundcolor=\color{gray!5},
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  literate=
+    {≤}{{$\le$}}1
+    {≥}{{$\ge$}}1
+    {→}{{$\to$}}1
+    {↔}{{$\leftrightarrow$}}1
+    {∀}{{$\forall$}}1
+    {∃}{{$\exists$}}1
+    {∧}{{$\land$}}1
+    {∨}{{$\lor$}}1
+    {¬}{{$\neg$}}1
+    {§}{{\S}}1
+    {·}{{$\cdot$}}1
+    {ω}{{$\omega$}}1
+    {Ω}{{$\Omega$}}1
+    {⟨}{{$\langle$}}1
+    {⟩}{{$\rangle$}}1,
+}
+
+\lstset{language=Lean4,breaklines=true,breakatwhitespace=false,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}}
+
+% --- Correction box ---
+\newenvironment{correction}[1][Lean Correction]{%
+  \begin{tcolorbox}[colback=orange!10,colframe=orange!50!black,title={\textbf{#1}}]
+}{%
+  \end{tcolorbox}
+}
+
+% --- Hyperref setup ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=green!50!black,
+  urlcolor=blue,
+  pdftitle={Foundational Reasoning and Feedback Protocol (FRFP): An Updated Formal Specification},
+  pdfauthor={},
+  pdfsubject={Formal Verification, Category Theory, AI Governance},
+}
+
+% --- Title ---
+\title{%
+  \textbf{Foundational Reasoning and Feedback Protocol (FRFP): An Updated Formal Specification}\\[0.5em]
+  \large The Lean-Corrected and Extended Account
+}
+\author{%
+  Vijaya Nadendla\textsuperscript{1,\dag}\\[0.3em]
+  \small\textsuperscript{1}Independent Researcher\\
+  \small\textsuperscript{\dag}Current address: 51 Linwood Dr, Monroe Township, NJ 08831
+}
+\date{April 2026\\[0.5em]
+  \small Based on Lean 4.29.0 formal verification; 269 machine-checked theorems\\
+  Companion to: \textit{FRFP Lean Formal Verification} (verification companion paper)
+}
+
+% ===================================================================
+\begin{document}
+% ===================================================================
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+The Foundational Reasoning and Feedback Protocol (FRFP) is a formal framework for structuring
+reasoning and evaluation in long-horizon human--AI workflows. It distinguishes between \emph{explicit}
+processes, which operate on representations and are mechanically reproducible, and \emph{tacit} processes,
+which determine correctness, validity, and acceptance. The framework enforces a one-way boundary
+between these domains, under which explicit computation produces artifacts that must be evaluated
+through tacit judgment.
+
+This paper presents the FRFP theory in the form established
+by complete machine-checked formalization in Lean~4.
+
+The formalization yields four refinements to the published theory:
+\begin{enumerate}
+  \item \textbf{Basis reduction}: the original 11 premises reduce to 7 independent
+        axioms. Four (ETS, RB, AE, MD) are derivable theorems, not independent
+        assumptions.
+  \item \textbf{Precision corrections}: six definitions required strengthening ---
+        notably, credence bounds must be explicit, degradation requires clamping,
+        and normal-form uniqueness holds only modulo navigation equivalence.
+  \item \textbf{New formal structures}: three types implicit in the original paper
+        are made explicit --- the \texttt{runTo$\omega$} bijection, the
+        \texttt{CorrectnessJudgment} type, and the lifted-action commutativity lemma.
+  \item \textbf{Novel theorems}: three non-trivial results emerge directly from
+        proof obligations --- a canonical first-unresolved-witness theorem, a
+        governance-safe trace-extension theorem, and a protocol normal-form
+        decomposition theorem.
+\end{enumerate}
+
+This presentation treats the Lean formalization as authoritative: where the
+published paper and Lean code diverge, the Lean version is stated explicitly and
+the divergence is documented.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section*{Notation}
+% ===================================================================
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\Czero$ & The kernel category with objects $\{\varnothing, \Eobj, \Tobj\}$ \\
+$\Eobj$ & The explicit object \\
+$\Tobj$ & The tacit object \\
+$\Ecat$ & The explicit subcategory (morphisms targeting $\Eobj$) \\
+$\Tcat$ & The tacit subcategory (morphisms targeting $\Tobj$) \\
+$\Pi$ & A pipeline (morphism in $\Czero$) \\
+$\mathcal{P}$ & A protocol trace (list of step records) \\
+$\sigma$ & A configuration (object in the Grothendieck construction) \\
+$\navequiv$ & Navigation equivalence relation \\
+$\delta$ & Degradation operator on credence \\
+$S(n)$ & Survival function at step $n$ \\
+$h(n)$ & Hazard rate at step $n$ \\
+$\omega$ & A stochastic trajectory \\
+$\Omega$ & Sample space of stochastic trajectories \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Throughout the paper, Lean theorems and definitions are referenced using the pattern
+\leanref{module.theorem\_name}. All theorems marked \leanref{\ldots} have zero
+\texttt{sorry} and are accepted by the Lean~4.29.0 kernel.
+
+\newpage
+
+% ===================================================================
+% Chapters
+% ===================================================================
+\input{ch00_introduction}
+\newpage
+\input{ch01_kernel}
+\newpage
+\input{ch02_basis}
+\newpage
+\input{ch03_reduction}
+\newpage
+\input{ch04_semantics}
+\newpage
+\input{ch05_dynamic}
+\newpage
+\input{ch06_collective}
+\newpage
+\input{ch07_results}
+
+% ===================================================================
+\end{document}

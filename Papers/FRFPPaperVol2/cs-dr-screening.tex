@@ -1,0 +1,411 @@
+% ============================================================
+% Appendix Z.10 — FRFP Case Study (Clinical / Public Health):
+% Autonomous AI for Diabetic Retinopathy Screening
+% ============================================================
+
+\section{FRFP Case Study (Clinical / Public Health):
+  Autonomous AI for Diabetic Retinopathy Screening}
+\label{app:frfp-dr-ai}
+
+This appendix analyses autonomous AI systems for diabetic retinopathy (DR)
+screening as a positive FRFP case study.
+We focus primarily on FDA-cleared systems such as
+LumineticsCore\textsuperscript{\textregistered} (formerly IDx-DR),
+EyeArt\textsuperscript{\textregistered}, and
+AEYE-DS\textsuperscript{\textregistered}.
+These systems are among the first examples of autonomous AI diagnostics
+deployed at scale in routine care, particularly in primary care clinics and
+underserved settings.
+
+\subsection{Background}
+
+Diabetic retinopathy is a leading cause of preventable blindness among
+working-age adults worldwide.
+Regular retinal screening and timely treatment can prevent most vision loss,
+but screening rates are chronically low, especially in primary care and
+underserved populations.
+
+To address this gap, several autonomous AI systems have been developed and
+cleared:
+
+\begin{itemize}
+  \item \textbf{LumineticsCore\textsuperscript{\textregistered}
+        (IDx-DR)}:
+        in 2018, the first autonomous AI diagnostic system authorized by the
+        U.S.\ FDA in any field of medicine.
+        It automatically detects more-than-mild DR (mtmDR) from retinal
+        images taken on a specific fundus camera in primary-care settings,
+        without requiring an eye-care specialist to interpret each image.
+  \item \textbf{EyeArt\textsuperscript{\textregistered}} (Eyenuk):
+        FDA-cleared in 2020 as an autonomous AI system that detects both
+        mtmDR and vision-threatening DR (vtDR) and can work across multiple
+        fundus camera models.
+  \item \textbf{AEYE-DS\textsuperscript{\textregistered}} (AEYE Health):
+        FDA-cleared as an autonomous AI for DR screening, designed to
+        operate with certain non-mydriatic fundus cameras and, in newer
+        configurations, with a single image per eye and no dilation,
+        targeting sub-minute screening workflows.
+\end{itemize}
+
+Pivotal trials for IDx-DR showed sensitivity around 87\% and specificity
+around 90\% for mtmDR in primary care populations, meeting pre-specified
+performance endpoints for autonomous use.
+Subsequent implementation studies (e.g.\ at Johns Hopkins and in federally
+qualified health centers) indicate that autonomous AI screening can
+significantly increase screening rates and care-gap closure when integrated
+into primary care workflows.
+
+From an FRFP perspective, these systems are interesting because:
+
+\begin{itemize}
+  \item they \emph{are} autonomous diagnostic systems (they issue a
+        clinical-level decision: refer vs.\ no-refer);
+  \item yet they are deployed in ways that keep ultimate correctness at
+        human and institutional boundaries (treatment, follow-up, programme
+        design);
+  \item their success depends heavily on careful explicit problem design,
+        uncertainty labelling, and regulatory/institutional governance.
+\end{itemize}
+
+\subsection{Explicit and Tacit Spaces in DR Screening AI}
+
+\subsubsection*{Explicit space \(E_{\mathrm{DR}}\)}
+
+For systems such as LumineticsCore, EyeArt, and AEYE-DS, explicit space
+includes:
+
+\begin{itemize}
+  \item input images:
+        \begin{itemize}
+          \item colour fundus photographs from specified camera models;
+          \item typically macula- and disc-centered views per eye;
+        \end{itemize}
+  \item model internals:
+        \begin{itemize}
+          \item trained deep convolutional or related networks;
+          \item pre-processing and image-quality assessment modules.
+        \end{itemize}
+  \item output artefacts:
+        \begin{itemize}
+          \item a categorical diagnostic conclusion (e.g.\ ``mtmDR
+                present'' vs.\ ``mtmDR absent'');
+          \item image-quality verdict (gradable vs.\ ungradable);
+          \item sometimes a DR severity grade or referral recommendation.
+        \end{itemize}
+  \item deployment infrastructure:
+        \begin{itemize}
+          \item cloud or local servers receiving images and returning
+                decisions;
+          \item user interfaces in primary care clinics and retail
+                settings.
+        \end{itemize}
+\end{itemize}
+
+All these artefacts live in \(E_{\mathrm{DR}}\): they are explicit bits and
+decisions produced and consumed by machines.
+
+\subsubsection*{Tacit space \(T_{\mathrm{DR}}\)}
+
+Tacit space contains the epistemic states of:
+
+\begin{itemize}
+  \item primary-care clinicians:
+        their understanding of diabetes care pathways, risk factors, and
+        when to emphasize follow-up;
+  \item eye-care specialists (ophthalmologists, retina specialists):
+        nuanced knowledge of DR progression, treatment thresholds, and
+        patient-specific considerations;
+  \item patients:
+        their understanding of vision risk, willingness to attend
+        referrals, and trust in the healthcare system;
+  \item health-system administrators and payers:
+        beliefs about programme design, reimbursement, and equity.
+\end{itemize}
+
+These tacit states determine how explicit AI outputs are interpreted and
+acted upon: whether a ``refer'' result leads to timely specialist care, or
+whether a ``no-refer'' result alters behaviour around future screening.
+
+\subsection{Boundary Design:
+  From Image Classification to Clinical Workflow}
+
+\subsubsection*{Regulatory definition of the AI boundary}
+
+Regulatory documents for IDx-DR and similar systems define a very specific
+boundary:
+
+\begin{itemize}
+  \item The AI system is authorised to \emph{autonomously} detect more-than-
+        mild DR (and for EyeArt/AEYE-DS, in some cases, vtDR) from images
+        acquired under specified conditions.
+  \item If image quality is insufficient, the system returns an
+        ``ungradable'' result and the patient must be referred or re-imaged.
+  \item For negative results (no mtmDR detected), guidelines and labelling
+        still require repeat screening at defined intervals (often yearly),
+        not discharge from care.
+  \item For positive results, the system issues a referral recommendation,
+        but an ophthalmologist ultimately determines diagnosis and
+        treatment.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item the AI’s explicit decision boundary is: classify image $\to$
+        \{mtmDR present, mtmDR absent, ungradable\};
+  \item the clinical boundary---where correctness is endorsed---remains:
+        \begin{itemize}
+          \item in primary care: deciding whether a patient has satisfied
+                the screening requirement or needs referral;
+          \item in specialist care: diagnosing DR stage and choosing
+                treatment (laser, anti-VEGF, observation, etc.).
+        \end{itemize}
+\end{itemize}
+
+The FDA explicitly recognises this structure by authorising the AI to make a
+narrow, well-defined diagnostic decision while leaving broader care
+decisions to human clinicians.
+
+\subsubsection*{Workflow integration as boundary implementation}
+
+Implementation studies describe how DR AI is embedded in primary-care
+workflows:
+
+\begin{itemize}
+  \item a nurse or medical assistant captures fundus images during a routine
+        diabetes visit;
+  \item the AI system returns a result in minutes;
+  \item if positive or ungradable, staff schedule an eye-care referral and
+        provide counselling;
+  \item if negative, the result is documented in the EHR, closing the DR
+        screening care gap for that year.
+\end{itemize}
+
+From an FRFP perspective:
+
+\begin{itemize}
+  \item AI operates fully within explicit space (image $\to$ label), but
+        boundary events (referral decisions, treatment) are explicitly
+        structured in clinical workflows and guidelines;
+  \item the architecture intentionally shifts some correctness
+        responsibility (for \emph{screening} classification) into the AI
+        pipeline, but within a tightly circumscribed domain and with
+        oversight via quality metrics and regulatory conditions.
+\end{itemize}
+
+\subsection{Protocol-Level Properties in FRFP Terms}
+
+\subsubsection*{Z.10.1 Explicit Semantics:
+  A Narrow, Well-Specified Task}
+
+DR screening AI enjoys strong explicit semantics:
+
+\begin{itemize}
+  \item \textbf{Task definition}:
+        detect the presence of more-than-mild DR (and sometimes vtDR) from
+        retinal photographs, according to accepted grading scales.
+  \item \textbf{Gold standard}:
+        indendent, masked grading of images by retina specialists serves as
+        a clear ground truth in pivotal trials.
+  \item \textbf{Performance targets}:
+        pre-specified sensitivity/specificity thresholds for autonomous use
+        (e.g.\ rule-out sensitivity, rule-in specificity) are agreed with
+        regulators.
+\end{itemize}
+
+In FRFP language:
+
+\begin{itemize}
+  \item the mapping
+        \(
+          f_{\mathrm{DR}} : \text{fundus image} \to
+          \{\text{mtmDR}, \text{no mtmDR}, \text{ungradable}\}
+        \)
+        has a precise semantics under trial conditions;
+  \item $E_{\mathrm{DR}}$ has reliable, externally validated metrics
+        to assess correctness of the AI’s explicit outputs;
+  \item this is exactly the kind of narrow medical task where explicit AI
+        can legitimately assume part of the correctness burden.
+\end{itemize}
+
+\subsubsection*{Z.10.2 Uncertainty and ``Ungradable'' as Structural Safeguards}
+
+An important design feature is the explicit handling of uncertainty:
+
+\begin{itemize}
+  \item systems classify some images as ungradable, prompting referral to an
+        eye-care provider instead of issuing a false negative;
+  \item image-quality checks and fail-safe logic are part of the cleared
+        indication for use;
+  \item in practice, this means that when the explicit pipeline cannot
+        produce a reliable decision, it falls back to tacit human judgement.
+\end{itemize}
+
+In FRFP terms:
+
+\begin{itemize}
+  \item ``ungradable'' is a designed escape hatch back into tacit space
+        \(T_{\mathrm{DR}}\);
+  \item the explicit system is not forced to speak when its semantics would
+        be unreliable;
+  \item this is a concrete instantiation of FRFP’s recommendation that
+        explicit pipelines carry their own limitations to the boundary.
+\end{itemize}
+
+\subsubsection*{Z.10.3 Safe Horizons in Screening Programs}
+
+DR screening is a repeated, population-level process:
+
+\begin{itemize}
+  \item patients with diabetes should be screened annually or every
+        few years, depending on guidelines;
+  \item autonomous AI is intended for long-horizon use across large
+        populations (health systems, national programmes).
+\end{itemize}
+
+FRFP’s safe-horizon lens highlights several structural properties:
+
+\begin{itemize}
+  \item \textbf{Temporal horizons}:
+        even after a negative AI screen, guidelines insist on re-screening
+        after a fixed interval; no sequence of negative outputs permanently
+        discharges the patient from surveillance.
+  \item \textbf{Data shift monitoring}:
+        camera changes, population differences, and disease prevalence
+        shifts can degrade performance; responsible deployments monitor
+        quality metrics and periodically revalidate the AI.
+  \item \textbf{Programme-level review}:
+        implementation studies treat DR AI roll-outs as quality-improvement
+        projects, with ongoing measurement of screening uptake,
+        time-to-referral, and adherence.
+\end{itemize}
+
+Thus, even though the AI is autonomous at the single-visit level, the
+overall programme is embedded in human and institutional cycles that limit
+how far the system can run without tacit correction.
+
+\subsection{Institutional Semantics:
+  Regulation, Reimbursement, and Equity}
+
+\subsubsection*{Regulatory governance as FRFP operator}
+
+Regulators act as institutional operators in FRFP terms:
+
+\begin{itemize}
+  \item The FDA’s De Novo authorization of IDx-DR set a precedent for
+        autonomous AI in medicine, including requirements on performance,
+        indications, and image-acquisition conditions.
+  \item Subsequent 510(k) clearances for EyeArt and AEYE-DS followed,
+        broadening the set of devices and cameras but within a shared
+        regulatory framework.
+  \item CPT codes and reimbursement policies have been developed to support
+        billing for autonomous AI DR screening, reinforcing its role in
+        routine care.
+\end{itemize}
+
+These institutional choices:
+
+\begin{itemize}
+  \item formalise the boundary between AI output and clinical use;
+  \item define safe deployment domains (primary care, camera types,
+        age ranges);
+  \item require ongoing post-market surveillance and device updates.
+\end{itemize}
+
+\subsubsection*{Health-system deployments and equity goals}
+
+Large health systems and public programmes increasingly deploy DR AI with
+explicit equity aims:
+
+\begin{itemize}
+  \item Johns Hopkins Medicine’s deployment across primary-care sites showed
+        increased closure of screening care gaps, especially in some
+        underserved groups.
+  \item Multicomponent trials in federally qualified health centres
+        (FQHCs) evaluate whether AI screening plus EHR integration and
+        patient education improves adherence to screening and standards of
+        diabetes care.
+  \item In India, AI-based DR screening platforms such as MadhuNetrAI /
+        MadhuNETrAI are being piloted or rolled out in government
+        programmes to reach rural and military populations with limited
+        ophthalmology access.
+\end{itemize}
+
+From an FRFP perspective, these programmes:
+
+\begin{itemize}
+  \item treat autonomous AI as part of an institutional operator that
+        adjusts population-level tacit states (e.g.\ awareness, screening
+        norms, referral patterns);
+  \item rely on explicit AI outputs to trigger care, but leave diagnosis,
+        treatment, and policy adaptation in human hands;
+  \item illustrate how explicit systems can be embedded in equity-oriented
+        institutional dynamics, rather than only in revenue-maximising
+        workflows.
+\end{itemize}
+
+\subsection{Counterfactual Pitfalls and FRFP Safeguards}
+
+DR screening AI also highlights potential FRFP failure modes that are being
+actively managed:
+
+\begin{itemize}
+  \item \textbf{Overextension of indications}.
+        Using an AI system beyond its cleared population (e.g.\ different
+        ethnic mix, camera, or disease spectrum) without revalidation could
+        degrade performance.
+        FRFP would insist on explicit safe horizons and re-grounding when
+        context shifts.
+  \item \textbf{Silent false negatives}.
+        If negative AI results led clinicians or patients to skip future
+        exams, long-horizon risk would increase.
+        Current guidelines and labelling prevent this by mandating
+        periodic re-screening regardless of AI output.
+  \item \textbf{Complacency in specialist care}.
+        There is a risk that specialists might over-trust AI-based triage
+        and pay less attention to borderline or atypical cases.
+        FRFP would recommend clear communication that AI covers only the
+        screening threshold, not full disease management.
+\end{itemize}
+
+So far, regulatory frameworks, trial designs, and deployment practices have
+kept many of these issues under control, making DR screening AI a relatively
+successful instance of autonomy within an FRFP-compatible architecture.
+
+\subsection{Lessons for FRFP and Clinical AI}
+
+Autonomous DR screening systems illustrate several of FRFP’s central points
+in a positive light:
+
+\begin{enumerate}
+  \item \textbf{Narrow, well-specified tasks can bear autonomous decisions.}
+        When explicit semantics are strong (image $\to$ DR threshold
+        classification) and ground truth is available, AI can legitimately
+        take on a clearly-bounded diagnostic role.
+
+  \item \textbf{Explicit uncertainty and ``ungradable'' outputs are crucial.}
+        Structured fallbacks to human care are built into the model’s
+        explicit interface, embodying FRFP’s recommendation that pipelines
+        carry their own limits back to the boundary.
+
+  \item \textbf{Safe horizons can be encoded as clinical intervals.}
+        Annual (or guideline-based) re-screening and ongoing performance
+        monitoring function as safe-horizon mechanisms in a public-health
+        setting.
+
+  \item \textbf{Institutional governance makes autonomy possible.}
+        Regulatory authorisation, reimbursement structures, and programme
+        design act as FRFP-style institutional operators that shape how AI
+        is used and prevent over-automation of tacit clinical judgment.
+
+  \item \textbf{Explicit AI can advance equity when embedded correctly.}
+        By bringing DR screening to primary care, FQHCs, and low-resource
+        settings, DR AI demonstrates how explicit systems can extend access
+        while keeping correctness at human and institutional boundaries.
+\end{enumerate}
+
+As such, autonomous DR screening is a valuable counterpoint to high-profile
+failures:
+it shows that, under FRFP-compatible conditions---narrow task, strong
+semantics, explicit uncertainty, and robust institutional governance---AI
+can safely and measurably improve population health outcomes.

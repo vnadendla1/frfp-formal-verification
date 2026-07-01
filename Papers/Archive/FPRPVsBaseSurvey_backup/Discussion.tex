@@ -1,0 +1,1148 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Summary of Findings}
+
+This study evaluated whether protocol-structured analyses (LLM Protocol condition) align more closely with independent assessor reports than unstructured baseline LLM analyses across 25 major historical failures and 10 expert raters.
+
+Across cases, protocol-structured analyses demonstrated a higher probability of being judged closer to independent assessor reports in governance-heavy, underdetermined failures, particularly at higher cumulative similarity levels (R3--R4). In mechanically crisp cases dominated by a single causal chain (R1--R2), differences between conditions were smaller and in some instances negligible.
+
+These results support the conditional hypothesis that explicit protocol structuring improves explanatory alignment primarily where failure mechanisms involve multi-layer decision processes, escalation breakdowns, and institutional governance dynamics.
+
+\subsection{Interpretation Through the FRFP Lens}
+
+FRFP posits that many complex failures operate across two epistemic spaces:
+\begin{itemize}
+    \item An explicit artifact space (metrics, models, reports, anomaly classifications),
+    \item A tacit judgment space (endorsement, escalation, risk acceptance).
+\end{itemize}
+
+Failures often occur when explicit artifacts remain endorsement-effective despite divergence from underlying system state, particularly under uncertainty.
+
+Independent assessor reports in governance-heavy cases frequently reconstruct failures as protocol breakdowns: missed validation gates, weak escalation mechanisms, normalization of deviance, or misaligned control surfaces. The empirical results suggest that when analysis is explicitly structured around such protocol primitives, it more naturally reproduces the institutional causal narrative documented by independent investigations.
+
+\subsection{Where Protocol Structure Does Not Dominate}
+
+In mechanically crisp cases (e.g., clearly defined numeric overflow or single hardware failure), baseline analyses already capture the primary causal chain with high fidelity. In such contexts, protocol structuring does not materially alter alignment at R1--R2 levels.
+
+This boundary condition is important: the protocol advantage appears not as universal superiority, but as increased robustness under structural ambiguity, institutional complexity, and multi-stage decision failure.
+
+\subsection{Implications for LLM Evaluation}
+
+The findings suggest that improvements in LLM reasoning quality may not arise solely from model scaling or instruction tuning, but from explicit structuring of reasoning around:
+
+\begin{itemize}
+    \item Control surfaces,
+    \item Validation gates,
+    \item Escalation mechanisms,
+    \item Observability constraints,
+    \item Decision-node sequencing.
+\end{itemize}
+
+In domains where explanation quality depends on reconstructing institutional decision pipelines rather than isolated component failures, protocol scaffolding may provide measurable gains.
+
+\subsection{Theoretical Implications}
+
+The results are consistent with the FRFP theoretical claim that complex socio-technical systems are best analyzed as structured reasoning-and-feedback pipelines rather than collections of independent components. Independent assessor reports often implicitly reconstruct these pipelines post hoc. Protocol-structured analysis appears to approximate that reconstruction more reliably.
+
+This provides preliminary empirical support for the narrower claim that structured reasoning constraints may reduce underdetermination in governance-heavy explanatory tasks. Broader generalization requires replication across model families and domains.
+
+\subsection{Variance Reduction and Universal Protocol Defaults}
+
+Even in cases where mean alignment gains were small, protocol structuring was associated with reduced rater dispersion and fewer unsupported-claim flags. This suggests that structured reasoning may reduce analytical variance and tail-risk, even when average performance differences are modest.
+
+Importantly, selective deployment of structured reasoning would require a meta-decision mechanism capable of reliably detecting when protocol structure is necessary. Such meta-detection is itself most fragile under ambiguity—the regime in which governance-heavy failures occur. A universal default avoids this recursive vulnerability.
+
+From an operational perspective, this supports adopting structured reasoning protocols as a default interface in high-stakes analytical contexts. The cost of universal protocolization appears low in mechanically crisp domains, while the variance-reduction and alignment benefits become substantial in governance-heavy and underdetermined cases.
+
+Importantly, relying on selective deployment of structure would require a separate mechanism to determine when structure is necessary. Such a meta-decision is itself most vulnerable under ambiguity. A universal default avoids this recursive fragility.
+\subsection{Future Directions}
+
+Several extensions follow naturally:
+
+\begin{itemize}
+    \item Replication with different model families to test model-independence of the protocol effect.
+    \item Real-time prospective case analysis rather than retrospective historical reconstruction.
+    \item Automated structural similarity metrics complementing expert judgment.
+    \item Expansion into domains beyond failure analysis (e.g., policy evaluation, regulatory design, safety case construction).
+\end{itemize}
+
+\subsection{Conclusion}
+
+This study provides evidence that explicit protocol structuring can improve alignment between LLM-generated analyses and independent assessor reconstructions in governance-heavy failure contexts. The advantage is conditional, not universal, and appears strongest where failures emerge from multi-stage decision processes rather than single mechanistic breakdowns.
+
+The findings do not demonstrate universal improvement across all failure classes. Instead, they reveal a conditional advantage concentrated in multi-stage governance failures, coupled with variance-reduction effects in simpler domains.
+
+The results suggest that protocol structure need not be deployed selectively. A universal protocol default can be justified even when mean improvements are domain-dependent, because it standardizes analysis, improves auditability, and reduces tail-risk from unstructured reasoning, while avoiding reliance on a separate mechanism to detect when structure is needed.
+\newpage
+\appendix
+\section{Experimental Pipeline)
+\section*{Step 0 — Discovery and shortlisting of the 25 cases}
+
+The 25-case set was not assembled randomly. It was built through an iterative discovery and screening process designed to produce a broad, information-rich evaluation set for structured analysis.
+
+\subsection*{0.1 Initial discovery pool}
+
+Candidate cases were initially identified from well-known historical failures and controversies across multiple domains, including:
+
+\begin{itemize}
+\item finance
+\item aerospace
+\item energy
+\item transportation
+\item software / technology
+\item corporate governance
+\item public-sector and institutional systems
+\end{itemize}
+
+The goal at this stage was breadth, not immediate inclusion.
+
+\subsection*{0.2 Shortlisting criteria}
+
+Candidates were then screened against four requirements:
+
+\begin{enumerate}
+\item Major failure or major breakdown
+
+The case had to involve substantial financial loss, loss of life, mission failure, systemic disruption, or major governance breakdown.
+
+\item Publicly describable system setup
+
+There had to be enough public information to describe the system, organizational structure, and task intent without relying on the final investigation findings.
+
+\item Independent assessor material available
+
+The case had to have at least one credible external assessment source, such as:
+
+\begin{itemize}
+\item court findings
+\item congressional / parliamentary reports
+\item regulator findings
+\item independent investigation boards
+\item official commissions
+\end{itemize}
+
+\item Usefulness for comparative analysis
+
+The case had to be suitable for comparing:
+
+\begin{itemize}
+\item baseline LLM analysis
+\item protocol-guided LLM analysis
+\item independent assessor reconstruction
+\end{itemize}
+
+\end{enumerate}
+
+\subsection*{0.3 Solution-space coverage}
+
+During shortlisting, cases were chosen to span a wide solution space rather than cluster around a single failure type.
+
+The shortlist was intentionally balanced across:
+
+\begin{itemize}
+\item mechanistic engineering failures
+\item governance-heavy socio-technical failures
+\item financial and institutional failures
+\item regulatory and oversight failures
+\item software / information-system failures
+\end{itemize}
+
+This was done to ensure that the final survey could test whether structured reasoning helps more in some classes of cases than others.
+
+\subsection*{0.4 Exclusion criteria}
+
+Cases were excluded if they failed one or more of the following:
+
+\begin{itemize}
+\item no credible independent assessor source could be identified
+\item public documentation of system setup was too thin
+\item the case was too redundant with another selected case
+\item the case was still too unresolved or factually unstable for use as a frozen survey item
+\end{itemize}
+
+\subsection*{0.5 Finalization}
+
+After iterative screening, 25 cases were selected and assigned stable IDs C01 through C25.
+
+The finalized list was then frozen in:
+
+\begin{verbatim}
+case_list_v1.txt
+\end{verbatim}
+
+This file became the root index for all subsequent survey construction steps.
+
+\section*{Step 1 — Construct the 25-case list}
+
+The survey case set was constructed using the following criteria:
+
+\subsection*{Selection requirements}
+
+Each case had to satisfy:
+
+\begin{enumerate}
+\item Major system failure or controversy
+\item Availability of public documentation describing the system setup
+\item Availability of an independent investigation or assessment report
+\item Coverage across multiple socio-technical domains
+\end{enumerate}
+
+Domains intentionally covered:
+
+\begin{itemize}
+\item finance
+\item aerospace
+\item energy
+\item transportation
+\item technology / software
+\item governance / institutions
+\end{itemize}
+
+The objective was to create a heterogeneous solution space rather than a domain-specific dataset.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{Step 2 — Assign case identifiers}
+
+Each case was assigned a stable identifier:
+
+\begin{verbatim}
+C01 … C25
+\end{verbatim}
+
+The case list was frozen in:
+
+\begin{verbatim}
+case_list_v1.txt
+\end{verbatim}
+
+Example entries:
+
+\begin{verbatim}
+C01 — London Whale (JPMorgan CIO)
+C02 — Deepwater Horizon (Macondo Well)
+C03 — Fukushima Daiichi Nuclear Plant
+...
+C25 — Lehman Brothers Collapse
+\end{verbatim}
+
+This file is included in the freeze manifest.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{Step 3 — Create neutral case descriptions}
+
+Neutral case descriptions were created by:
+
+\begin{enumerate}
+\item taking the 25-case list
+\item writing ≤150-word system descriptions
+\item removing failure conclusions and investigation findings
+\item freezing them in
+\end{enumerate}
+
+\begin{verbatim}
+neutral_case_descriptions_v1.txt
+\end{verbatim}
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item the notebook converts them into
+\end{enumerate}
+
+\begin{verbatim}
+Cxx_case_input.txt
+\end{verbatim}
+
+These descriptions describe system structure and task intent, not the failure outcome.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{Step 4 — Freeze survey inputs}
+
+The following artifacts were frozen with SHA-256 hashes:
+
+\begin{verbatim}
+case_list_v1.txt
+neutral_case_descriptions_v1.txt
+prompt_baseline_v1.txt
+prompt_protocol_v1.txt
+prompt_independent_v1.txt
+protocol_specification_v1.txt
+model_config_v1.json
+case_id_mapping_v1.csv
+\end{verbatim}
+
+These are recorded in:
+
+\begin{verbatim}
+case_freeze_manifest_v1.txt
+\end{verbatim}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{Step 5 — Notebook input construction}
+
+The survey notebook performs the following preprocessing:
+
+\begin{verbatim}
+neutral_case_descriptions_v1.txt
+        ↓
+parse by case ID
+        ↓
+write case inputs
+        ↓
+C01_case_input.txt
+C02_case_input.txt
+...
+C25_case_input.txt
+\end{verbatim}
+
+These files are the primary input artifacts for model generation.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\section*{Step 6 — Generation conditions}
+
+Three analysis conditions are defined.
+
+\subsection*{Baseline (B)}
+
+Inputs:
+
+\begin{verbatim}
+baseline prompt
++
+case_input
+\end{verbatim}
+
+Output:
+
+\begin{verbatim}
+Cxx_B_raw.txt
+\end{verbatim}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{Protocol (P)}
+
+Inputs:
+
+\begin{verbatim}
+protocol prompt
++
+protocol_specification_v1.txt
++
+case_input
+\end{verbatim}
+
+Output:
+
+\begin{verbatim}
+Cxx_P_raw.txt
+\end{verbatim}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{Independent (I)}
+
+Inputs:
+
+\begin{verbatim}
+independent prompt
++
+case_input
++
+assessor report extracts
+\end{verbatim}
+
+Output:
+
+\begin{verbatim}
+Cxx_I_refA_raw.txt
+Cxx_I_refB_raw.txt
+\end{verbatim}
+
+Extract files must be manually constructed from official investigation reports.
+
+\section*{Step 7 — Selection and Extraction of Independent Assessor Reports}
+
+The Independent analysis condition requires that the model operate with access to information derived from credible external investigations of each case. To construct this condition, a structured procedure was used to identify authoritative assessment sources and extract relevant material.
+
+\subsection*{7.1 Source hierarchy}
+
+For each case, potential assessment sources were evaluated according to a predefined credibility hierarchy:
+
+\begin{enumerate}
+\item Court findings or judicial determinations
+\item Congressional or parliamentary investigation reports
+\item Regulatory authority reports
+\item Independent investigation boards or commissions
+\end{enumerate}
+
+This hierarchy was adopted to prioritize sources with the strongest procedural authority and evidentiary standards.
+
+\subsection*{7.2 Primary and alternate sources}
+
+For each case, two primary sources were identified:
+
+\begin{itemize}
+\item Primary A — the most authoritative available assessment according to the hierarchy above.
+\item Primary B — an alternate independent assessment source for sensitivity analysis.
+\end{itemize}
+
+Primary B was selected when a credible alternative investigation or official report existed that examined the same case.
+
+Primary B is used only for robustness testing and does not replace Primary A in the main analysis.
+
+\subsection*{7.3 Supplemental source}
+
+In addition to the primary source, a supplemental source was selected when available.
+
+The supplemental source typically consisted of:
+
+\begin{itemize}
+\item a regulator technical report
+\item an official post-incident review
+\item or an independent technical analysis.
+\end{itemize}
+
+The purpose of the supplemental source was to provide additional system description or technical clarification without introducing interpretive bias.
+
+\subsection*{7.4 Extraction procedure}
+
+Relevant excerpts were manually extracted from the selected sources according to the following rules:
+
+\begin{enumerate}
+\item Extract material describing:
+\begin{itemize}
+\item system architecture
+\item operational processes
+\item decision structures
+\item causal mechanisms
+\item investigative findings.
+\end{itemize}
+
+\item Avoid including:
+\begin{itemize}
+\item editorial commentary
+\item speculative interpretations
+\item retrospective narrative framing unrelated to system operation.
+\end{itemize}
+
+\item Preserve wording from the source documents as closely as possible.
+\item Remove formatting elements not relevant to textual analysis (tables, footnotes, references).
+\end{enumerate}
+
+\subsection*{7.5 Extract artifacts}
+
+The extracted materials were saved as frozen artifacts using the following naming convention:
+
+\begin{verbatim}
+Cxx_refA_extract.txt
+Cxx_refB_extract.txt
+\end{verbatim}
+
+where:
+
+\begin{itemize}
+\item Cxx denotes the case identifier
+\item refA corresponds to Primary A + supplemental material
+\item refB corresponds to Primary B + supplemental material
+\end{itemize}
+
+Each file contains a curated excerpt from the relevant source documents.
+
+\subsection*{7.6 Storage and reproducibility}
+
+All extract files were stored in the directory:
+
+\begin{verbatim}
+independent_sources/extracts/
+\end{verbatim}
+
+These files are treated as fixed inputs to the Independent analysis condition and are included in the experiment’s reproducibility bundle.
+
+\section*{Step 8 — LLM Generation of Analysis Artifacts (B, P, I)}
+
+After the dataset and input artifacts were frozen, a controlled generation procedure was used to produce analytical outputs from the language model under three different reasoning conditions.
+
+The objective of this step was to produce comparable analytical artifacts that differ only in the reasoning constraints and information provided to the model.
+
+\subsection*{8.1 Model configuration}
+
+All generations were performed using a fixed model configuration defined in:
+
+\begin{verbatim}
+model_config_v1.json
+\end{verbatim}
+
+The configuration specifies:
+
+\begin{itemize}
+\item model provider
+\item model version
+\item temperature
+\item output token limits
+\end{itemize}
+
+The configuration file was frozen alongside the dataset to ensure reproducibility.
+
+\subsection*{8.2 Input construction}
+
+For each case identifier Cxx, the notebook constructs a case input file:
+
+\begin{verbatim}
+Cxx_case_input.txt
+\end{verbatim}
+
+This file contains the neutral case description corresponding to that case.
+
+The case input files serve as the base input across all three reasoning conditions.
+
+\subsection*{8.3 Generation conditions}
+
+Three generation conditions were defined.
+
+\subsubsection*{Baseline (B)}
+
+The Baseline condition represents standard LLM analysis without structured reasoning constraints.
+
+Inputs to the model:
+
+\begin{verbatim}
+prompt_baseline_v1.txt
++
+Cxx_case_input.txt
+\end{verbatim}
+
+The model produces a free-form analytical description of the system and potential failure mechanisms.
+
+Outputs are stored as:
+
+\begin{verbatim}
+Cxx_B_raw.txt
+\end{verbatim}
+
+\subsection*{8.4 Protocol condition (P)}
+
+The Protocol condition constrains the model to follow the structured reasoning protocol described in the FRFP specification.
+
+Inputs to the model:
+
+\begin{verbatim}
+prompt_protocol_v1.txt
++
+protocol_specification_v1.txt
++
+Cxx_case_input.txt
+\end{verbatim}
+
+The protocol specification defines procedural constraints such as:
+
+\begin{itemize}
+\item intent locking
+\item artifact discipline
+\item branch tracking
+\item explicit assumptions
+\item separation of analysis and endorsement.
+\end{itemize}
+
+Outputs are stored as:
+
+\begin{verbatim}
+Cxx_P_raw.txt
+\end{verbatim}
+
+\subsection*{8.5 Independent condition (I)}
+
+The Independent condition provides the model with excerpts derived from authoritative investigation reports.
+
+Inputs to the model:
+
+\begin{verbatim}
+prompt_independent_v1.txt
++
+Cxx_case_input.txt
++
+Cxx_refA_extract.txt
+\end{verbatim}
+
+For sensitivity analysis, an alternate source may be used:
+
+\begin{verbatim}
+Cxx_refB_extract.txt
+\end{verbatim}
+
+Outputs are stored as:
+
+\begin{verbatim}
+Cxx_I_refA_raw.txt
+Cxx_I_refB_raw.txt
+\end{verbatim}
+
+\subsection*{8.6 Execution procedure}
+
+The generation notebook iterates over the case identifiers and executes the following sequence:
+
+\begin{verbatim}
+Baseline (B)
+→ Protocol (P)
+→ Independent (I_refA)
+→ Independent sensitivity (I_refB)
+\end{verbatim}
+
+Each generation produces a raw text artifact stored in the experiment output directory.
+
+\subsection*{8.7 Output logging and hashing}
+
+For every generated output:
+
+\begin{enumerate}
+\item The raw output text is saved to disk.
+\item A SHA-256 hash of the file is computed.
+\item A generation log entry is recorded containing:
+\begin{itemize}
+\item case identifier
+\item generation condition
+\item model configuration
+\item timestamp
+\item output file hash.
+\end{itemize}
+\end{enumerate}
+
+These records ensure that all outputs can be verified against the frozen experimental configuration.
+
+\subsection*{8.8 Resulting artifact set}
+
+For each case, the generation step produces:
+
+\begin{verbatim}
+Cxx_B_raw.txt
+Cxx_P_raw.txt
+Cxx_I_refA_raw.txt
+Cxx_I_refB_raw.txt
+\end{verbatim}
+
+In the full experiment with 25 cases, this yields up to:
+
+\begin{verbatim}
+25 × 4 = 100 generated artifacts
+\end{verbatim}
+
+These raw outputs form the basis for the subsequent normalization and human evaluation stages.
+
+\section*{Step 8 — LLM Generation of Analysis Artifacts (B, P, I)}
+
+After the dataset and input artifacts were frozen, a controlled generation procedure was used to produce analytical outputs from the language model under three different reasoning conditions.
+
+The objective of this step was to produce comparable analytical artifacts that differ only in the reasoning constraints and information provided to the model.
+
+\subsection*{8.1 Model configuration}
+
+All generations were performed using a fixed model configuration defined in:
+
+\begin{verbatim}
+model_config_v1.json
+\end{verbatim}
+
+The configuration specifies:
+
+\begin{itemize}
+\item model provider
+\item model version
+\item temperature
+\item output token limits
+\end{itemize}
+
+The configuration file was frozen alongside the dataset to ensure reproducibility.
+
+\subsection*{8.2 Input construction}
+
+For each case identifier Cxx, the notebook constructs a case input file:
+
+\begin{verbatim}
+Cxx_case_input.txt
+\end{verbatim}
+
+This file contains the neutral case description corresponding to that case.
+
+The case input files serve as the base input across all three reasoning conditions.
+
+\subsection*{8.3 Generation conditions}
+
+Three generation conditions were defined.
+
+\subsubsection*{Baseline (B)}
+
+The Baseline condition represents standard LLM analysis without structured reasoning constraints.
+
+Inputs to the model:
+
+\begin{verbatim}
+prompt_baseline_v1.txt
++
+Cxx_case_input.txt
+\end{verbatim}
+
+The model produces a free-form analytical description of the system and potential failure mechanisms.
+
+Outputs are stored as:
+
+\begin{verbatim}
+Cxx_B_raw.txt
+\end{verbatim}
+
+\subsection*{8.4 Protocol condition (P)}
+
+The Protocol condition constrains the model to follow the structured reasoning protocol described in the FRFP specification.
+
+Inputs to the model:
+
+\begin{verbatim}
+prompt_protocol_v1.txt
++
+protocol_specification_v1.txt
++
+Cxx_case_input.txt
+\end{verbatim}
+
+The protocol specification defines procedural constraints such as:
+
+\begin{itemize}
+\item intent locking
+\item artifact discipline
+\item branch tracking
+\item explicit assumptions
+\item separation of analysis and endorsement.
+\end{itemize}
+
+Outputs are stored as:
+
+\begin{verbatim}
+Cxx_P_raw.txt
+\end{verbatim}
+
+\subsection*{8.5 Independent condition (I)}
+
+The Independent condition provides the model with excerpts derived from authoritative investigation reports.
+
+Inputs to the model:
+
+\begin{verbatim}
+prompt_independent_v1.txt
++
+Cxx_case_input.txt
++
+Cxx_refA_extract.txt
+\end{verbatim}
+
+For sensitivity analysis, an alternate source may be used:
+
+\begin{verbatim}
+Cxx_refB_extract.txt
+\end{verbatim}
+
+Outputs are stored as:
+
+\begin{verbatim}
+Cxx_I_refA_raw.txt
+Cxx_I_refB_raw.txt
+\end{verbatim}
+
+\subsection*{8.6 Execution procedure}
+
+The generation notebook iterates over the case identifiers and executes the following sequence:
+
+\begin{verbatim}
+Baseline (B)
+→ Protocol (P)
+→ Independent (I_refA)
+→ Independent sensitivity (I_refB)
+\end{verbatim}
+
+Each generation produces a raw text artifact stored in the experiment output directory.
+
+\subsection*{8.7 Output logging and hashing}
+
+For every generated output:
+
+\begin{enumerate}
+\item The raw output text is saved to disk.
+\item A SHA-256 hash of the file is computed.
+\item A generation log entry is recorded containing:
+\begin{itemize}
+\item case identifier
+\item generation condition
+\item model configuration
+\item timestamp
+\item output file hash.
+\end{itemize}
+\end{enumerate}
+
+These records ensure that all outputs can be verified against the frozen experimental configuration.
+
+\subsection*{8.8 Resulting artifact set}
+
+For each case, the generation step produces:
+
+\begin{verbatim}
+Cxx_B_raw.txt
+Cxx_P_raw.txt
+Cxx_I_refA_raw.txt
+Cxx_I_refB_raw.txt
+\end{verbatim}
+
+In the full experiment with 25 cases, this yields up to:
+
+\begin{verbatim}
+25 × 4 = 100 generated artifacts
+\end{verbatim}
+
+These raw outputs form the basis for the subsequent normalization and human evaluation stages.
+
+\section*{Step 9 — Output Normalization and Blinding}
+
+The raw outputs produced by the language model differ in length, style, and structure depending on the reasoning condition. To ensure fair comparison during human evaluation, all outputs were normalized into a consistent presentation format and blinded with respect to their generation condition.
+
+\subsection*{9.1 Objective of normalization}
+
+Normalization serves three purposes:
+
+\begin{enumerate}
+\item Structural comparability
+
+Ensure that outputs from different reasoning conditions can be evaluated on the same criteria.
+
+\item Removal of formatting differences
+
+Eliminate stylistic or formatting cues that might reveal the generation condition.
+
+\item Preparation for human rating
+
+Convert outputs into standardized one-page analytical summaries suitable for pairwise evaluation.
+\end{enumerate}
+
+Normalization does not alter the substantive analytical content produced by the model.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{9.2 Standard output structure}
+
+Each raw output was converted into a standardized analytical template consisting of the following sections:
+
+\begin{verbatim}
+1. System Objective
+2. Representation and Models
+3. Measurement and Information Flows
+4. Control Mechanisms
+5. Decision Interfaces
+6. Governance and Oversight
+7. Possible Failure Mechanisms
+8. Candidate Interventions or Safeguards
+\end{verbatim}
+
+The template preserves the core analytical content while ensuring that all responses share a consistent structure.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{9.3 Normalization process}
+
+The normalization procedure consisted of the following steps:
+
+\begin{enumerate}
+\item Section extraction
+
+The raw model output is parsed to identify analytical elements corresponding to the standardized template sections.
+
+\item Reformatting
+
+Extracted content is reorganized into the standardized template structure.
+
+\item Length harmonization
+
+Extremely long responses are trimmed to maintain roughly comparable document lengths while preserving key analytical points.
+
+\item Removal of condition-specific cues
+
+Any references that might reveal the generation condition are removed, including:
+
+\begin{itemize}
+\item references to “protocol”
+\item references to “baseline”
+\item references to investigation reports
+\item references to internal reasoning procedures.
+\end{itemize}
+
+\end{enumerate}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{9.4 Blinding procedure}
+
+After normalization, each document is assigned an anonymized identifier.
+
+Example format:
+
+\begin{verbatim}
+D0001
+D0002
+D0003
+...
+\end{verbatim}
+
+The mapping between document identifiers and generation conditions is stored in a separate key file not visible to raters.
+
+Example mapping:
+
+\begin{verbatim}
+Document ID → Case ID → Generation Condition
+\end{verbatim}
+
+This key file is retained by the experiment administrator and is not included in the rater packets.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{9.5 Pair construction for rating}
+
+Raters do not evaluate individual documents in isolation. Instead, documents are presented in pairwise comparisons.
+
+For each case, the following comparisons are constructed:
+
+\begin{verbatim}
+Baseline vs Protocol
+Protocol vs Independent
+Baseline vs Independent
+\end{verbatim}
+
+These pairs are randomized across raters.
+
+Each comparison consists of two normalized one-page documents labeled:
+
+\begin{verbatim}
+Document A
+Document B
+\end{verbatim}
+
+The ordering of documents is randomized to prevent systematic position bias.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{9.6 Blinded rater packets}
+
+Each rater receives a packet containing:
+
+\begin{itemize}
+\item a set of randomized document pairs
+\item evaluation instructions
+\item a scoring rubric.
+\end{itemize}
+
+The packet contains no information about:
+
+\begin{itemize}
+\item generation condition
+\item case identifiers
+\item protocol usage
+\item investigation sources.
+\end{itemize}
+
+This ensures that raters evaluate only the analytical quality of the outputs.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{9.7 Preservation of raw outputs}
+
+All raw model outputs remain archived without modification:
+
+\begin{verbatim}
+Cxx_B_raw.txt
+Cxx_P_raw.txt
+Cxx_I_refA_raw.txt
+Cxx_I_refB_raw.txt
+\end{verbatim}
+
+Normalization produces derived evaluation documents, while the raw artifacts remain the canonical record of model output.
+
+\section*{Step 11 — Statistical Analysis and Comparison Methodology}
+
+The objective of the statistical analysis is to determine whether outputs generated using the structured reasoning protocol demonstrate improved analytical quality relative to baseline model outputs.
+
+Because documents are evaluated using pairwise comparisons, the statistical analysis focuses on relative preference frequencies rather than absolute scores.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.1 Pairwise comparison structure}
+
+For each case, three comparisons are constructed:
+
+\begin{verbatim}
+Baseline vs Protocol
+Protocol vs Independent
+Baseline vs Independent
+\end{verbatim}
+
+Each comparison is evaluated across four rubric dimensions:
+
+\begin{verbatim}
+R1 — Analytical clarity
+R2 — Structural reasoning quality
+R3 — Diagnostic usefulness
+R4 — Overall analytical usefulness
+\end{verbatim}
+
+For each dimension, raters select:
+
+\begin{verbatim}
+A closer
+B closer
+No clear difference
+\end{verbatim}
+
+This produces a dataset of pairwise preference observations.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.2 Data representation}
+
+Each rating is represented as a record containing:
+
+\begin{verbatim}
+case_id
+document_A_id
+document_B_id
+generation_condition_A
+generation_condition_B
+rater_id
+dimension
+response
+\end{verbatim}
+
+Where response is one of:
+
+\begin{verbatim}
+A
+B
+Tie
+\end{verbatim}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.3 Preference aggregation}
+
+For each comparison type and dimension, the number of preferences for each condition is counted:
+
+\begin{verbatim}
+N(A>B)
+N(B>A)
+N(Tie)
+\end{verbatim}
+
+Tie responses are excluded from directional preference calculations but retained in reporting.
+
+The primary statistic is the preference rate:
+
+\begin{verbatim}
+PreferenceRate(A>B) =
+N(A>B) / (N(A>B) + N(B>A))
+\end{verbatim}
+
+This measures the proportion of directional preferences favoring one condition.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.4 Hypothesis testing}
+
+The principal hypothesis tested is:
+
+\begin{verbatim}
+H0: Protocol outputs are no more likely to be preferred than Baseline outputs.
+\end{verbatim}
+
+This is evaluated using a binomial test or sign test on the directional preference counts.
+
+For each dimension:
+
+\begin{verbatim}
+P-value = BinomialTest(N(P>B), N(P>B) + N(B>P), p=0.5)
+\end{verbatim}
+
+Where:
+
+\begin{verbatim}
+P>B = Protocol preferred over Baseline
+B>P = Baseline preferred over Protocol
+\end{verbatim}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.5 Effect size estimation}
+
+In addition to significance testing, effect size is reported using:
+
+\begin{verbatim}
+Preference difference
+\end{verbatim}
+
+\begin{verbatim}
+EffectSize =
+PreferenceRate(P>B) − PreferenceRate(B>P)
+\end{verbatim}
+
+Values greater than zero indicate preference for the protocol condition.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.6 Cross-case aggregation}
+
+Results are analyzed at two levels:
+
+\subsubsection*{Case-level analysis}
+
+Preference statistics are computed separately for each case.
+
+\subsubsection*{Aggregate analysis}
+
+Preference counts are pooled across all cases to estimate overall performance differences between generation conditions.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.7 Sensitivity analysis}
+
+To evaluate robustness of the Independent condition, comparisons are repeated using the alternate assessor source:
+
+\begin{verbatim}
+Independent_refA
+Independent_refB
+\end{verbatim}
+
+Differences between these results provide an estimate of sensitivity to assessor source selection.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.8 Inter-rater consistency}
+
+Inter-rater agreement is evaluated using measures such as:
+
+\begin{verbatim}
+Fleiss' kappa
+\end{verbatim}
+
+or pairwise agreement rates across raters.
+
+This analysis assesses the reliability of the evaluation procedure.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{11.9 Interpretation}
+
+The primary outcome of interest is whether the Protocol condition demonstrates:
+
+\begin{itemize}
+\item higher preference rates than the Baseline condition
+\item consistent improvement across evaluation dimensions
+\item robustness across cases and raters.
+\end{itemize}
+
+The Independent condition serves as a reference representing analyses grounded in formal investigation reports.

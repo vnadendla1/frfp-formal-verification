@@ -1,0 +1,234 @@
+%  Preprints.org template — MDPI mdpi.cls
+\documentclass[preprints,article,accept,pdftex,oneauthor]{Definitions/mdpi}
+
+% MDPI internal commands — do not modify
+\firstpage{1}
+\makeatletter
+\setcounter{page}{\@firstpage}
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+\datereceived{ }
+\daterevised{ }
+\dateaccepted{ }
+\datepublished{ }
+\hreflink{https://doi.org/}
+
+%=================================================================
+\Title{Foundational Reasoning and Feedback Protocol (FRFP): An Updated Formal Specification}
+\TitleCitation{Foundational Reasoning and Feedback Protocol (FRFP): An Updated Formal Specification}
+
+\Author{Vijaya Nadendla $^{1,\dagger}$}
+\AuthorNames{Vijaya Nadendla}
+\isAPAStyle{%
+  \AuthorCitation{Nadendla, V.}
+}{%
+  \isChicagoStyle{%
+    \AuthorCitation{Nadendla, Vijaya.}
+  }{%
+    \AuthorCitation{Nadendla, V.}
+  }
+}
+
+\address{$^{1}$ \quad Independent Researcher}
+\firstnote{Current address: 51 Linwood Dr, Monroe Township, NJ 08831.}
+
+\abstract{The Foundational Reasoning and Feedback Protocol (FRFP) is a formal framework for
+structuring reasoning and evaluation in long-horizon human--AI workflows. It distinguishes between
+explicit processes, which operate on representations and are mechanically reproducible, and tacit
+processes, which determine correctness, validity, and acceptance. The framework enforces a one-way
+boundary between these domains, under which explicit computation produces artifacts that must be
+evaluated through tacit judgment.
+This paper presents the FRFP theory in the form established by complete machine-checked
+formalization in Lean~4. The formalization yields four refinements to the published theory:
+(1)~Basis reduction: the original 11 premises reduce to 7 independent axioms, with four
+(ETS, RB, AE, MD) now derivable theorems; (2)~Precision corrections: six definitions required
+strengthening, notably explicit credence bounds, clamped degradation, and normal-form uniqueness
+modulo navigation equivalence; (3)~New formal structures: three types implicit in the original
+paper are made explicit --- the runToOmega bijection, the CorrectnessJudgment type, and
+lifted-action commutativity; (4)~Novel theorems: three non-trivial results emerge from proof
+obligations --- a canonical first-unresolved-witness theorem, a governance-safe trace-extension
+theorem, and a protocol normal-form decomposition theorem.
+Where the published paper and Lean code diverge, the Lean version is stated explicitly and
+documented.}
+
+\keyword{human--AI collaboration; epistemic governance; tacit knowledge; explicit--tacit separation;
+AI safety; long-horizon reasoning; category theory; sociotechnical systems}
+
+%=================================================================
+% Additional packages (not already loaded by mdpi.cls)
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage{adjustbox}
+
+\setlength{\emergencystretch}{3em}
+\AtBeginEnvironment{tabular}{\small}
+\BeforeBeginEnvironment{tabular}{\begin{adjustbox}{max width=\textwidth,center}}
+\AfterEndEnvironment{tabular}{\end{adjustbox}}
+
+% --- Theorem environments ---
+% mdpi.cls already defines: Theorem, Lemma, Corollary, Proposition,
+%   Definition, Example, Remark, Notation, Assumption (capitalized).
+% Provide lowercase aliases for compatibility with chapter files.
+\newenvironment{theorem}{\begin{Theorem}}{\end{Theorem}}
+\newenvironment{lemma}{\begin{Lemma}}{\end{Lemma}}
+\newenvironment{corollary}{\begin{Corollary}}{\end{Corollary}}
+\newenvironment{proposition}{\begin{Proposition}}{\end{Proposition}}
+\newenvironment{definition}{\begin{Definition}}{\end{Definition}}
+\newenvironment{remark}{\begin{Remark}}{\end{Remark}}
+\newenvironment{example}{\begin{Example}}{\end{Example}}
+% axiom_env and noteenv not in mdpi.cls — define separately
+\newcounter{axiomctr}
+\newtheorem{axiom_env}{Axiom}[section]
+\newcounter{notectr}
+\newtheorem{noteenv}{Note}[section]
+% Alias \begin{note} to noteenv
+\let\note\noteenv
+\let\endnote\endnoteenv
+
+% --- Lean reference ---
+\newcommand{\leanref}[1]{\textbf{[Lean:} \nolinkurl{#1}\textbf{]}}
+\newcommand{\leanbox}[1]{%
+  \begin{mdframed}[backgroundcolor=gray!10, linewidth=0.5pt]
+    \small\textbf{Lean:} \texttt{\detokenize{#1}}
+  \end{mdframed}}
+
+% --- Math shorthands ---
+\newcommand{\Czero}{\mathbf{C}_0}
+\newcommand{\Ecat}{\mathbf{E}_{\mathrm{cat}}}
+\newcommand{\Tcat}{\mathbf{T}_{\mathrm{cat}}}
+\newcommand{\Eobj}{E_0}
+\newcommand{\Tobj}{T_0}
+\newcommand{\runToOmega}{\mathrm{runTo}\omega}
+\newcommand{\omegaToRun}{\omega\mathrm{ToRun}}
+\newcommand{\navequiv}{\equiv_\nabla}
+\newcommand{\RI}{\mathrm{RI}}
+\newcommand{\EC}{\mathrm{EC}}
+\newcommand{\ED}{\mathrm{ED}}
+\newcommand{\RB}{\mathrm{RB}}
+\newcommand{\TE}{\mathrm{TE}}
+\newcommand{\HFD}{\mathrm{HFD}}
+\newcommand{\obs}{\mathrm{obs}}
+\newcommand{\Sem}{\mathrm{Sem}}
+
+% --- Lean listings style ---
+\lstdefinelanguage{Lean4}{
+  keywords={def,theorem,lemma,axiom,structure,inductive,where,match,with,
+            fun,let,in,have,show,by,intro,apply,exact,simp,rfl,cases,induction,
+            forall,exists,if,then,else,namespace,end,import,open,section,
+            class,instance,variable,noncomputable,opaque},
+  keywordstyle=\color{blue!70!black}\bfseries,
+  comment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  commentstyle=\color{green!50!black}\itshape,
+  stringstyle=\color{red!70!black},
+  sensitive=true,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  frameround=tttt,
+  backgroundcolor=\color{gray!5},
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  literate=
+    {<=}{{$\le$}}2
+    {>=}{{$\ge$}}2
+    {->}{{$\to$}}2
+    {≤}{{$\le$}}1
+    {≥}{{$\ge$}}1
+    {→}{{$\to$}}1
+    {↔}{{$\leftrightarrow$}}1
+    {∀}{{$\forall$}}1
+    {∃}{{$\exists$}}1
+    {∧}{{$\land$}}1
+    {∨}{{$\lor$}}1
+    {¬}{{$\neg$}}1
+    {§}{{\S}}1
+    {·}{{$\cdot$}}1
+    {ω}{{$\omega$}}1
+    {Ω}{{$\Omega$}}1
+    {⟨}{{$\langle$}}1
+    {⟩}{{$\rangle$}}1,
+}
+\lstset{language=Lean4,breaklines=true,breakatwhitespace=false,%
+  postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}}
+
+% --- Correction box ---
+\newenvironment{correction}[1][Lean Correction]{%
+  \begin{tcolorbox}[colback=orange!10,colframe=orange!50!black,title={\textbf{#1}}]
+}{%
+  \end{tcolorbox}
+}
+
+%=================================================================
+\begin{document}
+%=================================================================
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section*{Notation}
+% ===================================================================
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\Czero$ & The kernel category with objects $\{\varnothing, \Eobj, \Tobj\}$ \\
+$\Eobj$ & The explicit object \\
+$\Tobj$ & The tacit object \\
+$\Ecat$ & The explicit subcategory (morphisms targeting $\Eobj$) \\
+$\Tcat$ & The tacit subcategory (morphisms targeting $\Tobj$) \\
+$\Pi$ & A pipeline (morphism in $\Czero$) \\
+$\mathcal{P}$ & A protocol trace (list of step records) \\
+$\sigma$ & A configuration (object in the Grothendieck construction) \\
+$\navequiv$ & Navigation equivalence relation \\
+$\delta$ & Degradation operator on credence \\
+$S(n)$ & Survival function at step $n$ \\
+$h(n)$ & Hazard rate at step $n$ \\
+$\omega$ & A stochastic trajectory \\
+$\Omega$ & Sample space of stochastic trajectories \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Throughout the paper, Lean theorems and definitions are referenced using the pattern
+\leanref{module.theorem\_name}. All theorems marked \leanref{\ldots} have zero
+\texttt{sorry} and are accepted by the Lean~4.29.0 kernel.
+
+\newpage
+
+% ===================================================================
+% Chapters
+% ===================================================================
+\input{ch00_introduction}
+\newpage
+\input{ch01_kernel}
+\newpage
+\input{ch02_basis}
+\newpage
+\input{ch03_reduction}
+\newpage
+\input{ch04_semantics}
+\newpage
+\input{ch05_dynamic}
+\newpage
+\input{ch06_collective}
+\newpage
+\input{ch07_results}
+
+% ===================================================================
+\end{document}

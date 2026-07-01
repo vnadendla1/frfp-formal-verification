@@ -1,0 +1,1020 @@
+%  LaTeX support: latex@mdpi.com 
+%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+%\documentclass[journal,article,submit,pdftex,moreauthors]{Definitions/mdpi} 
+%\documentclass[preprints]{Definitions/mdpi} 
+\documentclass[preprints,accept]{Definitions/mdpi}
+% For posting an early version of this manuscript as a preprint, you may use "preprints" as the journal. Changing "submit" to "accept" before posting will remove line numbers.
+
+% Below journals will use APA reference format:
+% admsci, behavsci, businesses, econometrics, economies, education, ejihpe, games, humans, ijfs, journalmedia, jrfm, languages, psycholint, publications, tourismhosp, youth
+
+% Below journals will use Chicago reference format:
+% arts, genealogy, histories, humanities, jintelligence, laws, literature, religions, risks, socsci
+
+%--------------------
+% Class Options:
+%--------------------
+%----------
+% journal
+%----------
+% Choose between the following MDPI journals:
+% accountaudit, acoustics, actuators, addictions, adhesives, admsci, adolescents, aerobiology, aerospace, agriculture, agriengineering, agrochemicals, agronomy, ai, air, algorithms, allergies, alloys, amh, analytica, analytics, anatomia, anesthres, animals, antibiotics, antibodies, antioxidants, applbiosci, appliedchem, appliedmath, appliedphys, applmech, applmicrobiol, applnano, applsci, aquacj, architecture, arm, arthropoda, arts, asc, asi, astronomy, atmosphere, atoms, audiolres, automation, axioms, bacteria, batteries, bdcc, behavsci, beverages, biochem, bioengineering, biologics, biology, biomass, biomechanics, biomed, biomedicines, biomedinformatics, biomimetics, biomolecules, biophysica, biosensors, biosphere, biotech, birds, blockchains, bloods, blsf, brainsci, breath, buildings, businesses, cancers, carbon, cardiogenetics, catalysts, cells, ceramics, challenges, chemengineering, chemistry, chemosensors, chemproc, children, chips, cimb, civileng, cleantechnol, climate, clinbioenerg, clinpract, clockssleep, cmd, cmtr, coasts, coatings, colloids, colorants, commodities, complications, compounds, computation, computers, condensedmatter, conservation, constrmater, cosmetics, covid, crops, cryo, cryptography, crystals, csmf, ctn, curroncol, cyber, dairy, data, ddc, dentistry, dermato, dermatopathology, designs, devices, diabetology, diagnostics, dietetics, digital, disabilities, diseases, diversity, dna, drones, dynamics, earth, ebj, ecm, ecologies, econometrics, economies, education, eesp, ejihpe, electricity, electrochem, electronicmat, electronics, encyclopedia, endocrines, energies, eng, engproc, ent, entomology, entropy, environments, epidemiologia, epigenomes, esa, est, famsci, fermentation, fibers, fintech, fire, fishes, fluids, foods, forecasting, forensicsci, forests, fossstud, foundations, fractalfract, fuels, future, futureinternet, futureparasites, futurepharmacol, futurephys, futuretransp, galaxies, games, gases, gastroent, gastrointestdisord, gastronomy, gels, genealogy, genes, geographies, geohazards, geomatics, geometry, geosciences, geotechnics, geriatrics, glacies, grasses, greenhealth, gucdd, hardware, hazardousmatters, healthcare, hearts, hemato, hematolrep, heritage, higheredu, highthroughput, histories, horticulturae, hospitals, humanities, humans, hydrobiology, hydrogen, hydrology, hygiene, idr, iic, ijerph, ijfs, ijgi, ijmd, ijms, ijns, ijpb, ijt, ijtm, ijtpp, ime, immuno, informatics, information, infrastructures, inorganics, insects, instruments, inventions, iot, j, jal, jcdd, jcm, jcp, jcs, jcto, jdad, jdb, jeta, jfb, jfmk, jimaging, jintelligence, jlpea, jmahp, jmmp, jmms, jmp, jmse, jne, jnt, jof, joitmc, joma, jop, jor, journalmedia, jox, jpbi, jpm, jrfm, jsan, jtaer, jvd, jzbg, kidney, kidneydial, kinasesphosphatases, knowledge, labmed, laboratories, land, languages, laws, life, lights, limnolrev, lipidology, liquids, literature, livers, logics, logistics, lubricants, lymphatics, machines, macromol, magnetism, magnetochemistry, make, marinedrugs, materials, materproc, mathematics, mca, measurements, medicina, medicines, medsci, membranes, merits, metabolites, metals, meteorology, methane, metrics, metrology, micro, microarrays, microbiolres, microelectronics, micromachines, microorganisms, microplastics, microwave, minerals, mining, mmphys, modelling, molbank, molecules, mps, msf, mti, multimedia, muscles, nanoenergyadv, nanomanufacturing, nanomaterials, ncrna, ndt, network, neuroglia, neurolint, neurosci, nitrogen, notspecified, nursrep, nutraceuticals, nutrients, obesities, oceans, ohbm, onco, oncopathology, optics, oral, organics, organoids, osteology, oxygen, parasites, parasitologia, particles, pathogens, pathophysiology, pediatrrep, pets, pharmaceuticals, pharmaceutics, pharmacoepidemiology, pharmacy, philosophies, photochem, photonics, phycology, physchem, physics, physiologia, plants, plasma, platforms, pollutants, polymers, polysaccharides, populations, poultry, powders, preprints, proceedings, processes, prosthesis, proteomes, psf, psych, psychiatryint, psychoactives, psycholint, publications, purification, quantumrep, quaternary, qubs, radiation, reactions, realestate, receptors, recycling, regeneration, religions, remotesensing, reports, reprodmed, resources, rheumato, risks, robotics, rsee, ruminants, safety, sci, scipharm, sclerosis, seeds, sensors, separations, sexes, signals, sinusitis, siuj, skins, smartcities, sna, societies, socsci, software, soilsystems, solar, solids, spectroscj, sports, standards, stats, std, stresses, surfaces, surgeries, suschem, sustainability, symmetry, synbio, systems, tae, targets, taxonomy, technologies, telecom, test, textiles, thalassrep, therapeutics, thermo, timespace, tomography, tourismhosp, toxics, toxins, transplantology, transportation, traumacare, traumas, tropicalmed, universe, urbansci, uro, vaccines, vehicles, venereology, vetsci, vibration, virtualworlds, viruses, vision, waste, water, wem, wevj, wild, wind, women, world, youth, zoonoticdis
+
+%---------
+% article
+%---------
+% The default type of manuscript is "article", but can be replaced by: 
+% abstract, addendum, article, benchmark, book, bookreview, briefcommunication, briefreport, casereport, changes, clinicopathologicalchallenge, comment, commentary, communication, conceptpaper, conferenceproceedings, correction, conferencereport, creative, datadescriptor, discussion, entry, expressionofconcern, extendedabstract, editorial, essay, erratum, fieldguide, hypothesis, interestingimages, letter, meetingreport, monograph, newbookreceived, obituary, opinion, proceedingpaper, projectreport, reply, retraction, review, perspective, protocol, shortnote, studyprotocol, supfile, systematicreview, technicalnote, viewpoint, guidelines, registeredreport, tutorial,  giantsinurology, urologyaroundtheworld
+% supfile = supplementary materials
+
+%----------
+% submit
+%----------
+% The class option "submit" will be changed to "accept" by the Editorial Office when the paper is accepted. This will only make changes to the frontpage (e.g., the logo of the journal will get visible), the headings, and the copyright information. Also, line numbering will be removed. Journal info and pagination for accepted papers will also be assigned by the Editorial Office.
+
+%------------------
+% moreauthors
+%------------------
+% If there is only one author the class option oneauthor should be used. Otherwise use the class option moreauthors.
+
+%---------
+% pdftex
+%---------
+% The option pdftex is for use with pdfLaTeX. Remove "pdftex" for (1) compiling with LaTeX & dvi2pdf (if eps figures are used) or for (2) compiling with XeLaTeX.
+
+%=================================================================
+% MDPI internal commands - do not modify
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2025}
+\copyrightyear{2025}
+%\externaleditor{Firstname Lastname} % More than 1 editor, please add `` and '' before the last editor name
+\datereceived{ } 
+\daterevised{ } % Comment out if no revised date
+\dateaccepted{ } 
+\datepublished{ } 
+%\datecorrected{} % For corrected papers: "Corrected: XXX" date in the original paper.
+%\dateretracted{} % For retracted papers: "Retracted: XXX" date in the original paper.
+\hreflink{https://doi.org/} % If needed use \linebreak
+%\doinum{}
+%\pdfoutput=1 % Uncommented for upload to arXiv.org
+%\CorrStatement{yes}  % For updates
+%\longauthorlist{yes} % For many authors that exceed the left citation part
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit
+% cleveref: load \crefname definitions after \begin{document}
+
+%=================================================================
+% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
+
+
+% ---------- Encoding / fonts ----------
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{lmodern}        % Latin Modern: reliable math/text glyph coverage
+
+% ---------- Layout / typography ----------
+%\usepackage[margin=1in]{geometry}
+%\usepackage{microtype}      % better PDF text shaping; helps readability
+%\usepackage{xcolor}
+
+% ---------- Math packages ----------
+%\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}             % bold math
+\usepackage{stmaryrd}       % provides \llbracket \rrbracket
+\usepackage{mathrsfs}       % optional: \mathscr
+
+% ---------- Lists / diagrams ----------
+\usepackage{enumitem}       % consistent lists
+\usepackage{tikz-cd}        % commutative diagrams
+
+% ---------- Hyperlinks / bookmarks ----------
+%\usepackage{hyperref}
+%\usepackage{bookmark}
+%\usepackage{natbib}
+\usepackage{comment}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+%\hypersetup{
+%  colorlinks=true,
+%  linkcolor=blue,
+%  citecolor=blue,
+%  urlcolor=blue
+%}
+
+% ============================================================
+% Theorem environments
+% ============================================================
+
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{assumption}[theorem]{Assumption}
+
+% ============================================================
+% FRFP Macros (use everywhere; avoids symbol drift)
+% ============================================================
+
+\newcommand{\FRFP}{FRFP}
+\newcommand{\Cfull}{C_{\mathrm{full}}}
+\newcommand{\Ecat}{\mathcal{E}} % explicit category
+\newcommand{\Tcat}{\mathcal{T}} % tacit category
+\newcommand{\Ncat}{\mathcal{N}} % navigation groupoid
+\newcommand{\Scat}{\mathcal{S}} % shapes
+\newcommand{\TDG}{\mathsf{TDG}} % Task Decomposition Grammar
+\newcommand{\RB}{\mathsf{RB}}   % Representational Backflow
+\newcommand{\RI}{\mathsf{RI}}
+\newcommand{\EC}{\mathsf{EC}}
+\newcommand{\ED}{\mathsf{ED}}
+\newcommand{\TE}{\mathsf{TE}}
+\newcommand{\HFD}{\mathsf{HFD}}
+\newcommand{\Req}{\mathsf{Req}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Obj}{\mathrm{Ob}}
+\newcommand{\BRANCH}{\mathsf{BRANCH}}
+\newcommand{\PARALLEL}{\mathsf{PARALLEL}}
+\newcommand{\LOOP}{\mathsf{LOOP}}
+
+% aliases for explicit / tacit space used in the appendix
+\newcommand{\Espace}{\mathcal{E}} % explicit space
+\newcommand{\Tspace}{\mathcal{T}} % tacit space
+
+% encoding / decoding
+\newcommand{\enc}{\mathsf{enc}}
+\newcommand{\dec}{\mathsf{dec}}
+
+% semantic RB and free-category notation
+\newcommand{\RBsharp}{\RB^{\sharp}}
+\newcommand{\FreeCat}{\mathsf{FreeCat}}
+\newcommand{\Ufun}{U_E}
+
+% shape constructors (non-conflicting names)
+\newcommand{\chain}{\mathsf{chain}}
+\newcommand{\branch}{\mathsf{branch}}
+\newcommand{\loopshape}{\mathsf{loop}}
+
+% frameworks category name: \Frm_1
+\newcommand{\Frm}{\mathsf{Frm}} % so \Frm_1 works
+
+% example navigation generators (purely illustrative)
+\newcommand{\TRYMODEL}{\mathsf{TRYMODEL}}
+\newcommand{\ADDASSUMPTION}{\mathsf{ADDASSUMPTION}}
+\newcommand{\DROPASSUMPTION}{\mathsf{DROPASSUMPTION}}
+\newcommand{\MERGE}{\mathsf{MERGE}}
+\newcommand{\RESTART}{\mathsf{RESTART}}
+
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\shape}{\mathsf{shape}}
+
+\newcommand{\Inst}{\mathsf{Inst}}
+\newcommand{\HP}{\mathcal{HP}}
+\newcommand{\Sem}{\mathsf{Sem}}
+\newcommand{\Esem}{\mathcal{E}_{\mathrm{sem}}}
+
+\newcommand{\Empty}{\varnothing}
+\newcommand{\Eobj}{E}
+\newcommand{\Tobj}{T}
+
+% Semantic brackets
+\newcommand{\sem}[1]{\llbracket #1 \rrbracket}
+
+% Semidirect / Grothendieck notation
+\newcommand{\NltimesE}{\Ncat \ltimes \Ecat}
+\newcommand{\NltimesEsem}{\Ncat \ltimes \Esem}
+
+% Logic-ish convenience
+\newcommand{\defeq}{\mathrel{\vcentcolon=}}
+\newcommand{\eqdef}{\mathrel{=\vcentcolon}}
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Foundational Reasoning and Feedback Protocol (FRFP): A Formal Architecture for Long-Horizon Human--AI Collaboration}
+
+% MDPI internal command: Title for citation in the left column
+\TitleCitation{Title}
+
+% Author Orchid ID: enter ID or remove command
+\newcommand{\orcidauthorA}{0009-0008-2862-5041} % Add \orcidA{} behind the author's name
+%\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
+
+% Authors, for the paper (add full first names)
+\Author{Vijaya Nadendla $^{1,\dagger}$\orcidA{}}
+
+%\longauthorlist{yes}
+
+% MDPI internal command: Authors, for metadata in PDF
+\AuthorNames{Vijaya Nadendla}
+
+% MDPI internal command: Authors, for citation in the left column, only choose below one of them according to the journal style
+% If this is a APA style journal 
+% (admsci, behavsci, businesses, econometrics, economies, education, ejihpe, games, humans, ijfs, journalmedia, jrfm, languages, psycholint, publications, tourismhosp, youth): 
+% Lastname, F., Lastname, F., \& Lastname, F.
+
+% If this is a Chicago style journal 
+% (arts, genealogy, histories, humanities, jintelligence, laws, literature, religions, risks, socsci): 
+% Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
+
+% If this is a ACS style journal (Except for the above Chicago and APA journals, all others are in the ACS format): 
+% Lastname, F.; Lastname, F.; Lastname, F.
+\isAPAStyle{%
+       \AuthorCitation{Lastname, F., Lastname, F., \& Lastname, F.}
+         }{%
+        \isChicagoStyle{%
+        \AuthorCitation{Lastname, Firstname, Firstname Lastname, and Firstname Lastname.}
+        }{
+        \AuthorCitation{Lastname, F.; Lastname, F.; Lastname, F.}
+        }
+}
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address[1]{%
+$^{1}$ \quad Affiliation; Independent Researcher}
+
+% Contact information of the corresponding author
+\corres{Correspondence: vnadendla@gmail.com; Tel.:   +01-609-510-4995}
+
+% Current address and/or shared authorship
+\firstnote{Current address: 51 Linwood Dr Monroe Township NJ 08831.}  % Current address should not be the same as any items in the Affiliation section.
+
+% The commands \thirdnote{} till \eighthnote{} are available for further notes
+
+%\simplesumm{} % Simple summary
+
+%\conference{} % An extended version of a conference paper
+\nolinenumbers
+% Abstract (Do not insert blank lines, i.e. \\) 
+\abstract{This paper investigates conditions under which AI systems in high-stakes scientific and regulatory workflows can be governed and trusted using only automated checks, and when human tacit judgment remains structurally necessary. We introduce FRFP, a categorical protocol model that separates explicit artefacts (prompts, tools, reports) from tacit states (understanding, judgment), with a single boundary and a small set of epistemic primitives, and show that this “kernel” is initial/canonical among architectures satisfying our explicit–tacit axioms. Building on this, we develop a dynamic model with finite tacit capacity, degradation, and requirement maps, and analyze stochastic pipelines via hazard profiles and safe-horizon functionals. Under the FRFP assumptions, we prove conditional inevitability theorems: along sufficiently long runs, some accepted output will fall below its grounding requirement, and no explicit-only detector, oracle, or governance operator can guarantee the absence of hallucination—i.e., can guarantee correctness across all admissible pipelines and populations. We extend the framework to collective and institutional settings and derive structural non-automation results for governance. We close with protocol templates, case sketches, and FRFP-compatible instruction sets that demonstrate how the formal architecture, given the stated assumptions on explicit–tacit separation and degradation, constrains the design of realistic human–AI workflows.}
+
+% Keywords
+\keyword{Human–AI collaboration; epistemic governance; tacit knowledge; explicit–tacit separation; AI safety; long-horizon reasoning; category theory; sociotechnical systems} 
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+%\PACS{J0101}
+%\MSC{}
+%\JEL{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Diversity
+%\LSID{\url{http://}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Applied Sciences
+%\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Data
+%\dataset{DOI number or link to the deposited data set if the data set is published separately. If the data set shall be published as a supplement to this paper, this field will be filled by the journal editors. In this case, please submit the data set as a supplement.}
+%\datasetlicense{License under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Toxins
+%\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Encyclopedia
+%\encyclopediadef{For entry manuscripts only: please provide a brief overview of the entry title instead of an abstract.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Advances in Respiratory Medicine and Smart Cities
+%\addhighlights{yes}
+%\renewcommand{\addhighlights}{%
+
+%\noindent This is an obligatory section in “Advances in Respiratory Medicine'' and ``Smart Cities”, whose goal is to increase the discoverability and readability of the article via search engines and other scholars. Highlights should not be a copy of the abstract, but a simple text allowing the reader to quickly and simplified find out what the article is about and what can be cited from it. Each of these parts should be devoted up to 2~bullet points.\vspace{3pt}\\
+%\textbf{What are the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}\vspace{3pt}
+%\textbf{What are the implications of the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\nolinenumbers  %remove comment while editing
+\pagebreak
+\tableofcontents %remove comment while editing
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\begin{comment}
+AI-based reasoning systems are increasingly used as partners in scientific work: they propose conjectures, sketch proofs, draft experiments, and synthesise literature. A single project can now involve months of back-and-forth with a collection of such tools: conjectures refined, drafts rewritten, code patched, experiments reprioritized. This creates both opportunities and risks. These systems can operate over large explicit structures that are difficult for humans to inspect directly, but they can also generate plausible yet invalid or insufficiently grounded content, sometimes with high confidence. In most current workflows, humans and AI systems interact in an untyped, informal way. Inputs, outputs, and corrections share a single channel; correctness judgments are not explicitly separated from exploratory or heuristic suggestions; and long interaction traces (a sequence of human–AI messages; see Section~2 for a formal definition) ...
+ often suffer from semantic drift. This makes it difficult to reason formally about correctness, responsibility, and long-run behaviour.
+
+We understand the scientific method as the organised process of proposing explicit hypotheses or models, deriving predictions, gathering empirical data, and revising or rejecting those hypotheses in light of the evidence. Over time, the scientific community has developed institutional practices that help stabilise scientific claims: repeatable procedures, reproducible results, and organised peer review of conclusions. Our FRFP protocol is designed to represent these patterns in a unified way, by separating explicit artefacts\footnote{By \emph{explicit} we mean artefacts that can be represented as finite, machine-manipulable symbolic structures (text, code, programs, datasets, proofs, etc.) without loss of their correctness-relevant content. In the formal development these form the explicit space \(E\).} (hypotheses, models, data, analyses) from tacit judgments\footnote{By \emph{tacit} we mean human-exclusive evaluative states—understanding, background know-how, and context-dependent judgment—that bear correctness authority and are not treated, in FRFP, as fully captured by any fixed finite symbolic encoding. In the formal development these form the tacit space \(T\).} about their adequacy, credibility, and acceptance.
+
+In this paper, we introduce a protocol-level design for human--AI collaboration, the \textbf{Foundational Reasoning and Feedback Protocol (FRFP)}, with three aims:
+\begin{itemize}
+  \item to provide a formal semantics for mixed human--AI reasoning trajectories;
+  \item to make explicit the boundary between what AI systems may and may not do in scientific workflows;
+\item to enable theorem-level analysis of correctness and long-run behaviour (for example, conditions under which certain kinds of hallucination cannot be ruled out).\footnote{Throughout, such ``inevitability'' claims are made only within the FRFP formalism and under the assumptions set out in Section~\ref{sec:dynamics}, not as universal statements about all possible AI systems.}
+\end{itemize}
+\end{comment}
+\noindent
+AI-based reasoning systems are increasingly used as partners at work across domains from science to business: they draft, critique, plan, and propose. A single project can now involve months of back-and-forth with multiple such tools---drafts rewritten, code patched, analyses rerun, experiments reprioritised, decisions revisited---creating both opportunities and risks. These systems can operate over large explicit structures that humans cannot easily inspect, yet they can also produce plausible but invalid or weakly grounded content, sometimes with high confidence.  Complex systems are routinely built and operationalised from imperfect components by adding redundant layers of safety checks and escalation paths\cite{nrc_defense_in_depth_glossary,iaea_insag10_defence_in_depth_1996,reason_human_error_models_management_2000,reason_latent_human_failures_complex_systems_1990}. The same engineering fact suggests a protocol view of human--AI collaboration: reliability should be an emergent property of the workflow, not an assumption about any single component.
+
+\smallskip
+\noindent
+The core issue is not occasional error but \textbf{unstabilised collaboration}: we increasingly depend on long, multi-step human--AI workflows whose intermediate artefacts, assumptions, and evaluation criteria shift over time. In many settings this drift occurs inside one conversational channel, with no stable separation between exploration and acceptance and no durable checkpoints where correctness and responsibility are explicitly reasserted. As a result, most workflows remain untyped and informal: inputs, outputs, and corrections share a channel; correctness judgments are not separated from heuristic suggestions; and long interaction traces (a sequence of human--AI messages; see Section~2 for a formal definition) often suffer semantic drift---making correctness, responsibility, and long-run behaviour hard to analyse \cite{laban_llms_get_lost_multiturn_2025,dongre_drift_no_more_context_equilibria_2025,arike_evaluating_goal_drift_agents_2025,choi_identity_drift_llm_agents_2024}.
+
+\smallskip
+\noindent
+We take the scientific method as organising inspiration because its stabilisation norms---replication, reproducibility, and peer review---are historically established and widely standardised, providing a canonical template for converting exploratory work into accepted claims.\footnote{We use ``scientific'' for workflows whose primary aim is stable, publicly checkable claims about the world, stabilised by intersubjective norms such as replication, reproducibility, and peer review. By contrast, much non-scientific work aims at action under objectives and constraints (e.g., safety, cost, policy, profit), where acceptance is stabilised by organisational controls (tests, audits, approvals, monitoring) rather than truth-claims alone. The same explicit/tacit separation applies in both: what changes is the form of ``evidence'' and the institutional mechanism of acceptance.}
+We abstract from that template a \textbf{domain-general} protocol for human--AI collaboration: in non-scientific settings (business, policy, engineering), ``evidence'' and ``review'' differ in form, but the same long-horizon drift and accountability problems arise. Most examples in this paper are non-scientific.
+
+\smallskip
+\noindent
+In this paper, we introduce a protocol-level design for human--AI collaboration, the \emph{Foundational Reasoning and Feedback Protocol} (FRFP), with three aims:
+\begin{itemize}
+  \item to provide a formal semantics for mixed human--AI reasoning trajectories;
+  \item to make explicit the boundary between what AI systems may and may not do in such workflows;
+  \item to enable theorem-level analysis of correctness and long-run behaviour, including conditions under which certain kinds of hallucination cannot be ruled out.\footnote{Throughout, such ``inevitability'' claims are made only within the FRFP formalism and under the assumptions set out in Section~\ref{sec:epistemicdynamics}, not as universal statements about all possible AI systems.}
+\end{itemize}
+
+\noindent
+FRFP’s central design choice is a sharp separation between two modes of operation: an \emph{explicit} mode of machine-manipulable representations and pipelines, and a \emph{tacit} mode of human-exclusive evaluative, correctness-bearing states. AI systems are confined to explicit mode; only humans inhabit tacit mode. A single review-and-belief-update boundary carries explicit artefacts into tacit evaluation, with no direct channel in the opposite direction. The rest of the paper formalises this architecture and studies long-horizon human--AI workflows within it.
+
+\smallskip
+\noindent
+Informally, FRFP is a human--AI conversational calculus: a typed calculus of interaction traces in which AI systems make only explicit moves, humans retain tacit correctness-bearing moves, and entire workflows admit compositional semantics and dynamic analysis.
+\begin{comment}
+
+\paragraph{Scope of novelty.}
+We rely on standard categorical constructions---free categories, groupoids, fibrations, Grothendieck constructions---but assemble them in service of explicit/tacit separation and feedback in human--AI workflows. The novelty lies in:
+\begin{enumerate}
+  \item isolating a small set of epistemic primitives (explicit/tacit separation, boundary, feedback);
+  \item combining them into a compositional architecture in which system-level properties (e.g., auditability, correctness preservation, and conditional inevitability results for certain failure modes such as hallucination) can be formulated and proved as theorems inside the FRFP assumptions; and
+  \item working at a level of abstraction that allows later work to reuse existing categorical theory rather than inventing bespoke formalisms for each application domain.
+\end{enumerate}
+    
+\end{comment}
+
+\subsection{Scope of novelty.}
+We rely on standard categorical constructions---free categories, groupoids, fibrations, and Grothendieck constructions---but assemble them as follows to formalise explicit/tacit separation and feedback in human--AI workflows:
+\begin{enumerate}
+  \item a minimal set of epistemic primitives (explicit/tacit separation, boundary, feedback);
+  \item a compositional architecture in which system-level properties---auditability, correctness preservation, and conditional inevitability results for failure modes such as hallucination---are stated and proved as theorems under FRFP assumptions; and
+  \item an abstraction level that lets later work reuse existing categorical theory rather than introducing bespoke formalisms per application domain.
+\end{enumerate}
+
+Our use of FRFP in this paper is threefold: we prove theorems internal to the model; we conjecture that its structural assumptions approximate many high-stakes workflows in practice; and, conditional on that empirical premise, we derive design implications for institutional oversight.
+
+\subsection{FRFP architecture overview}
+\label{sec:frfp-architecture-overview}
+We organise FRFP into five epistemic layers:
+
+\textbf{Interaction Protocols.}
+Rules governing human--AI interaction: who may say what, in which modes (explicit vs.\ meta-level), and in which order. This layer constrains admissible traces but does not yet assign meaning.
+
+\textbf{Epistemic Spaces.}
+Admissible traces are interpreted over two state spaces.\footnote{We use ``epistemic'' in the standard sense: pertaining to knowledge, belief, or correctness-bearing state. In FRFP, epistemic structures track correctness-relevant information (what is written down, computed, or logged, and what is tacitly accepted), as distinct from surface interaction structure.}
+We distinguish: (i) an explicit space of knowledge-like artefacts (what is written down, computed, or logged); and (ii) a tacit space of correctness-bearing states (what humans accept or are prepared to stand behind). A one-way boundary maps explicit artefacts into tacit evaluation.
+
+\textbf{Epistemic Algebra.}
+This layer specifies the allowed \emph{operations} on explicit workflows---how we decompose tasks into steps, compose steps into pipelines, navigate between subproblems, and refactor a workflow without changing its intent. These operations act only on explicit artefacts. At designated review points, the one-way boundary carries the current explicit artefact(s) into tacit evaluation, producing a human judgment update. The result is an ``algebra'' of explicit workflows equipped with a tacit correctness semantics: we can reason about how workflow transformations affect what a human ends up accepting.
+
+In this volume we keep the tacit side intentionally minimal. We treat the tacit space $T$ and its operators as a correctness-bearing interface: a black-box human layer that (i) receives explicit artefacts only via the one-way boundary and (ii) exposes only a finite, observable set of judgments. The technical structure therefore lives on the explicit side. Detailed models of individual cognition or institutional psychology are out of scope and deferred.
+
+
+\textbf{Epistemic Dynamics.}
+The evolution of knowledge- and correctness-bearing state over time and under load: tacit degradation, requirement schedules, hallucination as requirement violation, and safe horizons for running a workflow.
+
+\textbf{Collective Epistemic Dynamics.}
+Knowledge and correctness in populations and institutions: multiple agents sharing explicit artefacts, communicating via conversational workflows, and operating under policies, committees, and governance operators. This layer captures collective dynamics and the limits of explicit-only consensus and governance.
+
+\textbf{Running example.}
+Throughout the paper we illustrate these layers with a simple case: a human uses an AI assistant to choose a ``best'' airfare, where best is not cheapest. The assistant may explore and structure options, but the accept/reject judgment remains with the human.
+
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    node distance=1.2cm,
+    box/.style={
+      rectangle,
+      draw=black,
+      rounded corners,
+      align=center,
+      text width=0.9\linewidth,
+      minimum height=0.9cm
+    }
+  ]
+    \node[box] (ip) {Interaction Protocols\\[2pt]
+      \footnotesize Rules about how humans and AI may interact: who may say what, in which modes (explicit vs.\ meta-level), and in which order.};
+    \node[box, above=of ip] (es) {Epistemic Spaces\\[2pt]
+      \footnotesize The state those interactions manipulate: an explicit space of knowledge-like artefacts (what is written down, computed, or logged) and a tacit space of correctness-bearing states (what humans accept or stand behind), linked by a one-way boundary.};
+    \node[box, above=of es] (ea) {Epistemic Algebra\\[2pt]
+      \footnotesize Operations on explicit workflows that transform epistemic state: task decomposition, composition, navigation, and refactoring. These act on explicit artefacts and, via the boundary, induce changes in tacit states.};
+    \node[box, above=of ea] (ed) {Epistemic Dynamics\\[2pt]
+      \footnotesize How knowledge- and correctness-bearing states evolve over time and under load: tacit degradation, requirement schedules, hallucination as requirement violation, and safe horizons for running a given workflow.};
+    \node[box, above=of ed] (ced) {Collective Epistemic Dynamics\\[2pt]
+      \footnotesize How knowledge and correctness behave in populations and institutions: multiple agents sharing explicit artefacts, communicating via conversational workflows, and operating under policies, committees, and governance operators.};
+
+    \draw[->] (ip) -- (es);
+    \draw[->] (es) -- (ea);
+    \draw[->] (ea) -- (ed);
+    \draw[->] (ed) -- (ced);
+  \end{tikzpicture}
+  \caption{FRFP as a human--AI conversational calculus with five epistemic layers. Interaction protocols constrain admissible H--AI interactions. Epistemic spaces specify the explicit and tacit states those interactions act on. Epistemic algebra equips explicit workflows with compositional structure and a tacit correctness semantics. Epistemic dynamics models how these epistemic states evolve over time and under load, and collective epistemic dynamics lifts the architecture to populations and institutions.}
+  \label{fig:frfp-architecture-overview}
+\end{figure}
+
+
+
+
+This paper is Volume~1 of a three-volume programme.
+
+\begin{description}
+  \item[Volume 1: FRFP core.] Develop the formal architecture of FRFP---its abstract objects and inevitability results---using category-theoretic tools. Deeper mathematical developments are deferred to a companion pack of technical notes. Informally: \emph{what is structurally true of long-horizon human--AI workflows, regardless of institutional convenience?}
+
+  \item[Volume 2: Case studies and design patterns.] Apply the framework to concrete domains (e.g., scientific assistants, clinical decision support, trading systems, autonomous driving) to test its assumptions and extract design patterns. Informally: \emph{given these structural constraints, what works or fails in real deployments?}
+
+  \item[Volume 3: Tooling and disciplined agents.] Develop practical tooling around FRFP (run-keepers, context managers, CMS integration, adapters, competence monitors) to support disciplined human--AI workflows. Informally: \emph{given what works, what should we build so others can use these systems without unacceptable risk to themselves or others?}
+\end{description}
+
+
+\subsection{Intended audiences and reading paths.}
+This volume (Volume~1) and its companion materials target three overlapping audiences:
+\begin{enumerate}
+  \item \textbf{Category theory and rewriting readers.} Readers comfortable with category theory and rewriting systems can read Volume~1 directly, using the companion technical pack~[CP] for notation, background, and longer proofs.
+  \item \textbf{AI safety and governance readers.} Readers less familiar with category theory should begin with the informal overview and glossary in~[CP] before entering the technical core of Volume~1. That material isolates the few constructions needed for the main claims (explicit/tacit separation, the FRFP boundary, the formal notion of hallucination, and the long-horizon dynamic model) without assuming prior exposure to fibrations or Grothendieck constructions.
+  \item \textbf{Practitioners.} Readers primarily interested in design implications may start with the non-technical exposition and case studies in Volume~2, treating Volume~1 and~[CP] as reference background, and Volume~3 as a source of concrete tooling for disciplined deployment.
+\end{enumerate}
+\subsection{Contributions}
+
+Formally and conceptually, this volume makes the following contributions.
+\begin{enumerate}
+  \item \textbf{Explicit--tacit epistemic architecture.}
+  We propose FRFP as an explicit--tacit architecture for long-horizon human--AI workflows, based on an explicit/tacit separation and a one-way review boundary.
+
+  \item \textbf{Category-theoretic realisation and semantics.}
+  We realise this architecture category-theoretically: an algebra of explicit pipelines and a semantics mapping whole workflows to tacit correctness judgments. In the model, correctness is invariant under admissible explicit transformations and navigation, so system-level properties can be stated and proved at the pipeline level rather than per step.
+
+  \item \textbf{Dynamics of tacit context and hallucination.}
+  We develop a qualitative long-horizon dynamic model: tacit capacity is finite and degrades under load; requirements evolve; and feedback from explicit artefacts shapes future judgments. Under these assumptions we prove conditional inevitability results: over sufficiently long admissible runs, failure modes including hallucination (accepting artefacts that do not meet active requirements) cannot be ruled out, and safe horizons are necessarily finite even when explicit semantics are fixed.
+
+  \item \textbf{Collective and stochastic settings.}
+  We extend the analysis from single users to populations and from deterministic to stochastic implementations. We model collective executions as processes over populations of tacit states, analyse how consensus interacts with explicit--tacit separation, and show that stochasticity determines which failure trajectory is realised rather than precluding failure, yielding notions such as hazard profiles and safe-horizon functionals.
+
+  \item \textbf{Limits of explicit-only mechanisms and non-automation.}
+  From explicit--tacit separation and human-exclusive grounding of correctness, we derive conditional impossibility results for purely explicit mechanisms. Under FRFP assumptions, no explicit-only detector or governance operator can guarantee the absence of hallucination or correctness failure across all admissible pipelines and populations. This yields a structural non-automation claim: in domains fitting the FRFP architecture, tacit human oversight is necessary at the governance layer.
+
+  \item \textbf{Disciplined agents and FRFP-compatible tooling.}
+  We introduce \emph{disciplined agents}: AI tools and surrounding infrastructure confined to the explicit side of FRFP, exposing reasoning in pipeline form and integrating with tacit oversight rather than replacing it. We state requirements (e.g., source--reason traceability, navigation integrity, explicit confinement) and outline supporting tooling (run-keepers, context managers, competence monitors).
+
+  \item \textbf{Protocols, case studies, and design patterns.}
+  We translate the formal architecture into protocol-level design principles for long-horizon human--AI collaboration. We state foundational rules for FRFP-compatible practice (explicit confinement, human-exclusive grounding, source--reason traceability, integrity under navigation), illustrate them in case studies (e.g., literature review, financial scenario analysis), and give examples of FRFP-aligned system instructions and prompting patterns for explicit-only tools. These patterns show how FRFP can constrain interfaces, workflows, and institutional arrangements in high-stakes settings.
+\end{enumerate}
+
+\subsection{Related Work}
+
+Our work sits at the intersection of formal semantics, human--AI interaction, AI safety governance, and social epistemology. We position FRFP against mechanised reasoning, categorical semantics and rewriting, HCI-style human--AI frameworks, governance and evaluation protocols, and formal models of scientific communities, and then relate it to the hallucination and calibration literature.
+
+\subsubsection{Interactive proof, type theory, and mechanised reasoning.}
+Proof assistants and type-theoretic systems (e.g., Coq, Isabelle, Lean) distinguish proof objects from proof scripts and provide soundness guarantees for derivations within a fixed formal calculus. Users supply goals and proof terms; the central question is whether a term inhabits a type or a proof object checks a specification. FRFP is orthogonal: we do not propose a new logic or proof theory, and correctness is not a syntactic property of explicit objects. Instead, correctness is a tacit attribute of human epistemic state, accessed only via the explicit--tacit boundary, and the target is long-horizon workflows in which correctness cannot be reduced to proof checking or type inference.
+
+Within a fixed formal system, some correctness properties (e.g., that a proof term checks) are decidable and verifiable entirely in explicit space. In FRFP terms, provers and test harnesses act as explicit correctness engines: morphisms internal to $E$ that certify properties of explicit artefacts. Our non-automation results address a broader, tacit notion of correctness for real-world workflows and institutions, which cannot be discharged by any explicit-only oracle. Such tools are therefore best viewed as tacit-insensitive inner layers: once a calculus and specification are tacitly fixed, inner-task correctness becomes explicit, while tacit judgment continues to govern the choice, adequacy, and revision of the formalism itself (Appendix~D.4).
+
+\subsubsection{Category theory and categorical semantics.}
+The categorical tools we use---free categories, groupoids, (op)fibrations, Grothendieck constructions---are standard in categorical semantics of languages and logics, where they model syntax/semantics maps, type systems, effects, and compositional program behaviour. Our contribution is to repurpose these tools for epistemic roles in mixed human--AI reasoning: explicit and tacit subcategories linked by a one-way boundary, navigation capturing refactoring and exploration, and a combined workflow category in which whole runs are single compositional objects. This supports theorem-level statements of auditability, correctness invariance, and explicit-only impossibility results as properties of a unified architecture rather than informal desiderata.
+
+\subsubsection{Rewriting, confluence, and canonical forms.}
+Our explicit reduction systems and confluence arguments draw on standard abstract reduction systems and termination/confluence techniques from term rewriting. The novelty is not the rewriting machinery but its epistemic role: normalisation shows that admissible explicit refactorings and navigation steps collapse to canonical forms that induce the same tacit correctness judgments. Rewriting thus yields invariance of tacit acceptance under the exploratory restructuring typical of long-horizon human--AI pipelines.
+
+\subsubsection{HCI-style human--AI interaction and appropriate reliance.}
+HCI and human--AI interaction research studies task allocation, communication, and co-adaptation, often organised along dimensions such as locus of control, initiative, transparency, and feedback. Recent surveys and experiments analyse trust, distrust, and \emph{appropriate reliance}, including how explanations and interface choices affect over- and under-reliance \cite{Eckhardt2024Reliance,Schemmer2023Appropriate,Visser2025Trust}. These approaches typically treat the boundary at the level of tasks and interfaces, with correctness and responsibility mediated by constructs such as calibrated assistance. FRFP is compatible in spirit but imposes a sharper architectural constraint: correctness is, by construction, human-exclusive. AI-mediated operations remain in explicit space; systems cannot access tacit state as input or cross the explicit--tacit boundary; and interaction patterns such as suggestion and critique are treated as morphisms in a formal workflow semantics. This yields invariance and impossibility results at the class-of-interactions level and provides an architectural envelope within which HCI design choices must sit.
+
+\subsubsection{AI safety governance, risk committees, and evaluation protocols.}
+AI safety and governance literatures emphasise organisational and regulatory mechanisms: safety frameworks, red-teaming, incident response, internal risk committees, standardised evaluation suites, and secure development practices, often organised as multi-line-of-defence models. Recent syntheses, such as METR's \emph{Common Elements of Frontier AI Safety Policies}, extract shared components of lab policies for capability thresholds, evaluations, deployment safeguards, and governance structures \cite{METRCommonElements}. These proposals typically treat correctness or hallucination as system properties measured by evaluations (e.g., benchmark failure rates) and assume that appropriately designed protocols deliver acceptably low failure.
+
+FRFP differs in three respects. First, evaluations, committees, and governance operators are explicit constructions atop the workflow architecture; questions such as whether explicit-only consensus can recover correctness, or whether a fully automated governance oracle can exist, become formal questions about morphisms and functors. Second, explicit--tacit separation yields explicit-only impossibility results: under FRFP assumptions, broad classes of detectors, consensus mechanisms, and governance operators cannot, in principle, recover tacit correctness or eliminate hallucination across all admissible pipelines and populations. Third, FRFP introduces dynamic safe horizons: rather than focusing only on static capability scores, we analyse degradation, requirement schedules, and hazard profiles for whole workflows, shifting attention from benchmark scores to how long a given protocol can be run under specified controls before risk exceeds a tolerable threshold.
+
+\subsubsection{Epistemic models of scientific communities.}
+Formal social epistemology and philosophy-of-science models represent communities as stylised agents that select research options, exchange evidence or beliefs, and update via simple rules. Work on \emph{network epistemology} studies how communication structure and incentives affect convergence, replication success, and the division of cognitive labour \cite{Zollman2013Network,Grim2013ScientificNetworks}. These models share FRFP's interest in individual versus collective performance and institutional structure, but typically work with explicit belief states (e.g., probability vectors or epistemic landscapes) and rarely separate explicit representations from tacit state. FRFP instead builds explicit/tacit modality into the foundation: explicit objects are manipulable by AI systems and institutions, while tacit states remain human and correctness-bearing. This underwrites results showing that certain institutional arrangements cannot reconstruct correctness from explicit data alone.
+
+\subsubsection{Hallucination, calibration, and uncertainty in language models.}
+Work on hallucination, calibration, and uncertainty surveys failure modes and benchmarks, develops semantic-uncertainty methods, and studies when models can assess their own correctness and why standard training pipelines yield hallucinations and miscalibration \cite{Zhang2023Siren,Huang2025HallucinationSurvey}. Hallucination is typically treated as mismatch between outputs and a ground-truth distribution or benchmark; the focus is on architectures, training objectives, or decoding strategies that reduce or detect such errors. FRFP instead treats hallucination as a protocol-level property: a mismatch between tacit context and active requirements at the moment an explicit artefact is accepted. The definition is model-agnostic but institution-dependent, since requirement maps encode domain- and institution-specific standards. Model-side detectors can reduce short-run error by filtering artefacts before acceptance, but so long as tacit state degrades and nontrivial requirements recur, our dynamic analysis implies that sufficiently long admissible runs will eventually include requirement-violating acceptances. Because detectors operate entirely in explicit space, they cannot arrest long-run degradation of tacit grounding. FRFP is therefore complementary to model-level hallucination and calibration work, but targets protocol and governance design and the limits of explicit-only guarantees.
+
+\subsubsection{Human--AI collaboration and protocol design.}
+There is a growing literature on AI support for discovery, literature review, hypothesis generation, experimental design, and broader knowledge work, typically organised around specific tasks, phases, or interface patterns. Much of this work optimises local performance (speed, coverage, quality) and studies usability constructs (transparency, control, reliance), but leaves long-horizon questions---semantic drift across extended traces, responsibility for acceptance, and the limits of automation---only implicitly specified. FRFP provides a protocol-level frame: long-horizon workflows are treated as compositions in an explicit workflow architecture with a fixed boundary to tacit space. Within this frame, ``copilots'', risk committees, and red-team evaluations become concrete patterns of morphisms and institutions. FRFP's distinctive combination is an explicit/tacit semantic architecture with human-exclusive correctness, a dynamic theory of tacit degradation and protocol-level hallucination with inevitability results, and an institutional layer yielding structural non-automation and explicit-only impossibility results for governance mechanisms.
+
+
+\input{MainPaper}
+\pagebreak
+\appendix
+\section{Mathematical Foundations}
+\label{app:math-foundations}
+\subsection{Static Epistemic Architecture and Algebra} % old Appendix A
+\label{app:static-epistemic}
+% C_full, E/T, RB, primitives, TDG, N ⋉ E, rewriting, semantic functor, correctness
+\input{appendix_a_la_te_xDEC17}
+\subsection{Epistemic Dynamics and Safe Horizons} % old B
+\label{app:dynamics}
+% tacit degradation, Req, hallucination, inevitability, stochastic pipelines, hazard, H_P
+\input{appendix_b_la_te_xDEC17}
+\subsection{Collective Epistemic Dynamics} % old C
+\label{app:collective}
+% populations, communication graphs, collective τ, consensus functors, etc.
+\input{appendix_c_la_te_xDEC20}
+\subsection{Explicit-Only Impossibility and Non-Automation} % old D
+\label{app:impossibility}
+% explicit-only detector/oracle impossibility, tacit dependence, etc.
+\input{appendix_d_la_te_xDEC20}
+\subsection{Institutional Operators and Aggregation} % old E
+\label{app:institutions-math}
+\input{appendix_e_la_te_xDEC20}
+%institutional aggregation over populations, formal definitions (without the conceptual prose)
+\input{appendix_f_la_te_xDEC20}
+\pagebreak
+\section{FRFP Applications}
+\label{app:applications}
+
+\subsection{Disciplined Agents and Tooling} % old G
+\label{app:disciplined-agents}
+% definition, requirements, adapters, competence monitor, CMS integration
+\input{DistributedAgents}
+\subsection{Protocol Templates and Design Patterns} % old I (minus I.4)
+\label{app:protocol-templates}
+% foundational rules, reproducibility protocol, closure criteria, FRFP-compatible practices
+\input{Protocols}
+\subsection{System Instructions for Explicit-Only AI Tools} % old K
+\label{app:system-instructions}
+% full FRFP-compliant system prompt, role, constraints, etc.
+\input{LLMinstructions}
+\subsection{FRFP-Aware Prompting Patterns} % old L (optional but it fits here)
+\label{app:prompting-patterns}
+% incentive / stakes / deep-breath / self-check patterns, and how they respect the protocol
+\input{promptexamples}
+
+\section{Case Studies}
+\label{app:case-studies}
+\input{caststudies}
+%\subsection{ICU Sepsis Prediction Literature Review} % old J.1
+%\label{app:sepsis-literature}
+% pipeline structure, explicit/tacit roles, navigation, decision points
+
+%\subsection{Financial Scenario Analysis and Stress Testing} % old J.2 + I.4
+%\label{app:finance-stress}
+% scenario generation, explicit pipelines, tacit acceptance, safe horizons picture
+
+%\subsection{Sepsis Consult as an FRFP Pipeline} % old A.7
+%\label{app:sepsis-pipeline}
+% the detailed worked pipeline that used to sit in the math appendix
+
+\pagebreak
+\section{Background on Explicit/Tacit Knowledge and Human Oversight}
+\label{app:background}
+\input{ETSAppendix}
+%%\input{Business}
+%\pagebreak
+\input{frfp-references}
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Materials and Methods}
+
+Materials and Methods should be described with sufficient details to allow others to replicate and build on published results. Please note that publication of your manuscript implicates that you must make all materials, data, computer code, and protocols associated with the publication available to readers. Please disclose at the submission stage any restrictions on the availability of materials or information. New methods and protocols should be described in detail while well-established methods can be briefly described and appropriately cited.
+
+Research manuscripts reporting large datasets that are deposited in a publicly avail-able database should specify where the data have been deposited and provide the relevant accession numbers. If the accession numbers have not yet been obtained at the time of submission, please state that they will be provided during review. They must be provided prior to publication.
+
+Interventionary studies involving animals or humans, and other studies require ethical approval must list the authority that provided approval and the corresponding ethical approval code.
+\begin{quote}
+This is an example of a quote.
+\end{quote}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+This section may be divided by subheadings. It should provide a concise and precise description of the experimental results, their interpretation as well as the experimental conclusions that can be drawn.
+\subsection{Subsection}
+\subsubsection{Subsubsection}
+
+Bulleted lists look like this:
+\begin{itemize}
+\item	First bullet;
+\item	Second bullet;
+\item	Third bullet.
+\end{itemize}
+
+Numbered lists can be added as follows:
+\begin{enumerate}
+\item	First item; 
+\item	Second item;
+\item	Third item.
+\end{enumerate}
+
+The text continues here.
+
+\subsection{Figures, Tables and Schemes}
+
+All figures and tables should be cited in the main text as Figure~\ref{fig1}, Table~\ref{tab1}, etc.
+
+\begin{figure}[H]
+\isPreprints{\centering}{} % Only used for preprints
+\includegraphics[width=7 cm]{Definitions/logo-mdpi}
+\caption{This is a figure. Schemes follow the same formatting.\label{fig1}}
+\end{figure}   
+\unskip
+
+\begin{table}[H] 
+%\tablesize{\small}
+\caption{This is a table caption. Tables should be placed in the main text near to the first time they are~cited.\label{tab1}}
+%\isPreprints{\centering}{} % Only used for preprints
+\begin{tabularx}{\textwidth}{CCC}
+\toprule
+\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}\\
+\midrule
+Entry 1		& Data			& Data\\
+Entry 2		& Data			& Data \textsuperscript{1}\\
+\bottomrule
+\end{tabularx}
+
+\noindent{\footnotesize{\textsuperscript{1} Tables may have a footer.}}
+\end{table}
+
+The text continues here (Figure~\ref{fig2} and Table~\ref{tab2}).
+
+% Example of a figure that spans the whole page width and with subfigures. The same concept works for tables, too.
+\begin{figure}[H]
+\centering
+\isPreprints{}{% This command is only used for ``preprints''.
+\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}
+\hfill
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}\\
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}
+\hfill
+\subfloat[\centering]{\includegraphics[width=7.7cm]{Definitions/logo-mdpi}}
+\isPreprints{}{% This command is only used for ``preprints''.
+\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\caption{This is a wide figure. Schemes follow the same formatting. If there are multiple panels, they should be listed as: (\textbf{a}) Description of what is contained in the first panel. (\textbf{b}) Description of what is contained in the second panel. (\textbf{c}) Description of what is contained in the third panel. (\textbf{d}) Description of what is contained in the fourth panel. Figures should be placed in the main text near to the first time they are cited. A caption on a single line should be centered.\label{fig2}}
+\end{figure} 
+
+\begin{table}[H]
+\caption{This is a wide table.\label{tab2}}
+\isPreprints{\centering}{% This command is only used for ``preprints''.
+	\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\isPreprints{\begin{tabularx}{\textwidth}{CCCC}}{% This command is only used for ``preprints''.
+		\begin{tabularx}{\fulllength}{CCCC}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+			\toprule
+			\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}     & \textbf{Title 4}\\
+			\midrule
+\multirow[m]{3}{*}{Entry 1 *}	& Data			& Data			& Data\\
+			  	                   & Data			& Data			& Data\\
+			             	      & Data			& Data			& Data\\
+                   \midrule
+\multirow[m]{3}{*}{Entry 2}    & Data			& Data			& Data\\
+			  	                  & Data			& Data			& Data\\
+			             	     & Data			& Data			& Data\\
+			\bottomrule
+		\end{tabularx}
+		\isPreprints{}{% This command is only used for ``preprints''.
+	\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+	\noindent{\footnotesize{* Tables may have a footer.}}
+\end{table}
+
+%\begin{listing}[H]
+%\caption{Title of the listing}
+%\rule{\columnwidth}{1pt}
+%\raggedright Text of the listing. In font size footnotesize, small, or normalsize. Preferred format: left aligned and single spaced. Preferred border format: top border line and bottom border line.
+%\rule{\columnwidth}{1pt}
+%\end{listing}
+
+Text.
+
+Text.
+
+\subsection{Formatting of Mathematical Components}
+
+This is the example 1 of equation:
+\begin{linenomath}
+\begin{equation}
+a = 1,
+\end{equation}
+\end{linenomath}
+the text following an equation need not be a new paragraph. Please punctuate equations as regular text.
+%% If the documentclass option "submit" is chosen, please insert a blank line before and after any math environment (equation and eqnarray environments). This ensures correct linenumbering. The blank line should be removed when the documentclass option is changed to "accept" because the text following an equation should not be a new paragraph.
+
+This is the example 2 of equation:
+\isPreprints{}{% This command is only used for ``preprints''.
+\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\begin{equation}
+a = b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z
+\end{equation}
+\isPreprints{}{% This command is only used for ``preprints''.
+\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+
+%% Example of a page in landscape format (with table and table footnote).
+%\startlandscape
+%\begin{table}[H] %% Table in wide page
+%%\isPreprints{\centering}{} % This command is only used for ``preprints''.
+%\caption{This is a very wide table.\label{tab3}}
+%	\begin{tabularx}{\textwidth}{CCCC}
+%		\toprule
+%		\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}	& \textbf{Title 4}\\
+%		\midrule
+%		Entry 1		& Data			& Data			& This cell has some longer content that runs over two lines.\\
+%		Entry 2		& Data			& Data			& Data\textsuperscript{1}\\
+%		\bottomrule
+%	\end{tabularx}
+%%\isPreprints{}{% This command is only used for ``preprints''.
+%	\begin{adjustwidth}{+\extralength}{0cm}
+%%} % If the paper is ``preprints'', please uncomment this parenthesis.
+%		\noindent\footnotesize{\textsuperscript{1} This is a table footnote.}
+%%\isPreprints{}{% This command is only used for ``preprints''.
+%	\end{adjustwidth}
+%%} % If the paper is ``preprints'', please uncomment this parenthesis.
+%\end{table}
+%\finishlandscape
+
+
+Please punctuate equations as regular text. Theorem-type environments (including propositions, lemmas, corollaries etc.) can be formatted as follows:
+%% Example of a theorem:
+\begin{Theorem}
+Example text of a theorem.
+\end{Theorem}
+
+The text continues here. Proofs must be formatted as follows:
+
+%% Example of a proof:
+\begin{proof}[Proof of Theorem 1]
+Text of the proof. Note that the phrase ``of Theorem 1'' is optional if it is clear which theorem is being referred to.
+\end{proof}
+The text continues here.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+Authors should discuss the results and how they can be interpreted from the perspective of previous studies and of the working hypotheses. The findings and their implications should be discussed in the broadest context possible. Future research directions may also be highlighted.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+
+This section is not mandatory, but can be added to the manuscript if the discussion is unusually long or complex.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Patents}
+
+This section is not mandatory, but may be added if there are patents resulting from the work reported in this manuscript.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{6pt} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+%\supplementary{The following supporting information can be downloaded at:  \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title.}
+
+% Only for journal Methods and Protocols:
+% If you wish to submit a video article, please do so with any other supplementary material.
+% \supplementary{The following supporting information can be downloaded at: \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title. A supporting video article is available at doi: link.}
+
+% Only used for preprtints:
+% \supplementary{The following supporting information can be downloaded at the website of this paper posted on \href{https://www.preprints.org/}{Preprints.org}.}
+
+% Only for journal Hardware:
+% If you wish to submit a video article, please do so with any other supplementary material.
+% \supplementary{The following supporting information can be downloaded at: \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title.\vspace{6pt}\\
+%\begin{tabularx}{\textwidth}{lll}
+%\toprule
+%\textbf{Name} & \textbf{Type} & \textbf{Description} \\
+%\midrule
+%S1 & Python script (.py) & Script of python source code used in XX \\
+%S2 & Text (.txt) & Script of modelling code used to make Figure X \\
+%S3 & Text (.txt) & Raw data from experiment X \\
+%S4 & Video (.mp4) & Video demonstrating the hardware in use \\
+%... & ... & ... \\
+%\bottomrule
+%\end{tabularx}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcontributions{For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used ``Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.'', please turn to the  \href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work~reported.}
+
+\funding{Please add: ``This research received no external funding'' or ``This research was funded by NAME OF FUNDER grant number XXX.'' and  and ``The APC was funded by XXX''. Check carefully that the details given are accurate and use the standard spelling of funding agency names at \url{https://search.crossref.org/funding}, any errors may affect your future funding.}
+
+\institutionalreview{In this section, you should add the Institutional Review Board Statement and approval number, if relevant to your study. You might choose to exclude this statement if the study did not require ethical approval. Please note that the Editorial Office might ask you for further information. Please add “The study was conducted in accordance with the Declaration of Helsinki, and approved by the Institutional Review Board (or Ethics Committee) of NAME OF INSTITUTE (protocol code XXX and date of approval).” for studies involving humans. OR “The animal study protocol was approved by the Institutional Review Board (or Ethics Committee) of NAME OF INSTITUTE (protocol code XXX and date of approval).” for studies involving animals. OR “Ethical review and approval were waived for this study due to REASON (please provide a detailed justification).” OR “Not applicable” for studies not involving humans or animals.}
+
+\informedconsent{Any research article describing a study involving humans should contain this statement. Please add ``Informed consent was obtained from all subjects involved in the study.'' OR ``Patient consent was waived due to REASON (please provide a detailed justification).'' OR ``Not applicable'' for studies not involving humans. You might also choose to exclude this statement if the study did not involve humans.
+
+Written informed consent for publication must be obtained from participating patients who can be identified (including by the patients themselves). Please state ``Written informed consent has been obtained from the patient(s) to publish this paper'' if applicable.}
+
+\dataavailability{We encourage all authors of articles published in MDPI journals to share their research data. In this section, please provide details regarding where data supporting reported results can be found, including links to publicly archived datasets analyzed or generated during the study. Where no new data were created, or where data is unavailable due to privacy or ethical restrictions, a statement is still required. Suggested Data Availability Statements are available in section ``MDPI Research Data Policies'' at \url{https://www.mdpi.com/ethics}.} 
+
+% Only for journal Drones
+%\durcstatement{Current research is limited to the [please insert a specific academic field, e.g., XXX], which is beneficial [share benefits and/or primary use] and does not pose a threat to public health or national security. Authors acknowledge the dual-use potential of the research involving xxx and confirm that all necessary precautions have been taken to prevent potential misuse. As an ethical responsibility, authors strictly adhere to relevant national and international laws about DURC. Authors advocate for responsible deployment, ethical considerations, regulatory compliance, and transparent reporting to mitigate misuse risks and foster beneficial outcomes.}
+
+% Only for journal Nursing Reports
+%\publicinvolvement{Please describe how the public (patients, consumers, carers) were involved in the research. Consider reporting against the GRIPP2 (Guidance for Reporting Involvement of Patients and the Public) checklist. If the public were not involved in any aspect of the research add: ``No public involvement in any aspect of this research''.}
+%
+%% Only for journal Nursing Reports
+%\guidelinesstandards{Please add a statement indicating which reporting guideline was used when drafting the report. For example, ``This manuscript was drafted against the XXX (the full name of reporting guidelines and citation) for XXX (type of research) research''. A complete list of reporting guidelines can be accessed via the equator network: \url{https://www.equator-network.org/}.}
+%
+%% Only for journal Nursing Reports
+%\useofartificialintelligence{Please describe in detail any and all uses of artificial intelligence (AI) or AI-assisted tools used in the preparation of the manuscript. This may include, but is not limited to, language translation, language editing and grammar, or generating text. Alternatively, please state that “AI or AI-assisted tools were not used in drafting any aspect of this manuscript”.}
+
+\acknowledgments{In this section you can acknowledge any support given which is not covered by the author contribution or funding sections. This may include administrative and technical support, or donations in kind (e.g., materials used for experiments).}
+
+\conflictsofinterest{Declare conflicts of interest or state ``The authors declare no conflicts of interest.'' Authors must identify and declare any personal circumstances or interest that may be perceived as inappropriately influencing the representation or interpretation of reported research results. Any role of the funders in the design of the study; in the collection, analyses or interpretation of data; in the writing of the manuscript; or in the decision to publish the results must be declared in this section. If there is no role, please state ``The funders had no role in the design of the study; in the collection, analyses, or interpretation of data; in the writing of the manuscript; or in the decision to publish the results''.} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+
+%% Only for journal Encyclopedia
+%\entrylink{The Link to this entry published on the encyclopedia platform.}
+
+\abbreviations{Abbreviations}{
+The following abbreviations are used in this manuscript:\\
+
+\noindent 
+\begin{tabular}{@{}ll}
+MDPI & Multidisciplinary Digital Publishing Institute\\
+DOAJ & Directory of open access journals\\
+TLA & Three letter acronym\\
+LD & Linear dichroism
+\end{tabular}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+\appendixtitles{no} % Leave argument "no" if all appendix headings stay EMPTY (then no dot is printed after "Appendix A"). If the appendix sections contain a heading then change the argument to "yes".
+\appendixstart
+\appendix
+\section[\appendixname~\thesection]{}
+\subsection[\appendixname~\thesubsection]{}
+The appendix is an optional section that can contain details and data supplemental to the main text---for example, explanations of experimental details that would disrupt the flow of the main text but nonetheless remain crucial to understanding and reproducing the research shown; figures of replicates for experiments of which representative data are shown in the main text can be added here if brief, or as Supplementary Data. Mathematical proofs of results not central to the paper can be added as an appendix.
+
+\begin{table}[H] 
+\caption{This is a table caption.\label{tab5}}
+%\newcolumntype{C}{>{\centering\arraybackslash}X}
+\begin{tabularx}{\textwidth}{CCC}
+\toprule
+\textbf{Title 1}	& \textbf{Title 2}	& \textbf{Title 3}\\
+\midrule
+Entry 1		& Data			& Data\\
+Entry 2		& Data			& Data\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section[\appendixname~\thesection]{}
+All appendix sections must be cited in the main text. In the appendices, Figures, Tables, etc. should be labeled, starting with ``A''---e.g., Figure A1, Figure A2, etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\isPreprints{}{% This command is only used for ``preprints''.
+\begin{adjustwidth}{-\extralength}{0cm}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+%\printendnotes[custom] % Un-comment to print a list of endnotes
+
+\reftitle{References}
+
+% Please provide either the correct journal abbreviation (e.g. according to the “List of Title Word Abbreviations” http://www.issn.org/services/online-services/access-to-the-ltwa/) or the full name of the journal.
+% Citations and References in Supplementary files are permitted provided that they also appear in the reference list here. 
+
+%=====================================
+% References, variant A: external bibliography
+%=====================================
+% \bibliography{your_external_BibTeX_file}
+
+%=====================================
+% References, variant B: internal bibliography
+%=====================================
+
+% ACS format
+\isAPAandChicago{}{%
+\begin{thebibliography}{999}
+% Reference 1
+\bibitem[Author1(year)]{ref-journal}
+Author~1, T. The title of the cited article. {\em Journal Abbreviation} {\bf 2008}, {\em 10}, 142--149.
+% Reference 2
+\bibitem[Author2(year)]{ref-book1}
+Author~2, L. The title of the cited contribution. In {\em The Book Title}; Editor 1, F., Editor 2, A., Eds.; Publishing House: City, Country, 2007; pp. 32--58.
+% Reference 3
+\bibitem[Author1 and Author2 (year)]{ref-book2}
+Author 1, A.; Author 2, B. \textit{Book Title}, 3rd ed.; Publisher: Publisher Location, Country, 2008; pp. 154--196.
+% Reference 4
+\bibitem[Author4(year)]{ref-unpublish}
+Author 1, A.B.; Author 2, C. Title of Unpublished Work. \textit{Abbreviated Journal Name} year, \textit{phrase indicating stage of publication (submitted; accepted; in press)}.
+% Reference 5
+\bibitem[Author8(year)]{ref-url}
+Title of Site. Available online: URL (accessed on Day Month Year).
+% Reference 6
+\bibitem[Author6(year)]{ref-proceeding}
+Author 1, A.B.; Author 2, C.D.; Author 3, E.F. Title of presentation. In Proceedings of the Name of the Conference, Location of Conference, Country, Date of Conference (Day Month Year); Abstract Number (optional), Pagination (optional).
+% Reference 7
+\bibitem[Author7(year)]{ref-thesis}
+Author 1, A.B. Title of Thesis. Level of Thesis, Degree-Granting University, Location of University, Date of Completion.
+\end{thebibliography}
+}
+
+% Chicago format (Used for journal: arts, genealogy, histories, humanities, jintelligence, laws, literature, religions, risks, socsci)
+\isChicagoStyle{%
+\begin{thebibliography}{999}
+% Reference 1
+\bibitem[Aranceta-Bartrina(1999a)]{ref-journal}
+Aranceta-Bartrina, Javier. 1999a. Title of the cited article. \textit{Journal Title} 6: 100--10.
+% Reference 2
+\bibitem[Aranceta-Bartrina(1999b)]{ref-book1}
+Aranceta-Bartrina, Javier. 1999b. Title of the chapter. In \textit{Book Title}, 2nd ed. Edited by Editor 1 and Editor 2. Publication place: Publisher, vol. 3, pp. 54–96.
+% Reference 3
+\bibitem[Baranwal and Munteanu {[1921]}(1955)]{ref-book2}
+Baranwal, Ajay K., and Costea Munteanu. 1955. \textit{Book Title}. Publication place: Publisher, pp. 154--96. First published 1921 (op-tional).
+% Reference 4
+\bibitem[Berry and Smith(1999)]{ref-thesis}
+Berry, Evan, and Amy M. Smith. 1999. Title of Thesis. Level of Thesis, Degree-Granting University, City, Country. Identifi-cation information (if available).
+% Reference 5
+\bibitem[Cojocaru et al.(1999)]{ref-unpublish}
+Cojocaru, Ludmila, Dragos Constatin Sanda, and Eun Kyeong Yun. 1999. Title of Unpublished Work. \textit{Journal Title}, phrase indicating stage of publication.
+% Reference 6
+\bibitem[Driver et al.(2000)]{ref-proceeding}
+Driver, John P., Steffen Rohrs, and Sean Meighoo. 2000. Title of Presentation. In \textit{Title of the Collected Work} (if available). Paper presented at Name of the Conference, Location of Conference, Date of Conference.
+% Reference 7
+\bibitem[Harwood(2008)]{ref-url}
+Harwood, John. 2008. Title of the cited article. Available online: URL (accessed on Day Month Year).
+\end{thebibliography}
+}{}
+
+% APA format (Used for journal: admsci, behavsci, businesses, econometrics, economies, education, ejihpe, games, humans, ijfs, journalmedia, jrfm, languages, psycholint, publications, tourismhosp, youth)
+\isAPAStyle{%
+\begin{thebibliography}{999}
+% Reference 1
+\bibitem[\protect\citeauthoryear{Azikiwe \BBA\ Bello}{{2020a}}]{ref-journal}
+Azikiwe, H., \& Bello, A. (2020a). Title of the cited article. \textit{Journal Title}, \textit{Volume}(Issue), 
+Firstpage--Lastpage/Article Number.
+% Reference 2
+\bibitem[\protect\citeauthoryear{Azikiwe \BBA\ Bello}{{2020b}}]{ref-book1}
+Azikiwe, H., \& Bello, A. (2020b). \textit{Book title}. Publisher Name.
+% Reference 3
+\bibitem[Davison(1623/2019)]{ref-book2}
+Davison, T. E. (2019). Title of the book chapter. In A. A. Editor (Ed.), \textit{Title of the book: Subtitle} 
+(pp. Firstpage--Lastpage). Publisher Name. (Original work published 1623) (Optional).
+% Reference 4
+\bibitem[Fistek et al.(2017)]{ref-proceeding}
+Fistek, A., Jester, E., \& Sonnenberg, K. (2017, Month Day). Title of contribution [Type of contribution]. Conference Name, Conference City, Conference Country.
+% Reference 5
+\bibitem[Hutcheson(2012)]{ref-thesis}
+Hutcheson, V. H. (2012). \textit{Title of the thesis} [XX Thesis, Name of Institution Awarding the Degree].
+% Reference 6
+\bibitem[Lippincott \& Poindexter(2019)]{ref-unpublish}
+Lippincott, T., \& Poindexter, E. K. (2019). \textit{Title of the unpublished manuscript} [Unpublished manuscript/Manuscript in prepara-tion/Manuscript submitted for publication]. Department Name, Institution Name.
+% Reference 7
+\bibitem[Harwood(2008)]{ref-url}
+Harwood, J. (2008). \textit{Title of the cited article}. Available online: URL (accessed on Day Month Year).
+\end{thebibliography}
+}{}
+
+% If authors have biography, please use the format below
+%\section*{Short Biography of Authors}
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author1.pdf}}}
+%{\textbf{Firstname Lastname} Biography of first author}
+%
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author2.jpg}}}
+%{\textbf{Firstname Lastname} Biography of second author}
+
+% For the MDPI journals use author-date citation, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PublishersNote{}
+\isPreprints{}{% This command is only used for ``preprints''.
+\end{adjustwidth}
+} % If the paper is ``preprints'', please uncomment this parenthesis.
+\pagebreak
+\input{frfp-references}
+\end{document}
+

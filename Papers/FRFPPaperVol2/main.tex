@@ -1,0 +1,234 @@
+\documentclass[11pt,oneside]{book}
+
+% Basic packages (adjust to match your main monograph preamble)
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\onehalfspacing
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter for Volume II
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatter
+
+\title{FRFP Volume II\\[0.5em]
+  \large Case Studies, Patterns, and Practice for Long-Horizon Human--AI Collaboration}
+\author{Vijaya Nadendla}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+%-----------------------------------------------------------
+% 1. Plain-language FRFP for non-math readers
+%-----------------------------------------------------------
+
+%\chapter{FRFP in Plain Language: A Guide for Non-Technical Readers}
+\label{ch:frfp-plain-language}
+
+% TODO: Insert full non-technical FRFP chapter here
+% (explicit / tacit / institutional layers, runs, boundaries,
+% safe horizons, non-automation, institutions as actors).
+
+%\include{FRFPPlainLanguage}
+%-----------------------------------------------------------
+% 2. Introduction to Volume II
+%-----------------------------------------------------------
+
+%\chapter{Introduction to Volume II: FRFP in the Wild}
+%\label{ch:vol2-intro}
+%\include{vol2-intro}
+% TODO: Insert Volume II introduction
+% - Scope and purpose of Volume II
+% - How to use this volume
+% - Overview of case studies and structure.
+
+
+%-----------------------------------------------------------
+% 3. Meta-Case 0: Failed early framework
+%-----------------------------------------------------------
+
+%\chapter{Meta-Case Study 0: The First Attempt at Long-Horizon Collaboration}
+%\label{ch:meta-case-v01}
+%\include{meta-case-v01}
+% TODO: Insert meta-case narrative
+% - Description of early, non-mathematical framework (V01)
+% - Limitations in FRFP terms (no explicit/tacit split, no horizons, etc.)
+% - Lessons learned that led to FRFP.
+
+
+%-----------------------------------------------------------
+% 4. Methodology: How to do an FRFP case study
+%-----------------------------------------------------------
+
+%\chapter{How to Do an FRFP Case Study}
+%\label{ch:frfp-method}
+%\include{frfp-method}
+% TODO: Insert methodology chapter
+% - Stepwise template: define E, define T, trace runs, boundaries,
+%   safe horizons, institutional operators, counterfactuals.
+% - Guidance on using the template in new domains.
+
+\include{Vol2Part1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 5. Case-study chapter stack
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\chapter{Case Studies: FRFP in Real Systems}
+%\label{part:case-studies}
+\include{case-studies}
+%----------------- Failures and near-misses ----------------
+
+\chapter{FRFP Case Study: IBM Watson for Oncology}
+\label{ch:cs-watson-oncology}
+\include{cs-watson-oncology}
+% TODO: Background, E/T, runs, boundaries, horizons, institutions,
+%       FRFP counterfactual, limitations.
+
+\chapter{FRFP Case Study: IBM Watson Health and the Platform Vision}
+\label{ch:cs-watson-health}
+\include{cs-watson-health}
+% TODO: Broader IBM Watson Health story and FRFP analysis.
+
+\chapter{FRFP Case Study: Amazon's Experimental AI Recruiting Engine}
+\label{ch:cs-amazon-recruiting}
+\include{cs-amazon-recruiting}
+% TODO.
+
+\chapter{FRFP Case Study: COMPAS and Criminal Justice Risk Scores}
+\label{ch:cs-compas}
+\include{cs-compas}
+% TODO.
+
+\chapter{FRFP Case Study: Anthropic's Project Vend}
+\label{ch:cs-vend}
+\include{cs-vend}
+% TODO.
+
+\chapter{FRFP Case Study: Zillow Offers and Algorithmic Home-Flipping}
+\label{ch:cs-zillow-offers}
+\include{cs-zillow-offers}
+% TODO.
+
+\chapter{FRFP Case Study: \emph{Mata v.\ Avianca} and Hallucinated Citations}
+\label{ch:cs-mata-avianca}
+\include{cs-mata-avianca}
+% TODO.
+
+\chapter{FRFP Case Study: JPMorgan CIO ``London Whale'' Trading Losses}
+\label{ch:cs-london-whale}
+\include{cs-london-whale}
+% TODO.
+
+%----------------- Successes / strongly constrained systems ----------------
+
+\chapter{FRFP Case Study: AlphaFold and Protein Structure Prediction}
+\label{ch:cs-alphafold}
+\include{cs-alphafold}
+% TODO.
+
+\chapter{FRFP Case Study: Autonomous Diabetic Retinopathy Screening AI}
+\label{ch:cs-dr-screening}
+\include{cs-dr-screening}
+% TODO.
+
+\chapter{FRFP Case Study: Waymo Driverless Ride-Hailing}
+\label{ch:cs-waymo}
+\include{cs-waymo}
+% TODO.
+
+%----------------- Mixed / platform-scale systems ----------------
+
+\chapter{FRFP Case Study: Recommenders, Machine Translation, and ChatGPT-like Systems}
+\label{ch:cs-platform-systems}
+\include{cs-platform-systems}
+% TODO: Large-scale recommender systems, NMT, LLMs as cognitive infrastructure,
+%       in FRFP terms.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 6. Design Patterns and Anti-Patterns
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\part{Patterns, Playbooks, and Metrics}
+\label{part:patterns-playbooks-metrics}
+
+%\chapter{Design Patterns and Anti-Patterns in FRFP Systems}
+\label{ch:frfp-patterns}
+\include{frfp-patterns}
+
+% TODO: Patterns P1–P5 and Anti-Patterns A1–A5,
+% with explicit pointers back to case-study chapters.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 7. Domain Implementation Playbooks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\chapter{Domain-Specific FRFP Implementation Playbooks}
+\label{ch:frfp-domain-playbooks}
+\include{frfp-domain-playbooks}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 8. FRFP Metrics, Indicators, and Checklists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\chapter{Measuring FRFP Health: Metrics, Indicators, and Checklists}
+\label{ch:frfp-metrics}
+\include{frfp-metrics}
+
+% TODO: Indicator families (semantics, boundaries, horizons, governance,
+% tacit preservation), maturity levels, system/governance checklists.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 9. Research Agenda and Open Problems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\chapter{Research Agenda and Open Problems}
+\label{ch:frfp-open-problems}
+
+% TODO: Theory, empirical work, institutional design, tools/practice.
+% Structured by clusters: T*, E*, G*, P* as in earlier outline.
+
+\include{frfp-open-problems}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 10. Conclusion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\chapter{Conclusion: What FRFP Learns from Its Case Studies}
+\label{ch:vol2-conclusion}
+\include{vol2-conclusion}
+% TODO: Synthesis of patterns, confirmation/tension with FRFP claims,
+% design/gov takeaways, and closing remarks.
+
+\include{FRFPVol1Glossary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+
+% Bibliography (adjust to your main style)
+\bibliographystyle{plainnat}
+\include{frfp-referencesvol2}
+
+\end{document}

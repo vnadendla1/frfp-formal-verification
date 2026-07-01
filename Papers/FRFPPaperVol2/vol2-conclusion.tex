@@ -1,0 +1,179 @@
+\chapter*{Conclusion: What FRFP Learns from Its Case Studies}
+\addcontentsline{toc}{chapter}{Conclusion: What FRFP Learns from Its Case Studies}
+
+Volume~II has treated a diverse set of systems as FRFP objects:
+trading desks and oncology clinics; hiring engines and risk scores; vending machines and robotaxis; protein-structure predictors and legal chatbots.
+Despite the diversity, a small number of structural themes recur with striking regularity.
+This conclusion distils those themes into a set of lessons for designers, institutions, and theorists.
+
+\section*{Lesson 1: Explicit Success Does Not Guarantee Tacit Safety}
+
+Many of our failure case studies looked superficially impressive in explicit metrics:
+
+\begin{itemize}
+  \item Watson for Oncology passed internal benchmarks and demos;
+  \item Zillow's pricing models performed well on backtests;
+  \item Amazon's recruiting engine optimised predictive accuracy on historical data;
+  \item COMPAS satisfied certain calibration metrics;
+  \item the CIO's VaR model produced numbers within nominal limits.
+\end{itemize}
+
+Yet in each case, the explicit semantics were misaligned with tacit notions of correctness:
+
+\begin{itemize}
+  \item Watson's training on synthetic cases and idiosyncratic expert judgements did not capture the real distribution of oncology cases;
+  \item Zillow's models ignored selection effects and regime shifts that local experts understood;
+  \item COMPAS could not simultaneously meet all fairness desiderata in the presence of base-rate differences;
+  \item VaR metrics failed to encode key tail risks and liquidity constraints.
+\end{itemize}
+
+By contrast, AlphaFold and DR screening AI succeed precisely where explicit semantics are strong and well-matched to tacit needs.
+The mapping from sequence to structure, or from retinal image to a clinically defined threshold, is compact enough to be captured by explicit models, and ground truth is abundant.
+
+FRFP’s first conclusion is therefore:
+
+\begin{quote}
+  \emph{Explicit performance metrics are not proxies for tacit safety or correctness.
+  They are informative only when the explicit task is well-specified, the data and model semantics match the tacit function we care about, and the limits of that match are understood.}
+\end{quote}
+
+\section*{Lesson 2: Boundaries are Designed, Not Assumed}
+
+A central claim of Volume~I is that correctness lives at boundaries:
+at the points where explicit artefacts are endorsed, rejected, or transformed by agents in tacit space.
+Volume~II shows how often these boundaries are treated as rhetorical rather than structural.
+
+In many failures:
+
+\begin{itemize}
+  \item systems are labelled ``decision support'' while functioning as de facto decision-makers (COMPAS, recruiting engines, recommenders);
+  \item lawyers or clinicians treat AI outputs as if they were vetted results (Watson, \emph{Mata}) rather than hypotheses;
+  \item risk metrics and model outputs replace human assessment at the point of commitment (Zillow offers, London Whale limits).
+\end{itemize}
+
+In successful or more robust systems:
+
+\begin{itemize}
+  \item DR AI explicitly reverts to human care when images are ungradable;
+  \item AlphaFold outputs are clearly presented as predictions with confidence, not as experimental facts;
+  \item Waymo draws a sharp operational boundary via its ODD, with human and institutional sign-off governing any expansion.
+\end{itemize}
+
+Our second conclusion:
+
+\begin{quote}
+  \emph{Boundaries between explicit systems and tacit endorsement must be deliberately engineered and institutionally enforced.
+  Naming a system ``supportive'' or ``advisory'' does not make it so; interfaces, logging, and governance must make boundary events concrete and auditable.}
+\end{quote}
+
+The first attempt at long-horizon collaboration failed partly because it took boundaries for granted:
+it assumed that humans would ``stay in the loop'' without describing the mechanisms that would force this to remain true under pressure.
+
+\section*{Lesson 3: Safe Horizons are Structural, Not Optional}
+
+The notion of a safe horizon---a bound on how far a run may proceed without re-grounding in tacit judgement---is perhaps the most distinctive FRFP contribution.
+Volume~II confirms that, across domains, trouble arises where runs are effectively unbounded:
+
+\begin{itemize}
+  \item trading strategies accumulate risk over months without strong episodic review (London Whale, Zillow);
+  \item long-horizon judicial use of risk scores gradually reshapes practice (COMPAS);
+  \item repeated use of LLMs and legal-research surrogates erodes verification norms (\emph{Mata} and its successors);
+  \item recommender systems adjust millions of people's content diets continuously without clear reset mechanisms.
+\end{itemize}
+
+Successful systems encode safe horizons in their very design:
+
+\begin{itemize}
+  \item DR programmes enforce periodic re-screening and post-market validation;
+  \item Waymo restricts autonomy to defined ODDs and phases in expansions;
+  \item scientific practice around AlphaFold, by tradition, requires experimental replication and peer review.
+\end{itemize}
+
+Thus:
+
+\begin{quote}
+  \emph{Any long-horizon deployment of AI---clinical, financial, legal, or epistemic---needs explicit safe horizons:
+  limits in time, scale, and scope, together with procedures for systematic re-grounding.
+  Without them, even well-behaved systems will drift into regimes where their explicit semantics no longer match tacit reality.}
+\end{quote}
+
+The initial, informal human--AI collaboration framework lacked such a notion.
+It described workflows but not their depth limits.
+FRFP arose when it became clear that we needed not just good workflows but principled bounds on their iteration.
+
+\section*{Lesson 4: Governance Itself Cannot Be Automated}
+
+Maybe the deepest pattern in Volume~II is the failure of explicit-only governance.
+
+In case after case:
+
+\begin{itemize}
+  \item boards and executives rely on risk dashboards, backtests, and demos to justify scaling (Watson Health, Zillow, CIO);
+  \item courts and regulators accept black-box scores under the rubric of ``data-driven'' decision-making (COMPAS, early risk tools);
+  \item firms treat AI tools as internal experiments without firm-level policies (Amazon recruiting, early generative-AI use in law);
+  \item platforms rely on engagement and safety metrics to manage recommender systems without fully grappling with their societal externalities.
+\end{itemize}
+
+Where governance is more successful:
+
+\begin{itemize}
+  \item regulators explicitly define indications, performance thresholds, and post-market surveillance for DR AI;
+  \item scientific communities, through peer review and replication, institutionalise scepticism toward explicit models, even AlphaFold;
+  \item autonomous-vehicle regulators and cities negotiate permits, ODD constraints, and incident-reporting frameworks with operators like Waymo.
+\end{itemize}
+
+This supports FRFP’s non-automation claims at the institutional level:
+
+\begin{quote}
+  \emph{There is no purely explicit procedure that, given model outputs and metrics, can reliably determine whether a socio-technical system is acceptable.
+  Governance and oversight are themselves tacit functions carried out by humans and institutions, and must be modelled as such.
+  Good governance uses explicit tools and metrics, but does not reduce itself to them.}
+\end{quote}
+
+The first collaboration framework implicitly treated governance as a design parameter: write down the right rules and processes, and the system will behave.
+FRFP, informed by the case studies here, insists that governance is dynamic, contested, and structurally non-automatable, and therefore must be part of the formal semantics.
+
+\section*{Lesson 5: FRFP is Both Descriptive and Prescriptive}
+
+A final lesson concerns the role of FRFP itself.
+
+On the descriptive side, Volume~II demonstrates that a single vocabulary---explicit/tacit spaces, runs, boundaries, safe horizons, institutional operators---is capable of reorganising a wide range of case studies into a small number of recurring structural patterns.
+This is evidence that FRFP is not merely an arbitrary formalism but is tracking real invariants in human--AI systems.
+
+On the prescriptive side, the case studies suggest concrete design moves:
+
+\begin{itemize}
+  \item \textbf{Narrow and stabilise explicit tasks} wherever possible, especially in high-stakes domains, and be honest about where semantics become diffuse (e.g.\ general-purpose LLMs).
+  \item \textbf{Make uncertainty explicit} in interfaces, including ``I don't know'' and ``ungradable'' states that revert to human judgement.
+  \item \textbf{Elevate boundaries to first-class objects}:
+        log them, design UI around them, and give institutional structures authority at those points.
+  \item \textbf{Encode safe horizons} in policies:
+        caps, phases, revalidation triggers, and reset protocols, rather than relying on ad hoc audits after failures.
+  \item \textbf{Build governance as an explicit layer} with its own semantics and operators:
+        cross-functional committees, regulatory regimes, professional norms, and public deliberation.
+\end{itemize}
+
+FRFP does not guarantee good outcomes, any more than having a theory of mechanics guarantees a bridge will not fall.
+But just as mechanical engineering makes certain failure modes legible (buckling, resonance, fatigue), FRFP makes certain socio-technical failure modes legible and therefore, in principle, avoidable.
+
+\section*{Looking Forward: From Volume II Back to Practice}
+
+The story of this monograph is itself a small FRFP case study.
+An initial, mostly narrative attempt to design long-horizon human--AI collaboration proved inadequate.
+That failure, when reflected on, led to a more formal architecture (Volume~I).
+The architecture, in turn, has been tested against real systems (Volume~II) and refined by their successes and failures.
+
+The next step is to close the loop:
+
+\begin{itemize}
+  \item to use FRFP prospectively in the design of new systems and institutions;
+  \item to co-develop mathematical results, engineering practices, and governance patterns;
+  \item to treat FRFP not as a static theory of ``AI safety'' but as an evolving language shared across technical, social-science, and institutional actors.
+\end{itemize}
+
+The case studies in this volume show that powerful AI can be embedded in human institutions in ways that are disastrous, benign, or genuinely transformative.
+They also suggest that the difference is not mysterious:
+it lies in the structure of the explicit pipelines, the design of boundaries and safe horizons, and the seriousness with which we treat institutional non-automation.
+
+If Volume~I argued that such structure is \emph{necessary}, Volume~II suggests that it is \emph{already} present, implicitly, in systems that work reasonably well, and conspicuously absent in those that fail.
+The task ahead is to make that structure explicit---in our tools, our organisations, and our laws---before the next generation of long-horizon AI systems arrives by default rather than by design.

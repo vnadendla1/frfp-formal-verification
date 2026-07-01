@@ -1,0 +1,171 @@
+% ===================================================================
+\section{Appendix E: Naming Conventions}
+\label{app:naming}
+% ===================================================================
+
+This appendix documents the naming conventions used throughout the FRFP Lean
+formalization. Consistent naming enables grep-based navigation and prevents
+name collisions across 21 modules.
+
+\subsection*{General Principles}
+
+\begin{enumerate}
+  \item \textbf{Lean 4 style}: Follow Lean 4 community naming (snake\_case for
+        definitions, theorems, and axioms; CamelCase for types and structures).
+  \item \textbf{Layer prefix}: Module-specific constants are prefixed with
+        a short module abbreviation (e.g., \texttt{float\_}, \texttt{sem\_},
+        \texttt{gov\_}).
+  \item \textbf{Source annotation}: Every axiom has a comment on the preceding
+        line: \texttt{-- Reference: [Author Year], §X.Y}.
+  \item \textbf{Novel marker}: Novel theorems (those not present in published
+        papers) carry a comment \texttt{-- Novel: not in source papers}.
+\end{enumerate}
+
+\subsection*{Type and Structure Naming}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Pattern & Example & Rule \\
+\midrule
+Kernel object types & \texttt{Object}, \texttt{Primitive} & CamelCase, bare name \\
+Categorical objects & \texttt{ExplicitObject}, \texttt{TacitObject} & CamelCase, full adjective \\
+Category types & \texttt{Ecat}, \texttt{Tcat} & Short, subscript rendered as plain text \\
+Structures & \texttt{ProtocolStep}, \texttt{GovernanceTrace} & CamelCase compound \\
+Predicates (Bool-valued) & \texttt{AIExecutable}, \texttt{GovWF} & CamelCase; WF = well-formed \\
+Propositions (Prop-valued) & \texttt{isGrounded}, \texttt{isNormal} & camelCase with is- prefix \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Definition and Function Naming}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Pattern & Example & Rule \\
+\midrule
+Semantic function & \texttt{sem} & Lowercase, bare \\
+Observation function & \texttt{observe} & Lowercase, bare \\
+Bijection functions & \texttt{runToOmega}, \texttt{omegaToRun} & camelCase with direction \\
+Clamping function & \texttt{credenceClamp} & camelCase, noun-verb \\
+Phase function & \texttt{phaseOf} & camelCase, noun-Of \\
+Pipeline constructor & \texttt{mkPipeline} & camelCase, mk- prefix \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Axiom Naming}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Pattern & Example & Rule \\
+\midrule
+FRFP premise axioms & \texttt{heg\_axiom}, \texttt{il\_axiom} & lowercase abbrev + \_axiom \\
+IEEE 754 axioms & \texttt{float\_add\_comm} & float\_ prefix + property \\
+Probability axioms & \texttt{survival\_product\_formula} & noun + \_formula / \_property \\
+Rewriting axioms & \texttt{reduction\_wf}, \texttt{newman\_lemma} & lowercase, domain-specific \\
+Category axioms & \texttt{ecat\_assoc}, \texttt{tcat\_id\_left} & category abbreviation + property \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Theorem and Lemma Naming}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Pattern & Example & Rule \\
+\midrule
+Uniqueness theorems & \texttt{ets\_unique}, \texttt{rb\_uniqueness} & subject + \_unique / \_uniqueness \\
+Existence theorems & \texttt{normal\_form\_exists} & noun + \_exists \\
+Invariance theorems & \texttt{observation\_invariance} & noun + \_invariance \\
+Monotonicity theorems & \texttt{degradation\_monotone} & noun + \_monotone \\
+Impossibility theorems & \texttt{tacit\_not\_reconstructable} & subject + not + predicate \\
+Novel theorems & \texttt{first\_unresolved\_witness} & descriptive, no abbreviation \\
+Bijection theorems & \texttt{runToOmega\_left\_inverse} & function name + \_left/right\_inverse \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Module and File Naming}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Module & File & Convention \\
+\midrule
+Core modules & \texttt{Frfp/Core/CamelCaseName.lean} & CamelCase, noun phrase \\
+Minimal modules & \texttt{Frfp/Minimal/MinimalXxx.lean} & Minimal + topic \\
+Example modules & \texttt{Example/CamelCase.lean} & CamelCase, real-world name \\
+Root file & \texttt{Frfp.lean} & Framework name only \\
+Report file & \texttt{FRFPReport.lean} & ALL-CAPS acronym + Report \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Symbol Conventions in the Mathematical Notation}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Symbol & Meaning & Lean identifier \\
+\midrule
+$\Czero$ & The 3-object kernel category & \texttt{KernelCategory} \\
+$\Ecat$ & Explicit object category & \texttt{Ecat} \\
+$\Tcat$ & Tacit object category & \texttt{Tcat} \\
+$\Eobj$ & Explicit object & \texttt{Object.Explicit} \\
+$\Tobj$ & Tacit object & \texttt{Object.Tacit} \\
+$\int F$ & Grothendieck construction & \texttt{GrothConstruction frfpFunctor} \\
+$\mathrm{runTo}\omega$ & Run-to-omega map & \texttt{runToOmega} \\
+$\omega\mathrm{ToRun}$ & Omega-to-run map & \texttt{omegaToRun} \\
+$\sim_\mathrm{nav}$ & Navigation equivalence & \texttt{NavEquiv} \\
+$\mathrm{Sem}$ & Semantic function & \texttt{sem} \\
+$\mathrm{obs}$ & Observation function & \texttt{observe} \\
+$\mathrm{GovWF}$ & Governance well-formedness & \texttt{GovWF} \\
+$k^*$ & First unresolved witness & \texttt{k\_star} (in proof context) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Comment Header Format}
+
+Every Lean file begins with a header block:
+
+\begin{lstlisting}
+/-!
+# Module Name
+
+Brief description of the module's role in the FRFP formalization.
+
+## Dependencies
+- List of imported modules
+
+## Key results
+- Theorem 1: brief statement
+- Theorem 2: brief statement
+
+## Axiom sources
+- Reference 1
+- Reference 2
+-/
+\end{lstlisting}
+
+\subsection*{Deprecated Naming Patterns}
+
+The following patterns were used in early development and should not appear in
+the final build:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Deprecated pattern & Replacement \\
+\midrule
+\texttt{frfp\_XXX} prefix on everything & Layer-specific prefix only \\
+\texttt{h1, h2, h3} as hypothesis names & Descriptive names (\texttt{h\_wf}, \texttt{h\_gt}) \\
+\texttt{Axiom1, Axiom2} enumeration & Full descriptive name \\
+\texttt{sorry} as placeholder beyond draft & Tracked in issue list; not committed \\
+\bottomrule
+\end{tabular}
+\end{center}

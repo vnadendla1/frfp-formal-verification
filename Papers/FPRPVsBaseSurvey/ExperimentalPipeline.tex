@@ -1,0 +1,495 @@
+\section{Experimental Pipeline}
+% ==========================================================
+% Survey Construction and Generation Procedure (LaTeX)
+% ==========================================================
+\renewcommand{\appendixname}{}
+Appendix A specifies the executable study procedure and supersedes any conflicting
+procedural description in the main text unless explicitly noted.
+\subsection*{Step 0 --- Discovery and shortlisting of the 25 cases}
+The 25-case set was not assembled randomly. It was built through an iterative discovery and screening process
+designed to produce a broad, information-rich evaluation set for structured analysis.
+
+\subsubsection*{0.1 Initial discovery pool}
+Candidate cases were initially identified from well-known historical failures and controversies across multiple
+domains, including:
+\begin{itemize}
+  \item finance
+  \item aerospace
+  \item energy
+  \item transportation
+  \item software / technology
+  \item corporate governance
+  \item public-sector and institutional systems
+\end{itemize}
+The goal at this stage was breadth, not immediate inclusion.
+
+\subsubsection*{0.2 Shortlisting criteria}
+Candidates were screened against four requirements:
+\begin{enumerate}
+  \item \textbf{Major failure or major breakdown.} The case had to involve substantial financial loss, loss of life,
+        mission failure, systemic disruption, or major governance breakdown.
+  \item \textbf{Publicly describable system setup.} There had to be enough public information to describe the system,
+        organizational structure, and task intent without relying on the final investigation findings.
+  \item \textbf{Independent assessor material available.} The case had to have at least one credible external assessment source,
+        such as:
+        \begin{itemize}
+          \item court findings
+          \item congressional / parliamentary reports
+          \item regulator findings
+          \item independent investigation boards
+          \item official commissions
+        \end{itemize}
+  \item \textbf{Usefulness for comparative analysis.} The case had to be suitable for comparing:
+        \begin{itemize}
+          \item baseline LLM analysis
+          \item protocol-guided LLM analysis
+          \item independent assessor reconstruction
+        \end{itemize}
+\end{enumerate}
+
+\subsubsection*{0.3 Solution-space coverage}
+During shortlisting, cases were chosen to span a wide solution space rather than cluster around a single failure type.
+The shortlist was intentionally balanced across:
+\begin{itemize}
+  \item mechanistic engineering failures
+  \item governance-heavy socio-technical failures
+  \item financial and institutional failures
+  \item regulatory and oversight failures
+  \item software / information-system failures
+\end{itemize}
+This was done to ensure that the final survey could test whether structured reasoning helps more in some classes of cases
+than others.
+
+\subsubsection*{0.4 Exclusion criteria}
+Cases were excluded if they failed one or more of the following:
+\begin{itemize}
+  \item no credible independent assessor source could be identified
+  \item public documentation of system setup was too thin
+  \item the case was too redundant with another selected case
+  \item the case was still too unresolved or factually unstable for use as a frozen survey item
+\end{itemize}
+
+\subsubsection*{0.5 Finalization}
+After iterative screening, 25 cases were selected and assigned stable IDs C01 through C25. The finalized list was then
+frozen in \texttt{case\_list\_v1.txt}. This file became the root index for all subsequent survey construction steps.
+
+\subsection*{Step 1 --- Construct the 25-case list}
+The survey case set was constructed using the following criteria.
+
+\paragraph{Selection requirements.}
+Each case had to satisfy:
+\begin{enumerate}
+  \item Major system failure or controversy
+  \item Availability of public documentation describing the system setup
+  \item Availability of an independent investigation or assessment report
+  \item Coverage across multiple socio-technical domains
+\end{enumerate}
+
+\paragraph{Domains intentionally covered.}
+\begin{itemize}
+  \item finance
+  \item aerospace
+  \item energy
+  \item transportation
+  \item technology / software
+  \item governance / institutions
+\end{itemize}
+The objective was to create a heterogeneous solution space rather than a domain-specific dataset.
+
+\subsection*{Step 2 --- Assign case identifiers}
+Each case was assigned a stable identifier: \texttt{C01 \dots C25}. The case list was frozen in
+\texttt{case\_list\_v1.txt}.
+
+\paragraph{Example entries.}
+\begin{itemize}
+  \item \texttt{C01 --- London Whale (JPMorgan CIO)}
+  \item \texttt{C02 --- Deepwater Horizon (Macondo Well)}
+  \item \texttt{C03 --- Fukushima Daiichi Nuclear Plant}
+  \item \texttt{\dots}
+  \item \texttt{C25 --- Lehman Brothers Collapse}
+\end{itemize}
+This file is included in the freeze manifest.
+
+\subsection*{Step 3 --- Create neutral case descriptions}
+Neutral case descriptions were created by:
+\begin{enumerate}
+  \item taking the 25-case list
+  \item writing $\leq 150$-word system descriptions
+  \item removing failure conclusions and investigation findings
+  \item freezing them in \texttt{neutral\_case\_descriptions\_v1.txt}
+  \item converting them in the notebook into per-case inputs:
+        \texttt{Cxx\_case\_input.txt}
+\end{enumerate}
+These descriptions describe system structure and task intent, not the failure outcome.
+
+\paragraph{Historical context constraint.}
+Historical context may be included in a neutral description only when necessary to define the operational setting,
+system boundary, or decision environment of the case. Such context must be stated as descriptive background facts and
+must not introduce causal interpretations, evaluative judgments, or conclusions from investigation reports. Any historical
+material included must be provided identically to all model-generation conditions.
+
+\subsection*{Step 4 --- Freeze survey inputs}
+The following artifacts were frozen with SHA-256 hashes:
+\begin{itemize}
+  \item \texttt{case\_list\_v1.txt}
+  \item \texttt{neutral\_case\_descriptions\_v1.txt}
+  \item \texttt{prompt\_baseline\_v1.txt}
+  \item \texttt{prompt\_protocol\_v1.txt}
+  \item \texttt{prompt\_independent\_v1.txt}
+  \item \texttt{protocol\_specification\_v1.txt}
+  \item \texttt{model\_config\_v1.json}
+  \item \texttt{case\_id\_mapping\_v1.csv}
+\end{itemize}
+These are recorded in \texttt{case\_freeze\_manifest\_v1.txt}.
+
+\subsection*{Step 5 --- Notebook input construction}
+The survey notebook performs the following preprocessing:
+\[
+\texttt{neutral\_case\_descriptions\_v1.txt}
+\;\;\rightarrow\;\;
+\text{parse by case ID}
+\;\;\rightarrow\;\;
+\text{write case inputs}
+\;\;\rightarrow\;\;
+\texttt{C01\_case\_input.txt, \dots, C25\_case\_input.txt}.
+\]
+These files are the primary input artifacts for model generation.
+
+\subsection*{Step 6 --- Generation conditions}
+Three analysis conditions are defined.
+
+\paragraph{Baseline (B).}
+\textbf{Inputs:} baseline prompt + case input.\\
+\textbf{Output:} \texttt{Cxx\_B\_raw.txt}.
+
+\paragraph{Protocol (P).}
+\textbf{Inputs:} protocol prompt + \texttt{protocol\_specification\_v1.txt} + case input.\\
+\textbf{Output:} \texttt{Cxx\_P\_raw.txt}.
+
+\paragraph{Independent (I).}
+\textbf{Inputs:} independent prompt + case input + assessor report extracts.\\
+\textbf{Outputs:} \texttt{Cxx\_I\_refA\_raw.txt}, \texttt{Cxx\_I\_refB\_raw.txt}.\\
+Extract files are automatically constructed using an LLM via near-verbatim, source-bounded extraction from official investigation reports, with human review limited to the E/T boundary (Section 7.4.1).
+\paragraph{Condition discipline separation (normative).}
+Only the Protocol condition (P) is required to follow the FRFP-compatible executable
+instruction surface. Baseline (B) represents unconstrained model analysis.
+Independent (I) differs from (B) by information access (assessor extracts), not by
+protocol discipline, unless a separate hybrid condition is explicitly defined.
+
+\subsection*{Step 7 --- Selection and acquisition of Independent Assessor Reports and supporting materials 
+The Independent analysis condition requires access to information derived from credible external investigations of each case.
+A structured procedure is used to (i) identify authoritative assessment sources and (ii) acquire the corresponding source files
+as frozen local snapshots.
+
+\subsubsection*{7.1 Source hierarchy}
+For each case, candidate assessor sources are evaluated according to a predefined credibility hierarchy:
+\begin{enumerate}
+  \item Court findings or judicial determinations
+  \item Congressional or parliamentary investigation reports
+  \item Regulatory authority reports
+  \item Independent investigation boards or commissions
+\end{enumerate}
+
+\subsubsection*{7.2 Primary, alternate, and supplemental assessor sources}
+For each case, assessor sources are recorded in a canonical JSON log:
+\begin{itemize}
+  \item \textbf{Primary A} --- the most authoritative available assessment according to the hierarchy above.
+  \item \textbf{Primary B} --- an alternate independent assessment source for sensitivity analysis (when available).
+  \item \textbf{Supplemental} --- an additional technical/operational source used only when it contributes material not already covered by the primaries.
+\end{itemize}
+
+\subsubsection*{7.3 Supporting materials (discovery and selection rules)}
+Supporting materials are \emph{inputs to} an alternate evidence-augmented analysis and are treated as upstream evidence that assessor reports analyze.
+Accordingly:
+\begin{enumerate}
+  \item \textbf{Rule (main-report exclusion):} The \emph{main assessor report text} is \emph{not} included as supporting material.
+        Supporting materials must be distinct upstream artifacts (e.g., testimony, exhibits, technical appendices) that the main report relies on.
+  \item \textbf{Rule (official channel preference):} Supporting materials are selected only if present or acquirable via an official inquiry / investigation channel
+        (e.g., inquiry document repositories, official hearing transcript archives, regulator evidence dockets).
+  \item \textbf{Rule (use-driven selection):} Materials are chosen to support an alternate AI analysis grounded in primary evidence (not the report’s conclusions).
+        Preference is given to records that expose system architecture, operational process, decision structure, and causal evidence.
+  \item \textbf{Allowed material types:} Each supporting item is labeled with \texttt{material\_type} from:
+        \{\texttt{transcript}, \texttt{submission}, \texttt{evidence}, \texttt{hearing}, \texttt{other}\}.
+\end{enumerate}
+
+\subsubsection*{7.4 Acquisition, storage, and manifesting (implemented)}
+This step is implemented as a deterministic acquisition pipeline driven by \\ \texttt{independent\_assessor\_source\_log\_v1.json}
+and \texttt{extraction\_config.json}:
+\begin{enumerate}
+  \item Download snapshots of \texttt{PrimaryA}, \texttt{PrimaryB} (if present), \texttt{Supplemental} (if present) into:
+        \texttt{independent\_sources/sources/Cxx/\{primaryA,primaryB,supplemental\}/}.
+  \item Download supporting materials into:
+        \texttt{independent\_sources/sources/Cxx/supporting\_materials/}.
+  \item Maintain a single \texttt{source\_manifest.csv} that records, for every downloaded item:
+        \texttt{case\_id, role, title, url, hierarchy, supplemental\_type, material\_type, retrieved\_utc, local\_path, sha256}.
+  \item A manifest synchronization pass ensures downloaded files and the manifest remain consistent (including filename normalization and missing-row repair).
+\end{enumerate}
+
+\subsection*{Step 8 --- LLM generation of analysis artifacts (B, P, I)}
+After the dataset and input artifacts were frozen, a controlled generation procedure was used to produce analytical outputs
+from the language model under three different reasoning conditions. The objective was to produce comparable analytical artifacts
+that differ only in the reasoning constraints and information provided to the model.
+
+\subsubsection*{8.1 Model configuration}
+All generations were performed using a fixed model configuration defined in \texttt{model\_config\_v1.json}. The configuration specifies:
+\begin{itemize}
+  \item model provider
+  \item model version
+  \item temperature
+  \item output token limits
+\end{itemize}
+The configuration file was frozen alongside the dataset to ensure reproducibility.
+In the implemented pipeline, generation conditions differ by which locally downloaded materials are summarized and injected.
+
+
+\subsubsection*{8.2 Input construction}
+For each case identifier \texttt{Cxx}, the notebook constructs a case input file \texttt{Cxx\_case\_input.txt}.
+This file contains the neutral case description corresponding to that case. The case input files serve as the base input
+across all three reasoning conditions.
+
+\subsubsection*{8.3 Generation conditions}
+Inputs: \texttt{prompt\_baseline\_v1.txt} + \texttt{Cxx\_case\_input.txt} + summarized supporting materials (if available).\\
+Output: \texttt{Cxx\_B\_raw.txt}.\\
+If no supporting materials exist for a case, Baseline generation for that case is skipped.
+
+
+\subsubsection*{8.4 Protocol condition (P)}
+Inputs: \texttt{prompt\_protocol\_v1.txt} + \texttt{protocol\_specification\_v1.txt} + \texttt{Cxx\_case\_input.txt}
++ summarized supporting materials (if available).\\
+Output: \texttt{Cxx\_P\_raw.txt}.\\
+If no supporting materials exist for a case, Protocol generation for that case is skipped.
+
+The protocol specification defines procedural constraints such as intent locking, artifact discipline, branch tracking,
+explicit assumptions, and separation of analysis and endorsement.
+
+\paragraph{Protocol handoff is specified but not executed (normative).}
+In Condition P, the handoff/verification component required by the FRFP-compatible
+instruction surface is produced only as an explicit artifact (a proposed review and
+verification plan consistent with the $E \rightarrow T$ boundary).
+No post-generation human endorsement, correction, or modification of the model output
+is performed within the experiment.
+
+\subsubsection*{8.5 Independent condition (I)}
+Inputs: \texttt{prompt\_independent\_v1.txt} + \texttt{Cxx\_case\_input.txt} + summarized assessor sources:
+\texttt{PrimaryA (+ Supplemental)} for \texttt{I\_refA}, and \texttt{PrimaryB (+ Supplemental)} for \texttt{I\_refB}.\\
+Outputs: \texttt{Cxx\_I\_refA\_raw.txt}, \texttt{Cxx\_I\_refB\_raw.txt}.
+
+\subsubsection*{8.6 Execution procedure}
+The generation notebook iterates over case identifiers and executes:
+\[
+\text{Baseline (B)} \rightarrow \text{Protocol (P)} \rightarrow \text{Independent (I\_refA)} \rightarrow \text{Independent sensitivity (I\_refB)}.
+\]
+Each generation produces a raw text artifact stored in the experiment output directory.
+\subsubsection*{Style isolation rule.}
+
+To preserve separation between agent configurations, stylistic conventions
+introduced by the protocol condition must not appear in Baseline or
+Independent outputs. In particular, labeled reasoning artifacts used by the
+protocol workflow (e.g., \texttt{FACT:}, \texttt{ASSUMPTION:}, \texttt{MECHANISM:},
+\texttt{CONTROL:}, \texttt{RISK:}, \texttt{UNCERTAINTY:}) are prohibited in
+Baseline and Independent generations.
+
+During contamination checks prior to normalization, outputs are inspected for
+cross-condition stylistic leakage. If protocol-specific artifact labels or
+reasoning structures appear in Baseline or Independent outputs, the affected
+case is regenerated under the isolation protocol and the discarded artifacts
+are logged.
+\subsubsection*{8.7 Output logging and hashing}
+For every generated output:
+\begin{enumerate}
+  \item The raw output text is saved to disk.
+  \item A SHA-256 hash of the file is computed.
+  \item A generation log entry is recorded containing:
+        \begin{itemize}
+          \item case identifier
+          \item generation condition
+          \item model configuration
+          \item timestamp
+          \item output file hash
+        \end{itemize}
+\end{enumerate}
+These records ensure that all outputs can be verified against the frozen experimental configuration.
+
+\subsubsection*{8.8 Resulting artifact set}
+For each case, the generation step produces:
+\begin{itemize}
+  \item \texttt{Cxx\_B\_raw.txt}
+  \item \texttt{Cxx\_P\_raw.txt}
+  \item \texttt{Cxx\_I\_refA\_raw.txt}
+  \item \texttt{Cxx\_I\_refB\_raw.txt}
+\end{itemize}
+In the full experiment with 25 cases, this yields up to $25 \times 4 = 100$ generated artifacts. These raw outputs form the basis
+for subsequent normalization and human evaluation stages.
+
+\subsection*{Step 9 --- Output normalization and blinding}
+Raw outputs differ in length, style, and structure across reasoning conditions. To ensure fair comparison during human evaluation,
+all outputs were normalized into a consistent presentation format and blinded with respect to their generation condition.
+Normalization does not alter substantive analytical content.
+
+\subsubsection*{9.1 Objective of normalization}
+Normalization serves three purposes:
+\begin{enumerate}
+  \item \textbf{Structural comparability:} ensure outputs can be evaluated on the same criteria.
+  \item \textbf{Removal of formatting differences:} eliminate stylistic cues that might reveal the generation condition.
+  \item \textbf{Preparation for human rating:} convert outputs into standardized one-page analytical summaries suitable for pairwise evaluation.
+\end{enumerate}
+
+\subsubsection*{9.2 Standard output structure}
+Each raw output was converted into a standardized analytical template consisting of:
+\begin{enumerate}
+  \item System Objective
+  \item Representation and Models
+  \item Measurement and Information Flows
+  \item Control Mechanisms
+  \item Decision Interfaces
+  \item Governance and Oversight
+  \item Possible Failure Mechanisms
+  \item Candidate Interventions or Safeguards
+\end{enumerate}
+
+\subsubsection*{9.3 Normalization process}
+The normalization procedure consisted of:
+\begin{enumerate}
+  \item \textbf{Section extraction:} parse raw output to identify elements corresponding to the standardized sections.
+  \item \textbf{Reformatting:} reorganize extracted content into the standardized template structure.
+  \item \textbf{Length harmonization:} trim extremely long responses while preserving key analytical points.
+  \item \textbf{Removal of condition-specific cues:} remove references that might reveal the generation condition (e.g., ``protocol'',
+        ``baseline'', investigation reports, or internal reasoning procedures).
+\end{enumerate}
+\paragraph{Modality preservation (normative).}
+Normalization must preserve epistemic modality and endorsement stance (e.g., expressions of certainty, hedging, and
+evidence-vs-assumption separation) as substantive content. Only condition-revealing labels (e.g., ``baseline'',
+``protocol'', or explicit references to assessor sources) and superficial formatting cues may be removed.
+\subsubsection*{9.4 Blinding procedure}
+After normalization, each document is assigned an anonymized identifier (e.g., \texttt{D0001}, \texttt{D0002}, \dots). The mapping between
+document identifiers and generation conditions is stored in a separate key file not visible to raters. This key file is retained by the
+experiment administrator and is not included in rater packets.
+
+\subsubsection*{9.5 Pair construction for rating}
+Raters evaluate documents via pairwise comparisons. For each case, the following comparisons are constructed:
+\begin{itemize}
+  \item Baseline vs Protocol
+  \item Protocol vs Independent
+  \item Baseline vs Independent
+\end{itemize}
+Pairs are randomized across raters. Each comparison consists of two normalized one-page documents labeled \textbf{Document A} and \textbf{Document B},
+with ordering randomized to prevent position bias.
+\subsubsection*{9.X Per-rater Independent reference selection}
+Pair construction is performed independently per rater. For each case requiring an Independent comparison,
+the rater-specific pairing logic may select \texttt{I\_refA} or \texttt{I\_refB}. A fixed random seed is used to make the
+per-rater selection deterministic and reproducible. The combined mapping is stored in \texttt{pairs\_key\_all\_raters.csv}.
+
+\subsubsection*{9.Y Main-analysis restriction }
+For the main analysis dataset, comparisons involving the Independent condition are filtered to include only
+pairs where the Independent document is \texttt{I\_refA}. Pairs containing \texttt{I\_refB} are reserved for sensitivity analysis.
+\subsubsection*{9.6 Blinded rater packets}
+Each rater receives a packet containing:
+\begin{itemize}
+  \item randomized document pairs
+  \item evaluation instructions
+  \item scoring rubric
+\end{itemize}
+Packets contain no information about generation condition, case identifiers, protocol usage, or investigation sources.
+
+\subsubsection*{9.7 Preservation of raw outputs}
+All raw model outputs remain archived without modification:
+\texttt{Cxx\_B\_raw.txt}, \texttt{Cxx\_P\_raw.txt}, \texttt{Cxx\_I\_refA\_raw.txt}, \texttt{Cxx\_I\_refB\_raw.txt}.
+Normalization produces derived evaluation documents, while raw artifacts remain the canonical record of model output.
+
+\subsection*{Step 11 --- Statistical analysis and comparison methodology}
+The objective is to determine whether outputs generated using the structured reasoning protocol demonstrate improved analytical quality
+relative to baseline outputs. Because documents are evaluated using pairwise comparisons, analysis focuses on relative preference frequencies.
+
+\subsubsection*{11.1 Pairwise comparison structure}
+For each case, three comparisons are constructed: Baseline vs Protocol, Protocol vs Independent, Baseline vs Independent.
+Each comparison is evaluated across four rubric dimensions:
+\begin{itemize}
+  \item \textbf{R1} --- Analytical clarity
+  \item \textbf{R2} --- Structural reasoning quality
+  \item \textbf{R3} --- Diagnostic usefulness
+  \item \textbf{R4} --- Overall analytical usefulness
+\end{itemize}
+For each dimension, raters select: \emph{A closer}, \emph{B closer}, or \emph{No clear difference}.
+
+\subsubsection*{11.2 Data representation}
+Each rating is represented as a record containing:
+\[
+\texttt{case\_id, document\_A\_id, document\_B\_id, generation\_condition\_A, generation\_condition\_B, rater\_id, dimension, response},
+\]
+where \texttt{response} is one of \texttt{A}, \texttt{B}, or \texttt{Tie}.
+
+\subsubsection*{11.3 Preference aggregation}
+For each comparison type and dimension, counts are computed:
+$N(A>B)$, $N(B>A)$, and $N(\mathrm{Tie})$.
+Tie responses are excluded from directional preference calculations but retained in reporting.
+The primary statistic is the preference rate:
+\[
+\mathrm{PreferenceRate}(A>B) \;=\; \frac{N(A>B)}{N(A>B) + N(B>A)}.
+\]
+
+\subsubsection*{11.4 Hypothesis testing}
+The principal hypothesis tested is:
+\[
+H_0:\ \text{Protocol outputs are no more likely to be preferred than Baseline outputs.}
+\]
+This is evaluated using a binomial test (or sign test) on directional preference counts. For each dimension:
+\[
+p\text{-value} \;=\; \mathrm{BinomialTest}\!\left(N(P>B),\ N(P>B)+N(B>P),\ p=0.5\right).
+\]
+
+\subsubsection*{11.5 Effect size estimation}
+Effect size is reported using a preference difference:
+\[
+\mathrm{EffectSize} \;=\; \mathrm{PreferenceRate}(P>B) \;-\; \mathrm{PreferenceRate}(B>P).
+\]
+Values greater than zero indicate preference for the protocol condition.
+
+\subsubsection*{11.6 Cross-case aggregation}
+Results are analyzed at two levels:
+\begin{itemize}
+  \item \textbf{Case-level analysis:} preference statistics computed separately for each case.
+  \item \textbf{Aggregate analysis:} preference counts pooled across all cases to estimate overall performance differences.
+\end{itemize}
+
+\subsubsection*{11.7 Sensitivity analysis}
+To evaluate robustness of the Independent condition, comparisons are repeated using the alternate assessor source:
+\texttt{Independent\_refA} vs \texttt{Independent\_refB}. Differences provide an estimate of sensitivity to assessor source selection.
+
+\subsubsection*{11.8 Inter-rater consistency}
+Inter-rater agreement is evaluated using measures such as Fleiss' kappa or pairwise agreement rates across raters.
+
+\subsubsection*{Lexical contamination check.}
+In addition to manual review, a simple lexical contamination check is performed
+prior to normalization and packet construction. For each case, the raw outputs
+from Baseline, Protocol, and Independent conditions are compared for leakage of
+condition-specific marker terms.
+
+The check includes:
+\begin{itemize}
+  \item protocol-unique artifact labels (e.g., \texttt{FACT:}, \texttt{ASSUMPTION:},
+        \texttt{MECHANISM:}, \texttt{CONTROL:}, \texttt{RISK:}, \texttt{UNCERTAINTY:});
+  \item protocol-unique structural terms (e.g., branch labels, handoff language,
+        explicit verification-path language);
+  \item forbidden theoretical vocabulary in Baseline or Independent outputs.
+\end{itemize}
+
+For each raw output, the contamination script records:
+\begin{itemize}
+  \item presence/absence of protected marker terms;
+  \item overlap counts for condition-specific lexicons;
+  \item flagged cases requiring manual review.
+\end{itemize}
+
+A case is marked for regeneration if Baseline or Independent outputs contain
+protocol-specific artifact labels or other condition-specific lexical markers
+that would compromise workflow isolation. All flagged cases, regeneration
+decisions, and discarded artifact hashes are recorded in the experiment log.
+
+\subsubsection*{11.9 Interpretation}
+The primary outcome of interest is whether the Protocol condition demonstrates:
+\begin{itemize}
+  \item higher preference rates than the Baseline condition,
+  \item consistent improvement across evaluation dimensions,
+  \item robustness across cases and raters.
+\end{itemize}
+The Independent condition serves as a reference representing analyses grounded in formal investigation reports.

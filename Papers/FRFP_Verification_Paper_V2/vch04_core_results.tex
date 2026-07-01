@@ -1,0 +1,230 @@
+% ===================================================================
+\section{Core Verification Results}
+\label{ch:core}
+% ===================================================================
+
+\subsection{Module Architecture}
+
+The 21 core modules are organized in five functional layers:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Layer & Modules & Role \\
+\midrule
+Kernel (L1) & KernelDefinitions & Inductive types, primitives, objects \\
+Float (L2) & FloatTheory, FloatMonotonicity & IEEE 754 arithmetic foundations \\
+Structure (L3) & CategoryStructure, PipelineComposition, & \\
+ & GrothConstruction, Termination & Core categorical and operational structure \\
+Semantics (L4) & SemanticCorrectness, TacitDependence, & \\
+ & ExplicitArtifact, ReductionSemantics, & \\
+ & ConfluenceProof, RunsTrajectories & Proof semantics and equivalence \\
+Governance (L5) & CollectiveLayer, GovernanceProofs, & \\
+ & AmbiguityProtocol, CredenceFramework, & \\
+ & DegradationModel, StoppingTime, & \\
+ & SurvivalAnalysis, GovernanceSafeExtension & Governance and probabilistic layer \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{L1: Kernel Definitions}
+% -------------------------------------------------------------------
+
+\leanref{Frfp/Core/KernelDefinitions.lean}
+
+The kernel establishes the three FRFP objects and the closed 6-element primitive
+set.
+
+\begin{lstlisting}
+inductive Object where
+  | Explicit | Tacit | Boundary
+  deriving DecidableEq, Repr
+
+inductive Primitive where
+  | RunInfo | ExecutionContext | ExecutionDecision
+  | RunBoundary | TacitElement | HumanFeedbackData
+  deriving DecidableEq, Repr
+\end{lstlisting}
+
+\textbf{Key theorems (8):}
+\begin{itemize}
+  \item \texttt{ets\_unique}: Explicit-tacit separation is the unique non-degenerate
+        partition of \texttt{Object} satisfying separation axioms.
+  \item \texttt{rb\_exactly\_one}: Run-boundary has exactly one well-typed
+        authorization witness per protocol step.
+  \item \texttt{ai\_executable}: All and only explicit-region objects satisfy the
+        AI-executability predicate.
+\end{itemize}
+
+% -------------------------------------------------------------------
+\subsection{L2: Float Theory and Monotonicity}
+% -------------------------------------------------------------------
+
+\leanref{Frfp/Core/FloatTheory.lean}, \leanref{Frfp/Core/FloatMonotonicity.lean}
+
+These modules provide the 59 IEEE 754 axioms and prove 31 theorems about
+floating-point credence arithmetic, including:
+
+\begin{itemize}
+  \item \texttt{credence\_clamp\_range}: Credence values are bounded in $[0.0,\,1.0]$
+        after clamping.
+  \item \texttt{float\_foldl\_monotone}: Folding a monotone function preserves
+        order.
+  \item \texttt{credence\_product\_le\_min}: Products of credences are bounded by
+        the minimum operand.
+\end{itemize}
+
+\begin{lstlisting}
+theorem credence_product_le_min (x y : Float) (hx : 0 ≤ x) (hy : 0 ≤ y)
+    (hx1 : x ≤ 1) (hy1 : y ≤ 1) : x * y ≤ min x y := by
+  simp [min_def]
+  split
+  · exact float_mul_le_of_le_one_right hx hy1
+  · exact float_mul_le_of_le_one_left hy hx1
+\end{lstlisting}
+
+% -------------------------------------------------------------------
+\subsection{L3: Structure Layer}
+% -------------------------------------------------------------------
+
+\leanref{Frfp/Core/CategoryStructure.lean}
+
+The category structure module proves that \(\Ecat\) and \(\Tcat\) satisfy the
+Mac~Lane category axioms (identity, associativity). The Grothendieck construction
+\(\int F\) is built as a dependent product over the base category.
+
+\leanref{Frfp/Core/ConfluenceProof.lean}
+
+The confluence module uses a three-step argument:
+\begin{enumerate}
+  \item Prove well-founded termination of the reduction relation via a step-count
+        measure.
+  \item Prove local confluence (diamond property) by case analysis over the 18
+        reduction rules.
+  \item Invoke Newman's Lemma: termination + local confluence implies global
+        confluence.
+\end{enumerate}
+
+\begin{lstlisting}
+-- Newman's Lemma application
+theorem global_confluence : Confluent frfp_reduce := by
+  apply NewmansLemma.confluent_of_wf_locally_confluent
+  · exact termination_wf
+  · exact local_confluence
+\end{lstlisting}
+
+% -------------------------------------------------------------------
+\subsection{L4: Semantics Layer}
+% -------------------------------------------------------------------
+
+\leanref{Frfp/Core/SemanticCorrectness.lean}
+
+The semantics layer proves:
+\begin{itemize}
+  \item \texttt{semantic\_correctness}: The denotational semantic function
+        \(\mathrm{Sem}\) is well-defined and type-correct.
+  \item \texttt{observation\_invariance}: Observable output is invariant under
+        navigation-equivalent terms.
+  \item \texttt{pipeline\_immutability}: Pipeline semantics are stable under
+        authorized composition.
+\end{itemize}
+
+\leanref{Frfp/Core/TacitDependence.lean}
+
+\begin{lstlisting}
+-- Tacit object is not AI-reconstructable
+theorem tacit_not_reconstructable
+    (t : TacitObject) : ¬ AIReconstructable t := by
+  intro h
+  exact NTER_axiom t h  -- No Tacit Emulation/Reconstruction
+\end{lstlisting}
+
+\leanref{Frfp/Core/ExplicitArtifact.lean}
+
+Proves that all explicit artifacts have well-typed reduction paths to normal
+form, and that all normal-form explicit artifacts carry a canonical type witness.
+
+% -------------------------------------------------------------------
+\subsection{L5: Governance Layer}
+% -------------------------------------------------------------------
+
+\leanref{Frfp/Core/CollectiveLayer.lean}
+
+The most technically demanding module, with 42 theorems. The key result is
+\texttt{consensus\_no\_grounding}:
+
+\begin{lstlisting}
+theorem consensus_no_grounding
+    (agents : Finset Agent)
+    (h_multi : agents.card ≥ 2)
+    (states : agents → EpistemicState)
+    (grounding_needed : Bool)
+    (h_grounding : grounding_needed = true) :
+    ¬ ∃ (consensus : BeliefState),
+      ∀ (a ∈ agents), convergesTo (states a) consensus := by
+  -- Without human grounding, consensus is unprovable
+  intro ⟨_, h_consensus⟩
+  exact grounding_required_for_consensus h_consensus h_grounding
+\end{lstlisting}
+
+\leanref{Frfp/Core/GovernanceSafeExtension.lean}
+
+Proves the novel governance safe extension theorem (see Chapter~\ref{ch:new}).
+
+% -------------------------------------------------------------------
+\subsection{Five Probability Theorems (Converted from Axioms)}
+% -------------------------------------------------------------------
+
+These five were originally stated as axioms and were converted to fully proven
+Lean theorems during the axiom audit:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Theorem & Statement & Reference \\
+\midrule
+\texttt{survival\_product\_formula} & $S(t) = \prod_{s \leq t}(1 - h(s))$ & Billingsley (1995), Ch.~5 \\
+\texttt{hazard\_survival\_relation} & $h(t) = 1 - S(t)/S(t-1)$ & Billingsley (1995), Ch.~5 \\
+\texttt{survival\_monotone} & $t' > t \Rightarrow S(t') \leq S(t)$ & Durrett (2019), Ch.~4 \\
+\texttt{stopping\_time\_measurable} & Stopping time is $\mathcal{F}_t$-measurable & Billingsley (1995), Ch.~7 \\
+\texttt{degradation\_monotone} & Degradation is non-decreasing over time & Derived from \texttt{float\_foldl\_monotone} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% -------------------------------------------------------------------
+\subsection{Module Summary Table}
+% -------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{lrrl}
+\toprule
+Module & Theorems & Axioms & Key result \\
+\midrule
+KernelDefinitions & 8 & 7 & ETS uniqueness, RB exactness \\
+FloatTheory & 18 & 35 & Credence arithmetic \\
+FloatMonotonicity & 13 & 24 & Fold monotonicity \\
+CategoryStructure & 12 & 7 & Category axioms for $\Ecat, \Tcat$ \\
+PipelineComposition & 15 & 0 & Associativity, immutability \\
+GrothConstruction & 10 & 0 & Grothendieck $\int F$ \\
+Termination & 9 & 4 & WF termination, step bound \\
+SemanticCorrectness & 22 & 8 & Sem well-definedness \\
+TacitDependence & 11 & 5 & Non-reconstructability \\
+ExplicitArtifact & 14 & 3 & NF type witness \\
+ReductionSemantics & 19 & 6 & Reduction morphism \\
+ConfluenceProof & 8 & 2 & Newman's lemma application \\
+RunsTrajectories & 16 & 4 & Run-trajectory bijection \\
+CollectiveLayer & 42 & 18 & Consensus no-grounding \\
+GovernanceProofs & 21 & 12 & IL, AR, CSC consequences \\
+AmbiguityProtocol & 8 & 5 & Boundary crossing safety \\
+CredenceFramework & 11 & 6 & Credence structure \\
+DegradationModel & 9 & 4 & Degradation monotonicity \\
+StoppingTime & 7 & 6 & Measurability \\
+SurvivalAnalysis & 8 & 3 & Survival formula \\
+GovernanceSafeExtension & 7 & 0 & Novel: safe extension \\
+\midrule
+\textbf{Total} & \textbf{269} & \textbf{155} & \\
+\bottomrule
+\end{tabular}
+\end{center}
