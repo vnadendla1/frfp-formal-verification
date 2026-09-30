@@ -300,3 +300,8 @@ Formalized using Lean 4 theorem prover with extensive use of:
 - Dependent types for morphism typing
 - Namespaces for module isolation
 - Lake build system for package management
+
+
+## Paper I Lean verification
+
+The standalone [Paper I Lean package](Papers/Paper_I_Lean/README.md) contains the semantic-substitution six-role lower bound, finite operational realization, pinned dependencies, and reproducible verification scripts.

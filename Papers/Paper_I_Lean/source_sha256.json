@@ -1,0 +1,19 @@
+{
+  "AlgebraOfHumanAiCollaboration/ApplicationWitnesses.lean": "b16e72bcb4473e8ae3b9c9051f0a851a733a0573ba5fde80a9ad7a2b947e6133",
+  "AlgebraOfHumanAiCollaboration/Authorization.lean": "dd5ac02b1c759bc020a7d46ff5aa1cb6630b9518f234ca3bc5e213cf5bcfe34e",
+  "AlgebraOfHumanAiCollaboration/AuthorizationSufficiency.lean": "9e0ba6daa1cfac33a53ea90dfba2bc1f1a916cbc869e466257fc67d2296f9b31",
+  "AlgebraOfHumanAiCollaboration/DependencyBoundary.lean": "fc4d55c3fbe4b257ecb4b73e566f7b862139afe0dc10ef41371538960087968a",
+  "AlgebraOfHumanAiCollaboration/EffectiveCoarseGraining.lean": "061d6f064bf4898c9b1e70cee95992a836b4c4b73f4e5093dd94225a42650f51",
+  "AlgebraOfHumanAiCollaboration/EffectiveMinimality.lean": "0efdae453ba8f361de2cf1cb9a6d1fd85688b0281b035aeecbfab431d0f547bb",
+  "AlgebraOfHumanAiCollaboration/FRFPSpecificationBridge.lean": "e784837b431af1867f08a5e283fb5da6c91529eecc0a03c2e3025ac619604689",
+  "AlgebraOfHumanAiCollaboration/Factorization.lean": "d8136b201d3bbfde22006d51cb94216c8a22e0d30142bbb66bb66dc55eeeaa4c",
+  "AlgebraOfHumanAiCollaboration/SemanticRoles.lean": "e136727eed15170c1fba3a76f52d65177aba2c6b36c55e64d4a60b6ffac1bb36",
+  "AlgebraOfHumanAiCollaboration/TaskQuotient.lean": "70431bf94a521a35db72b1d3b86f65d393076fb0989ae131d691c632fe42630c",
+  "FirstPrinciplesRevision/OperationalContracts.lean": "89b9b4c48a507355499d03d6794aecbba8577ed675688b919f13a1a81d8feba8",
+  "FirstPrinciplesRevision/RelationalRoles.lean": "016ba38f102781787273837266c3e024f64f71fa52e8a68c017a9d762cb21fd3",
+  "FirstPrinciplesRevision/SemanticChecks.lean": "6cfef6abd52113999b7dac32e7738fdb1aeaee79951ae654f4a12fd3e1557c84",
+  "FirstPrinciplesRevision/SemanticOperational.lean": "59a35442e9131e1498ad8317b70ec5865401ff7a2350e99d7943c7154819f161",
+  "FirstPrinciplesRevision/SemanticRoles.lean": "74fd5ffbecd3146e69e0d304cfa0b333dc8bb6dd2dd9b6d14f8a590c3a7eb4bf",
+  "scripts/AuditSemanticRoles.lean": "48225cadc1bcc8a81af2126cd06297bdd48274ef3e8df37f6adeeef57831e0e5",
+  "scripts/CheckSemanticDependencies.lean": "73f507e9fa56c1c65a273d81f4d6cd9d3bc7e8b3dd9335a8ca3366e99dc5eb12"
+}

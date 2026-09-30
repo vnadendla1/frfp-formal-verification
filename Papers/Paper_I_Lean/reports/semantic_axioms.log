@@ -1,0 +1,42 @@
+'FirstPrinciplesRevision.Semantic.substitutes_refl' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.substitutes_trans' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.regime_separation' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.missing_precondition' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.boundary_noncollapse' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.bad_outcome' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.local_cannot_acquire' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.local_information_cannot_repair' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.substitution_forces_factorization' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.production_not_evaluation' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.assessment_not_closure' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.closure_not_assessment' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.initialization_separates' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.local_nonrepair' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.local_boundary_separates' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.local_downstream_separates' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.boundary_downstream_separates' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.pq_separates' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.ac_separates' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.SixRoleModel.pairwise_noncollapse' depends on axioms: [propext]
+'FirstPrinciplesRevision.Semantic.SixRoleModel.six_classes' depends on axioms: [propext]
+'FirstPrinciplesRevision.Semantic.SixRoleModel.semantic_six_classes' depends on axioms: [propext]
+'FirstPrinciplesRevision.Operational.SemanticModel.reachable_coherent' depends on axioms: [propext]
+'FirstPrinciplesRevision.Operational.SemanticModel.step_iff_guard_effect' depends on axioms: [propext]
+'FirstPrinciplesRevision.Operational.SemanticModel.contract_bridge' depends on axioms: [propext]
+'FirstPrinciplesRevision.Operational.SemanticModel.contract_preserves_reachability' depends on axioms: [propext]
+'FirstPrinciplesRevision.Operational.SemanticModel.downstream_payload' depends on axioms: [propext]
+'FirstPrinciplesRevision.Operational.SemanticModel.query_reachable' depends on axioms: [propext, Quot.sound]
+'FirstPrinciplesRevision.Operational.SemanticModel.semantic_lower_bound' depends on axioms: [propext, Quot.sound]
+'FirstPrinciplesRevision.Operational.SemanticModel.semantic_exactly_six' depends on axioms: [propext, Quot.sound]
+'FirstPrinciplesRevision.Operational.SemanticModel.family_local_deficit' does not depend on any axioms
+'FirstPrinciplesRevision.Operational.SemanticModel.family_augmented_sufficient' does not depend on any axioms
+'FirstPrinciplesRevision.Operational.SemanticModel.payload_iff_family_sufficient' depends on axioms: [propext]
+'FirstPrinciplesRevision.Operational.SemanticModel.model_sufficiency' depends on axioms: [propext, Quot.sound]
+'FirstPrinciplesRevision.Semantic.Checks.second_not_from_first' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.Checks.combined_contract_counterexample' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.Checks.family_deficit_not_individual_deficit' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.Checks.joint_realization_not_equivalence' depends on axioms: [propext]
+'FirstPrinciplesRevision.Semantic.Checks.labels_do_not_separate' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.Checks.empty_behavior_not_realizable' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.Checks.nondeterministic_contract' does not depend on any axioms
+'FirstPrinciplesRevision.Semantic.Checks.any_sound_effective_equivalence' depends on axioms: [propext, Quot.sound]
