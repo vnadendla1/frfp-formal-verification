@@ -1,0 +1,27 @@
+import ETSplit
+#print axioms ETSplit.factors_implies_kerLE
+#print axioms ETSplit.factors_of_kerLE
+#print axioms ETSplit.factorization_criterion
+#print axioms ETSplit.factors_trans
+#print axioms ETSplit.factors_through_injective
+#print axioms ETSplit.factors_through_id
+#print axioms ETSplit.empty_domain_counterexample
+#print axioms ETSplit.commonKer_refl
+#print axioms ETSplit.commonKer_symm
+#print axioms ETSplit.commonKer_trans
+#print axioms ETSplit.quotient_eq_iff
+#print axioms ETSplit.correctness_preservation
+#print axioms ETSplit.canonical_correctness_quotient
+#print axioms ETSplit.content_factors_through_quotient
+#print axioms ETSplit.aggregate_implies_item
+#print axioms ETSplit.joint_implies_individual
+#print axioms ETSplit.operational_spectrum_inclusion
+#print axioms ETSplit.recovery_positive
+#print axioms ETSplit.recovery_negative
+#print axioms ETSplit.semantic_alignment
+#print axioms ETSplit.unrestricted_representation_iff_injects
+#print axioms ETSplit.correctness_revision_invalidation
+#print axioms ETSplit.safety_through_safetyRep
+#print axioms ETSplit.authorization_not_through_safetyRep
+#print axioms ETSplit.authorization_through_jointRep
+#print axioms ETSplit.semantic_failure_witness

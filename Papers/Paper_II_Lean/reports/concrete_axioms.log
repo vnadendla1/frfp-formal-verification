@@ -1,0 +1,27 @@
+'FirstPrinciplesRevision.ConcreteRecovery.C1' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.C2' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.correctness_alignment' depends on axioms: [propext, Quot.sound]
+'FirstPrinciplesRevision.ConcreteRecovery.contents_respect_correctness' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.interpreted_item_in_domain' depends on axioms: [propext]
+'FirstPrinciplesRevision.ConcreteRecovery.domain_invariant' depends on axioms: [propext, Quot.sound]
+'FirstPrinciplesRevision.ConcreteRecovery.R1' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.R2' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.explicit_characterization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FirstPrinciplesRevision.ConcreteRecovery.tacit_characterization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FirstPrinciplesRevision.ConcreteRecovery.concrete_recovery' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FirstPrinciplesRevision.ConcreteRecovery.safety_representable' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.authorization_not_representable' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.both_classes_occupied' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FirstPrinciplesRevision.ConcreteRecovery.expanded_comparison_breaks_R2' depends on axioms: [propext]
+'FirstPrinciplesRevision.ConcreteRecovery.omitted_authorization_breaks_C1' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.interface_injective' depends on axioms: [propext]
+'FirstPrinciplesRevision.ConcreteRecovery.neutral_regime_definition' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.comparison_regime_definition' does not depend on any axioms
+'FirstPrinciplesRevision.ConcreteRecovery.expanded_neutral_breaks_R1' depends on axioms: [propext]
+'FirstPrinciplesRevision.ConcreteRecovery.extra_neutral_distinction_breaks_C2' does not depend on any axioms

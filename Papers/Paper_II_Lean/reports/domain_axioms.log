@@ -1,0 +1,7 @@
+'FRFPMerge.conditional_explicit_recovery' depends on axioms: [propext]
+'FRFPMerge.conditional_tacit_recovery' depends on axioms: [propext]
+'FirstPrinciplesRevision.RecoveryDomainChecks.included_explicit' depends on axioms: [propext]
+'FirstPrinciplesRevision.RecoveryDomainChecks.included_tacit' depends on axioms: [propext]
+'FirstPrinciplesRevision.RecoveryDomainChecks.outside_modal_freedom' depends on axioms: [propext]
+'FirstPrinciplesRevision.RecoveryDomainChecks.outside_spectra_may_differ' depends on axioms: [propext]
+'FirstPrinciplesRevision.RecoveryDomainChecks.unrestricted_recovery_fails' depends on axioms: [propext]

@@ -1,0 +1,26 @@
+'ETSplit.factors_implies_kerLE' does not depend on any axioms
+'ETSplit.factors_of_kerLE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ETSplit.factorization_criterion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ETSplit.factors_trans' depends on axioms: [propext]
+'ETSplit.factors_through_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ETSplit.factors_through_id' does not depend on any axioms
+'ETSplit.empty_domain_counterexample' does not depend on any axioms
+'ETSplit.commonKer_refl' does not depend on any axioms
+'ETSplit.commonKer_symm' does not depend on any axioms
+'ETSplit.commonKer_trans' does not depend on any axioms
+'ETSplit.quotient_eq_iff' depends on axioms: [propext, Quot.sound]
+'ETSplit.correctness_preservation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ETSplit.canonical_correctness_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ETSplit.content_factors_through_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ETSplit.aggregate_implies_item' depends on axioms: [propext]
+'ETSplit.joint_implies_individual' does not depend on any axioms
+'ETSplit.operational_spectrum_inclusion' does not depend on any axioms
+'ETSplit.recovery_positive' depends on axioms: [propext]
+'ETSplit.recovery_negative' depends on axioms: [propext]
+'ETSplit.semantic_alignment' depends on axioms: [propext, Quot.sound]
+'ETSplit.unrestricted_representation_iff_injects' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ETSplit.correctness_revision_invalidation' depends on axioms: [propext]
+'ETSplit.safety_through_safetyRep' does not depend on any axioms
+'ETSplit.authorization_not_through_safetyRep' does not depend on any axioms
+'ETSplit.authorization_through_jointRep' does not depend on any axioms
+'ETSplit.semantic_failure_witness' does not depend on any axioms

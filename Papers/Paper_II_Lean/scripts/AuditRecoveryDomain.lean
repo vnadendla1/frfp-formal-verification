@@ -1,0 +1,8 @@
+import FirstPrinciplesRevision.RecoveryDomainChecks
+#print axioms FRFPMerge.conditional_explicit_recovery
+#print axioms FRFPMerge.conditional_tacit_recovery
+#print axioms FirstPrinciplesRevision.RecoveryDomainChecks.included_explicit
+#print axioms FirstPrinciplesRevision.RecoveryDomainChecks.included_tacit
+#print axioms FirstPrinciplesRevision.RecoveryDomainChecks.outside_modal_freedom
+#print axioms FirstPrinciplesRevision.RecoveryDomainChecks.outside_spectra_may_differ
+#print axioms FirstPrinciplesRevision.RecoveryDomainChecks.unrestricted_recovery_fails
