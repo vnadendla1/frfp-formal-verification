@@ -1,0 +1,106 @@
+{
+  "Lemma 1": [
+    "AlgebraOfHumanAiCollaboration.factorsThrough_iff_kernelIncluded",
+    "PaperIII.factorization_with_inhabited_target",
+    "PaperIII.empty_domain_counterexample"
+  ],
+  "Theorem 1": [
+    "PaperIII.specificationAdequacyFactorization",
+    "PaperIII.nonfactorability_has_collision"
+  ],
+  "Countermodel 1": [
+    "PaperIII.FiniteAdequacyModel.specifiedSuccess_does_not_imply_problemAdequacy"
+  ],
+  "Theorem 2": [
+    "PaperIII.quotient_card_le_capacity",
+    "PaperIII.finite_capacity_nonexhaustibility",
+    "PaperIII.feasible_family_nonexhaustibility"
+  ],
+  "Aggregate versus item-level limitation": [
+    "PaperIII.aggregate_not_itemwise_failure"
+  ],
+  "Proposition 1": [
+    "PaperIII.discovery_without_admission"
+  ],
+  "Theorem 3": [
+    "PaperIII.admission_induced_insufficiency",
+    "PaperIII.candidate_factors_revisedQuotient"
+  ],
+  "Baseline revision and restoration": [
+    "PaperIII.baseline_revision",
+    "PaperIII.identity_restores_sufficiency"
+  ],
+  "Proposition 2": [
+    "PaperIII.inadequacy_without_particular_revision"
+  ],
+  "Definition 1 coordinate independence": [
+    "PaperIII.executor_does_not_determine_contract_or_standing",
+    "PaperIII.contract_does_not_determine_executor_or_standing"
+  ],
+  "Definition 2 unique principal": [
+    "PaperIII.principal_eq_some_iff",
+    "PaperIII.roots_singleton_iff"
+  ],
+  "Proposition 3": [
+    "PaperIII.operational_update_preserves_charter",
+    "PaperIII.capability_change_without_principal_change"
+  ],
+  "Theorem 4": [
+    "PaperIII.principal_through_origin"
+  ],
+  "Theorem 5": [
+    "PaperIII.rooted_through_grounding"
+  ],
+  "Corollary 1": [
+    "PaperIII.principal_through_grounding"
+  ],
+  "Theorem 6": [
+    "PaperIII.epistemicNonCollapse"
+  ],
+  "Theorem 7": [
+    "PaperIII.contentStandingNonCollapse",
+    "PaperIII.contentStandingNonCollapse_under_relation"
+  ],
+  "Non-collapse independence": [
+    "PaperIII.IndependenceModels.independence_of_epistemic_and_constitutive_noncollapse"
+  ],
+  "Theorem 8": [
+    "PaperIII.assessmentClosureNonCollapse",
+    "PaperIII.assessmentClosureNonCollapse_under_relation"
+  ],
+  "Countermodel 2": [
+    "PaperIII.GovernedMachine.distinct_contracts_one_implementation",
+    "PaperIII.GovernedMachine.revision_requires_permission",
+    "PaperIII.GovernedMachine.closure_requires_permission"
+  ],
+  "Section 7 joint dynamics": [
+    "PaperIII.GovernedMachine.discovery_does_not_revise",
+    "PaperIII.GovernedMachine.non_amendment_preserves_charter",
+    "PaperIII.GovernedMachine.amendment_requires_permission",
+    "PaperIII.GovernedMachine.valid_amendment_changes_root"
+  ],
+  "Definition 5": [
+    "PaperIII.direct_human_specialization"
+  ],
+  "Theorem 9": [
+    "PaperIII.human_principal_origin",
+    "PaperIII.institutional_origin_yields_human_bearer"
+  ],
+  "Theorem 10": [
+    "PaperIII.human_rooted_grounding"
+  ],
+  "Corollary 2": [
+    "PaperIII.human_principal_grounding"
+  ],
+  "Scope, delegation and no-co-root qualifications": [
+    "PaperIII.human_scope_does_not_extend_to_other_obligations",
+    "PaperIII.human_delegates_machine_without_substitution",
+    "PaperIII.grounding_without_no_co_root",
+    "PaperIII.origin_requires_adopted_rule",
+    "PaperIII.machine_principal_model"
+  ],
+  "Independent origin and grounding routes": [
+    "PaperIII.grounding_route_without_origin",
+    "PaperIII.origin_route_without_realization"
+  ]
+}

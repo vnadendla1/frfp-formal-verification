@@ -1,0 +1,73 @@
+'PaperIII.quotient_card_le_capacity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.capacity_nonexhaustibility' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.finite_capacity_nonexhaustibility' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.feasible_family_nonexhaustibility' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.exact_capacity_control' does not depend on any axioms
+'PaperIII.GovernedMachine.distinct_contracts_one_implementation' does not depend on any axioms
+'PaperIII.GovernedMachine.assessment_open_closure_settles' does not depend on any axioms
+'PaperIII.GovernedMachine.discovery_does_not_revise' does not depend on any axioms
+'PaperIII.GovernedMachine.revision_requires_permission' depends on axioms: [propext]
+'PaperIII.GovernedMachine.closure_requires_permission' depends on axioms: [propext]
+'PaperIII.GovernedMachine.amendment_requires_permission' depends on axioms: [propext]
+'PaperIII.GovernedMachine.non_amendment_preserves_charter' depends on axioms: [propext]
+'PaperIII.GovernedMachine.valid_amendment_changes_root' does not depend on any axioms
+'PaperIII.GovernedMachine.operational_contracts_preserve_principal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PaperIII.factorization_with_inhabited_target' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.empty_domain_counterexample' does not depend on any axioms
+'PaperIII.nonfactorability_has_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.executor_does_not_determine_contract_or_standing' does not depend on any axioms
+'PaperIII.contract_does_not_determine_executor_or_standing' does not depend on any axioms
+'PaperIII.operational_update_preserves_charter' does not depend on any axioms
+'PaperIII.operational_update_preserves_principal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.rooted_principal' does not depend on any axioms
+'PaperIII.capability_change_without_principal_change' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.human_delegates_machine_without_substitution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.origin_without_no_co_root' does not depend on any axioms
+'PaperIII.co_roots_have_no_selected_principal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.origin_requires_adopted_rule' does not depend on any axioms
+'PaperIII.concrete_governing_certificate' does not depend on any axioms
+'PaperIII.certificate_requires_independent_specification' does not depend on any axioms
+'PaperIII.grounding_without_no_co_root' does not depend on any axioms
+'PaperIII.information_and_realization_do_not_imply_root' does not depend on any axioms
+'PaperIII.machine_principal_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.aggregate_not_itemwise_failure' does not depend on any axioms
+'PaperIII.institutional_origin_yields_human_bearer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.human_scope_does_not_extend_to_other_obligations' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.grounding_route_without_origin' does not depend on any axioms
+'PaperIII.origin_route_without_realization' does not depend on any axioms
+'PaperIII.epistemicNonCollapse' does not depend on any axioms
+'PaperIII.contentStandingNonCollapse' does not depend on any axioms
+'PaperIII.IndependenceModels.epistemic_collapse_with_constitutive_noncollapse' depends on axioms: [propext]
+'PaperIII.IndependenceModels.epistemic_noncollapse_without_constitutive_noncollapse' does not depend on any axioms
+'PaperIII.IndependenceModels.independence_of_epistemic_and_constitutive_noncollapse' depends on axioms: [propext]
+'PaperIII.assessmentClosureNonCollapse' does not depend on any axioms
+'PaperIII.contentStandingNonCollapse_under_relation' does not depend on any axioms
+'PaperIII.assessmentClosureNonCollapse_under_relation' does not depend on any axioms
+'PaperIII.principal_unique' does not depend on any axioms
+'PaperIII.principal_eq_some' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.principal_eq_some_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.roots_singleton_iff' does not depend on any axioms
+'PaperIII.principal_through_origin' does not depend on any axioms
+'PaperIII.rooted_through_grounding' does not depend on any axioms
+'PaperIII.principal_through_grounding' does not depend on any axioms
+'PaperIII.human_principal_origin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.direct_human_specialization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.human_rooted_grounding' does not depend on any axioms
+'PaperIII.human_principal_grounding' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.specificationAdequacyFactorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperIII.FiniteAdequacyModel.same_explicit_representation' does not depend on any axioms
+'PaperIII.FiniteAdequacyModel.both_satisfy_specified_task' does not depend on any axioms
+'PaperIII.FiniteAdequacyModel.adequacy_differs' does not depend on any axioms
+'PaperIII.FiniteAdequacyModel.finite_specification_adequacy_incompleteness' does not depend on any axioms
+'PaperIII.FiniteAdequacyModel.specifiedSuccess_does_not_imply_problemAdequacy' does not depend on any axioms
+'PaperIII.candidate_factors_revisedQuotient' does not depend on any axioms
+'PaperIII.admission_induced_insufficiency' does not depend on any axioms
+'PaperIII.identity_restores_sufficiency' does not depend on any axioms
+'PaperIII.baseline_revision' does not depend on any axioms
+'PaperIII.discovery_without_admission' does not depend on any axioms
+'PaperIII.inadequacy_without_particular_revision' does not depend on any axioms
+'AlgebraOfHumanAiCollaboration.factorsThrough_iff_kernelIncluded' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

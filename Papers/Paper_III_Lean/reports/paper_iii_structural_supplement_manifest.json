@@ -1,0 +1,14 @@
+{
+  "archive": "reports/paper_iii_structural_supplement_20261003.zip",
+  "sha256": "4463086cf8a4e6ae48aa1feec0dc051a93861e8488d0fe8e86e3b63e4593e972",
+  "contents": {
+    "manuscripts/restructure/check_paper_iii_finite.py": "f6f65389a5b56f9cb1bd3df66f30243642896fa6cd4584f1968a445f52d62762",
+    "reports/paper_iii_finite_realization.json": "6680dc14e6119222a6cdb57eb419245e2456cf4a7e53cb1cd3660803877d37ed",
+    "manuscripts/restructure/draw_paper_iii_architecture.py": "9cb93fe45c82fe9e4b6a0659479728f504534755be8750b581b9045f06d4ce0e",
+    "manuscripts/standalone/figures/paper_iii_architecture.pdf": "f78a86401191375689b7f5fa252d0e23def68deaa21614643ad86bcd745d1fff",
+    "manuscripts/standalone/figures/paper_iii_architecture.png": "34f9957856bb8b7713703f399c0f383b20dd4a00371604e73db8f90a441dbdef",
+    "reports/paper_iii_reproduction_20261003.zip": "6c2047d1a5b9d7fd93bbfb200f6395507dcde47afbc43c4384ade8a1cc4d9b6f",
+    "reports/paper_iii_revision_artifact.json": "1836dba73a77f68866ceae44b4df90c43f4b2eafbb0eba5106d39d5832022376"
+  },
+  "finite_model_check": "Python exhaustive, separate from Lean core"
+}
