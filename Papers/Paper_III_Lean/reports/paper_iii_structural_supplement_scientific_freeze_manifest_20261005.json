@@ -1,6 +1,6 @@
 {
   "archive": "reports/paper_iii_structural_supplement_interface_revision_20261005.zip",
-  "sha256": "6657dab652fc8f75a7e4e00e49c2b260c717911428fbeedf304ad9e1940ab74b",
+  "sha256": "ec2ea01ee2a365bb1225bc65e134e891535c322b72504f103fb20c8f3a39be2f",
   "contents": {
     "manuscripts/restructure/check_paper_iii_finite.py": "565dacfaf160fd8c0c1f74f6948c598a86981a5ddef2f53d3d85a692f3349354",
     "reports/paper_iii_finite_realization.json": "120664e8159305439c5df7903f04e43a22f3e36e1bf680ffa8210cf0f5fbbf9c",
@@ -8,9 +8,9 @@
     "manuscripts/standalone/figures/paper_iii_architecture.pdf": "c8d8f4be4e088296e63ec60304b1219aadda2af54bb70fca620cc752f5b40432",
     "manuscripts/standalone/figures/paper_iii_architecture.png": "3d89902bd2ee6487f1f2b51e1808949d684e969e2e6285e7292253255de5d3ca",
     "manuscripts/standalone/figures/paper_iii_architecture_alt.txt": "03d300b6bc51f945a83fbdd6d70009a0f465cf8ee5e5cec6c4c0f279867cff2b",
-    "manuscripts/restructure/draw_paper_iii_human_authority_overview.py": "5ee2664661e8d49b2bc27beac82e9b75e35d7329b4c9253bc146f00d3c784af8",
-    "manuscripts/standalone/figures/paper_iii_human_authority_overview.pdf": "d69f58dac7ceaabb4e1664290ca3d2f11935c96e922606edac88c02bd9454f98",
-    "manuscripts/standalone/figures/paper_iii_human_authority_overview.png": "4ab639ad669287ff05fd0029a25e983c8e7def335c355cb5f5bc8bac0fb025e3",
+    "manuscripts/restructure/draw_paper_iii_human_authority_overview.py": "6111dad864493192914e4078ac8227839c9fbfeb8340749b80d6a3c7cac26378",
+    "manuscripts/standalone/figures/paper_iii_human_authority_overview.pdf": "7df60d781e27f7d5f2daf299773bbd09c814e00c436cfed1b1790415fb9b814e",
+    "manuscripts/standalone/figures/paper_iii_human_authority_overview.png": "e8c674e23938d342bb89ce8d5454a549483ae44f0af7d57531381ae88ad0ed41",
     "manuscripts/standalone/figures/paper_iii_human_authority_overview_alt.txt": "c5e719d65e05151dc02e1b72e842cc40842ea027fd87e23e911ac67475f86458",
     "reports/paper_iii_reproduction_interface_revision_20261005.zip": "1351179cafefa1fe97e699c7c729b12fba87b74bd330cb576c3d2155e821f767",
     "reports/paper_iii_scientific_freeze_artifact.json": "dea9b5925eb19417de4ba62ab40a2da23672e5bb16fe4faecbd8b3cf59212457"
