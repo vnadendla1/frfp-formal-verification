@@ -76,8 +76,10 @@ def check_authority_boundary():
             payload = {'issuer':root, 'decision':decision(world), 'crossed_beta':True}
             occurrence = {'executor':'machine', 'obligation':'o', 'episode':0,
                           'root':root, 'payload':payload, 'derived_standing':True,
+                          'acquisition_contract_B_realized':None,
                           'auth_close':True, 'valid_close':True, 'outstanding_after':False}
             assert occurrence['payload']['crossed_beta']
+            assert occurrence['acquisition_contract_B_realized'] is None
             assert occurrence['payload']['decision'] == decision(world)
             assert occurrence['auth_close'] and occurrence['derived_standing'] and occurrence['valid_close']
             assert not factors(decision, rm)  # payload never changes the independent basis

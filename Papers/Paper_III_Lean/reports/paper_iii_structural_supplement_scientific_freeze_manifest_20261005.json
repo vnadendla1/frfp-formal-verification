@@ -1,19 +1,19 @@
 {
-  "archive": "reports/paper_iii_structural_supplement_interface_revision_20261005.zip",
-  "sha256": "ec2ea01ee2a365bb1225bc65e134e891535c322b72504f103fb20c8f3a39be2f",
+  "archive": "reports/paper_iii_structural_supplement_internal_consistency_20261005.zip",
+  "sha256": "0df300755abea1651b9096f67eee8e81e649e634e0afb04149b04d3c88839d67",
   "contents": {
-    "manuscripts/restructure/check_paper_iii_finite.py": "565dacfaf160fd8c0c1f74f6948c598a86981a5ddef2f53d3d85a692f3349354",
-    "reports/paper_iii_finite_realization.json": "120664e8159305439c5df7903f04e43a22f3e36e1bf680ffa8210cf0f5fbbf9c",
+    "manuscripts/restructure/check_paper_iii_finite.py": "68001a5cb2a0a04228269f5a58f8cbc7185591610865d2c9276202feb8953f2d",
+    "reports/paper_iii_finite_realization.json": "d290fa5021262d33f8fb8fe4bb931e95a7a8cf6ac2ebba2010ebf55a52442c85",
     "manuscripts/restructure/draw_paper_iii_architecture.py": "fe42d40a4fa86167681a297a15ecdeffa77eddca7c49e5342b90071ddcbade52",
     "manuscripts/standalone/figures/paper_iii_architecture.pdf": "c8d8f4be4e088296e63ec60304b1219aadda2af54bb70fca620cc752f5b40432",
     "manuscripts/standalone/figures/paper_iii_architecture.png": "3d89902bd2ee6487f1f2b51e1808949d684e969e2e6285e7292253255de5d3ca",
     "manuscripts/standalone/figures/paper_iii_architecture_alt.txt": "03d300b6bc51f945a83fbdd6d70009a0f465cf8ee5e5cec6c4c0f279867cff2b",
-    "manuscripts/restructure/draw_paper_iii_human_authority_overview.py": "6111dad864493192914e4078ac8227839c9fbfeb8340749b80d6a3c7cac26378",
-    "manuscripts/standalone/figures/paper_iii_human_authority_overview.pdf": "7df60d781e27f7d5f2daf299773bbd09c814e00c436cfed1b1790415fb9b814e",
-    "manuscripts/standalone/figures/paper_iii_human_authority_overview.png": "e8c674e23938d342bb89ce8d5454a549483ae44f0af7d57531381ae88ad0ed41",
-    "manuscripts/standalone/figures/paper_iii_human_authority_overview_alt.txt": "c5e719d65e05151dc02e1b72e842cc40842ea027fd87e23e911ac67475f86458",
-    "reports/paper_iii_reproduction_interface_revision_20261005.zip": "1351179cafefa1fe97e699c7c729b12fba87b74bd330cb576c3d2155e821f767",
-    "reports/paper_iii_scientific_freeze_artifact.json": "dea9b5925eb19417de4ba62ab40a2da23672e5bb16fe4faecbd8b3cf59212457"
+    "manuscripts/restructure/draw_paper_iii_human_authority_overview.py": "8443c4ff881aaebb79693dc1783f7bf9b734cb47aaa42f46fe4454aa5c3bf756",
+    "manuscripts/standalone/figures/paper_iii_human_authority_overview.pdf": "e2571e25d60be7d61afde7c804652f401a41d0990fcd17c6d646844a3f2bb0c5",
+    "manuscripts/standalone/figures/paper_iii_human_authority_overview.png": "fd7943ac4097ea1eba02e172874b7e6a9906800c8e9b3865ebc6df115601c98a",
+    "manuscripts/standalone/figures/paper_iii_human_authority_overview_alt.txt": "332d6b1abd6a32bc0fa3cf5ddd7b4279548214d64006e87fa2a7b9c7157098b3",
+    "reports/paper_iii_reproduction_internal_consistency_20261005.zip": "37f267aedf3fcc52f01dad3b774188d31098901ee4f936cb0433145901adee2e",
+    "reports/paper_iii_scientific_freeze_artifact.json": "cae552bba5fa701e9d1d1339f2595809205b229b189cb5cc1ef2ea1b35a90519"
   },
   "finite_model_check": "Separate exhaustive Python realization, not a joint Lean proof"
 }

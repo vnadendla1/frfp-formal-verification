@@ -47,16 +47,18 @@ theorem roots_exist_of_valid_grounded_authorization
   obtain ⟨r, hr, _⟩ := grounded a o ha
   exact ⟨r, hr⟩
 
-/-- Rroot is independent candidate-root information; delegated payloads are occurrence inputs. -/
+/-- Rroot is independent candidate-root information. Confinement and classification
+are required only on ValidRoot, consistently with the eligible-domain interpretation.
+Delegated payloads are occurrence inputs. -/
 theorem no_machine_valid_root {X V M : Type} {Y : A → Type}
     {χ : Charter A O} {o : O} {Machine : A → Prop} {canBear : A → O → Prop}
     (D : X → V) (RM : X → M) (Rroot : (a : A) → X → Y a)
     (missing : ¬ FactorsThrough D RM)
-    (confined : ∀ a, Machine a → FactorsThrough (Rroot a) RM)
+    (confined : ∀ a, ValidRoot χ canBear o a → Machine a → FactorsThrough (Rroot a) RM)
     (faithful : ∀ a, canBear a o → FactorsThrough D (Rroot a)) :
     ∀ a, ValidRoot χ canBear o a → ¬ Machine a := by
   intro a root machine
-  exact missing ((faithful a root.2).trans (confined a machine))
+  exact missing ((faithful a root.2).trans (confined a root machine))
 
 theorem human_authority {X V M : Type} {Y : A → Type}
     {χ : Charter A O} {o : O} {Human Machine : A → Prop}
@@ -64,7 +66,7 @@ theorem human_authority {X V M : Type} {Y : A → Type}
     (D : X → V) (RM : X → M) (Rroot : (a : A) → X → Y a)
     (completed : Completion governed standing) (grounded : ValidRootGrounded χ canBear standing)
     (missing : ¬ FactorsThrough D RM)
-    (confined : ∀ a, Machine a → FactorsThrough (Rroot a) RM)
+    (confined : ∀ a, ValidRoot χ canBear o a → Machine a → FactorsThrough (Rroot a) RM)
     (faithful : ∀ a, canBear a o → FactorsThrough D (Rroot a))
     (exhaustive : ∀ a, ValidRoot χ canBear o a → Human a ∨ Machine a) (valid : governed o) :
     HasHumanAuthority χ canBear Human o := by
@@ -119,7 +121,7 @@ theorem human_authority_from_recovery {X V M : Type} {Y : A → Type}
     (selected : h.IC D) (tacit : h.tacitComparison D)
     (admitted : FactorsThrough D RM → h.neutralSpectrum D)
     (completed : Completion governed standing) (grounded : ValidRootGrounded χ canBear standing)
-    (confined : ∀ a, Machine a → FactorsThrough (Rroot a) RM)
+    (confined : ∀ a, ValidRoot χ canBear o a → Machine a → FactorsThrough (Rroot a) RM)
     (faithful : ∀ a, canBear a o → FactorsThrough D (Rroot a))
     (exhaustive : ∀ a, ValidRoot χ canBear o a → Human a ∨ Machine a) (valid : governed o) :
     HasHumanAuthority χ canBear Human o :=
@@ -153,7 +155,7 @@ theorem human_authority_at_episode {E X V M : Type} {Y : A → Type}
     (completed : Completion (governed t) (standing t))
     (grounded : ValidRootGrounded (χ t) (canBear t) (standing t))
     (missing : ¬ FactorsThrough (D t) (RM t))
-    (confined : ∀ a, Machine a → FactorsThrough (Rroot t a) (RM t))
+    (confined : ∀ a, ValidRoot (χ t) (canBear t) o a → Machine a → FactorsThrough (Rroot t a) (RM t))
     (faithful : ∀ a, canBear t a o → FactorsThrough (D t) (Rroot t a))
     (exhaustive : ∀ a, ValidRoot (χ t) (canBear t) o a → Human a ∨ Machine a)
     (valid : governed t o) : HasHumanAuthority (χ t) (canBear t) Human o :=
@@ -188,7 +190,7 @@ theorem singleton_human_principal_from_premises {X V M : Type} {Y : A → Type}
     (D : X → V) (RM : X → M) (Rroot : (a : A) → X → Y a)
     (completed : Completion governed standing) (grounded : ValidRootGrounded χ canBear standing)
     (missing : ¬ FactorsThrough D RM)
-    (confined : ∀ a, Machine a → FactorsThrough (Rroot a) RM)
+    (confined : ∀ a, ValidRoot χ canBear o a → Machine a → FactorsThrough (Rroot a) RM)
     (faithful : ∀ a, canBear a o → FactorsThrough D (Rroot a))
     (exhaustive : ∀ a, ValidRoot χ canBear o a → Human a ∨ Machine a)
     (valid : governed o) (singleton : ∀ b, χ.roots b o ↔ b = a) :
@@ -260,7 +262,7 @@ theorem plural_human_authority : HasHumanAuthority charter canBear Human () := b
   · intro a o h
     obtain ⟨τ, _, executed, _, root, rooted, path⟩ := h
     exact ⟨root, rooted, executed ▸ path⟩
-  · intro a machine
+  · intro a _ machine
     cases machine
     exact ⟨fun b => (b, false), fun _ => rfl⟩
   · exact fun _ h => h

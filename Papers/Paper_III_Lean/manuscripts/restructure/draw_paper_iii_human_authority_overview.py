@@ -32,7 +32,7 @@ text(360,837,'CONDITIONS FOR HUMAN GOVERNING AUTHORITY',17,True)
 box(20,749,680,70,'Paper I identifies the authorization responsibility',[
     'Assessment and authorization are distinct under the specified contract conditions.',
     'This does not derive completion, valid-root grounding, or root identity.'])
-text(360,735,'Fix the obligation and charter; identify the required authorization condition D.',13)
+text(360,735,'Augmenting the basis with D determines the judgment; the basis alone does not.',13)
 box(20,664,680,54,'Paper III defines a valid root',[
     'Nominal underived charter standing + competence to bear the contract (CanBear).'],GREEN)
 text(181,646,'EXISTENCE',15,True);text(539,646,'MACHINE EXCLUSION',15,True)
@@ -52,8 +52,8 @@ box(20,429,322,92,'Valid-root provenance',[
 box(378,375,322,110,'Paper III: application premises',[
     'Faithful bearing must preserve D in',
     'the root’s independent information basis.',
-    'Machine confinement is independently',
-    'established for eligible candidates.'])
+    'Valid Machine roots must be confined',
+    'to the specified independent basis.'])
 box(20,338,322,63,'Valid authority exists',[
     'At least one valid root (Theorem 9).'],GREEN)
 box(378,298,322,63,'No Machine valid roots',[
@@ -64,7 +64,7 @@ arrow(539,515,539,485);arrow(539,375,539,361)
 arrow(181,338,181,278);arrow(539,298,539,278)
 c.setFillColor('#dceee3');c.setStrokeColor('#50765f');c.roundRect(20,149,680,129,8,fill=1,stroke=1)
 text(360,254,'Combine both branches with exhaustive classification:',14,True)
-text(360,233,'Every valid eligible root is Human or Machine.',14)
+text(360,233,'Every valid root is Human or Machine.',14)
 c.setStrokeColor('#90b69c');c.line(45,220,675,220)
 text(360,197,'VALID AUTHORITY EXISTS',17,True)
 text(360,175,'AND EVERY VALID ROOT IS HUMAN',17,True)
@@ -76,11 +76,11 @@ text(360,28,'A Machine may execute a supplied Human decision without becoming a 
 text(360,10,'Nominal Machine roots remain possible.',11.5)
 c.save()
 alt=('Overview of Section 11.1. Paper I identifies a separate authorization responsibility under its contract conditions; '
-     'it does not derive completion or root identity. Machine confinement is an independently established Paper III application premise, not a result of Paper II. Paper III defines a valid root as nominal charter standing plus CanBear. '
+     'it does not derive completion or root identity. Authorization relevance requires that the basis augmented with D determines the judgment while the basis alone does not. Both classification and confinement are restricted to valid roots. Boundary crossing is separate from realization of acquisition contract B. Machine confinement is an independently established Paper III application premise, not a result of Paper II. Paper III defines a valid root as nominal charter standing plus CanBear. '
      'The existence branch uses an actual authorization or closure occurrence, extracted by Completion, and valid-root-grounded '
      'permitted delegation to prove at least one valid root. The exclusion branch uses Paper II applicable spectral/modal nonrepresentation conditions, an independently '
      'selected Tacit authorization condition and a qualifying complete Machine basis, together with faithful bearing and independent '
-     'Machine basis confinement, to exclude Machine valid roots. Combining both branches with an independently justified exhaustive '
+     'Machine basis confinement on valid roots, to exclude Machine valid roots. Combining both branches with an independently justified exhaustive '
      'Human/Machine interpretation gives nonempty valid Human authority. At least two distinct valid roots are additional evidence '
      'for plural authority. A collective may be one root, and institutional sources require a bearer mapping. '
      'Machines may execute supplied Human decisions without becoming valid roots; nominal Machine designation remains possible. '

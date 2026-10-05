@@ -1,7 +1,7 @@
 {
-  "source_id": "b7a4d3f44cfaad04526268dedb0748162ac315c5327de79a2f280ac8a7253ca2",
-  "archive": "paper_iii_reproduction_interface_revision_20261005.zip",
-  "archive_sha256": "1351179cafefa1fe97e699c7c729b12fba87b74bd330cb576c3d2155e821f767",
+  "source_id": "7d958238cc22a325bd3a0933d50e7421ef966858abbf1210faf8bd8cd73aa14c",
+  "archive": "paper_iii_reproduction_internal_consistency_20261005.zip",
+  "archive_sha256": "37f267aedf3fcc52f01dad3b774188d31098901ee4f936cb0433145901adee2e",
   "audited_declarations": 108,
   "claim_groups": 40,
   "distributed_source_files": 34,
@@ -27,12 +27,12 @@
     "PaperIII.lean": "e57a7740df8617710c29b0fd0a7c88f0982c02124c71eabec2e15ca37317a61d",
     "PaperIII/Capacity.lean": "9b802037bb4f3b5fc2c40e581417dfaa9ae4b697e4a117a3152129d6c876b589",
     "PaperIII/GovernedMachine.lean": "ec67ba55a7c6495aae8d887aa2f5f91c42ce588a111b6671e8c120e4ab2debe5",
-    "PaperIII/HumanAuthority.lean": "0397626dd9209af11b68cb21d66fba1f3341d0b105d0d4dcef072c2a8b0ef31e",
+    "PaperIII/HumanAuthority.lean": "f7e7b3c5777aa3a5af614ced7e25a0525d375825eb683026d318c72606a0ca10",
     "PaperIII/Models.lean": "f914cb237575b4e00982051054eef3d7373a96f1c0dd9f89a1236eceeca096a1",
     "PaperIII/NonCollapse.lean": "ceaf6d65e2090464b890da3945bd41323209b67fefb3a0ea41e307ad578f7555",
     "PaperIII/Principalhood.lean": "6c9afcda17cbdfd844830022594c9baa71fb0ff7327b04785e869867db1df960",
     "PaperIII/ProblemAdequacy.lean": "8492bccad66da1976e383ecbc50878a8eac88a721788c3c801ea65e5fa7e7e35",
-    "PaperIII/README.md": "e1c65c2df6de7c8edf69602d699d2c55301ab2b2a64cc79837cb80745d105ffb",
+    "PaperIII/README.md": "0895f6f786349c5d28f7550df53832da9568fbb6ecfbcc6fab408cb7ef2958a5",
     "PaperIII/Revision.lean": "8cdf9c700761b2f83e75544bc38edc5fd4f4b02e9116b858fdb632acccce24bc",
     "lake-manifest.json": "21900b786507887003be85b5b18e1c9c2958aa6097c7732d6cf1b8bf46c59fff",
     "lakefile.lean": "5fb3abca585602b1ffaafe9f8c1758d31f6a42b0b4421f35b0c21d080baa22c3",
@@ -40,6 +40,6 @@
     "reports/paper_iii_claim_map.json": "44864d60e7222a86a9207ba400d50cbc9c0655185798ddec13263e75f4ad187d",
     "scripts/AuditPaperIII.lean": "8690efe274629c62649d0a4523f0a8b12d61cc354741cf03c37636615b1add3e",
     "scripts/verify_paper_iii_published.py": "0d5f6c6fc80a947b4ab80053a658a9b0a6f2d693c4ae32c93e0e64a63ce427e5",
-    "scripts/PaperIIIDependencyTests.lean": "a6c7b07a89354d21e1407d8b01bb381284792861e3edbcd8b443efbdcbb65af5"
+    "scripts/PaperIIIDependencyTests.lean": "aeaac10f8f29b9e088e953c3edd5f90cf41cc2f65b0da94b9283c6f79c7ec704"
   }
 }

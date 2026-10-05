@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "stdout": "\u2714 [515/944] Built AlgebraOfHumanAiCollaboration.Factorization (160ms)\n\u2714 [936/946] Built PaperIII.ProblemAdequacy (180ms)\n\u2714 [937/946] Built PaperIII.Revision (181ms)\n\u2714 [938/946] Built PaperIII.Principalhood (195ms)\n\u2714 [939/946] Built ETSplit (214ms)\n\u2714 [940/946] Built PaperIII.NonCollapse (194ms)\n\u2714 [941/946] Built PaperIII.Models (397ms)\n\u2714 [942/946] Built PaperIII.Capacity (940ms)\n\u2714 [943/946] Built PaperIII.GovernedMachine (420ms)\n\u2714 [944/946] Built PaperIII.HumanAuthority (495ms)\n\u2714 [945/946] Built PaperIII (790ms)\nBuild completed successfully (946 jobs).\n{\n  \"status\": \"PASS\",\n  \"source_id\": \"7d958238cc22a325bd3a0933d50e7421ef966858abbf1210faf8bd8cd73aa14c\",\n  \"source_files\": 34,\n  \"audited_declarations\": 108,\n  \"claim_groups\": 40,\n  \"scope\": \"Conditional consequences; application bridges are premises; fixed-episode interfaces and minimal dependency tests\"\n}\n",
+  "stderr": "",
+  "directory": "/tmp/paper-iii-internal-consistency-reproduction-20261005",
+  "project_build_outputs_reused": false,
+  "third_party_dependencies_reused": true
+}
