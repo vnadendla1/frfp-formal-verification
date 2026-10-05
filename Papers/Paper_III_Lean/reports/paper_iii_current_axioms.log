@@ -72,7 +72,7 @@
  Classical.choice,
  Quot.sound]
 'PaperIII.HumanAuthority.roots_exist_of_valid_grounded_authorization' does not depend on any axioms
-'PaperIII.HumanAuthority.no_machine_root' does not depend on any axioms
+'PaperIII.HumanAuthority.no_machine_valid_root' does not depend on any axioms
 'PaperIII.HumanAuthority.human_authority' does not depend on any axioms
 'PaperIII.HumanAuthority.recovery_correctness_alignment' depends on axioms: [propext, Quot.sound]
 'PaperIII.HumanAuthority.recovered_tacit_missing' depends on axioms: [propext]
@@ -90,7 +90,12 @@
 'PaperIII.HumanAuthority.Witness.root_existence_without_machine_exclusion' does not depend on any axioms
 'PaperIII.HumanAuthority.Witness.machine_exclusion_without_root_existence' does not depend on any axioms
 'PaperIII.HumanAuthority.Witness.unrooted_delegation_cycle' depends on axioms: [propext]
-'PaperIII.HumanAuthority.Witness.nonrepresentability_without_root_competence' does not depend on any axioms
 'PaperIII.HumanAuthority.Witness.exclusion_without_exhaustive_categories' does not depend on any axioms
 'ETSplit.recovery_negative' depends on axioms: [propext]
 'ETSplit.semantic_alignment' depends on axioms: [propext, Quot.sound]
+'PaperIII.HumanAuthority.Witness.human1_valid_root' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.human2_valid_root' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.machine_cannot_bear' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.nominal_machine_root_not_valid' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.human_authority_with_nominal_machine_root' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.delegated_payload_does_not_confer_root_competence' depends on axioms: [propext]

@@ -1,0 +1,504 @@
+{
+  "core": {
+    "status": "PASS",
+    "source_id": "f29dd7ac19a8d703484549c918c77c4a87510142c7c8fc7c69135e589d7f0c7d",
+    "source_files": 33,
+    "audited_declarations": 95,
+    "claim_groups": 36,
+    "scope": "Conditional consequences; application bridges are premises; no historical snapshot claim"
+  },
+  "fresh_project_build": true,
+  "dependency_cache": "Pinned third-party packages only; no PaperIII build output reused",
+  "finite_realization": {
+    "status": "PASS",
+    "scope": "Exhaustive Python finite-model check; not a joint Lean proof or empirical validation",
+    "semantic_worlds": 4,
+    "full_states_checked": 3456,
+    "reachable_states": 96,
+    "reachable_transitions_checked": 2688,
+    "traces": [
+      {
+        "world": [
+          false,
+          false
+        ],
+        "states": [
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": null,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": false,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": false,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              false
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": false,
+            "outstanding": false,
+            "decision": false
+          }
+        ]
+      },
+      {
+        "world": [
+          false,
+          true
+        ],
+        "states": [
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": null,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": false,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": true,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              false,
+              true
+            ],
+            "artifact": false,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": true,
+            "outstanding": false,
+            "decision": true
+          }
+        ]
+      },
+      {
+        "world": [
+          true,
+          false
+        ],
+        "states": [
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": null,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": true,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": false,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              false
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": false,
+            "outstanding": false,
+            "decision": false
+          }
+        ]
+      },
+      {
+        "world": [
+          true,
+          true
+        ],
+        "states": [
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": null,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": true,
+            "discovered": false,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": false,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": false,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": false,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": null,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": true,
+            "outstanding": true,
+            "decision": null
+          },
+          {
+            "world": [
+              true,
+              true
+            ],
+            "artifact": true,
+            "discovered": true,
+            "proposed": true,
+            "admitted": true,
+            "expanded": true,
+            "assessment": true,
+            "outstanding": false,
+            "decision": true
+          }
+        ]
+      }
+    ]
+  },
+  "supplement_hashes": "PASS",
+  "publication_status": "Prepared; not yet pushed"
+}

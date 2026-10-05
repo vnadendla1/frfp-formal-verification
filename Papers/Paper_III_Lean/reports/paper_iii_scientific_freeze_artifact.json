@@ -1,5 +1,11 @@
 {
   "source_id": "f29dd7ac19a8d703484549c918c77c4a87510142c7c8fc7c69135e589d7f0c7d",
+  "archive": "paper_iii_reproduction_scientific_freeze_20261005.zip",
+  "archive_sha256": "a75939212149fa7c7db97dfadd1e156eaa74874a346edab75ee40728e4e4cd25",
+  "audited_declarations": 95,
+  "claim_groups": 36,
+  "distributed_source_files": 33,
+  "status": "Synchronized occurrence-based valid-root artifact",
   "files": {
     "AlgebraOfHumanAiCollaboration/AcquisitionRealization.lean": "02dbd9c64c49480b900d5c99ea7dc001d4beaa813a12ccfef50d7b937575bb8d",
     "AlgebraOfHumanAiCollaboration/ApplicationWitnessTests.lean": "6a9635f4d4129b643118705a11d54ab30482de229035fd77b4b9ca562249b923",

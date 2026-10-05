@@ -1,8 +1,8 @@
 {
   "status": "PASS",
-  "source_id": "32aa426b6e7a82aee9163cbf9d9af3ae430187ae57d801ccf9394a7fc233dc3e",
+  "source_id": "f29dd7ac19a8d703484549c918c77c4a87510142c7c8fc7c69135e589d7f0c7d",
   "source_files": 33,
-  "audited_declarations": 90,
-  "claim_groups": 34,
+  "audited_declarations": 95,
+  "claim_groups": 36,
   "scope": "Conditional consequences; application bridges are premises; no historical snapshot claim"
 }

@@ -1,0 +1,15 @@
+{
+  "archive": "reports/paper_iii_structural_supplement_scientific_freeze_20261005.zip",
+  "sha256": "3eec6ed8f4d6af27b6e3f17f46e0e37d6f507a7b4244558932feaed4074d3493",
+  "contents": {
+    "manuscripts/restructure/check_paper_iii_finite.py": "f6f65389a5b56f9cb1bd3df66f30243642896fa6cd4584f1968a445f52d62762",
+    "reports/paper_iii_finite_realization.json": "6680dc14e6119222a6cdb57eb419245e2456cf4a7e53cb1cd3660803877d37ed",
+    "manuscripts/restructure/draw_paper_iii_architecture.py": "fe42d40a4fa86167681a297a15ecdeffa77eddca7c49e5342b90071ddcbade52",
+    "manuscripts/standalone/figures/paper_iii_architecture.pdf": "c8d8f4be4e088296e63ec60304b1219aadda2af54bb70fca620cc752f5b40432",
+    "manuscripts/standalone/figures/paper_iii_architecture.png": "3d89902bd2ee6487f1f2b51e1808949d684e969e2e6285e7292253255de5d3ca",
+    "manuscripts/standalone/figures/paper_iii_architecture_alt.txt": "03d300b6bc51f945a83fbdd6d70009a0f465cf8ee5e5cec6c4c0f279867cff2b",
+    "reports/paper_iii_reproduction_scientific_freeze_20261005.zip": "a75939212149fa7c7db97dfadd1e156eaa74874a346edab75ee40728e4e4cd25",
+    "reports/paper_iii_scientific_freeze_artifact.json": "45ed51e615c88daf95b4a9647795bfc8e0e9be17086361ad6f70030f8aa7ef38"
+  },
+  "finite_model_check": "Separate exhaustive Python realization, not a joint Lean proof"
+}

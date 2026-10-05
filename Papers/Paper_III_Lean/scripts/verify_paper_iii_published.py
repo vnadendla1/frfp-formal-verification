@@ -21,6 +21,10 @@ def main():
     for n,d in entries: assert set(re.findall(r'[A-Za-z_][A-Za-z0-9_.]*',d))<={'propext','Classical.choice','Quot.sound'},n
     claims=json.loads((ROOT/'reports/paper_iii_claim_map.json').read_text())
     for label,names in claims.items(): assert set(names)<=set(expected),label
+    assert set().union(*(set(names) for names in claims.values())) == set(expected)
+    assert (len(m['files']), len(entries), len(claims)) == (33, 95, 36)
+    assert 'PaperIII.HumanAuthority.no_machine_valid_root' in expected
+    assert 'PaperIII.HumanAuthority.no_machine_root' not in expected
     result={'status':'PASS','source_id':m['source_id'],'source_files':len(m['files']),'audited_declarations':len(entries),'claim_groups':len(claims),'scope':'Conditional consequences; application bridges are premises; no historical snapshot claim'}
     (ROOT/'reports/paper_iii_current_axioms.log').write_text(log)
     (ROOT/'reports/paper_iii_current_validation.json').write_text(json.dumps(result,indent=2)+'\n')

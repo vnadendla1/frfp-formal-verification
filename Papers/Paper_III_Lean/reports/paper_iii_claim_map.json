@@ -9,12 +9,18 @@
     "PaperIII.nonfactorability_has_collision"
   ],
   "Countermodel 1": [
-    "PaperIII.FiniteAdequacyModel.specifiedSuccess_does_not_imply_problemAdequacy"
+    "PaperIII.FiniteAdequacyModel.specifiedSuccess_does_not_imply_problemAdequacy",
+    "PaperIII.FiniteAdequacyModel.adequacy_differs",
+    "PaperIII.FiniteAdequacyModel.both_satisfy_specified_task",
+    "PaperIII.FiniteAdequacyModel.finite_specification_adequacy_incompleteness",
+    "PaperIII.FiniteAdequacyModel.same_explicit_representation"
   ],
   "Theorem 2": [
     "PaperIII.quotient_card_le_capacity",
     "PaperIII.finite_capacity_nonexhaustibility",
-    "PaperIII.feasible_family_nonexhaustibility"
+    "PaperIII.feasible_family_nonexhaustibility",
+    "PaperIII.capacity_nonexhaustibility",
+    "PaperIII.exact_capacity_control"
   ],
   "Aggregate versus item-level limitation": [
     "PaperIII.aggregate_not_itemwise_failure"
@@ -39,17 +45,27 @@
   ],
   "Definition 2 unique principal": [
     "PaperIII.principal_eq_some_iff",
-    "PaperIII.roots_singleton_iff"
+    "PaperIII.roots_singleton_iff",
+    "PaperIII.principal_eq_some",
+    "PaperIII.principal_unique",
+    "PaperIII.rooted_principal",
+    "PaperIII.co_roots_have_no_selected_principal"
   ],
   "Proposition 3": [
     "PaperIII.operational_update_preserves_charter",
-    "PaperIII.capability_change_without_principal_change"
+    "PaperIII.capability_change_without_principal_change",
+    "PaperIII.operational_update_preserves_principal",
+    "PaperIII.GovernedMachine.operational_contracts_preserve_principal"
   ],
   "Theorem 4": [
-    "PaperIII.principal_through_origin"
+    "PaperIII.principal_through_origin",
+    "PaperIII.origin_without_no_co_root"
   ],
   "Theorem 5": [
-    "PaperIII.rooted_through_grounding"
+    "PaperIII.rooted_through_grounding",
+    "PaperIII.certificate_requires_independent_specification",
+    "PaperIII.concrete_governing_certificate",
+    "PaperIII.information_and_realization_do_not_imply_root"
   ],
   "Corollary 1": [
     "PaperIII.principal_through_grounding"
@@ -62,7 +78,9 @@
     "PaperIII.contentStandingNonCollapse_under_relation"
   ],
   "Non-collapse independence": [
-    "PaperIII.IndependenceModels.independence_of_epistemic_and_constitutive_noncollapse"
+    "PaperIII.IndependenceModels.independence_of_epistemic_and_constitutive_noncollapse",
+    "PaperIII.IndependenceModels.epistemic_collapse_with_constitutive_noncollapse",
+    "PaperIII.IndependenceModels.epistemic_noncollapse_without_constitutive_noncollapse"
   ],
   "Theorem 8": [
     "PaperIII.assessmentClosureNonCollapse",
@@ -71,7 +89,8 @@
   "Countermodel 2": [
     "PaperIII.GovernedMachine.distinct_contracts_one_implementation",
     "PaperIII.GovernedMachine.revision_requires_permission",
-    "PaperIII.GovernedMachine.closure_requires_permission"
+    "PaperIII.GovernedMachine.closure_requires_permission",
+    "PaperIII.GovernedMachine.assessment_open_closure_settles"
   ],
   "Section 7 joint dynamics": [
     "PaperIII.GovernedMachine.discovery_does_not_revise",
@@ -79,7 +98,7 @@
     "PaperIII.GovernedMachine.amendment_requires_permission",
     "PaperIII.GovernedMachine.valid_amendment_changes_root"
   ],
-  "Definition 5": [
+  "Legacy designated-participant interpretation": [
     "PaperIII.direct_human_specialization"
   ],
   "Scope, delegation and no-co-root qualifications": [
@@ -107,7 +126,7 @@
     "PaperIII.HumanAuthority.roots_exist_of_valid_grounded_authorization"
   ],
   "Theorem 10": [
-    "PaperIII.HumanAuthority.no_machine_root"
+    "PaperIII.HumanAuthority.no_machine_valid_root"
   ],
   "Theorem 11": [
     "PaperIII.HumanAuthority.human_authority_from_recovery",
@@ -135,7 +154,16 @@
     "PaperIII.HumanAuthority.Witness.root_existence_without_machine_exclusion",
     "PaperIII.HumanAuthority.Witness.machine_exclusion_without_root_existence",
     "PaperIII.HumanAuthority.Witness.unrooted_delegation_cycle",
-    "PaperIII.HumanAuthority.Witness.nonrepresentability_without_root_competence",
     "PaperIII.HumanAuthority.Witness.exclusion_without_exhaustive_categories"
+  ],
+  "Nominal Machine roots do not imply valid Machine roots": [
+    "PaperIII.HumanAuthority.Witness.machine_cannot_bear",
+    "PaperIII.HumanAuthority.Witness.nominal_machine_root_not_valid",
+    "PaperIII.HumanAuthority.Witness.human_authority_with_nominal_machine_root"
+  ],
+  "Valid roots and delegated execution payloads": [
+    "PaperIII.HumanAuthority.Witness.human1_valid_root",
+    "PaperIII.HumanAuthority.Witness.human2_valid_root",
+    "PaperIII.HumanAuthority.Witness.delegated_payload_does_not_confer_root_competence"
   ]
 }

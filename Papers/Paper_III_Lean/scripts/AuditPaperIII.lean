@@ -71,7 +71,7 @@ import PaperIII
 #print axioms AlgebraOfHumanAiCollaboration.factorsThrough_iff_kernelIncluded
 
 #print axioms PaperIII.HumanAuthority.roots_exist_of_valid_grounded_authorization
-#print axioms PaperIII.HumanAuthority.no_machine_root
+#print axioms PaperIII.HumanAuthority.no_machine_valid_root
 #print axioms PaperIII.HumanAuthority.human_authority
 #print axioms PaperIII.HumanAuthority.recovery_correctness_alignment
 #print axioms PaperIII.HumanAuthority.recovered_tacit_missing
@@ -87,7 +87,13 @@ import PaperIII
 #print axioms PaperIII.HumanAuthority.Witness.root_existence_without_machine_exclusion
 #print axioms PaperIII.HumanAuthority.Witness.machine_exclusion_without_root_existence
 #print axioms PaperIII.HumanAuthority.Witness.unrooted_delegation_cycle
-#print axioms PaperIII.HumanAuthority.Witness.nonrepresentability_without_root_competence
 #print axioms PaperIII.HumanAuthority.Witness.exclusion_without_exhaustive_categories
 #print axioms ETSplit.recovery_negative
 #print axioms ETSplit.semantic_alignment
+
+#print axioms PaperIII.HumanAuthority.Witness.human1_valid_root
+#print axioms PaperIII.HumanAuthority.Witness.human2_valid_root
+#print axioms PaperIII.HumanAuthority.Witness.machine_cannot_bear
+#print axioms PaperIII.HumanAuthority.Witness.nominal_machine_root_not_valid
+#print axioms PaperIII.HumanAuthority.Witness.human_authority_with_nominal_machine_root
+#print axioms PaperIII.HumanAuthority.Witness.delegated_payload_does_not_confer_root_competence
