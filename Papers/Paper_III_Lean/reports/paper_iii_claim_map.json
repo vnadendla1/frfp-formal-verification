@@ -82,16 +82,6 @@
   "Definition 5": [
     "PaperIII.direct_human_specialization"
   ],
-  "Theorem 9": [
-    "PaperIII.human_principal_origin",
-    "PaperIII.institutional_origin_yields_human_bearer"
-  ],
-  "Theorem 10": [
-    "PaperIII.human_rooted_grounding"
-  ],
-  "Corollary 2": [
-    "PaperIII.human_principal_grounding"
-  ],
   "Scope, delegation and no-co-root qualifications": [
     "PaperIII.human_scope_does_not_extend_to_other_obligations",
     "PaperIII.human_delegates_machine_without_substitution",
@@ -102,5 +92,50 @@
   "Independent origin and grounding routes": [
     "PaperIII.grounding_route_without_origin",
     "PaperIII.origin_route_without_realization"
+  ],
+  "Legacy designated-participant origin route": [
+    "PaperIII.human_principal_origin",
+    "PaperIII.institutional_origin_yields_human_bearer"
+  ],
+  "Legacy designated-participant grounding route": [
+    "PaperIII.human_rooted_grounding"
+  ],
+  "Legacy designated-participant singleton grounding": [
+    "PaperIII.human_principal_grounding"
+  ],
+  "Theorem 9": [
+    "PaperIII.HumanAuthority.roots_exist_of_valid_grounded_authorization"
+  ],
+  "Theorem 10": [
+    "PaperIII.HumanAuthority.no_machine_root"
+  ],
+  "Theorem 11": [
+    "PaperIII.HumanAuthority.human_authority_from_recovery",
+    "PaperIII.HumanAuthority.human_authority"
+  ],
+  "Corollary 2": [
+    "PaperIII.HumanAuthority.singleton_human_principal"
+  ],
+  "Paper II authority recovery interface": [
+    "PaperIII.HumanAuthority.recovered_tacit_missing",
+    "PaperIII.HumanAuthority.recovery_correctness_alignment",
+    "ETSplit.recovery_negative",
+    "ETSplit.semantic_alignment"
+  ],
+  "Plural Human authority and delegated closure": [
+    "PaperIII.HumanAuthority.principal_none_of_distinct_roots",
+    "PaperIII.HumanAuthority.Witness.authorization_missing",
+    "PaperIII.HumanAuthority.Witness.machine_delegate_has_grounded_standing",
+    "PaperIII.HumanAuthority.Witness.plural_human_authority",
+    "PaperIII.HumanAuthority.Witness.plural_authority_without_principal",
+    "PaperIII.HumanAuthority.Witness.valid_delegated_closure"
+  ],
+  "Human authority negative controls": [
+    "PaperIII.HumanAuthority.Witness.nonrepresentability_without_root_grounding",
+    "PaperIII.HumanAuthority.Witness.root_existence_without_machine_exclusion",
+    "PaperIII.HumanAuthority.Witness.machine_exclusion_without_root_existence",
+    "PaperIII.HumanAuthority.Witness.unrooted_delegation_cycle",
+    "PaperIII.HumanAuthority.Witness.nonrepresentability_without_root_competence",
+    "PaperIII.HumanAuthority.Witness.exclusion_without_exhaustive_categories"
   ]
 }

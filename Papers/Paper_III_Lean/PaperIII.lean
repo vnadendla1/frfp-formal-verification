@@ -5,3 +5,4 @@ import PaperIII.Principalhood
 import PaperIII.NonCollapse
 import PaperIII.Models
 import PaperIII.GovernedMachine
+import PaperIII.HumanAuthority

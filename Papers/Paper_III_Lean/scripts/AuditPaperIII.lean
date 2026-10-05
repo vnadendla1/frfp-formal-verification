@@ -69,3 +69,25 @@ import PaperIII
 #print axioms PaperIII.discovery_without_admission
 #print axioms PaperIII.inadequacy_without_particular_revision
 #print axioms AlgebraOfHumanAiCollaboration.factorsThrough_iff_kernelIncluded
+
+#print axioms PaperIII.HumanAuthority.roots_exist_of_valid_grounded_authorization
+#print axioms PaperIII.HumanAuthority.no_machine_root
+#print axioms PaperIII.HumanAuthority.human_authority
+#print axioms PaperIII.HumanAuthority.recovery_correctness_alignment
+#print axioms PaperIII.HumanAuthority.recovered_tacit_missing
+#print axioms PaperIII.HumanAuthority.human_authority_from_recovery
+#print axioms PaperIII.HumanAuthority.singleton_human_principal
+#print axioms PaperIII.HumanAuthority.principal_none_of_distinct_roots
+#print axioms PaperIII.HumanAuthority.Witness.authorization_missing
+#print axioms PaperIII.HumanAuthority.Witness.machine_delegate_has_grounded_standing
+#print axioms PaperIII.HumanAuthority.Witness.plural_human_authority
+#print axioms PaperIII.HumanAuthority.Witness.plural_authority_without_principal
+#print axioms PaperIII.HumanAuthority.Witness.valid_delegated_closure
+#print axioms PaperIII.HumanAuthority.Witness.nonrepresentability_without_root_grounding
+#print axioms PaperIII.HumanAuthority.Witness.root_existence_without_machine_exclusion
+#print axioms PaperIII.HumanAuthority.Witness.machine_exclusion_without_root_existence
+#print axioms PaperIII.HumanAuthority.Witness.unrooted_delegation_cycle
+#print axioms PaperIII.HumanAuthority.Witness.nonrepresentability_without_root_competence
+#print axioms PaperIII.HumanAuthority.Witness.exclusion_without_exhaustive_categories
+#print axioms ETSplit.recovery_negative
+#print axioms ETSplit.semantic_alignment

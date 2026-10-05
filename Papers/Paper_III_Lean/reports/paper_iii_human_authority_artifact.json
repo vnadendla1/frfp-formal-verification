@@ -1,5 +1,9 @@
 {
   "source_id": "32aa426b6e7a82aee9163cbf9d9af3ae430187ae57d801ccf9394a7fc233dc3e",
+  "archive": "paper_iii_reproduction_20261005.zip",
+  "archive_sha256": "2bf8d42d7737bf61143b28bc94d21873462281252eeeb1da0fe87f50845100ca",
+  "audited_declarations": 90,
+  "claim_groups": 34,
   "files": {
     "AlgebraOfHumanAiCollaboration/AcquisitionRealization.lean": "02dbd9c64c49480b900d5c99ea7dc001d4beaa813a12ccfef50d7b937575bb8d",
     "AlgebraOfHumanAiCollaboration/ApplicationWitnessTests.lean": "6a9635f4d4129b643118705a11d54ab30482de229035fd77b4b9ca562249b923",
@@ -34,6 +38,5 @@
     "reports/paper_iii_claim_map.json": "1a110a9a9956f71468b5a6e67f84af2e4e6ae53ccb63f9facad2c752a38a247b",
     "scripts/AuditPaperIII.lean": "e0661006a259cc9f9e2ab06421355690d609cb2b81460bb2cbaab27ae544e49a",
     "scripts/verify_paper_iii_published.py": "d2f2e727bbc278e0ed42cb9fab67475b88cbdb7009cdf0c2f38ed717f9a04c8a"
-  },
-  "identifier_convention": "SHA-256 of sorted compact JSON file/hash mapping"
+  }
 }

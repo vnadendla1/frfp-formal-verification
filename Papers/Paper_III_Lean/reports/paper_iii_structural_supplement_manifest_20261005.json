@@ -1,0 +1,15 @@
+{
+  "archive": "reports/paper_iii_structural_supplement_20261005.zip",
+  "sha256": "d3a0fa0ad1bbbad9471c8770616af50616e8a7e0628b68744c2b4a3f36d736a0",
+  "contents": {
+    "manuscripts/restructure/check_paper_iii_finite.py": "f6f65389a5b56f9cb1bd3df66f30243642896fa6cd4584f1968a445f52d62762",
+    "reports/paper_iii_finite_realization.json": "6680dc14e6119222a6cdb57eb419245e2456cf4a7e53cb1cd3660803877d37ed",
+    "manuscripts/restructure/draw_paper_iii_architecture.py": "9cb93fe45c82fe9e4b6a0659479728f504534755be8750b581b9045f06d4ce0e",
+    "manuscripts/standalone/figures/paper_iii_architecture.pdf": "f78a86401191375689b7f5fa252d0e23def68deaa21614643ad86bcd745d1fff",
+    "manuscripts/standalone/figures/paper_iii_architecture.png": "34f9957856bb8b7713703f399c0f383b20dd4a00371604e73db8f90a441dbdef",
+    "manuscripts/standalone/figures/paper_iii_architecture_alt.txt": "a714807dcc3b2cc57f0a320695e34fcdfb0fbc11bb8778b66bc79ca7dd9c80ec",
+    "reports/paper_iii_reproduction_20261005.zip": "2bf8d42d7737bf61143b28bc94d21873462281252eeeb1da0fe87f50845100ca",
+    "reports/paper_iii_human_authority_artifact.json": "a94fc5a3c5e5262738e8531f60afa33a98ab6d29723b5d13180d24fa73b15c4d"
+  },
+  "finite_model_check": "Python exhaustive, separate from Lean authority witness and core"
+}

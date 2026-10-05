@@ -1,0 +1,273 @@
+import PaperIII.Models
+import ETSplit
+
+/-! Conditional Human authority. Constitutive standing, completion, faithful
+authorization bearing, machine confinement, and exhaustive categories are
+explicit premises. Paper II supplies recovery, not these authority bridges. -/
+namespace PaperIII.HumanAuthority
+open AlgebraOfHumanAiCollaboration
+
+def RootGrounded (χ : Charter A O) (standing : A → O → Prop) : Prop :=
+  ∀ a o, standing a o → ∃ r, χ.roots r o ∧ Delegated χ o r a
+
+def Completion (governed : O → Prop) (standing : A → O → Prop) : Prop :=
+  ∀ o, governed o → ∃ a, standing a o
+
+def RootCompetence (χ : Charter A O) (o : O) (canBear : A → O → Prop) : Prop :=
+  ∀ a, χ.roots a o → canBear a o
+
+def HasHumanAuthority (χ : Charter A O) (Human : A → Prop) (o : O) : Prop :=
+  (∃ a, χ.roots a o) ∧ ∀ a, χ.roots a o → Human a
+
+theorem roots_exist_of_valid_grounded_authorization
+    {χ : Charter A O} {governed : O → Prop} {standing : A → O → Prop}
+    (completed : Completion governed standing)
+    (grounded : RootGrounded χ standing) {o : O} (valid : governed o) :
+    ∃ r, χ.roots r o := by
+  obtain ⟨a, ha⟩ := completed o valid
+  obtain ⟨r, hr, _⟩ := grounded a o ha
+  exact ⟨r, hr⟩
+
+theorem no_machine_root {X V M : Type} {Y : A → Type}
+    {χ : Charter A O} {o : O} {Machine : A → Prop} {canBear : A → O → Prop}
+    (D : X → V) (RM : X → M) (R : (a : A) → X → Y a)
+    (missing : ¬ FactorsThrough D RM)
+    (confined : ∀ a, Machine a → FactorsThrough (R a) RM)
+    (competent : RootCompetence χ o canBear)
+    (faithful : ∀ a, canBear a o → FactorsThrough D (R a)) :
+    ∀ a, χ.roots a o → ¬ Machine a := by
+  intro a root machine
+  exact missing ((faithful a (competent a root)).trans (confined a machine))
+
+theorem human_authority {X V M : Type} {Y : A → Type}
+    {χ : Charter A O} {o : O} {Human Machine : A → Prop}
+    {governed : O → Prop} {standing canBear : A → O → Prop}
+    (D : X → V) (RM : X → M) (R : (a : A) → X → Y a)
+    (completed : Completion governed standing) (grounded : RootGrounded χ standing)
+    (missing : ¬ FactorsThrough D RM)
+    (confined : ∀ a, Machine a → FactorsThrough (R a) RM)
+    (competent : RootCompetence χ o canBear)
+    (faithful : ∀ a, canBear a o → FactorsThrough D (R a))
+    (exhaustive : ∀ a, Human a ∨ Machine a) (valid : governed o) :
+    HasHumanAuthority χ Human o := by
+  refine ⟨roots_exist_of_valid_grounded_authorization completed grounded valid, ?_⟩
+  intro a root
+  rcases exhaustive a with human | machine
+  · exact human
+  · exact False.elim (no_machine_root D RM R missing confined competent faithful a root machine)
+
+structure Recovery (X V : Type) where
+  IC : (X → V) → Prop
+  KC : X → X → Prop
+  KF : X → X → Prop
+  neutralSpectrum : (X → V) → Prop
+  comparisonSpectrum : (X → V) → Prop
+  explicitComparison : (X → V) → Prop
+  tacitComparison : (X → V) → Prop
+  C1 : ∀ {x y}, KC x y → KF x y
+  C2 : ∀ {x y}, KF x y → KC x y
+  R1 : ∀ f, IC f → neutralSpectrum f → comparisonSpectrum f
+  R2 : ∀ f, IC f → comparisonSpectrum f → neutralSpectrum f
+  explicitCharacterization : ∀ f, IC f → (explicitComparison f ↔ comparisonSpectrum f)
+  tacitComplementarity : ∀ f, IC f → (tacitComparison f ↔ ¬ comparisonSpectrum f)
+
+theorem recovery_correctness_alignment (h : Recovery X V) : h.KC = h.KF :=
+  ETSplit.semantic_alignment h.C1 h.C2
+
+theorem recovered_tacit_missing {X V M : Type} (h : Recovery X V)
+    (D : X → V) (RM : X → M) (selected : h.IC D)
+    (tacit : h.tacitComparison D)
+    (admitted : FactorsThrough D RM → h.neutralSpectrum D) :
+    ¬ FactorsThrough D RM := by
+  let Domain := {f : X → V // h.IC f}
+  have recovered := ETSplit.recovery_negative
+    (fun _ : Domain => True)
+    (fun f : Domain => h.neutralSpectrum f.val)
+    (fun f : Domain => h.comparisonSpectrum f.val)
+    (fun f : Domain => h.tacitComparison f.val)
+    (fun f => h.R1 f.val f.property)
+    (fun f => h.R2 f.val f.property)
+    (by intro f; simpa using h.tacitComplementarity f.val f.property)
+  have nonrep : ¬ h.neutralSpectrum D :=
+    ((recovered ⟨D, selected⟩).mpr tacit).2
+  exact fun representation => nonrep (admitted representation)
+
+theorem human_authority_from_recovery {X V M : Type} {Y : A → Type}
+    {χ : Charter A O} {o : O} {Human Machine : A → Prop}
+    {governed : O → Prop} {standing canBear : A → O → Prop}
+    (h : Recovery X V) (D : X → V) (RM : X → M) (R : (a : A) → X → Y a)
+    (selected : h.IC D) (tacit : h.tacitComparison D)
+    (admitted : FactorsThrough D RM → h.neutralSpectrum D)
+    (completed : Completion governed standing) (grounded : RootGrounded χ standing)
+    (confined : ∀ a, Machine a → FactorsThrough (R a) RM)
+    (competent : RootCompetence χ o canBear)
+    (faithful : ∀ a, canBear a o → FactorsThrough D (R a))
+    (exhaustive : ∀ a, Human a ∨ Machine a) (valid : governed o) :
+    HasHumanAuthority χ Human o :=
+  human_authority D RM R completed grounded
+    (recovered_tacit_missing h D RM selected tacit admitted)
+    confined competent faithful exhaustive valid
+
+theorem singleton_human_principal {χ : Charter A O} {Human : A → Prop}
+    {o : O} {a : A} (authority : HasHumanAuthority χ Human o)
+    (singleton : ∀ b, χ.roots b o ↔ b = a) :
+    Human a ∧ principal χ o = some a := by
+  have hp := (roots_singleton_iff).mp singleton
+  exact ⟨authority.2 a hp.1, principal_eq_some hp⟩
+
+theorem principal_none_of_distinct_roots {χ : Charter A O} {o : O} {a b : A}
+    (ha : χ.roots a o) (hb : χ.roots b o) (distinct : a ≠ b) : principal χ o = none := by
+  classical
+  unfold principal
+  apply dif_neg
+  rintro ⟨p, hp⟩
+  exact distinct ((hp.2 a ha).trans (hp.2 b hb).symm)
+
+namespace Witness
+inductive Actor where
+  | human1 | human2 | machine
+  deriving DecidableEq
+abbrev World := Bool × Bool
+def Human (a : Actor) : Prop := a ≠ .machine
+def Machine (a : Actor) : Prop := a = .machine
+def charter : Charter Actor Unit where
+  roots a _ := Human a
+  originates a _ := a = .human1
+  delegates _ a b := Human a ∧ b = .machine
+def D : World → Bool := Prod.snd
+def RM : World → Bool := Prod.fst
+def representation : Actor → World → World
+  | .machine, x => (x.1, false)
+  | _, x => x
+def canBear (a : Actor) (_ : Unit) : Prop := FactorsThrough D (representation a)
+def standing (a : Actor) (o : Unit) : Prop :=
+  ∃ r, charter.roots r o ∧ Delegated charter o r a
+def spectrum (f : World → Bool) : Prop := FactorsThrough f RM
+def recovery : Recovery World Bool where
+  IC _ := True
+  KC x y := x = y
+  KF x y := x = y
+  neutralSpectrum := spectrum
+  comparisonSpectrum := spectrum
+  explicitComparison := spectrum
+  tacitComparison f := ¬ spectrum f
+  C1 h := h
+  C2 h := h
+  R1 _ _ h := h
+  R2 _ _ h := h
+  explicitCharacterization _ _ := Iff.rfl
+  tacitComplementarity _ _ := Iff.rfl
+
+theorem authorization_missing : ¬ FactorsThrough D RM := by
+  rintro ⟨decoder, eq⟩
+  have same : D (false, false) = D (false, true) :=
+    (eq (false, false)).trans (eq (false, true)).symm
+  cases same
+
+theorem machine_delegate_has_grounded_standing : standing .machine () :=
+  ⟨.human1, by simp [charter, Human],
+    Relation.ReflTransGen.single ⟨by simp [Human], rfl⟩⟩
+
+theorem plural_human_authority : HasHumanAuthority charter Human () := by
+  apply human_authority_from_recovery recovery D RM representation
+    (χ := charter) (Human := Human) (Machine := Machine)
+    (governed := fun _ => True) (standing := standing) (canBear := canBear)
+  · trivial
+  · exact authorization_missing
+  · exact id
+  · intro o _
+    exact ⟨.machine, ⟨.human1, by simp [charter, Human],
+      Relation.ReflTransGen.single ⟨by simp [Human], rfl⟩⟩⟩
+  · exact fun _ _ h => h
+  · intro a machine
+    cases machine
+    exact ⟨fun b => (b, false), fun _ => rfl⟩
+  · intro a root
+    cases a with
+    | human1 => exact ⟨D, fun _ => rfl⟩
+    | human2 => exact ⟨D, fun _ => rfl⟩
+    | machine => exact False.elim (root rfl)
+  · exact fun _ h => h
+  · intro a
+    cases a <;> simp [Human, Machine]
+  · trivial
+
+theorem plural_authority_without_principal :
+    HasHumanAuthority charter Human () ∧ principal charter () = none :=
+  ⟨plural_human_authority,
+    principal_none_of_distinct_roots (a := .human1) (b := .human2)
+      (by simp [charter, Human]) (by simp [charter, Human]) (by decide)⟩
+
+/-- An authoritative decision is supplied by a root, not decoded by the
+delegated executor from RM. This is a proof-carrying toy contract, not a
+cryptographic authentication or an empirical model of consent. -/
+structure RootDecision (world : World) where
+  issuer : Actor
+  rooted : charter.roots issuer ()
+  decision : Bool
+  faithfulDecision : decision = D world
+
+def humanDecision (world : World) : RootDecision world :=
+  ⟨.human1, by simp [charter, Human], D world, rfl⟩
+
+def closeWithRootDecision {world : World} (_outstanding : Bool) (executor : Actor)
+    (token : RootDecision world) (_path : Delegated charter () token.issuer executor) : Bool :=
+  false
+
+theorem valid_delegated_closure (world : World) :
+    closeWithRootDecision true .machine (humanDecision world)
+      (Relation.ReflTransGen.single ⟨by simp [humanDecision, Human], rfl⟩) = false ∧
+    (humanDecision world).decision = D world := ⟨rfl, rfl⟩
+
+def emptyCharter : Charter Bool Unit where
+  roots _ _ := False
+  originates _ _ := False
+  delegates _ _ _ := True
+
+theorem nonrepresentability_without_root_grounding :
+    (¬ FactorsThrough D RM) ∧
+    Completion (fun _ : Unit => True) (fun _ : Bool => fun _ : Unit => True) ∧
+    ¬ HasHumanAuthority emptyCharter (fun _ => True) () := by
+  refine ⟨authorization_missing, ?_, ?_⟩
+  · exact fun _ _ => ⟨false, trivial⟩
+  · rintro ⟨⟨_, root⟩, _⟩
+    exact root
+
+theorem root_existence_without_machine_exclusion :
+    (∃ a, (rooted true).roots a ()) ∧
+    ¬ HasHumanAuthority (rooted true) (fun a => a = false) () := by
+  refine ⟨⟨true, rfl⟩, ?_⟩
+  intro authority
+  have bad := authority.2 true rfl
+  cases bad
+
+theorem machine_exclusion_without_root_existence :
+    (∀ a, emptyCharter.roots a () → ¬ (a = true)) ∧
+    ¬ HasHumanAuthority emptyCharter (fun a => a = false) () := by
+  refine ⟨fun _ root => False.elim root, ?_⟩
+  rintro ⟨⟨_, root⟩, _⟩
+  exact root
+
+def cyclicCharter : Charter Bool Unit where
+  roots _ _ := False
+  originates _ _ := False
+  delegates _ a b := a ≠ b
+
+theorem unrooted_delegation_cycle :
+    Delegated cyclicCharter () false true ∧
+    Delegated cyclicCharter () true false ∧
+    ¬ (∃ r, cyclicCharter.roots r () ∧ Delegated cyclicCharter () r true) := by
+  exact ⟨Relation.ReflTransGen.single (by simp [cyclicCharter]),
+    Relation.ReflTransGen.single (by simp [cyclicCharter]), fun ⟨_, root, _⟩ => root⟩
+
+theorem nonrepresentability_without_root_competence :
+    (¬ FactorsThrough D RM) ∧ (rooted true).roots true () ∧
+    ¬ HasHumanAuthority (rooted true) (fun a => a = false) () :=
+  ⟨authorization_missing, rfl, root_existence_without_machine_exclusion.2⟩
+
+theorem exclusion_without_exhaustive_categories :
+    (∀ a, (rooted true).roots a () → ¬ (False : Prop)) ∧
+    ¬ HasHumanAuthority (rooted true) (fun _ => False) () :=
+  ⟨fun _ _ => id, fun authority => authority.2 true rfl⟩
+end Witness
+end PaperIII.HumanAuthority
