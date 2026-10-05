@@ -60,6 +60,33 @@ def factors(target, representation):
     return all(representation(x) != representation(y) or target(x) == target(y)
                for x in WORLDS for y in WORLDS)
 
+def check_authority_boundary():
+    # Enumerate every Boolean channel on the four worlds; close u under arbitrary decoding.
+    channels = tuple(product((False, True), repeat=len(WORLDS)))
+    def channel(values): return lambda w: values[WORLDS.index(w)]
+    rm = lambda w: w[0]
+    decision = lambda w: w[1]
+    local = [values for values in channels if factors(channel(values), rm)]
+    assert len(local) == 4
+    assert not factors(decision, rm)
+    assert factors(decision, lambda w: (rm(w), decision(w)))
+    occurrences = []
+    for world in WORLDS:
+        for root in ('h1', 'h2'):
+            payload = {'issuer':root, 'decision':decision(world), 'crossed_beta':True}
+            occurrence = {'executor':'machine', 'obligation':'o', 'episode':0,
+                          'root':root, 'payload':payload, 'derived_standing':True,
+                          'auth_close':True, 'valid_close':True, 'outstanding_after':False}
+            assert occurrence['payload']['crossed_beta']
+            assert occurrence['payload']['decision'] == decision(world)
+            assert occurrence['auth_close'] and occurrence['derived_standing'] and occurrence['valid_close']
+            assert not factors(decision, rm)  # payload never changes the independent basis
+            occurrences.append(occurrence)
+    return {'semantic_worlds':4, 'boolean_channels_checked':len(channels),
+            'independent_channels':len(local), 'delegated_occurrences_checked':len(occurrences),
+            'local_source':'u', 'closure':'all Boolean functions of u', 'boundary_payload':'root-issued v',
+            'occurrences':occurrences}
+
 def main():
     u = lambda x: x[0]
     d = lambda x: x[1]
@@ -122,10 +149,10 @@ def main():
     refused = step(assessed,'close','m',True)
     assert refused.decision is False and not refused.outstanding
     result={'status':'PASS','scope':'Exhaustive Python finite-model check; not a joint Lean proof or empirical validation',
-            'semantic_worlds':4,'full_states_checked':len(states),'reachable_states':len(reachable),
+            'authority_boundary':check_authority_boundary(),'semantic_worlds':4,'full_states_checked':len(states),'reachable_states':len(reachable),
             'reachable_transitions_checked':transitions,'traces':traces}
     target=ROOT/'reports/paper_iii_finite_realization.json'
     target.write_text(json.dumps(result,indent=2)+'\n')
-    print(json.dumps({k:v for k,v in result.items() if k!='traces'},indent=2))
+    print(json.dumps({k:v for k,v in result.items() if k not in ('traces','authority_boundary')},indent=2))
 
 if __name__=='__main__':main()

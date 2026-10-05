@@ -24,10 +24,10 @@ def ContinuationEquivalent
     (next : Z → T → K) (z : Z) (left right : T) : Prop :=
   next z left = next z right
 
-/-- Authorization irreducibility is the substantive governance premise that
+/-- Standing-sensitive continuation is the substantive governance premise that
 assessment alone does not generate the continuation licensed by an authorized
 governing assessment. -/
-def AuthorizationIrreducibility
+def StandingSensitiveContinuation
     (content : T → C) (next : Z → T → K) (validStanding : T → Prop)
     (z : Z) (assessment authorization : T) : Prop :=
   content assessment = content authorization →
@@ -35,17 +35,17 @@ def AuthorizationIrreducibility
       next z assessment ≠ next z authorization
 
 /-- Theorem 7: equal assessment content does not collapse diagnostic and
-authorized occurrences when authorization irreducibility holds. -/
-theorem contentStandingNonCollapse
+authorized occurrences when standing-sensitive continuation holds. -/
+theorem standingSensitiveContinuationNonCollapse
     (content : T → C) (next : Z → T → K) (validStanding : T → Prop)
     (z : Z) (assessment admission : T)
     (sameContent : content assessment = content admission)
     (assessmentLacksStanding : ¬ validStanding assessment)
     (admissionHasStanding : validStanding admission)
-    (authorizationIrreducible :
-      AuthorizationIrreducibility content next validStanding z assessment admission) :
+    (standingSensitive :
+      StandingSensitiveContinuation content next validStanding z assessment admission) :
     ¬ ContinuationEquivalent next z assessment admission := by
-  exact authorizationIrreducible sameContent assessmentLacksStanding admissionHasStanding
+  exact standingSensitive sameContent assessmentLacksStanding admissionHasStanding
 
 namespace IndependenceModels
 
@@ -108,7 +108,7 @@ theorem assessmentClosureNonCollapse
   contradiction
 
 /-- Theorem 7 for any relation preserving continuation sets, not only equality-defined equivalence. -/
-theorem contentStandingNonCollapse_under_relation
+theorem standingSensitiveContinuationNonCollapse_under_relation
     (relation : T → T → Prop) (next : Z → T → K) (z : Z) (left right : T)
     (preserves : ∀ a b, relation a b → next z a = next z b)
     (different : next z left ≠ next z right) : ¬ relation left right :=

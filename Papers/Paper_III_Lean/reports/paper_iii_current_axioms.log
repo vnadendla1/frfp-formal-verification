@@ -38,12 +38,12 @@
 'PaperIII.grounding_route_without_origin' does not depend on any axioms
 'PaperIII.origin_route_without_realization' does not depend on any axioms
 'PaperIII.epistemicNonCollapse' does not depend on any axioms
-'PaperIII.contentStandingNonCollapse' does not depend on any axioms
+'PaperIII.standingSensitiveContinuationNonCollapse' does not depend on any axioms
 'PaperIII.IndependenceModels.epistemic_collapse_with_constitutive_noncollapse' depends on axioms: [propext]
 'PaperIII.IndependenceModels.epistemic_noncollapse_without_constitutive_noncollapse' does not depend on any axioms
 'PaperIII.IndependenceModels.independence_of_epistemic_and_constitutive_noncollapse' depends on axioms: [propext]
 'PaperIII.assessmentClosureNonCollapse' does not depend on any axioms
-'PaperIII.contentStandingNonCollapse_under_relation' does not depend on any axioms
+'PaperIII.standingSensitiveContinuationNonCollapse_under_relation' does not depend on any axioms
 'PaperIII.assessmentClosureNonCollapse_under_relation' does not depend on any axioms
 'PaperIII.principal_unique' does not depend on any axioms
 'PaperIII.principal_eq_some' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -75,8 +75,8 @@
 'PaperIII.HumanAuthority.no_machine_valid_root' does not depend on any axioms
 'PaperIII.HumanAuthority.human_authority' does not depend on any axioms
 'PaperIII.HumanAuthority.recovery_correctness_alignment' depends on axioms: [propext, Quot.sound]
-'PaperIII.HumanAuthority.recovered_tacit_missing' depends on axioms: [propext]
-'PaperIII.HumanAuthority.human_authority_from_recovery' depends on axioms: [propext]
+'PaperIII.HumanAuthority.recovered_tacit_missing' does not depend on any axioms
+'PaperIII.HumanAuthority.human_authority_from_recovery' does not depend on any axioms
 'PaperIII.HumanAuthority.singleton_human_principal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PaperIII.HumanAuthority.principal_none_of_distinct_roots' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PaperIII.HumanAuthority.Witness.authorization_missing' does not depend on any axioms
@@ -99,3 +99,20 @@
 'PaperIII.HumanAuthority.Witness.nominal_machine_root_not_valid' depends on axioms: [propext]
 'PaperIII.HumanAuthority.Witness.human_authority_with_nominal_machine_root' depends on axioms: [propext]
 'PaperIII.HumanAuthority.Witness.delegated_payload_does_not_confer_root_competence' depends on axioms: [propext]
+'PaperIII.HumanAuthority.spectral_modal_missing' does not depend on any axioms
+'PaperIII.HumanAuthority.human_authority_at_episode' does not depend on any axioms
+'PaperIII.HumanAuthority.valid_close_of_occurrence' does not depend on any axioms
+'PaperIII.HumanAuthority.Witness.closure_bridge_witness' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.boundary_payload_closure_bridge' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.valid_close_without_occurrence_bridge' does not depend on any axioms
+'PaperIII.HumanAuthority.nonlocal_of_missing' does not depend on any axioms
+'PaperIII.HumanAuthority.Witness.independent_basis_and_boundary_payload' depends on axioms: [propext]
+'PaperIII.HumanAuthority.Witness.authorization_judgment_relevance' does not depend on any axioms
+'PaperIII.HumanAuthority.singleton_human_principal_from_premises' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PaperIII.HumanAuthority.Witness.missing_confinement_countermodel' does not depend on any axioms
+'PaperIII.HumanAuthority.Witness.missing_faithful_bearing_countermodel' does not depend on any axioms
+'PaperIII.HumanAuthority.Witness.nominal_principal_without_competence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -66,11 +66,11 @@ theorem human_authority {X V M : Type} {Y : A → Type}
     (missing : ¬ FactorsThrough D RM)
     (confined : ∀ a, Machine a → FactorsThrough (Rroot a) RM)
     (faithful : ∀ a, canBear a o → FactorsThrough D (Rroot a))
-    (exhaustive : ∀ a, Human a ∨ Machine a) (valid : governed o) :
+    (exhaustive : ∀ a, ValidRoot χ canBear o a → Human a ∨ Machine a) (valid : governed o) :
     HasHumanAuthority χ canBear Human o := by
   refine ⟨roots_exist_of_valid_grounded_authorization completed grounded valid, ?_⟩
   intro a root
-  rcases exhaustive a with human | machine
+  rcases exhaustive a root with human | machine
   · exact human
   · exact False.elim (no_machine_valid_root D RM Rroot missing confined faithful a root machine)
 
@@ -92,23 +92,25 @@ structure Recovery (X V : Type) where
 theorem recovery_correctness_alignment (h : Recovery X V) : h.KC = h.KF :=
   ETSplit.semantic_alignment h.C1 h.C2
 
+/-- Minimal Paper II discharge: one spectral inclusion, Tacit elimination,
+and admission of the selected basis. No correctness inclusions or reverse
+spectral inclusion occur in this signature. -/
+theorem spectral_modal_missing {X V M : Type}
+    (IC neutral comparison tacit : (X → V) → Prop)
+    (D : X → V) (RM : X → M) (selected : IC D)
+    (R1 : ∀ f, IC f → neutral f → comparison f)
+    (tacitElimination : ∀ f, IC f → tacit f → ¬ comparison f)
+    (classified : tacit D)
+    (admitted : FactorsThrough D RM → neutral D) : ¬ FactorsThrough D RM :=
+  fun represented => tacitElimination D selected classified (R1 D selected (admitted represented))
+
 theorem recovered_tacit_missing {X V M : Type} (h : Recovery X V)
     (D : X → V) (RM : X → M) (selected : h.IC D)
     (tacit : h.tacitComparison D)
     (admitted : FactorsThrough D RM → h.neutralSpectrum D) :
-    ¬ FactorsThrough D RM := by
-  let Domain := {f : X → V // h.IC f}
-  have recovered := ETSplit.recovery_negative
-    (fun _ : Domain => True)
-    (fun f : Domain => h.neutralSpectrum f.val)
-    (fun f : Domain => h.comparisonSpectrum f.val)
-    (fun f : Domain => h.tacitComparison f.val)
-    (fun f => h.R1 f.val f.property)
-    (fun f => h.R2 f.val f.property)
-    (by intro f; simpa using h.tacitComplementarity f.val f.property)
-  have nonrep : ¬ h.neutralSpectrum D :=
-    ((recovered ⟨D, selected⟩).mpr tacit).2
-  exact fun representation => nonrep (admitted representation)
+    ¬ FactorsThrough D RM :=
+  spectral_modal_missing h.IC h.neutralSpectrum h.comparisonSpectrum h.tacitComparison
+    D RM selected h.R1 (fun f hf ht => (h.tacitComplementarity f hf).mp ht) tacit admitted
 
 theorem human_authority_from_recovery {X V M : Type} {Y : A → Type}
     {χ : Charter A O} {o : O} {Human Machine : A → Prop}
@@ -119,7 +121,7 @@ theorem human_authority_from_recovery {X V M : Type} {Y : A → Type}
     (completed : Completion governed standing) (grounded : ValidRootGrounded χ canBear standing)
     (confined : ∀ a, Machine a → FactorsThrough (Rroot a) RM)
     (faithful : ∀ a, canBear a o → FactorsThrough D (Rroot a))
-    (exhaustive : ∀ a, Human a ∨ Machine a) (valid : governed o) :
+    (exhaustive : ∀ a, ValidRoot χ canBear o a → Human a ∨ Machine a) (valid : governed o) :
     HasHumanAuthority χ canBear Human o :=
   human_authority D RM Rroot completed grounded
     (recovered_tacit_missing h D RM selected tacit admitted)
@@ -142,6 +144,57 @@ theorem principal_none_of_distinct_roots {χ : Charter A O} {o : O} {a b : A}
   apply dif_neg
   rintro ⟨p, hp⟩
   exact distinct ((hp.2 a ha).trans (hp.2 b hb).symm)
+
+/-- Fixed-episode specialization: changing t supplies a new collection of premises. -/
+theorem human_authority_at_episode {E X V M : Type} {Y : A → Type}
+    (t : E) (χ : E → Charter A O) (canBear standing : E → A → O → Prop)
+    (governed : E → O → Prop) (Human Machine : A → Prop) (o : O)
+    (D : E → X → V) (RM : E → X → M) (Rroot : E → (a : A) → X → Y a)
+    (completed : Completion (governed t) (standing t))
+    (grounded : ValidRootGrounded (χ t) (canBear t) (standing t))
+    (missing : ¬ FactorsThrough (D t) (RM t))
+    (confined : ∀ a, Machine a → FactorsThrough (Rroot t a) (RM t))
+    (faithful : ∀ a, canBear t a o → FactorsThrough (D t) (Rroot t a))
+    (exhaustive : ∀ a, ValidRoot (χ t) (canBear t) o a → Human a ∨ Machine a)
+    (valid : governed t o) : HasHumanAuthority (χ t) (canBear t) Human o :=
+  human_authority (D t) (RM t) (Rroot t) completed grounded missing confined faithful exhaustive valid
+
+/-- Application bridge, not derived from standing labels alone. -/
+def ClosureBridge (executor : T → A) (authClose : T → Prop)
+    (validStanding : Z → O → T → Prop) (validClose : A → O → P → Prop)
+    (z : Z) (o : O) (action : P) : Prop :=
+  ∀ τ, authClose τ → validStanding z o τ → validClose (executor τ) o action
+
+theorem valid_close_of_occurrence {executor : T → A} {authClose : T → Prop}
+    {validStanding : Z → O → T → Prop} {validClose : A → O → P → Prop}
+    {z : Z} {o : O} {action : P}
+    (bridge : ClosureBridge executor authClose validStanding validClose z o action)
+    {τ : T} (auth : authClose τ) (standing : validStanding z o τ) :
+    validClose (executor τ) o action := bridge τ auth standing
+
+/-- A channel is independent exactly when it factors through the complete localRegime basis.
+An application must justify this equivalence against its source/access closure. -/
+def LocalBasisComplete (localRegime : (X → V) → Prop) (RM : X → M) : Prop :=
+  ∀ f, localRegime f ↔ FactorsThrough f RM
+
+theorem nonlocal_of_missing {localRegime : (X → V) → Prop} {RM : X → M} {D : X → V}
+    (complete : LocalBasisComplete localRegime RM) (missing : ¬ FactorsThrough D RM) : ¬ localRegime D :=
+  fun h => missing ((complete D).mp h)
+
+/-- Singleton principal with the core theorem's complete premise set, including governance. -/
+theorem singleton_human_principal_from_premises {X V M : Type} {Y : A → Type}
+    {χ : Charter A O} {o : O} {a : A} {Human Machine : A → Prop}
+    {governed : O → Prop} {standing canBear : A → O → Prop}
+    (D : X → V) (RM : X → M) (Rroot : (a : A) → X → Y a)
+    (completed : Completion governed standing) (grounded : ValidRootGrounded χ canBear standing)
+    (missing : ¬ FactorsThrough D RM)
+    (confined : ∀ a, Machine a → FactorsThrough (Rroot a) RM)
+    (faithful : ∀ a, canBear a o → FactorsThrough D (Rroot a))
+    (exhaustive : ∀ a, ValidRoot χ canBear o a → Human a ∨ Machine a)
+    (valid : governed o) (singleton : ∀ b, χ.roots b o ↔ b = a) :
+    Human a ∧ principal χ o = some a :=
+  singleton_human_principal
+    (human_authority D RM Rroot completed grounded missing confined faithful exhaustive valid) singleton
 
 namespace Witness
 inductive Actor where
@@ -211,7 +264,7 @@ theorem plural_human_authority : HasHumanAuthority charter canBear Human () := b
     cases machine
     exact ⟨fun b => (b, false), fun _ => rfl⟩
   · exact fun _ h => h
-  · intro a
+  · intro a _
     cases a <;> simp [Human, Machine]
   · exact ⟨.machine, machine_delegate_has_grounded_standing⟩
 
@@ -317,5 +370,58 @@ theorem exclusion_without_exhaustive_categories :
     (∀ a, ValidRoot (rooted true) (fun _ _ => True) () a → ¬ (False : Prop)) ∧
     ¬ HasHumanAuthority (rooted true) (fun _ _ => True) (fun _ => False) () :=
   ⟨fun _ _ => id, fun authority => authority.2 true ⟨rfl, trivial⟩⟩
+/-- Omit confinement: the Machine has an identity root basis and is a valid root. -/
+theorem missing_confinement_countermodel :
+    (¬ FactorsThrough D RM) ∧
+    FactorsThrough D (id : World → World) ∧
+    ValidRoot (rooted true) (fun _ _ => True) () true ∧
+    ¬ FactorsThrough (id : World → World) RM := by
+  refine ⟨authorization_missing, ⟨D, fun _ => rfl⟩, ⟨rfl, trivial⟩, ?_⟩
+  intro h
+  exact authorization_missing ((show FactorsThrough D (id : World → World) from ⟨D, fun _ => rfl⟩).trans h)
+
+/-- Omit faithful bearing: confined information coexists with stipulated competence. -/
+theorem missing_faithful_bearing_countermodel :
+    (¬ FactorsThrough D RM) ∧ FactorsThrough RM RM ∧
+    ValidRoot (rooted true) (fun _ _ => True) () true ∧
+    ¬ FactorsThrough D RM :=
+  ⟨authorization_missing, ⟨id, fun _ => rfl⟩, ⟨rfl, trivial⟩, authorization_missing⟩
+
+theorem nominal_principal_without_competence :
+    principal (rooted true) () = some true ∧
+    ¬ ValidRoot (rooted true) (fun _ _ => False) () true :=
+  ⟨principal_eq_some (rooted_principal true), fun h => h.2⟩
+
+/-- Paper I valid closure alone supplies no Paper III occurrence standing. -/
+theorem valid_close_without_occurrence_bridge :
+    (True : Prop) ∧ ¬ BearerStanding (fun _ : Unit => true) (fun _ => ())
+      (fun _ => True) (fun _ : Unit => fun _ : Unit => fun _ : Unit => False) () () true :=
+  ⟨trivial, fun ⟨_, _, _, _, h⟩ => h⟩
+
+def localSources (f : World → Bool) : Prop := FactorsThrough f RM
+
+theorem independent_basis_and_boundary_payload :
+    LocalBasisComplete localSources RM ∧ ¬ localSources D ∧
+    (∀ w, (humanDecision w).decision = D w) :=
+  ⟨fun _ => Iff.rfl, authorization_missing, fun _ => rfl⟩
+
+/-- The selected authorization judgment in this toy model is D itself. -/
+theorem authorization_judgment_relevance :
+    FactorsThrough D (fun w => (RM w, D w)) ∧ ¬ FactorsThrough D RM :=
+  ⟨⟨Prod.snd, fun _ => rfl⟩, authorization_missing⟩
+
+def validClose (a : Actor) (_ : Unit) (_ : Unit) : Prop := standing a ()
+
+theorem closure_bridge_witness :
+    ClosureBridge (Prod.fst : Actor × Unit → Actor) (fun _ => True)
+      occurrenceStanding validClose () () () := by
+  intro τ _ hs
+  exact ⟨τ, Subsingleton.elim _ _, rfl, trivial, hs⟩
+
+/-- A supplied token determines the compound occurrence; it does not enter RM. -/
+theorem boundary_payload_closure_bridge :
+    validClose .machine () () ∧ standing .machine () ∧ ¬ localSources D :=
+  ⟨machine_delegate_has_grounded_standing, machine_delegate_has_grounded_standing, authorization_missing⟩
+
 end Witness
 end PaperIII.HumanAuthority

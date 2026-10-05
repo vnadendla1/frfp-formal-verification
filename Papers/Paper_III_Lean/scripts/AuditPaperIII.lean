@@ -38,12 +38,12 @@ import PaperIII
 #print axioms PaperIII.grounding_route_without_origin
 #print axioms PaperIII.origin_route_without_realization
 #print axioms PaperIII.epistemicNonCollapse
-#print axioms PaperIII.contentStandingNonCollapse
+#print axioms PaperIII.standingSensitiveContinuationNonCollapse
 #print axioms PaperIII.IndependenceModels.epistemic_collapse_with_constitutive_noncollapse
 #print axioms PaperIII.IndependenceModels.epistemic_noncollapse_without_constitutive_noncollapse
 #print axioms PaperIII.IndependenceModels.independence_of_epistemic_and_constitutive_noncollapse
 #print axioms PaperIII.assessmentClosureNonCollapse
-#print axioms PaperIII.contentStandingNonCollapse_under_relation
+#print axioms PaperIII.standingSensitiveContinuationNonCollapse_under_relation
 #print axioms PaperIII.assessmentClosureNonCollapse_under_relation
 #print axioms PaperIII.principal_unique
 #print axioms PaperIII.principal_eq_some
@@ -97,3 +97,17 @@ import PaperIII
 #print axioms PaperIII.HumanAuthority.Witness.nominal_machine_root_not_valid
 #print axioms PaperIII.HumanAuthority.Witness.human_authority_with_nominal_machine_root
 #print axioms PaperIII.HumanAuthority.Witness.delegated_payload_does_not_confer_root_competence
+
+#print axioms PaperIII.HumanAuthority.spectral_modal_missing
+#print axioms PaperIII.HumanAuthority.human_authority_at_episode
+#print axioms PaperIII.HumanAuthority.valid_close_of_occurrence
+#print axioms PaperIII.HumanAuthority.Witness.closure_bridge_witness
+#print axioms PaperIII.HumanAuthority.Witness.boundary_payload_closure_bridge
+#print axioms PaperIII.HumanAuthority.Witness.valid_close_without_occurrence_bridge
+#print axioms PaperIII.HumanAuthority.nonlocal_of_missing
+#print axioms PaperIII.HumanAuthority.Witness.independent_basis_and_boundary_payload
+#print axioms PaperIII.HumanAuthority.Witness.authorization_judgment_relevance
+#print axioms PaperIII.HumanAuthority.singleton_human_principal_from_premises
+#print axioms PaperIII.HumanAuthority.Witness.missing_confinement_countermodel
+#print axioms PaperIII.HumanAuthority.Witness.missing_faithful_bearing_countermodel
+#print axioms PaperIII.HumanAuthority.Witness.nominal_principal_without_competence

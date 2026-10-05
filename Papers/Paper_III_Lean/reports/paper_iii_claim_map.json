@@ -74,8 +74,8 @@
     "PaperIII.epistemicNonCollapse"
   ],
   "Theorem 7": [
-    "PaperIII.contentStandingNonCollapse",
-    "PaperIII.contentStandingNonCollapse_under_relation"
+    "PaperIII.standingSensitiveContinuationNonCollapse",
+    "PaperIII.standingSensitiveContinuationNonCollapse_under_relation"
   ],
   "Non-collapse independence": [
     "PaperIII.IndependenceModels.independence_of_epistemic_and_constitutive_noncollapse",
@@ -98,7 +98,7 @@
     "PaperIII.GovernedMachine.amendment_requires_permission",
     "PaperIII.GovernedMachine.valid_amendment_changes_root"
   ],
-  "Legacy designated-participant interpretation": [
+  "Designated-participant interpretation": [
     "PaperIII.direct_human_specialization"
   ],
   "Scope, delegation and no-co-root qualifications": [
@@ -112,14 +112,14 @@
     "PaperIII.grounding_route_without_origin",
     "PaperIII.origin_route_without_realization"
   ],
-  "Legacy designated-participant origin route": [
+  "Designated-participant origin route": [
     "PaperIII.human_principal_origin",
     "PaperIII.institutional_origin_yields_human_bearer"
   ],
-  "Legacy designated-participant grounding route": [
+  "Designated-participant grounding route": [
     "PaperIII.human_rooted_grounding"
   ],
-  "Legacy designated-participant singleton grounding": [
+  "Designated-participant singleton grounding": [
     "PaperIII.human_principal_grounding"
   ],
   "Theorem 9": [
@@ -133,7 +133,8 @@
     "PaperIII.HumanAuthority.human_authority"
   ],
   "Corollary 2": [
-    "PaperIII.HumanAuthority.singleton_human_principal"
+    "PaperIII.HumanAuthority.singleton_human_principal",
+    "PaperIII.HumanAuthority.singleton_human_principal_from_premises"
   ],
   "Paper II authority recovery interface": [
     "PaperIII.HumanAuthority.recovered_tacit_missing",
@@ -154,7 +155,10 @@
     "PaperIII.HumanAuthority.Witness.root_existence_without_machine_exclusion",
     "PaperIII.HumanAuthority.Witness.machine_exclusion_without_root_existence",
     "PaperIII.HumanAuthority.Witness.unrooted_delegation_cycle",
-    "PaperIII.HumanAuthority.Witness.exclusion_without_exhaustive_categories"
+    "PaperIII.HumanAuthority.Witness.exclusion_without_exhaustive_categories",
+    "PaperIII.HumanAuthority.Witness.missing_confinement_countermodel",
+    "PaperIII.HumanAuthority.Witness.missing_faithful_bearing_countermodel",
+    "PaperIII.HumanAuthority.Witness.nominal_principal_without_competence"
   ],
   "Nominal Machine roots do not imply valid Machine roots": [
     "PaperIII.HumanAuthority.Witness.machine_cannot_bear",
@@ -165,5 +169,22 @@
     "PaperIII.HumanAuthority.Witness.human1_valid_root",
     "PaperIII.HumanAuthority.Witness.human2_valid_root",
     "PaperIII.HumanAuthority.Witness.delegated_payload_does_not_confer_root_competence"
+  ],
+  "Fixed-episode Human authority": [
+    "PaperIII.HumanAuthority.human_authority_at_episode"
+  ],
+  "Paper I occurrence closure bridge": [
+    "PaperIII.HumanAuthority.valid_close_of_occurrence",
+    "PaperIII.HumanAuthority.Witness.closure_bridge_witness",
+    "PaperIII.HumanAuthority.Witness.boundary_payload_closure_bridge",
+    "PaperIII.HumanAuthority.Witness.valid_close_without_occurrence_bridge"
+  ],
+  "Independent local basis and judgment relevance": [
+    "PaperIII.HumanAuthority.nonlocal_of_missing",
+    "PaperIII.HumanAuthority.Witness.independent_basis_and_boundary_payload",
+    "PaperIII.HumanAuthority.Witness.authorization_judgment_relevance"
+  ],
+  "Proposition 4": [
+    "PaperIII.HumanAuthority.spectral_modal_missing"
   ]
 }

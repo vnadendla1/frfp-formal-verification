@@ -1,6 +1,137 @@
 {
   "status": "PASS",
   "scope": "Exhaustive Python finite-model check; not a joint Lean proof or empirical validation",
+  "authority_boundary": {
+    "semantic_worlds": 4,
+    "boolean_channels_checked": 16,
+    "independent_channels": 4,
+    "delegated_occurrences_checked": 8,
+    "local_source": "u",
+    "closure": "all Boolean functions of u",
+    "boundary_payload": "root-issued v",
+    "occurrences": [
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h1",
+        "payload": {
+          "issuer": "h1",
+          "decision": false,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      },
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h2",
+        "payload": {
+          "issuer": "h2",
+          "decision": false,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      },
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h1",
+        "payload": {
+          "issuer": "h1",
+          "decision": true,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      },
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h2",
+        "payload": {
+          "issuer": "h2",
+          "decision": true,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      },
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h1",
+        "payload": {
+          "issuer": "h1",
+          "decision": false,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      },
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h2",
+        "payload": {
+          "issuer": "h2",
+          "decision": false,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      },
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h1",
+        "payload": {
+          "issuer": "h1",
+          "decision": true,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      },
+      {
+        "executor": "machine",
+        "obligation": "o",
+        "episode": 0,
+        "root": "h2",
+        "payload": {
+          "issuer": "h2",
+          "decision": true,
+          "crossed_beta": true
+        },
+        "derived_standing": true,
+        "auth_close": true,
+        "valid_close": true,
+        "outstanding_after": false
+      }
+    ]
+  },
   "semantic_worlds": 4,
   "full_states_checked": 3456,
   "reachable_states": 96,

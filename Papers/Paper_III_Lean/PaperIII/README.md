@@ -1,25 +1,22 @@
-# Paper III: actor-neutral theory and conditional Human authority
+# Governing Human–AI Collaboration from First Principles III: Actor-Neutral Principalhood, Adequacy, and Constitutive Revision
 
-Run from the package root with the pinned Lean 4.29.0 toolchain:
+Use the pinned Lean 4.29.0 toolchain. From the package root run:
 
 ```
 lake build PaperIII
+lake env lean scripts/PaperIIIDependencyTests.lean
 lake env lean scripts/AuditPaperIII.lean
 python3 scripts/verify_paper_iii_published.py
 ```
 
-Build the explicit PaperIII target. The preserved workspace Lake configuration names other libraries outside this isolated package. Mathlib is pinned by lake-manifest.json; lake exe cache get may download its compiled cache for a fresh installation.
+The audit covers 108 declarations in 40 claim groups and 34 distributed files. Allowed foundational dependencies are propext, Classical.choice, and Quot.sound; no project-specific global axioms or proof placeholders are permitted. Build the explicit PaperIII target; the workspace Lake file also names libraries outside this package. Pinned Mathlib dependencies are recorded in lake-manifest.json.
 
-The current audit covers 95 declarations across 36 claim groups: the retained 69-result core, 24 authority declarations, and two reused Paper II recovery declarations. Only propext, Classical.choice, and Quot.sound are allowed foundational dependencies. The current claim map supplies manuscript numbering; comments in older source files retain historical numbering.
+The core Machine-exclusion theorem consumes only nonrepresentation, faithful bearing, and confinement. spectral_modal_missing uses one forward spectral inclusion, Tacit elimination, selected-domain membership, and basis admission; it uses no correctness inclusions, reverse spectral inclusion, or Explicit characterization. Recovery packages the full sufficient route separately. The dependency tests compile these reduced interfaces without a Recovery object or Paper I role package.
 
-HumanAuthority.lean proves root existence, conditional Machine valid-root exclusion, Human classification, the combined recovery interface, an optional singleton result, plural authority without a principal, permitted delegated closure, and negative controls including unrooted cycles. It reuses ETSplit's neutral recovery theorem. No main FRFP or legacy BeyondSpecification module is imported.
+human_authority_at_episode exposes fixed-episode parameters; no persistence across changed premises is asserted. ValidRoot combines nominal standing and CanBear. Classification is required for valid roots in the eligible application domain. Principal selects nominal singleton roots. Human is an interpretation permitting individual, collective, and institutional participants.
 
-The authority result needs valid occurrence existence, valid-root-grounded standing, type-neutral valid-root contract competence, faithful bearing, a selected recovered Tacit condition, an Explicit-only Machine model, and exhaustive interpreted categories. None is established for every collaboration. Paper I's role count does not supply successful completion or competence of every root. Paper II does not universally identify authorization as Tacit or reserve its realization for humans. The plural witness allows a Machine delegate to close a root-supplied decision while two Human roots remain and the singleton principal selector is undefined.
+ClosureBridge is an application implication from valid authorization/closure occurrences to participant-level valid closure. LocalBasisComplete connects declared local sources to the complete independent representation; the application must establish that interface from its source/access calculus and interpretation map. The finite witness checks a first-coordinate local basis and a nonlocal Human-issued decision payload. Delegated closure is a compound occurrence with root-grounded executor standing. Authorization relevance is checked independently; GovInd is not mandatory for Human authority.
 
-SOURCE_MANIFEST.json identifies the current distributed sources. Its source identifier is SHA-256 of the sorted file/hash mapping serialized as compact JSON. The current verifier checks that identifier, every file hash, the build, claim coverage, and foundational dependencies. The old verify_paper_iii.py belongs to historical workspace provenance, is not needed by this package, and must not replace these commands.
+StandingSensitiveContinuation is the charter postulate for equal-content occurrences with different standing and successor sets. It is distinct from Paper I’s assessment–closure result. Negative controls cover missing grounding, confinement, faithful bearing, exhaustive classification, competence, and the occurrence bridge.
 
-The separate Python revision machine in the structural supplement is an exhaustive executable check, not a joint Lean proof or an empirical dataset. GitHub access does not constitute a persistent archival DOI or journal submission.
-
-ValidRoot is nominal charter membership conjoined with CanBear. ValidRoots filters the primitive roots; neither validity nor CanBear mentions participant type. RootCompetence is removed. Rroot is the independently available candidate-root basis; supplied delegated decisions are occurrence inputs. A mixed nominal charter includes a Machine that fails validity while valid Human authority holds. Principal still selects nominal singleton roots.
-
-The Machine-exclusion declaration is `HumanAuthority.no_machine_valid_root`; it does not exclude nominal Machine roots. `BearerStanding` projects executor standing from an actual authorization/closure occurrence with state- and obligation-indexed valid standing. The realized-governance interpretation `ValidGoverned` is occurrence existence, so Completion is its elimination rule. The abstract core also allows another governance interpretation when the application separately proves Completion. The plural witness instantiates the occurrence projection; neither interpretation derives liveness for pending obligations.
+SOURCE_MANIFEST.json records source hashes and their canonical aggregate identifier. The verifier checks hashes, compilation, dependency tests, full claim coverage, and permitted foundational axioms. The structural supplement supplies separate exhaustive Python revision/settlement and authority-boundary checks; these constructed models are not empirical validation or a joint Lean transition-system proof.

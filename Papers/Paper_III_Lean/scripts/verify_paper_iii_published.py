@@ -14,6 +14,7 @@ def main():
         assert not re.search(r'\b(sorry|admit|axiom|native_decide)\b',code),p
         assert not any(n.startswith(('Frfp','FRFPMerge','BeyondSpecification')) for n in re.findall(r'^import\s+(\S+)',code,re.M)),p
     subprocess.run(['lake','build','PaperIII'],cwd=ROOT,check=True)
+    subprocess.run(['lake','env','lean','scripts/PaperIIIDependencyTests.lean'],cwd=ROOT,check=True)
     log=subprocess.check_output(['lake','env','lean','scripts/AuditPaperIII.lean'],cwd=ROOT,text=True)
     entries=re.findall(r"'([^']+)' (?:depends on axioms: (\[[^\]]*\])|does not depend on any axioms)",log)
     expected=re.findall(r'^#print axioms (\S+)',(ROOT/'scripts/AuditPaperIII.lean').read_text(),re.M)
@@ -22,10 +23,10 @@ def main():
     claims=json.loads((ROOT/'reports/paper_iii_claim_map.json').read_text())
     for label,names in claims.items(): assert set(names)<=set(expected),label
     assert set().union(*(set(names) for names in claims.values())) == set(expected)
-    assert (len(m['files']), len(entries), len(claims)) == (33, 95, 36)
+    assert (len(m['files']), len(entries), len(claims)) == (34, 108, 40)
     assert 'PaperIII.HumanAuthority.no_machine_valid_root' in expected
     assert 'PaperIII.HumanAuthority.no_machine_root' not in expected
-    result={'status':'PASS','source_id':m['source_id'],'source_files':len(m['files']),'audited_declarations':len(entries),'claim_groups':len(claims),'scope':'Conditional consequences; application bridges are premises; no historical snapshot claim'}
+    result={'status':'PASS','source_id':m['source_id'],'source_files':len(m['files']),'audited_declarations':len(entries),'claim_groups':len(claims),'scope':'Conditional consequences; application bridges are premises; fixed-episode interfaces and minimal dependency tests'}
     (ROOT/'reports/paper_iii_current_axioms.log').write_text(log)
     (ROOT/'reports/paper_iii_current_validation.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result,indent=2))
