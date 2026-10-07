@@ -32,3 +32,11 @@ example {A O X V M : Type} {Y : A → Type}
     (classified : ∀ a, ValidRoot χ canBear o a → Human a ∨ Machine a)
     (valid : governed o) : HasHumanAuthority χ canBear Human o :=
   human_authority D RM Rroot completed grounded missing confined faithful classified valid
+
+-- Allocation information is independent of RM and of any Recovery package.
+example {E C : Type} {c : E → C} {need : E → Prop}
+    {alloc : C → PaperIII.DefaultAuthority.PrincipalType}
+    (valid : PaperIII.DefaultAuthority.ValidityPreserving c need alloc)
+    (coverage : PaperIII.DefaultAuthority.EveryClassNeedsHuman c need) :
+    ∀ e, alloc (c e) = .human :=
+  PaperIII.DefaultAuthority.human_default_of_class_coverage valid coverage

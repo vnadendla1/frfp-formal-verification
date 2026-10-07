@@ -9,7 +9,7 @@ lake env lean scripts/AuditPaperIII.lean
 python3 scripts/verify_paper_iii_published.py
 ```
 
-The audit covers 108 declarations in 40 claim groups and 34 distributed files. Allowed foundational dependencies are propext, Classical.choice, and Quot.sound; no project-specific global axioms or proof placeholders are permitted. Build the explicit PaperIII target; the workspace Lake file also names libraries outside this package. Pinned Mathlib dependencies are recorded in lake-manifest.json.
+The audit covers 118 declarations in 43 claim groups and 35 distributed files. Allowed foundational dependencies are propext, Classical.choice, and Quot.sound; no project-specific global axioms or proof placeholders are permitted. Build the explicit PaperIII target; the workspace Lake file also names libraries outside this package. Pinned Mathlib dependencies are recorded in lake-manifest.json.
 
 The core Machine-exclusion theorem consumes only nonrepresentation, faithful bearing, and confinement on valid roots. Both confinement and exhaustive classification quantify directly over ValidRoot; no classification of every participant is required. spectral_modal_missing uses one forward spectral inclusion, Tacit elimination, selected-domain membership, and basis admission; it uses no correctness inclusions, reverse spectral inclusion, or Explicit characterization. Recovery packages the full sufficient route separately. The dependency tests compile these reduced interfaces without a Recovery object or Paper I role package.
 
@@ -22,3 +22,5 @@ StandingSensitiveContinuation is the charter postulate for equal-content occurre
 SOURCE_MANIFEST.json records source hashes and their canonical aggregate identifier. The verifier checks hashes, compilation, dependency tests, full claim coverage, and permitted foundational axioms. The structural supplement supplies separate exhaustive Python revision/settlement and authority-boundary checks; these constructed models are not empirical validation or a joint Lean transition-system proof.
 
 Manuscript order: Section 8 contains the authority definitions and Theorems 9–11, with Proposition 4 before Theorem 10; Section 9 specifies application evidence; Section 10 gives separate finite realizations. Eight numbered tables cover notation, dependencies, applications, witness mapping, and verification.
+
+DefaultAuthority verifies Proposition 5 and Corollary 3: validity-preserving allocation propagates Human assignments across allocation-indistinguishable episodes, and realized-class coverage yields the deployment-scope default. Explicit Human-bearer interpretation, singleton standing and CanBear bridge assignments to actual valid principals. NeedHuman, complete pre-authorization allocation information, and validity are supplied premises. Controls isolate missing class coverage, missing validity, and unavailable competent Humans.

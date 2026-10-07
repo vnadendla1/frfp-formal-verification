@@ -116,3 +116,13 @@
 'PaperIII.HumanAuthority.Witness.nominal_principal_without_competence' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'PaperIII.DefaultAuthority.PrincipalType' does not depend on any axioms
+'PaperIII.DefaultAuthority.ValidityPreserving' does not depend on any axioms
+'PaperIII.DefaultAuthority.EveryClassNeedsHuman' does not depend on any axioms
+'PaperIII.DefaultAuthority.human_of_indistinguishable' does not depend on any axioms
+'PaperIII.DefaultAuthority.human_default_of_class_coverage' does not depend on any axioms
+'PaperIII.DefaultAuthority.human_valid_principal_of_indistinguishable' does not depend on any axioms
+'PaperIII.DefaultAuthority.human_valid_principals_of_class_coverage' does not depend on any axioms
+'PaperIII.DefaultAuthority.some_need_does_not_imply_global_default' does not depend on any axioms
+'PaperIII.DefaultAuthority.necessity_without_validity_does_not_force_human' does not depend on any axioms
+'PaperIII.DefaultAuthority.no_human_valid_principal_without_competence' does not depend on any axioms

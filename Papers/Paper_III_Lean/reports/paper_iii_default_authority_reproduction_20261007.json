@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "directory": "/tmp/paperiii-final-core-yetl1nu1",
+  "stdout": "\u2714 [576/947] Built AlgebraOfHumanAiCollaboration.Factorization (179ms)\n\u2714 [936/947] Built PaperIII.ProblemAdequacy (174ms)\n\u2714 [937/947] Built PaperIII.Revision (171ms)\n\u2714 [938/947] Built ETSplit (233ms)\n\u2714 [939/947] Built PaperIII.Principalhood (230ms)\n\u2714 [940/947] Built PaperIII.NonCollapse (177ms)\n\u2714 [941/947] Built PaperIII.Models (434ms)\n\u2714 [942/947] Built PaperIII.Capacity (969ms)\n\u2714 [943/947] Built PaperIII.GovernedMachine (431ms)\n\u2714 [944/947] Built PaperIII.HumanAuthority (528ms)\n\u2714 [945/947] Built PaperIII.DefaultAuthority (343ms)\n\u2714 [946/947] Built PaperIII (788ms)\nBuild completed successfully (947 jobs).\n{\n  \"status\": \"PASS\",\n  \"source_id\": \"9b5d8fd0a0159d37e9ea87723e85e313f32de94d5bae8d7a079e40271000ba57\",\n  \"source_files\": 35,\n  \"audited_declarations\": 118,\n  \"claim_groups\": 43,\n  \"scope\": \"Conditional consequences; application bridges are premises; fixed-episode interfaces and minimal dependency tests\"\n}\n",
+  "stderr": "",
+  "core_archive_sha256": "8a9a549f3a66c28c95957a2efa58e20520797f1b6d2e51686e053ac0324f67bb",
+  "project_build_outputs_reused": false,
+  "third_party_dependencies_reused": true,
+  "lean_version": "Lean (version 4.29.0, aarch64-unknown-linux-gnu, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, Release)"
+}

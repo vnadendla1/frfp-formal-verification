@@ -1,5 +1,5 @@
 {
-  "source_id": "7d958238cc22a325bd3a0933d50e7421ef966858abbf1210faf8bd8cd73aa14c",
+  "source_id": "9b5d8fd0a0159d37e9ea87723e85e313f32de94d5bae8d7a079e40271000ba57",
   "files": {
     "AlgebraOfHumanAiCollaboration/AcquisitionRealization.lean": "02dbd9c64c49480b900d5c99ea7dc001d4beaa813a12ccfef50d7b937575bb8d",
     "AlgebraOfHumanAiCollaboration/ApplicationWitnessTests.lean": "6a9635f4d4129b643118705a11d54ab30482de229035fd77b4b9ca562249b923",
@@ -18,7 +18,7 @@
     "AlgebraOfHumanAiCollaboration/SemanticRoles.lean": "e136727eed15170c1fba3a76f52d65177aba2c6b36c55e64d4a60b6ffac1bb36",
     "AlgebraOfHumanAiCollaboration/TaskQuotient.lean": "70431bf94a521a35db72b1d3b86f65d393076fb0989ae131d691c632fe42630c",
     "ETSplit.lean": "146ef9810b61a511eabd47e19c807a8ab93685c9668305bbeb0c21c07904282e",
-    "PaperIII.lean": "e57a7740df8617710c29b0fd0a7c88f0982c02124c71eabec2e15ca37317a61d",
+    "PaperIII.lean": "cf04431142c37bc3ff546c525557d62ad61bbf1af4a1b80da04a87054c6ee073",
     "PaperIII/Capacity.lean": "9b802037bb4f3b5fc2c40e581417dfaa9ae4b697e4a117a3152129d6c876b589",
     "PaperIII/GovernedMachine.lean": "ec67ba55a7c6495aae8d887aa2f5f91c42ce588a111b6671e8c120e4ab2debe5",
     "PaperIII/HumanAuthority.lean": "f7e7b3c5777aa3a5af614ced7e25a0525d375825eb683026d318c72606a0ca10",
@@ -26,14 +26,15 @@
     "PaperIII/NonCollapse.lean": "ceaf6d65e2090464b890da3945bd41323209b67fefb3a0ea41e307ad578f7555",
     "PaperIII/Principalhood.lean": "6c9afcda17cbdfd844830022594c9baa71fb0ff7327b04785e869867db1df960",
     "PaperIII/ProblemAdequacy.lean": "8492bccad66da1976e383ecbc50878a8eac88a721788c3c801ea65e5fa7e7e35",
-    "PaperIII/README.md": "0895f6f786349c5d28f7550df53832da9568fbb6ecfbcc6fab408cb7ef2958a5",
+    "PaperIII/README.md": "c8958a389f25fc92e03460e8fa894819afbb09923212c93c9e36cbc5deae1834",
     "PaperIII/Revision.lean": "8cdf9c700761b2f83e75544bc38edc5fd4f4b02e9116b858fdb632acccce24bc",
     "lake-manifest.json": "21900b786507887003be85b5b18e1c9c2958aa6097c7732d6cf1b8bf46c59fff",
     "lakefile.lean": "5fb3abca585602b1ffaafe9f8c1758d31f6a42b0b4421f35b0c21d080baa22c3",
     "lean-toolchain": "651c8accb402b0c071cd336e9d3dc0a55516b1bfb434ddc4801f14936785b1d2",
-    "reports/paper_iii_claim_map.json": "44864d60e7222a86a9207ba400d50cbc9c0655185798ddec13263e75f4ad187d",
-    "scripts/AuditPaperIII.lean": "8690efe274629c62649d0a4523f0a8b12d61cc354741cf03c37636615b1add3e",
-    "scripts/verify_paper_iii_published.py": "0d5f6c6fc80a947b4ab80053a658a9b0a6f2d693c4ae32c93e0e64a63ce427e5",
-    "scripts/PaperIIIDependencyTests.lean": "aeaac10f8f29b9e088e953c3edd5f90cf41cc2f65b0da94b9283c6f79c7ec704"
+    "reports/paper_iii_claim_map.json": "c6363d449c5cc3634ea4961b96a615c5dcf3011f446026d7e377babda9e8948b",
+    "scripts/AuditPaperIII.lean": "0599b6a9a6e99106415ad7d3a31e3346aeb94840c44a1cf69af99ed01304d81b",
+    "scripts/verify_paper_iii_published.py": "efb3c6380a5ecb440d254823e7e8ce2fb53c422e7c876cb599bfeb5412c1d7ca",
+    "scripts/PaperIIIDependencyTests.lean": "9222877be1317ca4357557b8cabeb31bea08d9e7052eb0f72290f5e9d9dc8484",
+    "PaperIII/DefaultAuthority.lean": "4283fe9c44eb69511e1b57ed3720da6ecb9de53f801f4d6b94df325e15953015"
   }
 }

@@ -186,5 +186,21 @@
   ],
   "Proposition 4": [
     "PaperIII.HumanAuthority.spectral_modal_missing"
+  ],
+  "Proposition 5: allocation indistinguishability and valid principal bridge": [
+    "PaperIII.DefaultAuthority.PrincipalType",
+    "PaperIII.DefaultAuthority.ValidityPreserving",
+    "PaperIII.DefaultAuthority.EveryClassNeedsHuman",
+    "PaperIII.DefaultAuthority.human_of_indistinguishable",
+    "PaperIII.DefaultAuthority.human_valid_principal_of_indistinguishable"
+  ],
+  "Corollary 3: deployment-scope default and valid principals": [
+    "PaperIII.DefaultAuthority.human_default_of_class_coverage",
+    "PaperIII.DefaultAuthority.human_valid_principals_of_class_coverage"
+  ],
+  "Default allocation negative controls and Human unavailability": [
+    "PaperIII.DefaultAuthority.some_need_does_not_imply_global_default",
+    "PaperIII.DefaultAuthority.necessity_without_validity_does_not_force_human",
+    "PaperIII.DefaultAuthority.no_human_valid_principal_without_competence"
   ]
 }

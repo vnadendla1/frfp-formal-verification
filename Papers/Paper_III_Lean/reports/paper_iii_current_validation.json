@@ -1,8 +1,8 @@
 {
   "status": "PASS",
-  "source_id": "7d958238cc22a325bd3a0933d50e7421ef966858abbf1210faf8bd8cd73aa14c",
-  "source_files": 34,
-  "audited_declarations": 108,
-  "claim_groups": 40,
+  "source_id": "9b5d8fd0a0159d37e9ea87723e85e313f32de94d5bae8d7a079e40271000ba57",
+  "source_files": 35,
+  "audited_declarations": 118,
+  "claim_groups": 43,
   "scope": "Conditional consequences; application bridges are premises; fixed-episode interfaces and minimal dependency tests"
 }

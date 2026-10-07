@@ -45,7 +45,7 @@ box(378,515,322,115,'Paper II: representation bridge',[
     'Spectral/modal discharge or full',
     'recovery establishes this premise.',
     'This does not establish confinement.'])
-box(20,429,322,92,'Valid-root provenance',[
+box(20,429,322,92,'Valid-root grounding',[
     'Valid occurrence standing traces through',
     'a permitted delegation path to a valid root.',
     'A rootless delegation cycle is insufficient.'],GREEN)

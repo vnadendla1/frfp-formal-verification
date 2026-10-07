@@ -111,3 +111,14 @@ import PaperIII
 #print axioms PaperIII.HumanAuthority.Witness.missing_confinement_countermodel
 #print axioms PaperIII.HumanAuthority.Witness.missing_faithful_bearing_countermodel
 #print axioms PaperIII.HumanAuthority.Witness.nominal_principal_without_competence
+
+#print axioms PaperIII.DefaultAuthority.PrincipalType
+#print axioms PaperIII.DefaultAuthority.ValidityPreserving
+#print axioms PaperIII.DefaultAuthority.EveryClassNeedsHuman
+#print axioms PaperIII.DefaultAuthority.human_of_indistinguishable
+#print axioms PaperIII.DefaultAuthority.human_default_of_class_coverage
+#print axioms PaperIII.DefaultAuthority.human_valid_principal_of_indistinguishable
+#print axioms PaperIII.DefaultAuthority.human_valid_principals_of_class_coverage
+#print axioms PaperIII.DefaultAuthority.some_need_does_not_imply_global_default
+#print axioms PaperIII.DefaultAuthority.necessity_without_validity_does_not_force_human
+#print axioms PaperIII.DefaultAuthority.no_human_valid_principal_without_competence

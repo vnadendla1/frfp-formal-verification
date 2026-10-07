@@ -23,7 +23,7 @@ def main():
     claims=json.loads((ROOT/'reports/paper_iii_claim_map.json').read_text())
     for label,names in claims.items(): assert set(names)<=set(expected),label
     assert set().union(*(set(names) for names in claims.values())) == set(expected)
-    assert (len(m['files']), len(entries), len(claims)) == (34, 108, 40)
+    assert (len(m['files']), len(entries), len(claims)) == (35, 118, 43)
     assert 'PaperIII.HumanAuthority.no_machine_valid_root' in expected
     assert 'PaperIII.HumanAuthority.no_machine_root' not in expected
     result={'status':'PASS','source_id':m['source_id'],'source_files':len(m['files']),'audited_declarations':len(entries),'claim_groups':len(claims),'scope':'Conditional consequences; application bridges are premises; fixed-episode interfaces and minimal dependency tests'}

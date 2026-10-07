@@ -1,8 +1,10 @@
-# Paper III: detailed verification and reproduction notes
+# Paper III verification details
 
-Formal artifact: identified by the source manifest in this package. Source identifier: `7d958238cc22a325bd3a0933d50e7421ef966858abbf1210faf8bd8cd73aa14c`. The theorem excluding Machine valid roots is `PaperIII.HumanAuthority.no_machine_valid_root`; nominal Machine roots remain permitted. `BearerStanding` projects an actual authorization/closure occurrence with valid standing to its executor. Under the realized-governance interpretation, Completion is definitional elimination, not liveness.
+Formal artifact: this package; SOURCE_MANIFEST.json identifies the exact distributed sources.
 
-The current audit has 108 declarations in 40 mapped groups, covering all audited declarations; the manifest identifies 34 distributed source/configuration files. Definitions and constructed witnesses retain explicit application assumptions. Detailed supporting declarations are listed in `paper_iii_claim_map.json`.
+Formal artifact: this package. Source identifier: `9b5d8fd0a0159d37e9ea87723e85e313f32de94d5bae8d7a079e40271000ba57`. The theorem excluding Machine valid roots is `PaperIII.HumanAuthority.no_machine_valid_root`; nominal Machine roots remain permitted. `BearerStanding` projects an actual authorization/closure occurrence with valid standing to its executor. Under the realized-governance interpretation, Completion is definitional elimination, not liveness.
+
+The current audit has 118 declarations in 43 mapped groups, covering all audited declarations; the manifest identifies 35 distributed source/configuration files. Definitions and constructed witnesses retain explicit application assumptions. Detailed supporting declarations are listed in `paper_iii_claim_map.json`.
 
 **Table 8 supplement. Numbered results and their formal counterparts.**
 
@@ -27,11 +29,13 @@ The current audit has 108 declarations in 40 mapped groups, covering all audited
 | Theorem 10 | HumanAuthority.no_machine_valid_root | Nonfactorability; confinement on valid roots; ValidRoot; faithful bearing | PaperIII/HumanAuthority.lean | Complete Machine basis and independently interpreted authorization contract |
 | Theorem 11 | HumanAuthority.human_authority_at_episode; HumanAuthority.human_authority | Fixed episode; nonrepresentation; occurrence/standing/bearing bridges; exhaustive valid-root categories | PaperIII/HumanAuthority.lean | All Section 8 interfaces; Paper I role interpretation is supplied separately |
 | Corollary 2 | HumanAuthority.singleton_human_principal_from_premises | All Human Authority Theorem premises; valid governance; nominal singleton roots | PaperIII/HumanAuthority.lean | Complete root-set analysis for the optional unique participant |
+| Proposition 5 | DefaultAuthority.human_of_indistinguishable; human_valid_principal_of_indistinguishable | Valid allocation; equal views; required-Human witness; bearer, singleton and competence for actual principal | PaperIII/DefaultAuthority.lean | Complete timely allocation information and independently justified necessity |
+| Corollary 3 | DefaultAuthority.human_default_of_class_coverage; human_valid_principals_of_class_coverage | Valid allocation; every realized class has a required-Human witness; actual-principal bridge where claimed | PaperIII/DefaultAuthority.lean | Specified scope; coverage; singleton and competent Human bearers |
 | Plural witness and negative controls | HumanAuthority.Witness.plural_authority_without_principal; witnesses in Section 8.3 | Stated finite models and omitted interfaces | PaperIII/HumanAuthority.lean | Interpreted examples, not observed collaborations |
 
 ## Reproduction
 
-Extract `paper_iii_reproduction_internal_consistency_20261005.zip` into a fresh directory. Run:
+Extract `Paper_III_Formal_Reproduction.zip` into a fresh directory. Run:
 
 ```
 lake build PaperIII
@@ -40,11 +44,11 @@ lake env lean scripts/AuditPaperIII.lean
 python3 scripts/verify_paper_iii_published.py
 ```
 
-The verifier checks every source hash, canonical manifest identity, build, 108-declaration axiom audit, complete coverage of 40 claim groups, and the renamed theorem. Allowed foundational dependencies are only propext, Classical.choice, and Quot.sound; the core contains no proof placeholders, project-specific global axioms, or native_decide.
+The verifier checks every source hash, canonical manifest identity, build, 118-declaration axiom audit, complete coverage of 43 claim groups, and the renamed theorem. Allowed foundational dependencies are only propext, Classical.choice, and Quot.sound; the core contains no proof placeholders, project-specific global axioms, or native_decide.
 
 Extract the structural supplement into another fresh directory and run `python3 manuscripts/restructure/check_paper_iii_finite.py`. Its SUPPLEMENT_MANIFEST.json records the hashes of the script, outputs, figure assets and enclosed core archive. The finite check covers 3,456 full states, 96 reachable states and 2,688 reachable transitions over four semantic worlds. It is separate from the Lean core; no joint transition-system composition is claimed.
 
-Extracted-source reproduction is recorded in `paper_iii_internal_consistency_reproduction.json`; project outputs are rebuilt from the supplied sources. Archive SHA-256 values and the full file mapping are in `paper_iii_scientific_freeze_artifact.json` and `paper_iii_structural_supplement_scientific_freeze_manifest_20261005.json`. 
+Final submission extracted-source reproduction is recorded in `paper_iii_sections6_13_reproduction_20261006.json`; project outputs are rebuilt from the supplied sources. Archive SHA-256 values and the full file mapping are in `paper_iii_scientific_freeze_artifact.json` and `Paper_III_Supplement_Manifest.json`. 
 
 Lean checks conditional consequences. It does not validate an application's charter legitimacy, complete information basis, independent specification, actual occurrence evidence or Human/collective/institutional interpretation. No archival DOI has been assigned to this artifact.
 
@@ -58,8 +62,14 @@ New controls isolate missing confinement, faithful bearing, nominal competence, 
 
 ## Domain and cross-paper consistency
 
-Confinement and exhaustive classification are both quantified directly over valid roots. The dependency test checks the restricted signatures of no_machine_valid_root and human_authority. The fixed-episode theorem and singleton corollary use the same restriction. Audit counts remain 108 declarations, 40 groups, and 34 source/configuration files.
+Confinement and exhaustive classification are both quantified directly over valid roots. The dependency test checks the restricted signatures of no_machine_valid_root and human_authority. The fixed-episode theorem and singleton corollary use the same restriction. Audit counts remain 118 declarations, 43 groups, and 35 source/configuration files.
 
 Paper I principal-grounded closure has IsPrincipal and ValidClose jointly in its antecedent. Boundary beta and contract B are distinct: the Python witness records a boundary-crossing payload and leaves B realization unasserted. Application evidence separately establishes acquisition and closure contracts and authorization relevance. These relevance tests are an application bridge rather than additional hypotheses in the exclusion proof.
 
 The central result order is Theorem 9, Proposition 4, Theorem 10, Theorem 11, and Corollary 2. Manuscript sections are authority (8), application evidence (9), and finite realizations (10). Figure 2 displays relevance and the shared valid-root domain.
+
+## Final manuscript interpretation audit
+
+The Sections 6–13 revision preserves all theorem premises and proofs. Corollary 1 now explicitly describes nominal principalhood. Realizes remains the supplied distinction-bearing relation; independent-bearing and timing requirements are application interpretations, not extra encoded fields. Completion provides an actual standing-bearing occurrence, and ValidRootGrounded separately traces it to a competent nominal root. The mortgage and flight walkthroughs in Sections 10.5–10.6 are stipulated formal interpretations outside the Lean proofs and Python enumeration. The revision model uses A-semantic for the revised criterion and Q-record for artifact-dependent assessment. Subsequent action execution is outside the enumerated transition model.
+
+Proposition 5 and Corollary 3 in Section 11.5 are verified in PaperIII/DefaultAuthority.lean. The audit has 118 declarations and 43 claim groups. Allocation labels are connected to actual Human valid principals only through explicit Human-bearer interpretation, nominal singleton standing, and CanBear premises.

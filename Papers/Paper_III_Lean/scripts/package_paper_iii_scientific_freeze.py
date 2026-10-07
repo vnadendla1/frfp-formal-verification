@@ -18,13 +18,13 @@ old=json.loads(manifest_path.read_text())
 files={name:digest(ROOT/name) for name in old['files']}
 source_id=hashlib.sha256(json.dumps(files,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 manifest={'source_id':source_id,'files':files};write_json(manifest_path,manifest)
-core=ROOT/'reports/paper_iii_reproduction_scientific_freeze_20261005.zip'
+core=ROOT/'reports/Paper_III_Formal_Reproduction.zip'
 archive(core,files,{'SOURCE_MANIFEST.json':json.dumps(manifest,indent=2)+'\n','README.md':(ROOT/'PaperIII/README.md').read_text()})
-artifact={'source_id':source_id,'archive':core.name,'archive_sha256':digest(core),'audited_declarations':95,'claim_groups':36,'distributed_source_files':33,'status':'Synchronized occurrence-based valid-root artifact','files':files}
+artifact={'source_id':source_id,'archive':core.name,'archive_sha256':digest(core),'audited_declarations':118,'claim_groups':43,'distributed_source_files':35,'status':'Fixed-episode authority and cross-paper interface artifact','files':files}
 write_json(ROOT/'reports/paper_iii_scientific_freeze_artifact.json',artifact)
-names=['manuscripts/restructure/check_paper_iii_finite.py','reports/paper_iii_finite_realization.json','manuscripts/restructure/draw_paper_iii_architecture.py','manuscripts/standalone/figures/paper_iii_architecture.pdf','manuscripts/standalone/figures/paper_iii_architecture.png','manuscripts/standalone/figures/paper_iii_architecture_alt.txt','reports/paper_iii_reproduction_scientific_freeze_20261005.zip','reports/paper_iii_scientific_freeze_artifact.json']
+names=['manuscripts/restructure/check_paper_iii_finite.py','reports/paper_iii_finite_realization.json','manuscripts/restructure/draw_paper_iii_architecture.py','manuscripts/standalone/figures/paper_iii_architecture.pdf','manuscripts/standalone/figures/paper_iii_architecture.png','manuscripts/standalone/figures/paper_iii_architecture_alt.txt','manuscripts/restructure/draw_paper_iii_human_authority_overview.py','manuscripts/standalone/figures/paper_iii_human_authority_overview.pdf','manuscripts/standalone/figures/paper_iii_human_authority_overview.png','manuscripts/standalone/figures/paper_iii_human_authority_overview_alt.txt','reports/Paper_III_Formal_Reproduction.zip','reports/paper_iii_scientific_freeze_artifact.json']
 supp_files={n:digest(ROOT/n) for n in names}
-supp=ROOT/'reports/paper_iii_structural_supplement_scientific_freeze_20261005.zip'
-archive(supp,names,{'SUPPLEMENT_MANIFEST.json':json.dumps({'files':supp_files},indent=2)+'\n','README.md':'Extract reports/paper_iii_reproduction_scientific_freeze_20261005.zip into a fresh directory and follow its README. Run python3 manuscripts/restructure/check_paper_iii_finite.py from this supplement root. Clean reproduction may reuse pinned third-party dependencies; no PaperIII build outputs are reused.\n'})
-write_json(ROOT/'reports/paper_iii_structural_supplement_scientific_freeze_manifest_20261005.json',{'archive':str(supp.relative_to(ROOT)),'sha256':digest(supp),'contents':supp_files,'finite_model_check':'Separate exhaustive Python realization, not a joint Lean proof'})
+supp=ROOT/'reports/Paper_III_Structural_Supplement.zip'
+archive(supp,names,{'SUPPLEMENT_MANIFEST.json':json.dumps({'files':supp_files},indent=2)+'\n','README.md':'Extract reports/Paper_III_Formal_Reproduction.zip into a fresh directory and follow its README. Run python3 manuscripts/restructure/check_paper_iii_finite.py from this supplement root. Clean reproduction may reuse pinned third-party dependencies; no PaperIII build outputs are reused.\n'})
+write_json(ROOT/'reports/Paper_III_Supplement_Manifest.json',{'archive':str(supp.relative_to(ROOT)),'sha256':digest(supp),'contents':supp_files,'finite_model_check':'Separate exhaustive Python realization, not a joint Lean proof'})
 print(source_id)
